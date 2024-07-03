@@ -1,5 +1,6 @@
-import { AUTH_PATHS } from "./const";
 import { lazy } from "react";
+
+import { AUTH_PATHS } from "./const";
 
 const LoginScreen = lazy(() => import("./screens/LoginScreen"));
 const RegisterScreen = lazy(() => import("./screens/RegisterScreen"));

@@ -1,5 +1,5 @@
-const LoginScreen = () => {
+const RegisterScreen = () => {
     return <div>Login Screen</div>;
 }
 
-export default LoginScreen;
+export default RegisterScreen;
