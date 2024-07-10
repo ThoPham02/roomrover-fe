@@ -22,33 +22,35 @@ const LoginScreen = () => {
         <div className="border medium-tag">
             <Row className="justify-content-center">
                 <Col xs={12} md={9}>
-                    <h1 className="text-center">Login</h1>
+                    <h2 className="text-center">Chào mừng bạn trở lại!</h2>
                     <Form noValidate validated={validated} onSubmit={handleSubmit}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control required type="email" placeholder="Enter email" />
+                            <Form.Label>Tài khoản</Form.Label>
+                            <Form.Control required placeholder="Tài khoản" />
                             <Form.Control.Feedback type="invalid">
-                                Please provide a valid email.
+                                Thông tin tài khoản không hợp lệ.
                             </Form.Control.Feedback>
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label>Password</Form.Label>
+                            <Form.Label>Mật khẩu</Form.Label>
                             <InputGroup hasValidation>
-                                <Form.Control required type="password" placeholder="Password" />
+                                <Form.Control required type="password" placeholder="Mật khẩu" />
                                 <Form.Control.Feedback type="invalid">
-                                    Please provide a valid password.
+                                    Thông tin mật khẩu không hợp lệ.
                                 </Form.Control.Feedback>
                             </InputGroup>
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                            <Form.Check type="checkbox" label="Remember me" />
+                            <Form.Check type="checkbox" label="Nhớ thông tin đăng nhập" />
                         </Form.Group>
 
-                        <Button variant="primary" type="submit">
-                            Submit
-                        </Button>
+                        <Form.Group className="d-flex justify-content-center align-items-center" controlId="formBasicButton">
+                            <Button variant="primary" type="submit">
+                                Đăng nhập
+                            </Button>
+                        </Form.Group>
                     </Form>
                 </Col>
             </Row>

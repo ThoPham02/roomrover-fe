@@ -1,10 +1,15 @@
 import { Outlet } from "react-router-dom";
 
+import Header from "../shares/ui/Header";
+
 const LoginLayout = () => {
     return (
-        <div className="child-center login-bg">
-            <Outlet />
-        </div>   
+        <>
+            <Header />
+            <div className="child-center login-bg">
+                <Outlet />
+            </div>
+        </>
     )
 }
 
