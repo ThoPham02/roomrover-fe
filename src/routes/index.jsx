@@ -1,8 +1,8 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
-import DefaultLayout from "../components/layouts/DefaultLayout";
+import LoginLayout from "../components/layouts/LoginLayout";
 import ErrorLayout from "../components/layouts/ErrorLayout";
-import { AUTH_PATHS } from "../features/auth/const";
+import { AUTH_PATHS } from "../features/auth";
 import { authRoutes } from "../features/auth";
 
 export const RootPath = "/";
@@ -14,17 +14,12 @@ const router = createBrowserRouter([
   },
   {
     path: RootPath,
-    element: <DefaultLayout />,
+    element: <LoginLayout />,
     errorElement: <ErrorLayout />,
     children: [
       ...authRoutes
     ],
   },
-//   {
-//     element: <AuthLayout />,
-//     errorElement: <ErrorLayout />,
-//     children: [...authRoutes],
-//   },
 ]);
 
 export default router;
