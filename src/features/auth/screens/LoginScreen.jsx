@@ -4,6 +4,10 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
+import { NavLink } from 'react-router-dom';
+
+
+import instance from '../../../api/axios';
 
 const LoginScreen = () => {
     const [validated, setValidated] = useState(false);
@@ -16,7 +20,30 @@ const LoginScreen = () => {
         }
 
         setValidated(true);
-    };
+
+        event.preventDefault();
+
+        const username = form.elements[0].value;
+        const password = form.elements[1].value;
+
+        console.log(username)
+        console.log(password)
+        const postData = new FormData();
+        postData.append('user_name', username);
+        postData.append('password', password);
+
+
+        instance.post("/users/login", postData).then((response) => {
+            console.log(response);
+
+            localStorage.setItem("token", response.token);
+            window.location.href = "/";
+
+            console.log(response);
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
 
     return (
         <div className="border medium-tag">
@@ -52,6 +79,10 @@ const LoginScreen = () => {
                             </Button>
                         </Form.Group>
                     </Form>
+
+                    <div className="d-flex justify-content-center align-items-center">
+                        <NavLink to="/auth/register">Tao tai khoan moi</NavLink>
+                    </div>
                 </Col>
             </Row>
         </div>
