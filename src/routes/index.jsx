@@ -15,7 +15,10 @@ const router = createBrowserRouter([
   {
     path: "/error",
     element: <ErrorLayout />,
-    children: [],
+  },
+  {
+    path:"*",
+    element: <Navigate to={INVENT_PATHS.HOME} replace/>,
   },
   {
     path: RootPath,

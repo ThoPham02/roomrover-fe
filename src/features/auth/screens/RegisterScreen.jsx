@@ -1,91 +1,146 @@
-import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Row from 'react-bootstrap/Row';
-import { NavLink } from 'react-router-dom';
+import { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import Row from "react-bootstrap/Row";
+import { Link } from "react-router-dom";
 
-import instance from '../../../api/axios';
+import instance from "../../../api/axios";
+import { AUTH_PATHS } from "../constants";
+import authUser from "../../../assets/images/login_user.png";
+import {USER_ROLE} from "../../../constants";
 
-const Register = () => {
-    const [validated, setValidated] = useState(false);
+const LoginScreen = () => {
+  const [validated, setValidated] = useState(false);
 
-    const handleSubmit = (event) => {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-
-        setValidated(true);
-
-        event.preventDefault();
-
-        const username = form.elements[0].value;
-        const password = form.elements[1].value;
-
-        console.log(username)
-        console.log(password)
-        const postData = new FormData();
-        postData.append('user_name', username);
-        postData.append('password', password);
-
-
-        instance.post("/users/login", postData).then((response) => {
-            console.log(response);
-
-            localStorage.setItem("token", response.token);
-            window.location.href = "/";
-
-            console.log(response);
-        }).catch((error) => {
-            console.log(error);
-        });
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
     }
 
-    return (
-        <div className="border medium-tag">
-            <Row className="justify-content-center">
-                <Col xs={12} md={9}>
-                    <h2 className="text-center">Chào mừng bạn trở lại!</h2>
-                    <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Tài khoản</Form.Label>
-                            <Form.Control required placeholder="Tài khoản" />
-                            <Form.Control.Feedback type="invalid">
-                                Thông tin tài khoản không hợp lệ.
-                            </Form.Control.Feedback>
-                        </Form.Group>
+    setValidated(true);
 
-                        <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label>Mật khẩu</Form.Label>
-                            <InputGroup hasValidation>
-                                <Form.Control required type="password" placeholder="Mật khẩu" />
-                                <Form.Control.Feedback type="invalid">
-                                    Thông tin mật khẩu không hợp lệ.
-                                </Form.Control.Feedback>
-                            </InputGroup>
-                        </Form.Group>
+    event.preventDefault();
 
-                        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                            <Form.Check type="checkbox" label="Nhớ thông tin đăng nhập" />
-                        </Form.Group>
+    const roleCheck = form.elements.roleCheck.value;
+    const username = form.elements[2].value;
+    const email = form.elements[3].value;
+    const password = form.elements[4].value;
 
-                        <Form.Group className="d-flex justify-content-center align-items-center" controlId="formBasicButton">
-                            <Button variant="primary" type="submit">
-                                Đăng nhập
-                            </Button>
-                        </Form.Group>
-                    </Form>
+    const postData = new FormData();
+    postData.append("user_name", username);
+    postData.append("password", password);
+    postData.append("email", email);
+    postData.append("user_role", roleCheck);
 
-                    <div className="d-flex justify-content-center align-items-center">
-                        <NavLink to="/auth/login">Dang nhap</NavLink>
-                    </div>
-                </Col>
-            </Row>
+    instance
+      .post(AUTH_PATHS.REGISTER, postData)
+      .then((response) => {
+        // localStorage.setItem("token", response.token);
+        // window.location.href = "/"; 
+
+        console.log(response.status);
+      })
+      .catch((error) => {
+        console.log(error.status);
+      });
+  };
+
+  return (
+    <div className="auth">
+      <div className="auth-header">
+        <div className="auth-img">
+          <img src={authUser} alt="auth-bg" />
         </div>
-    )
-}
+        <div className="auth-label">Đăng ký tài khoản mới</div>
+      </div>
 
-export default Register;
+      <div className="auth-br"></div>
+
+      <Row className="auth-form">
+        <Form noValidate validated={validated} onSubmit={handleSubmit}>
+          <Form.Group className="form-group" controlId="formRole">
+            <Form.Label className="form-label">Vai trò </Form.Label>
+            <Form.Check
+              inline
+              type="radio"
+              id="default-radio"
+              label="Người thuê"
+              value={USER_ROLE.RENTER}
+              name="roleCheck"
+              defaultChecked
+            />
+            <Form.Check
+              inline
+              type="radio"
+              id="default-radio"
+              label="Người cho thuê"
+              value={USER_ROLE.LESSOR}
+              name="roleCheck"
+            />
+          </Form.Group>
+
+          <Form.Group className="form-group" controlId="formEmail">
+            <Form.Label className="form-label">Tài khoản</Form.Label>
+            <Form.Control required placeholder="Tài khoản" />
+            <Form.Control.Feedback type="invalid">
+              Thông tin tài khoản không hợp lệ.
+            </Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group className="form-group" controlId="formPassword">
+            <Form.Label className="form-label">Email</Form.Label>
+            <InputGroup hasValidation>
+              <Form.Control required type="email" placeholder="Email" />
+              <Form.Control.Feedback type="invalid">
+                Thông tin email không hợp lệ.
+              </Form.Control.Feedback>
+            </InputGroup>
+          </Form.Group>
+
+          <Form.Group className="form-group" controlId="formPassword">
+            <Form.Label className="form-label">Mật khẩu</Form.Label>
+            <InputGroup hasValidation>
+              <Form.Control required type="password" placeholder="Mật khẩu" />
+              <Form.Control.Feedback type="invalid">
+                Thông tin mật khẩu không hợp lệ.
+              </Form.Control.Feedback>
+            </InputGroup>
+          </Form.Group>
+
+          <Form.Group className="form-group" controlId="formPasswordConfirm">
+            <Form.Label className="form-label">Nhập lại mật khẩu</Form.Label>
+            <InputGroup hasValidation>
+              <Form.Control
+                required
+                type="password"
+                placeholder="Nhập lại mật khẩu"
+              />
+              <Form.Control.Feedback type="invalid">
+                Thông tin mật khẩu không trùng khớp.
+              </Form.Control.Feedback>
+            </InputGroup>
+          </Form.Group>
+
+          <Link
+            to={AUTH_PATHS.LOG_IN}
+            title="Đăng ký tài khoản"
+            className="auth-link"
+          >
+            Bạn đã có tài khoản? Trở lại đăng nhập
+          </Link>
+
+          <Form.Group controlId="formButton" className="form-group">
+            <Button type="submit" className="auth-buton">
+              Đăng ký
+            </Button>
+          </Form.Group>
+        </Form>
+      </Row>
+    </div>
+  );
+};
+
+export default LoginScreen;
