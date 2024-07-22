@@ -31,12 +31,16 @@ const LoginScreen = () => {
     postData.append("user_name", username);
     postData.append("password", password);
 
-    console.log(
       handleApi({
         path: AUTH_PATHS.LOG_IN,
         method: API_METHOD.POST,
         body: postData,
-      })
+      }).then((response) => {
+        if (response.token) {
+          localStorage.setItem("token", response.token);
+          window.location.href = "/";
+        }
+      }
     );
   };
 

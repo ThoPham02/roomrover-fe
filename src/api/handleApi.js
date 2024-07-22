@@ -1,31 +1,37 @@
+import { DEFAULT_MESSAGE } from "../constants";
 import instance from "./axios";
-
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 
 const handleApi = ({ path, method, body }) => {
+  let promiseApi;
 
   switch (method) {
     case "get":
-      return instance.get(path);
+      promiseApi = instance.get(path, { params: body });
+      break;
     case "post":
-      var promiseApi = instance.post(path, body)
-      toast.promise(
-        promiseApi,
-        {
-          pending: "Đang xử lý!",
-          success: "Xử lý thành công!",
-          error: "Lỗi hệ thống! Xin vui lòng thử lại!",
-        }
-      );
-
-      return promiseApi;
+      promiseApi = instance.post(path, body);
+      break;
     case "put":
-      return instance.put(path, body);
+      promiseApi = instance.put(path, body);
+      break;
     case "delete":
-      return instance.delete(path);
+      promiseApi = instance.delete(path);
+      break;
     default:
-      return instance.get(path);
+      promiseApi = instance.get(path, { params: body });
   }
+
+  if (method === "post" || method === "put") {
+    toast.promise(
+      promiseApi,
+      {
+        pending: DEFAULT_MESSAGE.PENDING,
+      }
+    );
+  }
+
+  return promiseApi;
 };
 
 export default handleApi;
