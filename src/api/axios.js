@@ -1,7 +1,8 @@
 // write logic to create axios instance
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { DEFAULT_MESSAGE, HANDLE_ERROR_CODE, HANDLE_ERROR_MESSAGE } from '../constants';
+
+import { API_METHOD, DEFAULT_MESSAGE, HANDLE_ERROR_CODE, HANDLE_ERROR_MESSAGE } from '../constants';
 import { AUTH_PATHS } from '../features/auth';
 
 const instance = axios.create({
@@ -15,7 +16,7 @@ const instance = axios.create({
 const token = localStorage.getItem("token");
 
 if (token) {
-    instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    instance.defaults.headers.common["Authorization"] = token;
 }
 
 instance.interceptors.request.use(
@@ -29,15 +30,17 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
     (response) => {
-        console.log(response.data.result)
-        const errorCode = response.data.result.code;
+        const config = response.config;
+        const errorCode = response.data.result?.code;
 
-        if (errorCode === 0) {
-            toast.success(DEFAULT_MESSAGE.SUCCESS);
-        } else if (Object.values(HANDLE_ERROR_CODE).includes(errorCode)) {
-            toast.error(HANDLE_ERROR_MESSAGE[errorCode] || DEFAULT_MESSAGE.ERROR);
-        } else {
-            toast.error(DEFAULT_MESSAGE.ERROR);
+        if (config.method !== API_METHOD.GET) {
+            if (errorCode === 0) {
+                toast.success(DEFAULT_MESSAGE.SUCCESS);
+            } else if (Object.values(HANDLE_ERROR_CODE).includes(errorCode)) {
+                toast.error(HANDLE_ERROR_MESSAGE[errorCode] || DEFAULT_MESSAGE.ERROR);
+            } else {
+                toast.error(DEFAULT_MESSAGE.ERROR);
+            }
         }
 
         return response.data;

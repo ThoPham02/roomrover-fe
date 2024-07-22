@@ -1,28 +1,29 @@
-import { DEFAULT_MESSAGE } from "../constants";
-import instance from "./axios";
 import { toast } from "react-toastify";
+
+import { API_METHOD, DEFAULT_MESSAGE } from "../constants";
+import instance from "./axios";
 
 const handleApi = ({ path, method, body }) => {
   let promiseApi;
 
   switch (method) {
-    case "get":
+    case API_METHOD.GET:
       promiseApi = instance.get(path, { params: body });
       break;
-    case "post":
+    case API_METHOD.POST:
       promiseApi = instance.post(path, body);
       break;
-    case "put":
+    case API_METHOD.PUT:
       promiseApi = instance.put(path, body);
       break;
-    case "delete":
+    case API_METHOD.DELETE:
       promiseApi = instance.delete(path);
       break;
     default:
       promiseApi = instance.get(path, { params: body });
   }
 
-  if (method === "post" || method === "put") {
+  if (method !== API_METHOD.GET) {
     toast.promise(
       promiseApi,
       {

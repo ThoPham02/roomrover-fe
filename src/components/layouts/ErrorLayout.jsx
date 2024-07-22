@@ -4,22 +4,8 @@ import { Link } from "react-router-dom";
 import Header from "../shares/ui/Header";
 
 const ErrorLayout = () => {
-  // const showToastMessage = () => {
-  //   const myPromise = new Promise((resolve) =>
-  //     fetch("https://jsonplaceholder.typicode.com/posts/1")
-  //       .then((response) => response.json())
-  //       .then((json) => setTimeout(() => resolve(json), 3000))
-  //   );
-  
-  //   toast.promise(myPromise, {
-  //     pending: "Promise is pending",
-  //     success: "Promise  Loaded",
-  //     error: "error",
-  //   });
-  // };
-
   return (
-    <>
+    <div>
       <Header />
       <div className="child-center login-bg">
         <div className="error-content">
@@ -32,7 +18,7 @@ const ErrorLayout = () => {
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

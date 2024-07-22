@@ -3,15 +3,17 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { AUTH_PATHS } from "../constants";
 import authUser from "../../../assets/images/login_user.png";
-import handleApi from "../../../api/handleApi";
-import { API_METHOD } from "../../../constants";
+import { getProfileApi, loginApi } from "../apis";
+import useAuthStore from "../context";
 
 const LoginScreen = () => {
   const [validated, setValidated] = useState(false);
+  const navigate = useNavigate();
+  const {setUser, setProfile, updateToken, token, user, profile} = useAuthStore();
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -31,17 +33,26 @@ const LoginScreen = () => {
     postData.append("user_name", username);
     postData.append("password", password);
 
-      handleApi({
-        path: AUTH_PATHS.LOG_IN,
-        method: API_METHOD.POST,
-        body: postData,
-      }).then((response) => {
-        if (response.token) {
-          localStorage.setItem("token", response.token);
-          window.location.href = "/";
+    loginApi(postData, (res) => {
+      if (res.result?.code === 0) {
+        localStorage.setItem("token", res.token);
+        console.log(token);
+        if (res.user.profileID !== 0) {
+          getProfileApi((res) => {
+            if (res.result.code === 0) {
+              setProfile(res.profile);
+              console.log(profile);
+            } else {
+              console.error(res);
+            }
+          })
         }
+        navigate("/")
+      } else {
+        console.error(res);
+        form.elements[1].value = "";
       }
-    );
+    })
   };
 
   return (
