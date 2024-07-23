@@ -1,12 +1,58 @@
-// write logic to create axios instance
 import axios from 'axios';
+import { toast } from 'react-toastify';
+
+import { API_METHOD, DEFAULT_MESSAGE, HANDLE_ERROR_CODE, HANDLE_ERROR_MESSAGE } from '../constants';
+import { AUTH_PATHS } from '../features/auth';
 
 const instance = axios.create({
-    baseURL: import.meta.env.BASE_URL,
+    baseURL: "https://roomrover-be.onrender.com",
     headers: {
         Accept: "application/json",
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
     },
 });
+
+instance.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            instance.defaults.headers.common["Authorization"] = token;
+        }
+
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
+instance.interceptors.response.use(
+    (response) => {
+        const config = response.config;
+        const errorCode = response.data.result?.code;
+
+        if (config.method !== API_METHOD.GET) {
+            if (errorCode === 0) {
+                toast.success(DEFAULT_MESSAGE.SUCCESS);
+            } else if (Object.values(HANDLE_ERROR_CODE).includes(errorCode)) {
+                toast.error(HANDLE_ERROR_MESSAGE[errorCode] || DEFAULT_MESSAGE.ERROR);
+            } else {
+                toast.error(DEFAULT_MESSAGE.ERROR);
+            }
+        }
+
+        return response.data;
+    },
+    (error) => {
+        if (error.response.status === 401) {
+            toast.error(DEFAULT_MESSAGE.SESSION_EXPIRED);
+
+            localStorage.removeItem('token');
+            localStorage.removeItem('profile');
+            window.location.href = AUTH_PATHS.LOG_IN;
+        }
+        return Promise.reject(error);
+    }
+);
 
 export default instance;

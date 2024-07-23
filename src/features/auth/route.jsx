@@ -1,9 +1,8 @@
-import { lazy } from "react";
+import { AUTH_PATHS } from "./constants";
 
-import { AUTH_PATHS } from "./const";
-
-const LoginScreen = lazy(() => import("./screens/LoginScreen"));
-const RegisterScreen = lazy(() => import("./screens/RegisterScreen"));
+import LoginScreen from "./screens/LoginScreen";
+import RegisterScreen from "./screens/RegisterScreen";
+import ProfileScreen from "./screens/ProfileScreen";
 
 export const authRoutes = [
   {
@@ -16,4 +15,9 @@ export const authRoutes = [
     path: AUTH_PATHS.REGISTER,
     element: <RegisterScreen />,
   },
+  {
+    id: "profile",
+    path: AUTH_PATHS.PROFILE,
+    element: <ProfileScreen />,
+  }
 ];
