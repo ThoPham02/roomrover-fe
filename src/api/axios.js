@@ -1,4 +1,3 @@
-// write logic to create axios instance
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
@@ -13,14 +12,13 @@ const instance = axios.create({
     },
 });
 
-const token = localStorage.getItem("token");
-
-if (token) {
-    instance.defaults.headers.common["Authorization"] = token;
-}
-
 instance.interceptors.request.use(
     (config) => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            instance.defaults.headers.common["Authorization"] = token;
+        }
+
         return config;
     },
     (error) => {
@@ -49,9 +47,10 @@ instance.interceptors.response.use(
         if (error.response.status === 401) {
             toast.error(DEFAULT_MESSAGE.SESSION_EXPIRED);
 
-            localStorage.removeItem("token");
+            localStorage.removeItem('token');
+            localStorage.removeItem('profile');
             window.location.href = AUTH_PATHS.LOG_IN;
-        } 
+        }
         return Promise.reject(error);
     }
 );

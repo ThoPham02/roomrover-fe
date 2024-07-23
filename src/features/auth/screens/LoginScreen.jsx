@@ -4,27 +4,26 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-import { AUTH_PATHS } from "../constants";
 import authUser from "../../../assets/images/login_user.png";
-import { getProfileApi, loginApi } from "../apis";
-import useAuthStore from "../context";
+import { AUTH_PATHS } from "../constants";
+import { loginApi } from "../apis";
+import { updateUser } from "../context";
 
 const LoginScreen = () => {
   const [validated, setValidated] = useState(false);
   const navigate = useNavigate();
-  const {setUser, setProfile, updateToken, token, user, profile} = useAuthStore();
+  const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
+    event.preventDefault();
     if (form.checkValidity() === false) {
-      event.preventDefault();
       event.stopPropagation();
     }
 
     setValidated(true);
-
-    event.preventDefault();
 
     const username = form.elements[0].value;
     const password = form.elements[1].value;
@@ -36,20 +35,11 @@ const LoginScreen = () => {
     loginApi(postData, (res) => {
       if (res.result?.code === 0) {
         localStorage.setItem("token", res.token);
-        console.log(token);
-        if (res.user.profileID !== 0) {
-          getProfileApi((res) => {
-            if (res.result.code === 0) {
-              setProfile(res.profile);
-              console.log(profile);
-            } else {
-              console.error(res);
-            }
-          })
-        }
-        navigate("/")
+        dispatch(updateUser(res));
+
+        navigate("/");
       } else {
-        console.error(res);
+        console.log(res);
         form.elements[1].value = "";
       }
     })

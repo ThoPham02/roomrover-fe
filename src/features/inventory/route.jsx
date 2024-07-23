@@ -1,10 +1,5 @@
-// import { lazy } from "react";
-
-import { INVENT_PATHS } from "./const";
+import { INVENT_PATHS } from "./constants";
 import FilterHome from "./screen/FilterHome";
-
-// const LoginScreen = lazy(() => import("./screens/LoginScreen"));
-// const RegisterScreen = lazy(() => import("./screens/RegisterScreen"));
 
 export const inventRoutes = [
   {

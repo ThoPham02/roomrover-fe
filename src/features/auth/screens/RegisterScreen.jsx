@@ -3,15 +3,19 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import instance from "../../../api/axios";
 import { AUTH_PATHS } from "../constants";
 import authUser from "../../../assets/images/login_user.png";
 import {USER_ROLE} from "../../../constants";
+import { updateUser } from "../context";
 
 const LoginScreen = () => {
   const [validated, setValidated] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -37,11 +41,11 @@ const LoginScreen = () => {
 
     instance
       .post(AUTH_PATHS.REGISTER, postData)
-      .then((response) => {
-        // localStorage.setItem("token", response.token);
-        // window.location.href = "/"; 
+      .then((res) => {
+        localStorage.setItem("token", res.token);
+        dispatch(updateUser(res));
 
-        console.log(response.status);
+        navigate("/");
       })
       .catch((error) => {
         console.log(error.status);
@@ -66,7 +70,7 @@ const LoginScreen = () => {
             <Form.Check
               inline
               type="radio"
-              id="default-radio"
+              id="default-radio-1"
               label="Người thuê"
               value={USER_ROLE.RENTER}
               name="roleCheck"
@@ -75,14 +79,14 @@ const LoginScreen = () => {
             <Form.Check
               inline
               type="radio"
-              id="default-radio"
+              id="default-radio-2"
               label="Người cho thuê"
               value={USER_ROLE.LESSOR}
               name="roleCheck"
             />
           </Form.Group>
 
-          <Form.Group className="form-group" controlId="formEmail">
+          <Form.Group className="form-group" controlId="formUser">
             <Form.Label className="form-label">Tài khoản</Form.Label>
             <Form.Control required placeholder="Tài khoản" />
             <Form.Control.Feedback type="invalid">
@@ -90,7 +94,7 @@ const LoginScreen = () => {
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group className="form-group" controlId="formPassword">
+          <Form.Group className="form-group" controlId="formEmail">
             <Form.Label className="form-label">Email</Form.Label>
             <InputGroup hasValidation>
               <Form.Control required type="email" placeholder="Email" />

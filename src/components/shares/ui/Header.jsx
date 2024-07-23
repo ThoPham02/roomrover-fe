@@ -1,30 +1,23 @@
 import Dropdown from 'react-bootstrap/Dropdown';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import logo from "../../../assets/images/logo.png";
 import defaultAvatar from "../../../assets/images/default_avatar.png";
 import { AUTH_PATHS } from '../../../features/auth/constants';
-import useAuthStore from '../../../features/auth/context';
-import { getProfileApi } from '../../../features/auth';
+import { clearUser } from '../../../features/auth';
 
 function Header() {
-  const { token, user, profile, clearAuth } = useAuthStore();
-
-  if (token && !profile) {
-    getProfileApi((res) => {
-      if (res.result.code === 0) {
-        // setProfile(res.profile);
-      } else {
-        console.error(res);
-      }
-    });
-  }
+  const token = localStorage.getItem('token');
+  const profile = useSelector(state => state.authStore.profile);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
-    // clearAuth();
     localStorage.removeItem('token');
-    clearAuth();
-    window.location.reload();
+    dispatch(clearUser());
+
+    navigate("/")
   }
 
   return (
@@ -45,7 +38,9 @@ function Header() {
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
-            <Dropdown.Item >Tài khoản</Dropdown.Item>
+            <Dropdown.Item >
+              Thông tin cá nhân
+            </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item onClick={handleLogout}>Đăng xuất</Dropdown.Item>
           </Dropdown.Menu>

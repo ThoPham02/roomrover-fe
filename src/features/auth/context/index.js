@@ -1,21 +1,29 @@
-import { create } from 'zustand';
+import { createSlice } from '@reduxjs/toolkit';
 
-const useAuthStore = create((set) => (
-    {
-        token: localStorage.getItem('token') || null,
-        user: null,
-        profile: null,
-        setUser: (user) => set({ user }),
-        setProfile: (profile) => set({ profile }),
-        updateToken: (newToken) => {
-            localStorage.setItem('token', newToken);
-            set({ token: newToken });
+const initialState = {
+    token: localStorage.getItem('token') || '',
+    user: null,
+    profile: null,
+};
+
+export const authSlice = createSlice({
+    name: 'authStore',
+    initialState,
+    reducers: {
+        updateUser: (state, action) => {
+            state.user = action.payload.user;
+            state.profile = action.payload.profile;
+            state.token = action.payload.token
         },
-        clearAuth: () => {
-            localStorage.removeItem('token');
-            set({ token: null, user: null, profile: null });
-        },
+        clearUser: (state) => {
+            state.user = null;
+            state.profile = null;
+            state.token = '';
+        }
+
     }
-));
+});
 
-export default useAuthStore;
+export default authSlice.reducer;
+
+export const { updateUser, clearUser } = authSlice.actions;
