@@ -1,20 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { RouterProvider } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { Provider } from 'react-redux';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { PersistGate } from "redux-persist/integration/react";
+import { Provider } from "react-redux";
 
-import "./App.css";
-import router from './routes';
-import { store } from './store';
+import "./index.css";
+import App from "./App";
+import reduxStore from "./store/redux";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const { store, persistor } = reduxStore();
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
-      <ToastContainer position="top-right" className={"toast-message"} autoClose={2000} />
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );
