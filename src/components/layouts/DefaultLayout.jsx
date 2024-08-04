@@ -1,5 +1,13 @@
-const DefaultLayout = ({ children }) => {
-  return <div>{children}</div>;
+import { Outlet } from "react-router-dom";
+import {Header} from "../containers";
+
+const DefaultLayout = () => {
+  return (
+    <div>
+      <Header />
+      <Outlet />
+    </div>
+  );
 };
 
 export default DefaultLayout;

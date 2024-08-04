@@ -1,3 +1,228 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* reset css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+  }
+  
+  :root {
+    --main-color: #74c5ff;
+  }
+  
+  .child-center {
+    width: 100vw;
+    height: 100vh;
+    min-width: 400px;
+    min-height: 320px;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .login-bg {
+    background-image: url('./assets/images/login_bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  .clear-link-style {
+    text-decoration: none;
+    color: #000;
+  }
+  
+  /* Header */
+  .header {
+    width: 100vw;
+    height: 100px;
+    position: absolute;
+  
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 0 20px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    background-color: var(--main-color);
+  }
+  
+  .header-logo {
+    height: 100px;
+    border-radius: 100%;
+    padding: 8px;
+  }
+  
+  .header-title {
+    font-size: 24px;
+    font-weight: 800;
+    margin-left: 20px;
+    text-transform: uppercase;
+  }
+  
+  .header-user {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  
+    position: absolute;
+    right: 40px;
+  
+    width: 120px;
+  }
+  
+  .header-user-avatar {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .header-user-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+  }
+  
+  .header-user-name {
+    color: #000;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .header-login-btn {
+    background-color: #fff;
+    color: #000;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .header-login-btn:hover {
+    background-color: #0897fd;
+    color: #fff;
+  }
+  
+  /* Error Page */
+  .error-content {
+    width: 400px;
+    height: 320px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 0 3px 3px 3px rgba(0, 0, 0, 0.5);
+    background-color: #fff;
+  }
+  
+  .error-content h1 {
+    font-size: 40px;
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Toast */
+  
+  .toast-message {
+    margin-top: 110px;
+  }
+  
+  /* Auth Login */
+.login {
+    width: 100vw;
+    margin-top: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register {
+    width: 100vw;
+    margin-top: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+  .auth {
+    min-width: 800px;
+    min-height: 450px;
+    margin: 0 auto;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 3px 3px 3px rgba(0, 0, 0, 0.5);
+    display: flex;
+  }
+  
+  .auth-header {
+    width: 100%;
+    min-height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .auth-img img {
+    width: 320px;
+    height: 320px;
+    border-radius: 100%;
+  }
+  
+  .auth-br {
+    width: 2px;
+    background-color: #000;
+    margin: 20px 0;
+  }
+  
+  .auth-label {
+    font-size: 24px;
+    font-weight: 800;
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .auth-form {
+    width: 100%;
+    min-height: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 40px;
+  }
+  
+  .form-group {
+    margin-bottom: 12px;
+  }
+  
+  .form-label {
+    font-size: 24px;
+    font-weight: bold;
+    display: block;
+  }
+  
+  .auth-link {
+    text-decoration: none;
+  }
+  
+  .auth-buton {
+    margin-top: 40px;
+    width: 100%;
+    height: 50px;
+    background-color: var(--main-color);
+    color: #000;
+    font-size: 20px;
+    font-weight: 800;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }

@@ -1,7 +1,11 @@
+import React from 'react';
+import HomeSearch from '../../components/ui/HomeSearch';
+
 const HomeScreen = () => {
   return (
-    <div>
-      <h1>Inventory Home Screen</h1>
+    <div className='container'>
+      <HomeSearch />
+      
     </div>
   );
 };

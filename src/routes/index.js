@@ -1,49 +1,32 @@
-import { Route, Router, Routes } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 
-import DefaultLayout from "../components/layouts/DefaultLayout";
-import { privateRoutes, publicRoutes } from "./route";
+import { ROUTE_PATHS } from "../common/path";
+import { authRoute } from "../pages/auth/route";
+import {DefaultLayout, ErrorLayout, ManageLayout} from "../components/layouts";
+import { inventPublicRoute, inventPrivateRoute } from "../pages/inventory/route";
 
-function AppRoute() {
-  const role = 0
-  
-  return (
-    <Router>
-      <Routes>
-        {publicRoutes.map((route, index) => {
-          const Layout = route.Layout || DefaultLayout;
-          const Page = route.component;
-          return (
-            <Route
-              key={index}
-              path={route.path}
-              element={
-                <Layout>
-                  <Page />
-                </Layout>
-              }
-            />
-          );
-        })}
-        {privateRoutes
-          .filter((route) => route.role === role)
-          .map((route, index) => {
-            const Layout = route.Layout || DefaultLayout;
-            const Page = route.component;
-            return (
-              <Route
-                key={index}
-                path={route.path}
-                element={
-                  <Layout>
-                    <Page />
-                  </Layout>
-                }
-              />
-            );
-          })}
-      </Routes>
-    </Router>
-  );
-}
+const router = createBrowserRouter([
+  {
+    path: ROUTE_PATHS.ROOT,
+    element: <Navigate to={ROUTE_PATHS.HOME} replace />,
+  },
+  {
+    path: ROUTE_PATHS.ROOT,
+    element: <DefaultLayout />,
+    errorElement: <ErrorLayout />,
+    children: [
+      ...authRoute,
+      ...inventPublicRoute
+    ]
+  },
+  {
+    path: ROUTE_PATHS.ROOT,
+    element: <DefaultLayout />,
+    errorElement: <ErrorLayout />,
+    children: [
+      ...inventPrivateRoute
+    ]
+  },
+]);
 
-export default AppRoute;
+export default router;
