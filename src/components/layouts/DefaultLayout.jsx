@@ -3,7 +3,7 @@ import {Header} from "../containers";
 
 const DefaultLayout = () => {
   return (
-    <div>
+    <div className="h-screen w-screen bg-slate-50">
       <Header />
       <Outlet />
     </div>

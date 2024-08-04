@@ -6,6 +6,8 @@ const ListRoom = ({ rooms }) => {
       {rooms.map((room) => (
         <RoomItem key={room.id} room={room} />
       ))}
+
+      
     </div>
   );
 }

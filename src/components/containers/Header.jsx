@@ -5,7 +5,7 @@ import { ROUTE_PATHS } from "../../common";
 const Header = () => {
   return (
     <div>
-    <header className="h-24 w-full bg-cyan-400 fixed px-4">
+    <header className="h-24 w-full bg-secondary2 fixed z-10 px-4">
       <div className="container mx-auto h-full flex items-center justify-between">
         <Link to={ROUTE_PATHS.HOME}>
           <div className="flex items-center">
