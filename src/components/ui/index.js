@@ -1,2 +1,2 @@
-export {default as HomeSearch} from './HomeSearch';
-export {default as RoomItem} from './RoomItem';
+export { default as Button } from "./Button";
+export { default as InputForm } from "./InputForm";

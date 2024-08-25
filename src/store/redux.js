@@ -1,12 +1,12 @@
-import { createStore } from 'redux';
-import { persistStore } from 'redux-persist';
-import rootReducer from './reducers/rootReducer';
+import { configureStore } from "redux";
+import { persistStore } from "redux-persist";
+import rootReducer from "./reducers/rootReducer";
 
 const reduxStore = () => {
-    const store = createStore(rootReducer);
-    const persistor = persistStore(store);
+  const store = configureStore(rootReducer);
+  const persistor = persistStore(store);
 
-    return { store, persistor };
-}
+  return { store, persistor };
+};
 
 export default reduxStore;

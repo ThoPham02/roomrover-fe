@@ -5,7 +5,9 @@ const DefaultLayout = () => {
   return (
     <div className="h-screen w-screen bg-slate-50">
       <Header />
-      <Outlet />
+      <div className="default-body">
+        <Outlet />
+      </div>
     </div>
   );
 };

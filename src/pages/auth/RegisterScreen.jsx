@@ -20,6 +20,25 @@ const RegisterScreen = () => {
       }
 
       setValidated(true);
+
+      // Check data input
+
+
+      // Redirect to login page
+
+      // Show success message
+
+      // Show error message
+
+      // Show loading
+
+      // Hide loading
+
+      // Save token to local storage
+
+      // Redirect to home page
+
+      // Clear form
     }
 
     return (
@@ -58,10 +77,10 @@ const RegisterScreen = () => {
           </Form.Group>
 
           <Form.Group className="form-group" controlId="formUser">
-            <Form.Label className="form-label">Tài khoản</Form.Label>
-            <Form.Control required placeholder="Tài khoản" />
+            <Form.Label className="form-label">Số điện thoại</Form.Label>
+            <Form.Control required type="number" placeholder="Số điện thoại" />
             <Form.Control.Feedback type="invalid">
-              Thông tin tài khoản không hợp lệ.
+              Số điện thoại không hợp lệ.
             </Form.Control.Feedback>
           </Form.Group>
 

@@ -61,7 +61,7 @@ const LoginScreen = () => {
               title="Đăng ký tài khoản"
               className="auth-link"
             >
-              Bạn chưa có tài khoản? đăng ký tài khoản mới!
+              Bạn chưa có tài khoản? Đăng ký tài khoản mới!
             </Link>
 
             <Form.Group controlId="formBasicButton" className="form-group">
