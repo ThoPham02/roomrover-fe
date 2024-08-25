@@ -6,11 +6,11 @@ import {
   DEFAULT_MESSAGE,
   HANDLE_ERROR_CODE,
   HANDLE_ERROR_MESSAGE,
-} from "../constants";
-import { AUTH_PATHS } from "../common/path";
+  ROUTE_PATHS,
+} from "../common";
 
 const instance = axios.create({
-  baseURL: process.env.BASE_URL,
+  baseURL: "http://localhost:8888",
   headers: {
     Accept: "application/json",
     "Content-Type": "multipart/form-data",
@@ -58,7 +58,7 @@ instance.interceptors.response.use(
       toast.error(DEFAULT_MESSAGE.SESSION_EXPIRED);
 
       localStorage.removeItem("token");
-      window.location.href = AUTH_PATHS.LOG_IN;
+      window.location.href = ROUTE_PATHS.LOGIN;
     }
     return Promise.reject(error);
   }

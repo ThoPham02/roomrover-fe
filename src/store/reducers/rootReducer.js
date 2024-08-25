@@ -3,7 +3,6 @@ import storage from "redux-persist/lib/storage";
 import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 import persistReducer from "redux-persist/es/persistReducer";
 
-import userReducer from "./userReducer";
 import authReducer from "./authReducer";
 import appReducer from "./appReducer";
 import contractReducer from "./contractReducer";
@@ -22,7 +21,6 @@ const authConfig = {
 };
 
 const rootReducer = combineReducers({
-  user: userReducer,
   auth: persistReducer(authConfig, authReducer),
   app: appReducer,
   contract: contractReducer,

@@ -2,7 +2,7 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 
 import { ROUTE_PATHS } from "../common/path";
 import { authRoute } from "../pages/auth/route";
-import { DefaultLayout, ErrorLayout } from "../components/layouts";
+import { AuthLayout, DefaultLayout, ErrorLayout } from "../components/layouts";
 import {
   inventPublicRoute,
   inventPrivateRoute,
@@ -23,10 +23,15 @@ const router = createBrowserRouter([
   },
   {
     path: ROUTE_PATHS.ROOT,
+    element: <AuthLayout />,
+    errorElement: <ErrorLayout />,
+    children: [...authRoute],
+  },
+  {
+    path: ROUTE_PATHS.ROOT,
     element: <DefaultLayout />,
     errorElement: <ErrorLayout />,
     children: [
-      ...authRoute,
       ...inventPublicRoute,
       ...contractPublicRoute,
       ...paymentPublicRoute,

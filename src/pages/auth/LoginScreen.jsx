@@ -1,25 +1,44 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import {login_user} from "../../assets/images";
+import * as actions from "../../store/actions";
+import { login_user } from "../../assets/images";
 import { ROUTE_PATHS } from "../../common";
 
 const LoginScreen = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { isLoggedIn } = useSelector((state) => state.auth);
+
   const [validated, setValidated] = useState(false);
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    isLoggedIn && navigate(ROUTE_PATHS.HOME);
+  }, [isLoggedIn, navigate]);
 
   const handleSubmit = (event) => {
+    event.preventDefault();
+
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
+
+    if (!form.checkValidity()) {
       event.stopPropagation();
+      setValidated(false);
+      return;
     }
 
     setValidated(true);
-  }
+
+    dispatch(actions.login({ phone, password }));
+  };
 
   return (
     <div className="login">
@@ -36,10 +55,18 @@ const LoginScreen = () => {
         <Row className="auth-form">
           <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Form.Group className="mb-3 form-group" controlId="formBasicEmail">
-              <Form.Label className="form-label">Tài khoản</Form.Label>
-              <Form.Control required placeholder="Tài khoản" />
+              <Form.Label className="form-label">Số điện thoại</Form.Label>
+              <Form.Control
+                required
+                placeholder="Số điện thoại"
+                value={phone}
+                onChange={(e) => {
+                  const numericValue = e.target.value.replace(/[^0-9]/g, "");
+                  setPhone(numericValue);
+                }}
+              />
               <Form.Control.Feedback type="invalid">
-                Thông tin tài khoản không hợp lệ.
+                Số điện thoại không hợp lệ.
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -49,7 +76,13 @@ const LoginScreen = () => {
             >
               <Form.Label className="form-label">Mật khẩu</Form.Label>
               <InputGroup hasValidation>
-                <Form.Control required type="password" placeholder="Mật khẩu" />
+                <Form.Control
+                  required
+                  type="password"
+                  placeholder="Mật khẩu"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
                 <Form.Control.Feedback type="invalid">
                   Thông tin mật khẩu không hợp lệ.
                 </Form.Control.Feedback>

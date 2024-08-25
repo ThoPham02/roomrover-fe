@@ -1,13 +1,5 @@
-import { RoomItem } from "../ui";
-
 const ListRoom = ({ rooms }) => {
-  return (
-    <div>
-      {rooms.map((room) => (
-        <RoomItem key={room.id} room={room} />
-      ))}
-    </div>
-  );
+  return <div></div>;
 };
 
 export default ListRoom;
