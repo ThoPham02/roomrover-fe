@@ -9,4 +9,10 @@ export const inventPublicRoute = [
   },
 ];
 
-export const inventPrivateRoute = [];
+export const inventPrivateRoute = [
+  {
+    id: "inventory",
+    path: ROUTE_PATHS.INVENTORY,
+    element: <HomeScreen />,
+  },
+];

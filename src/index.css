@@ -16,6 +16,14 @@
   --main-color: #74c5ff;
 }
 
+/* Global */
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .child-center {
   width: 100vw;
   height: 100vh;
@@ -226,4 +234,13 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+/* manage style */
+.manage-wrapper {
+  display: flex;
+  align-items: stretch;
+  flex: 1 1 auto;
+  min-height: 100vh;
+  background: #f2f7f8;
 }

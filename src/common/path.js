@@ -4,8 +4,16 @@ export const API_URL = {
 
 export const ROUTE_PATHS = {
   ROOT: "/",
-  HOME: "/home",
+  // auth routes
   LOGIN: "/login",
   REGISTER: "/register",
+
+  // inventory routes
+  HOME: "/home",
+  INVENTORY: "/inventory",
+
+  // contract routes
+
+  // error routes
   ERROR: "/error",
 };
