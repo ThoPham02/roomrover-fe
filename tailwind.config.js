@@ -7,6 +7,7 @@ module.exports = {
         1100: "1100px",
         260: "260px",
         80: "80px",
+        360: "360px",
       },
       height: {
         70: "70px",
@@ -50,6 +51,9 @@ module.exports = {
             transform: "translateX(100px)",
           },
         },
+      },
+      rotate: {
+        '15': '15deg',
       },
     },
   },

@@ -12,7 +12,7 @@ export const inventPublicRoute = [
 export const inventPrivateRoute = [
   {
     id: "inventory",
-    path: ROUTE_PATHS.INVENTORY,
+    path: ROUTE_PATHS.ADMIN_INVENTORY,
     element: <HomeScreen />,
   },
 ];
