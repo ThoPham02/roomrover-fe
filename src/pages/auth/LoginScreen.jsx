@@ -14,28 +14,27 @@ const LoginScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { isLogined } = useSelector((state) => state.auth);
 
   const [validated, setValidated] = useState(false);
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    isLoggedIn && navigate(ROUTE_PATHS.HOME);
-  }, [isLoggedIn, navigate]);
+    isLogined && navigate(ROUTE_PATHS.HOME);
+  }, [isLogined, navigate]);
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-
     const form = event.currentTarget;
-
-    if (!form.checkValidity()) {
+    event.preventDefault();
+    if (form.checkValidity() === false) {
       event.stopPropagation();
-      setValidated(false);
-      return;
     }
 
     setValidated(true);
+
+    console.log("phone", phone);
+    console.log("password", password);
 
     dispatch(actions.login({ phone, password }));
   };

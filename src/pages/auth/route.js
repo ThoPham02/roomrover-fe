@@ -14,3 +14,11 @@ export const authRoute = [
     element: <RegisterScreen />,
   },
 ];
+
+export const authPrivateRoute = [
+  {
+    id: "user-settings",
+    path: ROUTE_PATHS.USER_SETTINGS,
+    element: <LoginScreen />,
+  },  
+];

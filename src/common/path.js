@@ -3,26 +3,33 @@ export const API_URL = {
 };
 
 export const ROUTE_PATHS = {
+  // public routes
   ROOT: "/",
   LOGIN: "/login",
   REGISTER: "/register",
 
   // user routes
   HOME: "/home",
-  INVENTORY: "/inventory",
   ERROR: "/error",
+  USER_SETTINGS: "/user-settings",
 
   // admin routes
-  DASHBOARD: "/admin/dashboard",
-  ADMIN_INVENTORY: "/admin/inventory",
-  ADMIN_SETTINGS: "/admin/settings",
+  DASHBOARD: "/dashboard",
+  INVENTORY: "/inventory",
+  CONTRACT: "/contract",
+  PAYMENT: "/payment",
+  NOTIFICATION: "/notification",
+  SETTINGS: "/settings",
 };
 
 export const BREADCRUMB_DETAIL = {
   [ROUTE_PATHS.HOME]: "Trang chủ",
-  [ROUTE_PATHS.INVENTORY]: "Quản lý kho",
   [ROUTE_PATHS.ERROR]: "Lỗi",
+
   [ROUTE_PATHS.DASHBOARD]: "Dashboard",
-  [ROUTE_PATHS.ADMIN_INVENTORY]: "Quản lý kho (Admin)",
-  [ROUTE_PATHS.ADMIN_SETTINGS]: "Cài đặt (Admin)",
+  [ROUTE_PATHS.INVENTORY]: "Nhà trọ",
+  [ROUTE_PATHS.CONTRACT]: "Hợp đồng",
+  [ROUTE_PATHS.PAYMENT]: "Thanh toán",
+  [ROUTE_PATHS.NOTIFICATION]: "Thông báo",
+  [ROUTE_PATHS.SETTINGS]: "Cài đặt",
 };

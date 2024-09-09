@@ -7,7 +7,7 @@ import {
 } from "react-icons/md";
 import { LiaFileContractSolid } from "react-icons/lia";
 import { LuBellRing } from "react-icons/lu";
-import { TbReportMoney } from "react-icons/tb";
+// import { TbReportMoney } from "react-icons/tb";
 import { IoSettingsOutline } from "react-icons/io5";
 
 import logo from "../../assets/images/logo.png";
@@ -19,12 +19,12 @@ const NavBarManage = ({ isExpanded }) => {
     {
       icon: <MdOutlineDashboardCustomize className="text-3xl" />,
       label: "Dashboard",
-      path: ROUTE_PATHS.HOME,
+      path: ROUTE_PATHS.DASHBOARD,
     },
     {
       icon: <MdOutlineHomeWork className="text-3xl" />,
       label: "Nhà trọ",
-      path: ROUTE_PATHS.HOUSE,
+      path: ROUTE_PATHS.INVENTORY,
     },
     {
       icon: <LiaFileContractSolid className="text-3xl" />,
@@ -42,10 +42,15 @@ const NavBarManage = ({ isExpanded }) => {
       path: ROUTE_PATHS.NOTIFICATION,
     },
     {
-      icon: <TbReportMoney className="text-3xl" />,
-      label: "Báo cáo",
-      path: ROUTE_PATHS.REPORT,
+      icon: <IoSettingsOutline className="text-3xl" />,
+      label: "Cài đặt",
+      path: ROUTE_PATHS.SETTINGS,
     },
+    // {
+    //   icon: <TbReportMoney className="text-3xl" />,
+    //   label: "Báo cáo",
+    //   path: ROUTE_PATHS.REPORT,
+    // },
   ];
 
   const shouldExpand = isExpanded || isHovered;
@@ -98,21 +103,6 @@ const NavBarManage = ({ isExpanded }) => {
               </li>
             ))}
           </ul>
-        </div>
-
-        <div className="p-4 mt-auto">
-          <Link to={ROUTE_PATHS.SETTINGS}>
-            <div
-              className={`flex items-center p-4 hover:text-blue-700 cursor-pointer ${
-                shouldExpand ? "justify-start" : "justify-center"
-              }`}
-            >
-              <IoSettingsOutline className="text-3xl" />
-              {shouldExpand && (
-                <span className="ml-4 whitespace-nowrap">Cài đặt</span>
-              )}
-            </div>
-          </Link>
         </div>
       </div>
     </div>

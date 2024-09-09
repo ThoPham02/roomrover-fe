@@ -21,24 +21,6 @@ const RegisterScreen = () => {
 
       setValidated(true);
 
-      // Check data input
-
-
-      // Redirect to login page
-
-      // Show success message
-
-      // Show error message
-
-      // Show loading
-
-      // Hide loading
-
-      // Save token to local storage
-
-      // Redirect to home page
-
-      // Clear form
     }
 
     return (

@@ -20,7 +20,7 @@ const Breadcrumbs = () => {
   return (
     <div>
       {lastPathName && (
-        <h1 className="font-bold text-3xl mb-1">
+        <h1 className="font-bold text-xl mb-1">
           {BREADCRUMB_DETAIL[lastPathName]}
         </h1>
       )}

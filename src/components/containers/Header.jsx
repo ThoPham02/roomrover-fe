@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import logo from "../../assets/images/logo.png";
 import { ROUTE_PATHS } from "../../common";
+import User from "../ui/User";
 
 const Header = () => {
+  const { isLogined } = useSelector((state) => state.auth);
+
   return (
     <div>
       <header className="h-24 w-full bg-secondary2 fixed z-10 px-4">
@@ -17,16 +22,20 @@ const Header = () => {
               </h1>
             </div>
           </Link>
-          <nav>
-            <ul className="flex items-center space-x-4">
-              <li>
-                <Link to={ROUTE_PATHS.LOGIN}>Đăng Nhập</Link>
-              </li>
-              <li>
-                <Link to={ROUTE_PATHS.REGISTER}>Đăng Ký</Link>
-              </li>
-            </ul>
-          </nav>
+          {!isLogined ? (
+            <nav>
+              <ul className="flex items-center space-x-4">
+                <li>
+                  <Link to={ROUTE_PATHS.LOGIN}>Đăng Nhập</Link>
+                </li>
+                <li>
+                  <Link to={ROUTE_PATHS.REGISTER}>Đăng Ký</Link>
+                </li>
+              </ul>
+            </nav>
+          ) : (
+            <User />
+          )}
         </div>
       </header>
       <div className="h-24"></div>
