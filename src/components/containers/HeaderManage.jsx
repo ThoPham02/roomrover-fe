@@ -16,20 +16,27 @@ const HeaderButton = ({ icon, onClick }) => {
 
 const HeaderManage = ({ setIsExpanded, isExpanded }) => {
   return (
-    <header className="flex items-center justify-between h-70 px-4 bg-secondary2 shadow-md w-full">
-      <div className="flex items-center">
-        <HeaderButton
-          icon={<TfiViewList className="text-xl" />}
-          onClick={() => setIsExpanded(!isExpanded)}
-        />
-        <HeaderButton
-          icon={<LuBellRing className="text-xl" />}
-          onClick={() => console.log("Notification button clicked")}
-        />
-      </div>
+    <div>
+      <header
+        className={`fixed flex items-center justify-between h-70 px-4 bg-secondary2 shadow-md z-20 transition-width duration-300 ${
+          isExpanded ? "width260px" : "width80px"
+        }`}
+      >
+        <div className="flex items-center">
+          <HeaderButton
+            icon={<TfiViewList className="text-xl" />}
+            onClick={() => setIsExpanded(!isExpanded)}
+          />
+          <HeaderButton
+            icon={<LuBellRing className="text-xl" />}
+            onClick={() => console.log("Notification button clicked")}
+          />
+        </div>
 
-      <User />
-    </header>
+        <User />
+      </header>
+      <div className="h-70"></div>
+    </div>
   );
 };
 

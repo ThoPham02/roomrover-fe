@@ -1,5 +1,6 @@
 import { ROUTE_PATHS } from "../../common/path";
 import HomeScreen from "./HomeScreen";
+import HouseScreen from "./HouseScreen";
 
 export const inventPublicRoute = [
   {
@@ -18,7 +19,7 @@ export const inventPrivateRoute = [
   {
     id: "inventory",
     path: ROUTE_PATHS.INVENTORY,
-    element: <HomeScreen />,
+    element: <HouseScreen />,
   },
   {
     id: "contract",

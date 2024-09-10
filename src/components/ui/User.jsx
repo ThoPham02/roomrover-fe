@@ -35,7 +35,7 @@ const User = () => {
 
       {isAvatarHovered && (
         <div
-          className="absolute w-360 bg-white shadow-md rounded-md"
+          className="absolute w-360 bg-white shadow-md rounded-md z-50"
           style={{ top: "100%", right: 0 }}
         >
           <div className="d-flex align-items-center py-9 mx-7 border-bottom">

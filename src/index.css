@@ -245,3 +245,9 @@
   background: #f2f7f8;
 }
 
+.width260px {
+  width: calc(100% - 260px);
+}
+.width80px {
+  width: calc(100% - 80px);
+}
