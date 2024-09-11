@@ -17,3 +17,5 @@ export const HOUSE_TYPE = {
     4: "Ghép Phòng",
     8: "Nhượng Phòng"
 }
+
+export const PAGE_SIZE = 20;

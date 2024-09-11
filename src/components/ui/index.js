@@ -3,3 +3,7 @@ export { default as InputForm } from "./InputForm";
 export { default as CreateButton } from "./CreateButton";
 export { default as Breadcrumbs } from "./Breadcrumbs";
 export { default as User } from "./User";
+export { default as SelectForm } from "./SelectForm";
+export { default as SearchHouseForm } from "./SearchHouseForm";
+export { default as ListHouses } from "./ListHouses";
+export { default as HouseItem } from "./HouseItem";
