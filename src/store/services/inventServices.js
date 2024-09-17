@@ -3,9 +3,9 @@ import { ApiUrl } from "./apiUrl";
 
 export const filterHouses = async (filters) => {
   try {
-    console.log(filters);
     const response = await axios({ ...ApiUrl.FilterHouses, params: filters });
-    return response.data;
+
+    return response;
   } catch (error) {
     return error;
   }

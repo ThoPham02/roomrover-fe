@@ -7,3 +7,4 @@ export { default as SelectForm } from "./SelectForm";
 export { default as SearchHouseForm } from "./SearchHouseForm";
 export { default as ListHouses } from "./ListHouses";
 export { default as HouseItem } from "./HouseItem";
+export { default as CusTable } from "./CusTable";
