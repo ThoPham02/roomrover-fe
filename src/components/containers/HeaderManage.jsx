@@ -1,5 +1,6 @@
 import { TfiViewList } from "react-icons/tfi";
 import { LuBellRing } from "react-icons/lu";
+import { useSelector } from "react-redux";
 
 import User from "../ui/User";
 
@@ -15,6 +16,10 @@ const HeaderButton = ({ icon, onClick }) => {
 };
 
 const HeaderManage = ({ setIsExpanded, isExpanded }) => {
+  const { isLogined } = useSelector((state) => state.auth);
+
+  console.log("isLogined", isLogined);
+
   return (
     <div>
       <header

@@ -10,55 +10,6 @@ const columns = [
     header: "Name",
     accessorKey: "name",
   },
-  // Các cột khác
-];
-
-const data = [
-  { id: 1, name: "John Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
-  { id: 2, name: "Jane Doe" },
 ];
 
 const ListHouses = () => {
@@ -66,11 +17,9 @@ const ListHouses = () => {
 
   let total = 100;
 
-  console.log(listHouse);
-
   return (
     <div className="my-4">
-      <CusTable headers={columns} data={data} total={total} />
+      <CusTable headers={columns} />
     </div>
   );
 };

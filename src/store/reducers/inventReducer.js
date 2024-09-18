@@ -12,11 +12,13 @@ const inventReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SEARCH_HOUSE:
     case actionTypes.SEARCH_HOUSE_SUCCESS:
+      console.log(action.data);
+
       return {
         ...state,
         house: {
           ...state.house,
-          listHouse: action.data.listHouse,
+          listHouse: action.data.listHouse ? action.data.listHouse : [],
           total: action.data.total,
         },
       };

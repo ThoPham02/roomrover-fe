@@ -12,8 +12,6 @@ const SearchHouseForm = () => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data, e) => {
-    console.log(data);
-
     e.preventDefault();
     data.limit = PAGE_SIZE;
     data.offset = 0;

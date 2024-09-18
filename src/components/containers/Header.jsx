@@ -8,6 +8,12 @@ import User from "../ui/User";
 const Header = () => {
   const { isLogined } = useSelector((state) => state.auth);
 
+  console.log("isLogined", isLogined);
+
+  if (isLogined) {
+    console.log("isLogined", isLogined);
+  }
+
   return (
     <div>
       <header className="h-24 w-full bg-secondary2 fixed z-10 px-4">

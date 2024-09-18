@@ -25,8 +25,9 @@ instance.interceptors.request.use(
         1,
         -1
       );
+
     if (token) {
-      instance.defaults.headers.common["Authorization"] = token;
+      config.headers["Authorization"] = `Bearer ${token}`;
     }
 
     return config;
@@ -55,10 +56,9 @@ instance.interceptors.response.use(
   },
   (error) => {
     if (error.response.status === 401) {
+      localStorage.removeItem("persist:auth");
+      window.location.assign(ROUTE_PATHS.LOGIN);
       toast.error(DEFAULT_MESSAGE.SESSION_EXPIRED);
-
-      localStorage.removeItem("token");
-      window.location.href = ROUTE_PATHS.LOGIN;
     }
     return Promise.reject(error);
   }
