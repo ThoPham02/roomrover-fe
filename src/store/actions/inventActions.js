@@ -4,7 +4,6 @@ import actionTypes from "./actionTypes";
 export const getListHouses = (payload) => async (dispatch) => {
   try {
     const data = await filterHouses(payload);
-    console.log(data);
     if (data?.result.code === 0) {
       dispatch({
         type: actionTypes.SEARCH_HOUSE_SUCCESS,
@@ -22,4 +21,10 @@ export const getListHouses = (payload) => async (dispatch) => {
       data: null,
     });
   }
+};
+
+export const clearSearchParams = () => (dispatch) => {
+  dispatch({
+    type: actionTypes.CLEAR_SEARCH_PARAMS,
+  });
 };
