@@ -1,6 +1,7 @@
 import Table from "react-bootstrap/Table";
+import { PAGE_SIZE } from "../../common";
 
-const CusTable = ({ headers, data, ActionButton }) => {
+const CusTable = ({ headers, data, page, ActionButton }) => {
   return (
     <Table hover>
       <thead>
@@ -18,7 +19,9 @@ const CusTable = ({ headers, data, ActionButton }) => {
         {data && data.length > 0 ? (
           data.map((item, index) => (
             <tr key={index}>
-              <td className="text-nowrap text-center">{index + 1}</td>
+              <td className="text-nowrap text-center">
+                {(page - 1) * PAGE_SIZE + index + 1}
+              </td>
               {headers.map((header, i) => (
                 <td key={i}>{item[header.accessorKey]}</td>
               ))}

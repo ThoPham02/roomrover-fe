@@ -16,6 +16,7 @@ export const ROUTE_PATHS = {
   // admin routes
   DASHBOARD: "/dashboard",
   INVENTORY: "/inventory",
+  HOUSE_DETAIL: "/house-detail/:id",
   CONTRACT: "/contract",
   PAYMENT: "/payment",
   NOTIFICATION: "/notification",
@@ -28,6 +29,7 @@ export const BREADCRUMB_DETAIL = {
 
   [ROUTE_PATHS.DASHBOARD]: "Dashboard",
   [ROUTE_PATHS.INVENTORY]: "Nhà trọ",
+  [ROUTE_PATHS.HOUSE_DETAIL]: "Chi tiết nhà trọ",
   [ROUTE_PATHS.CONTRACT]: "Hợp đồng",
   [ROUTE_PATHS.PAYMENT]: "Thanh toán",
   [ROUTE_PATHS.NOTIFICATION]: "Thông báo",

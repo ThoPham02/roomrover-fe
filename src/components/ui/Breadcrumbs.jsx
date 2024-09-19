@@ -1,17 +1,24 @@
 import { Breadcrumb } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 
-import { BREADCRUMB_DETAIL, ROUTE_PATHS } from "../../common";
+import { BREADCRUMB_DETAIL, ROUTE_PATHS, USER_ROLES } from "../../common";
+import { useSelector } from "react-redux";
+
+const isDynamicSegment = (segment) => {
+  return /^\d+$/.test(segment); // Giả định rằng các ID là chuỗi số
+};
 
 const Breadcrumbs = () => {
   const location = useLocation();
+  const { role } = useSelector((state) => state.auth.user);
+
   let pathnames = location.pathname.split("/").filter((x) => x);
 
   const lastPathName =
     pathnames.length > 0 ? `/${pathnames[pathnames.length - 1]}` : "";
-  const isAdminRoute = (pathname) => pathname.startsWith("/admin");
+  const isAdminRoute = role === USER_ROLES.LESSOR;
 
-  const defaultBackRoute = isAdminRoute(location.pathname)
+  const defaultBackRoute = isAdminRoute
     ? ROUTE_PATHS.DASHBOARD
     : ROUTE_PATHS.HOME;
 
@@ -31,15 +38,20 @@ const Breadcrumbs = () => {
           linkProps={{ to: defaultBackRoute }}
           className="text-blue-700"
         >
-          {isAdminRoute(location.pathname) ? "Dashboard" : "Trang chủ"}
+          {isAdminRoute ? "Dashboard" : "Trang chủ"}
         </Breadcrumb.Item>
         {pathnames.map((name, index) => {
           const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
           const isLast = index === pathnames.length - 1;
 
+          // Kiểm tra nếu là segment động
+          const displayName = isDynamicSegment(name)
+            ? "Chi tiết" // Hiển thị "Chi tiết" nếu gặp ID
+            : BREADCRUMB_DETAIL[routeTo] || name;
+
           return isLast ? (
             <Breadcrumb.Item active key={name} className="text-blue-700">
-              {BREADCRUMB_DETAIL[routeTo] || name}
+              {displayName}
             </Breadcrumb.Item>
           ) : (
             <Breadcrumb.Item
@@ -47,7 +59,7 @@ const Breadcrumbs = () => {
               linkProps={{ to: routeTo }}
               key={name}
             >
-              {BREADCRUMB_DETAIL[routeTo] || name}
+              {displayName}
             </Breadcrumb.Item>
           );
         })}
