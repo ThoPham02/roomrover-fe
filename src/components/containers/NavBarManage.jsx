@@ -12,6 +12,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 
 import logo from "../../assets/images/logo.png";
 import { ROUTE_PATHS } from "../../common";
+import { useSelector } from "react-redux";
 
 const NavBarManage = ({ isExpanded }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -49,6 +50,7 @@ const NavBarManage = ({ isExpanded }) => {
   ];
 
   const shouldExpand = isExpanded || isHovered;
+  const { currentPage} = useSelector((state) => state.app);
 
   return (
     <div>
@@ -87,8 +89,8 @@ const NavBarManage = ({ isExpanded }) => {
                 <li
                   key={index}
                   className={`p-4 hover:text-blue-700 cursor-pointer ${
-                    shouldExpand ? "justify-start" : "justify-center"
-                  }`}
+                    currentPage === item.path && "text-blue-700"
+                  } ${shouldExpand ? "justify-start" : "justify-center"}`}
                 >
                   <Link to={item.path} className="flex items-center">
                     {item.icon}
@@ -104,7 +106,11 @@ const NavBarManage = ({ isExpanded }) => {
           </div>
         </div>
       </div>
-      <div className={`h-screen transition-width duration-300 ${shouldExpand ? "w-260" : "w-80"}`}></div>
+      <div
+        className={`h-screen transition-width duration-300 ${
+          shouldExpand ? "w-260" : "w-80"
+        }`}
+      ></div>
     </div>
   );
 };

@@ -38,8 +38,6 @@ const ListHouses = () => {
         item.address
       : item.address;
 
-    console.log(item);
-
     return {
       id: item.houseID,
       name: item.name,

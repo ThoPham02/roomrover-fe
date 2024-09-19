@@ -10,3 +10,16 @@ export const filterHouses = async (filters) => {
     return error;
   }
 };
+
+export const getHouse = async (id) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.GetHouse,
+      url: ApiUrl.GetHouse.url.replace(":id", id),
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+};

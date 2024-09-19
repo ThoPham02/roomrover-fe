@@ -31,9 +31,6 @@ const inventReducer = (state = initialState, action) => {
           page: 0,
         },
       };
-    default:
-      return state;
-    
     case actionTypes.CLEAR_SEARCH_PARAMS:
       return {
         ...state,
@@ -42,6 +39,27 @@ const inventReducer = (state = initialState, action) => {
           searchParams: {},
         },
       };
+
+    case actionTypes.GET_HOUSE_DETAIL:
+    case actionTypes.GET_HOUSE_DETAIL_SUCCESS:
+      return {
+        ...state,
+        house: {
+          ...state.house,
+          houseDetail: action.data.house,
+        },
+      };
+    case actionTypes.GET_HOUSE_DETAIL_FAIL:
+      return {
+        ...state,
+        house: {
+          ...state.house,
+          houseDetail: null,
+        },
+      };
+
+    default:
+      return state;
   }
 };
 

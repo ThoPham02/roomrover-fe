@@ -33,9 +33,6 @@ const LoginScreen = () => {
 
     setValidated(true);
 
-    console.log("phone", phone);
-    console.log("password", password);
-
     dispatch(actions.login({ phone, password }));
   };
 

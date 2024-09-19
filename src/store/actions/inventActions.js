@@ -1,4 +1,4 @@
-import { filterHouses } from "../services/inventServices";
+import { filterHouses, getHouse } from "../services/inventServices";
 import actionTypes from "./actionTypes";
 
 export const getListHouses = (payload) => async (dispatch) => {
@@ -22,6 +22,28 @@ export const getListHouses = (payload) => async (dispatch) => {
     });
   }
 };
+
+export const getHouseDetail = (payload) => async (dispatch) => {
+  try {
+    const data = await getHouse(payload);
+    if (data?.result.code === 0) {
+      dispatch({
+        type: actionTypes.GET_HOUSE_DETAIL_SUCCESS,
+        data: data,
+      });
+    } else {
+      dispatch({
+        type: actionTypes.GET_HOUSE_DETAIL_FAIL,
+        data: data,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_HOUSE_DETAIL_FAIL,
+      data: null,
+    });
+  }
+}
 
 export const clearSearchParams = () => (dispatch) => {
   dispatch({

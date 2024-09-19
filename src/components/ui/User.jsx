@@ -16,7 +16,6 @@ const User = () => {
   const { user } = useSelector((state) => state.auth);
 
   const handleLogout = () => {
-    console.log("logout");
     dispatch(actions.logout());
   };
   return (

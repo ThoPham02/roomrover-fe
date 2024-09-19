@@ -4,7 +4,6 @@ import actionTypes from "./actionTypes";
 export const register = (payload) => async (dispatch) => {
   try {
     const data = await apiRegister(payload);
-    console.log(data);
     if (data?.result.code === 0) {
       dispatch({
         type: actionTypes.REGISTER_SUCCESS,
@@ -26,7 +25,6 @@ export const register = (payload) => async (dispatch) => {
 export const login = (payload) => async (dispatch) => {
   try {
     const data = await apiLogin(payload);
-    console.log(data?.result.code === 0);
     if (data?.result.code === 0) {
       dispatch({
         type: actionTypes.LOGIN_SUCCESS,

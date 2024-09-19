@@ -1,4 +1,3 @@
-import { useParams } from "react-router-dom";
 import { ROUTE_PATHS } from "../../common/path";
 import HomeScreen from "./HomeScreen";
 import HouseDetail from "./HouseDetail";
@@ -25,8 +24,8 @@ export const inventPrivateRoute = [
   },
   {
     id: "house_detail",
-    path: ROUTE_PATHS.HOUSE_DETAIL ,
-    element: <HouseDetail/>,
+    path: ROUTE_PATHS.HOUSE_DETAIL,
+    element: <HouseDetail />,
   },
   {
     id: "contract",
