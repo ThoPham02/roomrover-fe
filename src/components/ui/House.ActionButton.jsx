@@ -12,8 +12,6 @@ const HouseActionButton = ({ house }) => {
   const handleMouseLeave = () => setIsMenuOpen(false);
 
   const handleDetailBtn = () => {
-    console.log(house);
-
     navigate(ROUTE_PATHS.HOUSE_DETAIL.replace(":id", house.id));
   };
 

@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   Breadcrumbs,
@@ -13,6 +14,7 @@ import { BREADCRUMB_DETAIL, PAGE_SIZE, ROUTE_PATHS } from "../../common";
 
 const HouseScreen = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const data = {
@@ -24,6 +26,10 @@ const HouseScreen = () => {
     dispatch(actions.getListHouses(data));
   }, [dispatch]);
 
+  const handleCreateHouse = () => {
+    navigate(ROUTE_PATHS.HOUSE_CREATE);
+  };
+
   return (
     <>
       <Breadcrumbs
@@ -32,14 +38,15 @@ const HouseScreen = () => {
         backName={BREADCRUMB_DETAIL[ROUTE_PATHS.DASHBOARD]}
         displayName={BREADCRUMB_DETAIL[ROUTE_PATHS.INVENTORY]}
       />
-      <div className="p-3 bg-white rounded">
-        <div className="relative">
-          <CreateButton className="absolute -top-20 -right-4 z-1" />
+      <div className="relative">
+        <CreateButton
+          className="absolute -top-16 right-0 z-1"
+          onClick={handleCreateHouse}
+        />
 
-          <div>
-            <SearchHouseForm />
-            <ListHouses />
-          </div>
+        <div>
+          <SearchHouseForm />
+          <ListHouses />
         </div>
       </div>
     </>

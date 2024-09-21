@@ -1,5 +1,6 @@
 import { ROUTE_PATHS } from "../../common/path";
 import HomeScreen from "./HomeScreen";
+import HouseCreate from "./HouseCreate";
 import HouseDetail from "./HouseDetail";
 import HouseScreen from "./HouseScreen";
 
@@ -28,6 +29,16 @@ export const inventPrivateRoute = [
     element: <HouseDetail />,
   },
   {
+    id: "house_create",
+    path: ROUTE_PATHS.HOUSE_CREATE,
+    element: <HouseCreate />,
+  },
+  {
+    id: "house_update",
+    path: ROUTE_PATHS.HOUSE_UPDATE,
+    element: <HouseCreate />,
+  },
+  {
     id: "contract",
     path: ROUTE_PATHS.CONTRACT,
     element: <HomeScreen />,
@@ -42,9 +53,4 @@ export const inventPrivateRoute = [
     path: ROUTE_PATHS.NOTIFICATION,
     element: <HomeScreen />,
   },
-  // {
-  //   id: "report",
-  //   path: ROUTE_PATHS.REPORT,
-  //   element: <HomeScreen />,
-  // },
 ];

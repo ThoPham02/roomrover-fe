@@ -15,53 +15,34 @@ import {
 } from "../../components/ui";
 import { CusSelectArea } from "../../components/ui";
 
-const HouseDetail = () => {
+const HouseCreate = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [area, setArea] = useState();
-
-  const { id } = useParams();
 
   useEffect(() => {
     dispatch(actions.setCurrentPage(ROUTE_PATHS.INVENTORY));
-    dispatch(actions.getHouseDetail(id));
-  }, [dispatch, id]);
+  }, [dispatch]);
 
-  const { houseDetail } = useSelector((state) => state.invent.house);
-
-  const handleHouseUpdate = () => {
-    navigate(ROUTE_PATHS.HOUSE_UPDATE.replace(":id", id));
+  const handleCreateSubmit = (e) => {
+    e.preventDefault();
+    console.log("submit create house");
   };
 
   return (
     <div className="house-detail-page">
       <Breadcrumbs
-        title={BREADCRUMB_DETAIL["DETAIL"]}
+        title={BREADCRUMB_DETAIL["CREATE"]}
         backRoute={ROUTE_PATHS.INVENTORY}
         backName={BREADCRUMB_DETAIL[ROUTE_PATHS.INVENTORY]}
-        displayName={BREADCRUMB_DETAIL["DETAIL"]}
+        displayName={BREADCRUMB_DETAIL["CREATE"]}
       />
 
       <div className="relative">
-        <CreateButton
-          className="absolute -top-16 -right-0 z-1"
-          onClick={handleHouseUpdate}
-          text="Sửa"
-          icon={<></>}
-        />
-
-        <Form>
+        <Form onSubmit={handleCreateSubmit}>
           <Row>
             <p className="font-bold">Hình ảnh nhà trọ:</p>
             <div className="mt-2 mb-4 flex">
-              {houseDetail?.albums?.map((image, index) => (
-                <img
-                  src={image.url}
-                  alt={`Preview ${index + 1}`}
-                  className="w-40 h-40 mr-4 object-cover rounded-lg"
-                />
-              ))}
-              <CusFormUpload disabled />
+              <CusFormUpload />
             </div>
           </Row>
 
@@ -70,28 +51,24 @@ const HouseDetail = () => {
               <CusFormGroup
                 label="Tên nhà trọ"
                 required
-                disabled
-                value={houseDetail?.name}
+                placeholder="Nhập tên nhà trọ"
               />
               <CusFormSelect
                 title="Loại hình"
                 label="Loại hình"
                 required
-                disabled
-                value={houseDetail?.type}
+                // value={houseDetail?.type}
                 data={HOUSE_TYPE}
               />
               <CusFormGroup
                 label="Giá thuê"
                 required
-                disabled
-                value={formatCurrencyVND(houseDetail?.price)}
+                placeholder="Nhập giá thuê"
               />
               <CusFormGroup
                 label="Diện tích"
                 required
-                disabled
-                value={houseDetail ? houseDetail?.area : 0 + " m²"}
+                placeholder="Nhập diện tích"
               />
             </Col>
             <Col>
@@ -99,32 +76,19 @@ const HouseDetail = () => {
                 <CusFormGroup
                   label="Địa chỉ "
                   required
-                  disabled
-                  value={houseDetail?.address}
+                  placeholder="Nhập địa chỉ"
                 />
               </Row>
-              <CusSelectArea area={area} setArea={setArea} disabled />
+              <CusSelectArea area={area} setArea={setArea} />
             </Col>
           </Row>
 
           <Row>
-            <CusFormGroup
-              label="Tiện ích"
-              disabled
-              value={houseDetail?.utilities}
-              textarea
-            />
+            <CusFormGroup label="Mô tả" textarea placeholder="Nhập mô tả" />
           </Row>
-          <Row>
-            <CusFormGroup
-              label="Mô tả"
-              disabled
-              value={houseDetail?.description}
-              textarea
-            />
-          </Row>
-          <Row>
-            <button>Lưu</button>
+
+          <Row className="flex justify-center my-4">
+            <CreateButton text="Lưu" icon={<></>} />
           </Row>
         </Form>
       </div>
@@ -132,4 +96,4 @@ const HouseDetail = () => {
   );
 };
 
-export default HouseDetail;
+export default HouseCreate;
