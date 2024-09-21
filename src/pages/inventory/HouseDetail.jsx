@@ -91,7 +91,7 @@ const HouseDetail = () => {
                 label="Diện tích"
                 required
                 disabled
-                value={houseDetail ? houseDetail?.area : 0 + " m²"}
+                value={houseDetail && houseDetail?.area + " m²"}
               />
             </Col>
             <Col>
