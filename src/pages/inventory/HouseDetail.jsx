@@ -1,34 +1,33 @@
-import React, { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { Col, Form, Row } from "react-bootstrap";
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import { Nav } from "react-bootstrap";
 
-import * as actions from "../../store/actions";
-import { BREADCRUMB_DETAIL, HOUSE_TYPE, ROUTE_PATHS } from "../../common";
-import {
-  Breadcrumbs,
-  CreateButton,
-  CusFormGroup,
-  CusFormSelect,
-  CusFormUpload,
-} from "../../components/ui";
-import { CusSelectArea } from "../../components/ui";
+import { BREADCRUMB_DETAIL, ROUTE_PATHS } from "../../common";
+import { Breadcrumbs } from "../../components/ui";
+import TabHouseDetail from "./TabHouseDetail";
+import TabServiceDetail from "./TabServiceDetail";
+import TabRoomDetail from "./TabRoomDetail";
 
 const HouseDetail = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [tab, setTab] = useState("1");
 
   const { id } = useParams();
 
-  useEffect(() => {
-    dispatch(actions.setCurrentPage(ROUTE_PATHS.INVENTORY));
-    dispatch(actions.getHouseDetail(id));
-  }, [dispatch, id]);
+  const handleSelectTab = (selectedKey) => {
+    setTab(selectedKey);
+  };
 
-  const { houseDetail } = useSelector((state) => state.invent.house);
-
-  const handleHouseUpdate = () => {
-    navigate(ROUTE_PATHS.HOUSE_UPDATE.replace(":id", id));
+  const renderTab = () => {
+    switch (tab) {
+      case "1":
+        return <TabHouseDetail id={id} />;
+      case "2":
+        return <TabServiceDetail id={id} />;
+      case "3":
+        return <TabRoomDetail id={id} />;
+      default:
+        return <div>Tab 1 content</div>;
+    }
   };
 
   return (
@@ -40,94 +39,24 @@ const HouseDetail = () => {
         displayName={BREADCRUMB_DETAIL["DETAIL"]}
       />
 
-      <div className="relative">
-        <CreateButton
-          className="absolute -top-16 -right-0 z-1"
-          onClick={handleHouseUpdate}
-          text="Sửa"
-          icon={<></>}
-        />
-
-        <Form>
-          <Row>
-            <p className="font-bold">Hình ảnh nhà trọ:</p>
-            <div className="mt-2 mb-4 flex flex-wrap">
-              {houseDetail?.albums.map((url, index) => (
-                <img
-                  src={url}
-                  alt={`Hình ảnh nhà trọ ${index + 1}`}
-                  className="w-40 h-40 mr-4 mb-4 object-cover rounded-lg"
-                  key={url}
-                />
-              ))}
-
-              <CusFormUpload disabled />
-            </div>
-          </Row>
-
-          <Row>
-            <Col>
-              <CusFormGroup
-                label="Tên nhà trọ"
-                required
-                disabled
-                placeholder="Nhập tên nhà trọ"
-                state={houseDetail}
-                keyName={"name"}
-              />
-              <CusFormSelect
-                title="Loại hình"
-                label="Loại hình"
-                required
-                data={HOUSE_TYPE}
-                value={houseDetail}
-                disabled
-                keyName="type"
-              />
-              <CusFormGroup
-                label="Giá thuê"
-                required
-                placeholder="Nhập giá thuê"
-                state={houseDetail}
-                disabled
-                keyName={"price"}
-              />
-              <CusFormGroup
-                label="Diện tích"
-                required
-                placeholder="Nhập diện tích"
-                state={houseDetail}
-                disabled
-                keyName={"area"}
-              />
-            </Col>
-            <Col>
-              <Row>
-                <CusFormGroup
-                  label="Địa chỉ "
-                  required
-                  placeholder="Nhập địa chỉ"
-                  state={houseDetail}
-                  disabled
-                  keyName={"address"}
-                />
-              </Row>
-              <CusSelectArea area={houseDetail} disabled />
-            </Col>
-          </Row>
-
-          <Row>
-            <CusFormGroup
-              label="Mô tả"
-              textarea
-              placeholder="Nhập mô tả"
-              state={houseDetail}
-              disabled
-              keyName={"description"}
-            />
-          </Row>
-        </Form>
-      </div>
+      <Nav variant="tabs" onSelect={handleSelectTab} className="mb-2">
+        <Nav.Item>
+          <Nav.Link eventKey={1} active={tab === "1"}>
+            Thông tin nhà trọ
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey={2} active={tab === "2"}>
+            Dịch vụ phát sinh
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey={3} active={tab === "3"}>
+            Danh sách phòng
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
+      {renderTab()}
     </div>
   );
 };
