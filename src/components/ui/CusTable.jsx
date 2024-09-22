@@ -8,7 +8,7 @@ const CusTable = ({ headers, data, page, ActionButton }) => {
         <tr>
           <th className="text-nowrap text-center w-4">STT</th>
           {headers.map((item, index) => (
-            <th key={index} className="">
+            <th key={index} className="text-nowrap">
               {item.header}
             </th>
           ))}
@@ -19,14 +19,14 @@ const CusTable = ({ headers, data, page, ActionButton }) => {
         {data && data.length > 0 ? (
           data.map((item, index) => (
             <tr key={index}>
-              <td className="text-nowrap text-center">
+              <td className="text-nowrap text-center align-middle">
                 {(page - 1) * PAGE_SIZE + index + 1}
               </td>
               {headers.map((header, i) => (
-                <td key={i}>{item[header.accessorKey]}</td>
+                <td key={i} className="align-middle">{item[header.accessorKey]}</td>
               ))}
-              <td className="text-nowrap text-center">
-                <ActionButton house={item} />
+              <td className="text-nowrap text-center align-middle">
+                <ActionButton house={item} className="p-4"/>
               </td>
             </tr>
           ))

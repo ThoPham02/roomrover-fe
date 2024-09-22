@@ -34,8 +34,6 @@ export const uploadImage = async (image) => {
       data: formData,
     });
 
-    console.log(response);
-
     return response.url;
   } catch (error) {
     return error;
@@ -61,6 +59,19 @@ export const updateHouse = async (house) => {
       ...ApiUrl.UpdateHouse,
       url: ApiUrl.UpdateHouse.url.replace(":id", house.houseID),
       data: house,
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const deleteHouse = async (id) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.DeleteHouse,
+      url: ApiUrl.DeleteHouse.url.replace(":id", id),
     });
 
     return response;

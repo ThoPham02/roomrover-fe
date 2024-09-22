@@ -52,12 +52,12 @@ const HouseDetail = () => {
           <Row>
             <p className="font-bold">Hình ảnh nhà trọ:</p>
             <div className="mt-2 mb-4 flex flex-wrap">
-              {houseDetail?.albums.map((image, index) => (
+              {houseDetail?.albums.map((url, index) => (
                 <img
-                  src={image.url}
+                  src={url}
                   alt={`Hình ảnh nhà trọ ${index + 1}`}
                   className="w-40 h-40 mr-4 mb-4 object-cover rounded-lg"
-                  key={image.url}
+                  key={url}
                 />
               ))}
 

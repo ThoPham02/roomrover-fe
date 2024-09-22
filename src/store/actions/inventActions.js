@@ -3,6 +3,7 @@ import {
   getHouse,
   createHouse,
   updateHouse,
+  deleteHouse,
 } from "../services/inventServices";
 import actionTypes from "./actionTypes";
 
@@ -101,3 +102,25 @@ export const updateHouseAction = (payload) => async (dispatch) => {
     });
   }
 };
+
+export const deleteHouseAction = (payload) => async (dispatch) => {
+  try {
+    const data = await deleteHouse(payload);
+    if (data?.result.code === 0) {
+      dispatch({
+        type: actionTypes.DELETE_HOUSE_SUCCESS,
+        data: data,
+      });
+    } else {
+      dispatch({
+        type: actionTypes.DELETE_HOUSE_FAIL,
+        data: data,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: actionTypes.DELETE_HOUSE_FAIL,
+      data: null,
+    });
+  }
+}

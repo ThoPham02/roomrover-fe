@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Row, Col } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { BREADCRUMB_DETAIL, HOUSE_TYPE, ROUTE_PATHS } from "../../common";
 import {
@@ -12,11 +13,11 @@ import {
   CusSelectArea,
 } from "../../components/ui";
 import * as actions from "../../store/actions";
-import { uploadImage } from "../../store/services/inventServices";
-import { useParams } from "react-router-dom";
+import { updateHouse, uploadImage } from "../../store/services/inventServices";
 
 const HouseUpdate = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { id } = useParams();
 
@@ -55,7 +56,9 @@ const HouseUpdate = () => {
       })
     );
 
-    const validAlbums = newAlbums.filter((album) => album !== null);
+    const validAlbums = newAlbums
+      .filter((album) => album !== null)
+      .map((album) => album.url);
 
     setHouse((prevHouse) => ({
       ...prevHouse,
@@ -65,21 +68,27 @@ const HouseUpdate = () => {
     setIsUploading(false);
   };
 
-  const handleUpdateHouse = (e) => {
+  const handleUpdateHouse = async (e) => {
     e.preventDefault();
-
-    dispatch(
-      actions.updateHouseAction({
+    try {
+      const res = await updateHouse({
         ...house,
         type: Number(house.type),
         price: Number(house.price),
         area: Number(house.area),
-        albums: house.albums.map((item) => item.url),
+        albums: JSON.stringify(house.albums),
         provinceID: Number(house.provinceID),
         districtID: Number(house.districtID),
         wardID: Number(house.wardID),
-      })
-    );
+      });
+
+      if (res.result.code === 0) {
+        navigate(ROUTE_PATHS.HOUSE_DETAIL.replace(":id", house.houseID));
+      }
+    } catch (error) {
+      console.error("Error Update House:", error);
+      return null;
+    }
   };
 
   return (
@@ -97,10 +106,10 @@ const HouseUpdate = () => {
             <div className="mt-2 mb-4 flex flex-wrap">
               {house?.albums?.map((image, index) => (
                 <img
-                  src={image.url}
+                  src={image}
                   alt={`Hình ảnh nhà trọ ${index + 1}`}
                   className="w-40 h-40 mr-4 mb-4 object-cover rounded-lg"
-                  key={image.url}
+                  key={image}
                 />
               ))}
 

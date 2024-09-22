@@ -15,6 +15,10 @@ export const ApiUrl = {
     url: "/invent/house/:id",
     method: "put",
   },
+  DeleteHouse: {
+    url: "/invent/house/:id",
+    method: "delete",
+  },
   UploadImage: {
     url: "/invent/upload",
     method: "post",

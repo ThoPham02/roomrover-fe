@@ -1,4 +1,4 @@
-import { address } from "../common"
+import { address } from "../common";
 
 export const convertTimestampToDate = (timestamp) => {
   const date = new Date(timestamp);
@@ -6,33 +6,36 @@ export const convertTimestampToDate = (timestamp) => {
 };
 
 export const formatCurrencyVND = (number) => {
-  number = Number(number)
+  number = Number(number);
 
-  return number && number.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+  return (
+    number &&
+    number.toLocaleString("vi-VN", { style: "currency", currency: "VND" })
+  );
 };
 
-
 export const getProvince = (provinceID) => {
-  console.log(address[provinceID])
+  provinceID = String(provinceID).padStart(2, "0");
 
   return address[provinceID]?.path;
-}
+};
 
 export const getDistrict = (provinceID, districtID) => {
-  console.log(address[provinceID]?.districts[districtID])
-
+  provinceID = String(provinceID).padStart(2, "0");
+  districtID = String(districtID).padStart(3, "0");
   return address[provinceID]?.districts[districtID]?.path;
-}
+};
 
 export const getWard = (provinceID, districtID, wardID) => {
-  console.log(address[provinceID]?.districts[districtID]?.wards[wardID])
-
+  provinceID = String(provinceID).padStart(2, "0");
+  districtID = String(districtID).padStart(3, "0");
+  wardID = String(wardID).padStart(5, "0");
   return address[provinceID].districts[districtID].wards[wardID].path;
-}
+};
 
 export const getArea = (provinceID, districtID, wardID) => {
-  console.log(address[provinceID])
-
-
+  provinceID = String(provinceID).padStart(2, "0");
+  districtID = String(districtID).padStart(3, "0");
+  wardID = String(wardID).padStart(5, "0");
   return address[provinceID]?.districts[districtID]?.wards[wardID].path;
 };

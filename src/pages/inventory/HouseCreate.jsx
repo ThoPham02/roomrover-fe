@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Col, Form, Row } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 import * as actions from "../../store/actions";
 import { BREADCRUMB_DETAIL, HOUSE_TYPE, ROUTE_PATHS } from "../../common";
@@ -12,11 +13,11 @@ import {
   CusFormUpload,
 } from "../../components/ui";
 import { CusSelectArea } from "../../components/ui";
-import { uploadImage } from "../../store/services/inventServices";
+import { createHouse, uploadImage } from "../../store/services/inventServices";
 
 const HouseCreate = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [house, setHouse] = useState({
     name: "",
     type: 0,
@@ -55,7 +56,9 @@ const HouseCreate = () => {
       })
     );
 
-    const validAlbums = newAlbums.filter((album) => album !== null);
+    const validAlbums = newAlbums
+      .filter((album) => album !== null)
+      .map((album) => album.url);
 
     setHouse((prevHouse) => ({
       ...prevHouse,
@@ -65,23 +68,27 @@ const HouseCreate = () => {
     setIsUploading(false);
   };
 
-  const handleCreateSubmit = (e) => {
+  const handleCreateSubmit = async (e) => {
     e.preventDefault();
-
-    const result = dispatch(
-      actions.createHouseDetail({
+    try {
+      const res = await createHouse({
         ...house,
         type: Number(house.type),
         price: Number(house.price),
         area: Number(house.area),
-        albums: house.albums.map((item) => item.url),
+        albums: JSON.stringify(house.albums),
         provinceID: Number(house.provinceID),
         districtID: Number(house.districtID),
         wardID: Number(house.wardID),
-      })
-    );
+      });
 
-    console.log(result)
+      if (res.result.code === 0) {
+        navigate(ROUTE_PATHS.INVENTORY);
+      }
+    } catch (error) {
+      console.error("Error Update House:", error);
+      return null;
+    }
   };
 
   return (
@@ -100,10 +107,10 @@ const HouseCreate = () => {
             <div className="mt-2 mb-4 flex flex-wrap">
               {house?.albums.map((image, index) => (
                 <img
-                  src={image.url}
+                  src={image}
                   alt={`Hình ảnh nhà trọ ${index + 1}`}
                   className="w-40 h-40 mr-4 mb-4 object-cover rounded-lg"
-                  key={image.url}
+                  key={image}
                 />
               ))}
 
