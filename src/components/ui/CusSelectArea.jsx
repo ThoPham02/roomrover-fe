@@ -3,6 +3,13 @@ import { address } from "../../common";
 import CusFormSelect from "./CusFormSelect";
 
 const CusSelectArea = ({ area, setArea, disabled }) => {
+  area = {
+    ...area,
+    provinceID: String(area?.provinceID).padStart(2, "0"),
+    districtID: String(area?.districtID).padStart(3, "0"),
+    wardID: String(area?.wardID).padStart(5, "0"),
+  };
+
   return (
     <Row className="mb-4">
       <Col>
@@ -10,17 +17,17 @@ const CusSelectArea = ({ area, setArea, disabled }) => {
           label="Tỉnh/Thành phố*"
           data={address}
           disabled={disabled}
-          value={area?.provideID}
+          value={area}
           setValue={setArea}
-          keyName={"provideID"}
+          keyName={"provinceID"}
         />
       </Col>
       <Col>
         <CusFormSelect
           label="Quận/Huyện*"
-          data={address[area?.provideID]?.districts}
+          data={address[area?.provinceID]?.districts}
           disabled={disabled}
-          value={area?.districtID}
+          value={area}
           setValue={setArea}
           keyName={"districtID"}
         />
@@ -28,9 +35,9 @@ const CusSelectArea = ({ area, setArea, disabled }) => {
       <Col>
         <CusFormSelect
           label="Xã/Phường*"
-          data={address[area?.provideID]?.districts[area?.districtID]?.wards}
+          data={address[area?.provinceID]?.districts[area?.districtID]?.wards}
           disabled={disabled}
-          value={area?.wardID}
+          value={area}
           setValue={setArea}
           keyName={"wardID"}
         />

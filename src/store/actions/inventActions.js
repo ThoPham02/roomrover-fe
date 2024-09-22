@@ -2,6 +2,7 @@ import {
   filterHouses,
   getHouse,
   createHouse,
+  updateHouse,
 } from "../services/inventServices";
 import actionTypes from "./actionTypes";
 
@@ -59,8 +60,6 @@ export const createHouseDetail = (payload) => async (dispatch) => {
   try {
     payload.albums = JSON.stringify(payload.albums);
     const data = await createHouse(payload);
-    console.log(data);
-
     if (data?.result.code === 0) {
       dispatch({
         type: actionTypes.CREATE_HOUSE_SUCCESS,
@@ -75,6 +74,29 @@ export const createHouseDetail = (payload) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: actionTypes.CREATE_HOUSE_FAIL,
+      data: null,
+    });
+  }
+};
+
+export const updateHouseAction = (payload) => async (dispatch) => {
+  try {
+    payload.albums = JSON.stringify(payload.albums);
+    const data = await updateHouse(payload);
+    if (data?.result.code === 0) {
+      dispatch({
+        type: actionTypes.UPDATE_HOUSE_SUCCESS,
+        data: data,
+      });
+    } else {
+      dispatch({
+        type: actionTypes.UPDATE_HOUSE_FAIL,
+        data: data,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: actionTypes.UPDATE_HOUSE_FAIL,
       data: null,
     });
   }

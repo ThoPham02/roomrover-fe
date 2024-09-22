@@ -58,6 +58,12 @@ const inventReducer = (state = initialState, action) => {
         },
       };
 
+    // case actionTypes.UPDATE_HOUSE:
+    // case actionTypes.UPDATE_HOUSE_SUCCESS:
+    //   return {
+
+    //   }
+
     default:
       return state;
   }

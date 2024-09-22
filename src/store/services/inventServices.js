@@ -54,3 +54,17 @@ export const createHouse = async (house) => {
     return error;
   }
 };
+
+export const updateHouse = async (house) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.UpdateHouse,
+      url: ApiUrl.UpdateHouse.url.replace(":id", house.houseID),
+      data: house,
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+};

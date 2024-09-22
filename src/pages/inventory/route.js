@@ -3,6 +3,7 @@ import HomeScreen from "./HomeScreen";
 import HouseCreate from "./HouseCreate";
 import HouseDetail from "./HouseDetail";
 import HouseScreen from "./HouseScreen";
+import HouseUpdate from "./HouseUpdate";
 
 export const inventPublicRoute = [
   {
@@ -36,7 +37,7 @@ export const inventPrivateRoute = [
   {
     id: "house_update",
     path: ROUTE_PATHS.HOUSE_UPDATE,
-    element: <HouseCreate />,
+    element: <HouseUpdate />,
   },
   {
     id: "contract",

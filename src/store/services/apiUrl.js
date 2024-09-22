@@ -11,6 +11,10 @@ export const ApiUrl = {
     url: "/invent/house",
     method: "post",
   },
+  UpdateHouse: {
+    url: "/invent/house/:id",
+    method: "put",
+  },
   UploadImage: {
     url: "/invent/upload",
     method: "post",

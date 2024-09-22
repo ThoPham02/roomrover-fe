@@ -20,7 +20,10 @@ const CusFormGroup = ({
         .replace(/[₫,]/g, "")
         .trim();
     } else if (keyName === "area") {
-      value = value.replace(" m²", "").trim();
+      value = value
+        .replace(/[^0-9]/g, "")
+        .replace(" m²", "")
+        .trim();
     }
     return setState((prevState) => ({
       ...prevState,
@@ -29,8 +32,6 @@ const CusFormGroup = ({
   };
 
   const parseValue = (value) => {
-    console.log(formatCurrencyVND(value))
-
     if (keyName === "price") {
       return formatCurrencyVND(value);
     } else if (keyName === "area") {

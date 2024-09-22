@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Col, Form, Row } from "react-bootstrap";
 
 import * as actions from "../../store/actions";
 import { BREADCRUMB_DETAIL, HOUSE_TYPE, ROUTE_PATHS } from "../../common";
-import { formatCurrencyVND, getArea } from "../../utils/utils";
 import {
   Breadcrumbs,
   CreateButton,
@@ -18,7 +17,6 @@ import { CusSelectArea } from "../../components/ui";
 const HouseDetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [area, setArea] = useState();
 
   const { id } = useParams();
 
@@ -53,14 +51,16 @@ const HouseDetail = () => {
         <Form>
           <Row>
             <p className="font-bold">Hình ảnh nhà trọ:</p>
-            <div className="mt-2 mb-4 flex">
-              {houseDetail?.albums?.map((image, index) => (
+            <div className="mt-2 mb-4 flex flex-wrap">
+              {houseDetail?.albums.map((image, index) => (
                 <img
                   src={image.url}
-                  alt={`Preview ${index + 1}`}
-                  className="w-40 h-40 mr-4 object-cover rounded-lg"
+                  alt={`Hình ảnh nhà trọ ${index + 1}`}
+                  className="w-40 h-40 mr-4 mb-4 object-cover rounded-lg"
+                  key={image.url}
                 />
               ))}
+
               <CusFormUpload disabled />
             </div>
           </Row>
@@ -71,27 +71,34 @@ const HouseDetail = () => {
                 label="Tên nhà trọ"
                 required
                 disabled
-                value={houseDetail?.name}
+                placeholder="Nhập tên nhà trọ"
+                state={houseDetail}
+                keyName={"name"}
               />
               <CusFormSelect
                 title="Loại hình"
                 label="Loại hình"
                 required
-                disabled
-                value={houseDetail?.type}
                 data={HOUSE_TYPE}
+                value={houseDetail}
+                disabled
+                keyName="type"
               />
               <CusFormGroup
                 label="Giá thuê"
                 required
+                placeholder="Nhập giá thuê"
+                state={houseDetail}
                 disabled
-                value={formatCurrencyVND(houseDetail?.price)}
+                keyName={"price"}
               />
               <CusFormGroup
                 label="Diện tích"
                 required
+                placeholder="Nhập diện tích"
+                state={houseDetail}
                 disabled
-                value={houseDetail && houseDetail?.area + " m²"}
+                keyName={"area"}
               />
             </Col>
             <Col>
@@ -99,32 +106,25 @@ const HouseDetail = () => {
                 <CusFormGroup
                   label="Địa chỉ "
                   required
+                  placeholder="Nhập địa chỉ"
+                  state={houseDetail}
                   disabled
-                  value={houseDetail?.address}
+                  keyName={"address"}
                 />
               </Row>
-              <CusSelectArea area={area} setArea={setArea} disabled />
+              <CusSelectArea area={houseDetail} disabled />
             </Col>
           </Row>
 
           <Row>
             <CusFormGroup
-              label="Tiện ích"
-              disabled
-              value={houseDetail?.utilities}
-              textarea
-            />
-          </Row>
-          <Row>
-            <CusFormGroup
               label="Mô tả"
-              disabled
-              value={houseDetail?.description}
               textarea
+              placeholder="Nhập mô tả"
+              state={houseDetail}
+              disabled
+              keyName={"description"}
             />
-          </Row>
-          <Row>
-            <button>Lưu</button>
           </Row>
         </Form>
       </div>

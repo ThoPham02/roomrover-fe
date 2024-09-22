@@ -1,313 +1,184 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Form, Row, Col } from "react-bootstrap";
 
-import { BREADCRUMB_DETAIL, ROUTE_PATHS } from "../../common";
-import { Breadcrumbs } from "../../components/ui";
+import { BREADCRUMB_DETAIL, HOUSE_TYPE, ROUTE_PATHS } from "../../common";
+import {
+  Breadcrumbs,
+  CreateButton,
+  CusFormGroup,
+  CusFormSelect,
+  CusFormUpload,
+  CusSelectArea,
+} from "../../components/ui";
+import * as actions from "../../store/actions";
+import { uploadImage } from "../../store/services/inventServices";
+import { useParams } from "react-router-dom";
 
-const HouseUpdate = ({ houseId }) => {
+const HouseUpdate = () => {
   const dispatch = useDispatch();
 
-  const [house, setHouse] = useState({
-    name: "",
-    address: "",
-    province: "",
-    district: "",
-    ward: "",
-    area: "",
-    price: "",
-    status: "",
-    description: "",
-    albums: [],
-    mainImageIndex: null,
-  });
+  const { id } = useParams();
 
-  const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [isUploading, setIsUploading] = useState();
+  const [house, setHouse] = useState({});
+  const { houseDetail } = useSelector((state) => state.invent.house);
 
   useEffect(() => {
     dispatch(actions.setCurrentPage(ROUTE_PATHS.INVENTORY));
-    dispatch(actions.getHouseDetail(houseId));
-  }, [dispatch, houseId]);
+    dispatch(actions.getHouseDetail(id));
+  }, [dispatch, id]);
 
-  const { houseDetail } = useSelector((state) => state.invent.house);
-
-  setHouse(houseDetail);
-
-  const validateField = (name, value) => {
-    if (value.trim() === "") {
-      return "Không được để trống thông tin";
+  useEffect(() => {
+    if (houseDetail) {
+      setHouse(houseDetail);
     }
-    if (name === "price" && isNaN(value)) {
-      return "Giá phải là số";
-    }
-    return null;
-  };
+  }, [houseDetail]);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setHouse((prevHouse) => ({
-      ...prevHouse,
-      [name]: value,
-    }));
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: validateField(name, value),
-    }));
-  };
-
-  const handleImageUpload = (e) => {
+  const handleImageUpload = async (e) => {
     const files = Array.from(e.target.files);
-    const newAlbums = files.map((file) => ({
-      url: URL.createObjectURL(file),
-      file,
-    }));
+
+    setIsUploading(true);
+
+    const newAlbums = await Promise.all(
+      files.map(async (file) => {
+        try {
+          const url = await uploadImage(file);
+          return {
+            url,
+            file,
+          };
+        } catch (error) {
+          console.error("Error uploading image:", error);
+          return null;
+        }
+      })
+    );
+
+    const validAlbums = newAlbums.filter((album) => album !== null);
+
     setHouse((prevHouse) => ({
       ...prevHouse,
-      albums: [...prevHouse.albums, ...newAlbums],
+      albums: [...prevHouse.albums, ...validAlbums],
     }));
+
+    setIsUploading(false);
   };
 
-  const handleMainImageSelect = (index) => {
-    setHouse((prevHouse) => ({
-      ...prevHouse,
-      mainImageIndex: index,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
+  const handleUpdateHouse = (e) => {
     e.preventDefault();
-    const newErrors = {};
 
-    [
-      "name",
-      "address",
-      "province",
-      "district",
-      "ward",
-      "area",
-      "price",
-    ].forEach((field) => {
-      const error = validateField(field, house[field]);
-      if (error) {
-        newErrors[field] = error;
-      }
-    });
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
-
-    setLoading(true);
-    setSuccessMessage("");
-    setErrorMessage("");
-
-    console.log(house);
-  };
-
-  const formatCurrency = (value) => {
-    return new Intl.NumberFormat("vi-VN", {
-      style: "currency",
-      currency: "VND",
-    }).format(value);
+    dispatch(
+      actions.updateHouseAction({
+        ...house,
+        type: Number(house.type),
+        price: Number(house.price),
+        area: Number(house.area),
+        albums: house.albums.map((item) => item.url),
+        provinceID: Number(house.provinceID),
+        districtID: Number(house.districtID),
+        wardID: Number(house.wardID),
+      })
+    );
   };
 
   return (
-    <>
+    <div className="house-update">
       <Breadcrumbs
-        title={BREADCRUMB_DETAIL[ROUTE_PATHS.INVENTORY]}
+        title={BREADCRUMB_DETAIL["UPDATE"]}
         backRoute={ROUTE_PATHS.INVENTORY}
         backName={BREADCRUMB_DETAIL[ROUTE_PATHS.INVENTORY]}
         displayName={BREADCRUMB_DETAIL["UPDATE"]}
       />
-      <div className="p-6 bg-white rounded-lg shadow-lg">
-        <form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-2 gap-8">
-            <div>
-              {/* Tên nhà trọ */}
-              <div className="mb-4">
-                <label className="block text-gray-700 mb-2">Tên nhà trọ:</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={house.name}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border border-gray-300 rounded"
+      <div className="relative">
+        <Form onSubmit={handleUpdateHouse}>
+          <Row>
+            <p className="font-bold">Hình ảnh nhà trọ:</p>
+            <div className="mt-2 mb-4 flex flex-wrap">
+              {house?.albums?.map((image, index) => (
+                <img
+                  src={image.url}
+                  alt={`Hình ảnh nhà trọ ${index + 1}`}
+                  className="w-40 h-40 mr-4 mb-4 object-cover rounded-lg"
+                  key={image.url}
                 />
-                {errors.name && <p className="text-red-500">{errors.name}</p>}
-              </div>
+              ))}
 
-              {/* Địa chỉ cụ thể */}
-              <div className="mb-4">
-                <label className="block text-gray-700 mb-2">
-                  Địa chỉ cụ thể:
-                </label>
-                <input
-                  type="text"
-                  name="address"
-                  value={house.address}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border border-gray-300 rounded"
-                />
-                {errors.address && (
-                  <p className="text-red-500">{errors.address}</p>
-                )}
-              </div>
-
-              {/* Khu vực */}
-              <div className="grid grid-cols-3 gap-4 mb-4">
-                <div>
-                  <label className="block text-gray-700 mb-2">
-                    Tỉnh/Thành:
-                  </label>
-                  <input
-                    type="text"
-                    name="province"
-                    value={house.province}
-                    onChange={handleInputChange}
-                    className="w-full p-2 border border-gray-300 rounded"
-                  />
-                  {errors.province && (
-                    <p className="text-red-500">{errors.province}</p>
-                  )}
-                </div>
-                <div>
-                  <label className="block text-gray-700 mb-2">
-                    Huyện/Quận:
-                  </label>
-                  <input
-                    type="text"
-                    name="district"
-                    value={house.district}
-                    onChange={handleInputChange}
-                    className="w-full p-2 border border-gray-300 rounded"
-                  />
-                  {errors.district && (
-                    <p className="text-red-500">{errors.district}</p>
-                  )}
-                </div>
-                <div>
-                  <label className="block text-gray-700 mb-2">Xã/Phường:</label>
-                  <input
-                    type="text"
-                    name="ward"
-                    value={house.ward}
-                    onChange={handleInputChange}
-                    className="w-full p-2 border border-gray-300 rounded"
-                  />
-                  {errors.ward && <p className="text-red-500">{errors.ward}</p>}
-                </div>
-              </div>
-
-              {/* Diện tích */}
-              <div className="mb-4">
-                <label className="block text-gray-700 mb-2">
-                  Diện tích (m²):
-                </label>
-                <input
-                  type="number"
-                  name="area"
-                  value={house.area}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border border-gray-300 rounded"
-                />
-                {errors.area && <p className="text-red-500">{errors.area}</p>}
-              </div>
-
-              {/* Giá thuê */}
-              <div className="mb-4">
-                <label className="block text-gray-700 mb-2">
-                  Giá thuê (VNĐ):
-                </label>
-                <input
-                  type="text"
-                  name="price"
-                  value={house.price}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border border-gray-300 rounded"
-                />
-                {errors.price && <p className="text-red-500">{errors.price}</p>}
-                {house.price && <p>{formatCurrency(house.price)}</p>}
-              </div>
-
-              <div className="mb-4">
-                <label className="block text-gray-700 mb-2">Mô tả:</label>
-                <textarea
-                  name="description"
-                  value={house.description}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border border-gray-300 rounded"
-                  rows="4"
-                />
-              </div>
+              <CusFormUpload
+                handleUpload={handleImageUpload}
+                isUploading={isUploading}
+              />
             </div>
+          </Row>
 
-            <div>
-              <div className="mb-4">
-                <label className="block text-gray-700 mb-2">Tải lên ảnh:</label>
-                <input
-                  type="file"
-                  onChange={handleImageUpload}
-                  multiple
-                  accept="image/*"
-                  className="w-full p-2"
+          <Row>
+            <Col>
+              <CusFormGroup
+                label="Tên nhà trọ"
+                required
+                placeholder="Nhập tên nhà trọ"
+                state={house}
+                setState={setHouse}
+                keyName={"name"}
+              />
+              <CusFormSelect
+                title="Loại hình"
+                label="Loại hình"
+                required
+                data={HOUSE_TYPE}
+                value={house}
+                setValue={setHouse}
+                keyName="type"
+              />
+              <CusFormGroup
+                label="Giá thuê"
+                required
+                placeholder="Nhập giá thuê"
+                state={house}
+                setState={setHouse}
+                keyName={"price"}
+              />
+              <CusFormGroup
+                label="Diện tích"
+                required
+                placeholder="Nhập diện tích"
+                state={house}
+                setState={setHouse}
+                keyName={"area"}
+              />
+            </Col>
+            <Col>
+              <Row>
+                <CusFormGroup
+                  label="Địa chỉ "
+                  required
+                  placeholder="Nhập địa chỉ"
+                  state={house}
+                  setState={setHouse}
+                  keyName={"address"}
                 />
-              </div>
+              </Row>
+              <CusSelectArea area={house} setArea={setHouse} />
+            </Col>
+          </Row>
 
-              {house.albums.length > 0 ? (
-                <div>
-                  <p className="mb-2">Chọn ảnh chính:</p>
-                  <div className="grid grid-cols-4 gap-2">
-                    {house.albums.map((image, index) => (
-                      <div
-                        key={index}
-                        className={`relative cursor-pointer ${
-                          house.mainImageIndex === index
-                            ? "border-4 border-blue-500"
-                            : ""
-                        }`}
-                        onClick={() => handleMainImageSelect(index)}
-                      >
-                        <img
-                          src={image.url}
-                          alt={`Preview ${index + 1}`}
-                          className="w-full h-[120px] object-cover rounded-lg"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                <div className="w-full h-[300px] flex items-center justify-center bg-gray-100 rounded-lg">
-                  <p className="text-gray-600">
-                    Chưa có hình ảnh nào được tải lên
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
+          <Row>
+            <CusFormGroup
+              label="Mô tả"
+              textarea
+              placeholder="Nhập mô tả"
+              state={house}
+              setState={setHouse}
+              keyName={"description"}
+            />
+          </Row>
 
-          {loading && <p className="text-center">Đang cập nhật...</p>}
-          {successMessage && (
-            <p className="text-green-500 text-center">{successMessage}</p>
-          )}
-          {errorMessage && (
-            <p className="text-red-500 text-center">{errorMessage}</p>
-          )}
-
-          <div className="text-center mt-6">
-            <button
-              type="submit"
-              className="bg-blue-600 text-white px-6 py-3 rounded-full shadow-md hover:bg-blue-700 transition"
-            >
-              Cập nhật nhà trọ
-            </button>
-          </div>
-        </form>
+          <Row className="flex justify-center my-4">
+            <CreateButton text="Lưu" icon={<></>} />
+          </Row>
+        </Form>
       </div>
-    </>
+    </div>
   );
 };
 

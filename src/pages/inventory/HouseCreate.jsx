@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Col, Form, Row } from "react-bootstrap";
 
 import * as actions from "../../store/actions";
 import { BREADCRUMB_DETAIL, HOUSE_TYPE, ROUTE_PATHS } from "../../common";
-import { formatCurrencyVND, getArea } from "../../utils/utils";
 import {
   Breadcrumbs,
   CreateButton,
@@ -13,17 +12,10 @@ import {
   CusFormUpload,
 } from "../../components/ui";
 import { CusSelectArea } from "../../components/ui";
+import { uploadImage } from "../../store/services/inventServices";
 
 const HouseCreate = () => {
   const dispatch = useDispatch();
-  // const [address, setAddress] = useState({});
-  // const [addDetail, setAddDetail] = useState("");
-  // const [name, setName] = useState("");
-  // const [type, setType] = useState(0);
-  // const [price, setPrice] = useState(0);
-  // const [area, setArea] = useState(0);
-  // const [des, setDes] = useState("");
-  // const [albums, setAlbums] = useState([]);
 
   const [house, setHouse] = useState({
     name: "",
@@ -33,23 +25,67 @@ const HouseCreate = () => {
     description: "",
     albums: [],
     address: "",
-    provideID: 0,
+    provinceID: 0,
     districtID: 0,
     wardID: 0,
   });
+  const [isUploading, setIsUploading] = useState(false);
 
   useEffect(() => {
     dispatch(actions.setCurrentPage(ROUTE_PATHS.INVENTORY));
   }, [dispatch]);
 
+  const handleImageUpload = async (e) => {
+    const files = Array.from(e.target.files);
+
+    setIsUploading(true);
+
+    const newAlbums = await Promise.all(
+      files.map(async (file) => {
+        try {
+          const url = await uploadImage(file);
+          return {
+            url,
+            file,
+          };
+        } catch (error) {
+          console.error("Error uploading image:", error);
+          return null;
+        }
+      })
+    );
+
+    const validAlbums = newAlbums.filter((album) => album !== null);
+
+    setHouse((prevHouse) => ({
+      ...prevHouse,
+      albums: [...prevHouse.albums, ...validAlbums],
+    }));
+
+    setIsUploading(false);
+  };
+
   const handleCreateSubmit = (e) => {
     e.preventDefault();
 
-    console.log(house);
+    const result = dispatch(
+      actions.createHouseDetail({
+        ...house,
+        type: Number(house.type),
+        price: Number(house.price),
+        area: Number(house.area),
+        albums: house.albums.map((item) => item.url),
+        provinceID: Number(house.provinceID),
+        districtID: Number(house.districtID),
+        wardID: Number(house.wardID),
+      })
+    );
+
+    console.log(result)
   };
 
   return (
-    <div className="house-detail-page">
+    <div className="house-create">
       <Breadcrumbs
         title={BREADCRUMB_DETAIL["CREATE"]}
         backRoute={ROUTE_PATHS.INVENTORY}
@@ -61,16 +97,20 @@ const HouseCreate = () => {
         <Form onSubmit={handleCreateSubmit}>
           <Row>
             <p className="font-bold">Hình ảnh nhà trọ:</p>
-            <div className="mt-2 mb-4 flex">
+            <div className="mt-2 mb-4 flex flex-wrap">
               {house?.albums.map((image, index) => (
                 <img
                   src={image.url}
-                  alt={`Preview ${index + 1}`}
-                  className="w-40 h-40 mr-4 object-cover rounded-lg"
+                  alt={`Hình ảnh nhà trọ ${index + 1}`}
+                  className="w-40 h-40 mr-4 mb-4 object-cover rounded-lg"
+                  key={image.url}
                 />
               ))}
 
-              <CusFormUpload />
+              <CusFormUpload
+                handleUpload={handleImageUpload}
+                isUploading={isUploading}
+              />
             </div>
           </Row>
 
