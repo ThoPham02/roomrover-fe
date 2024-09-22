@@ -6,8 +6,8 @@ export const API_METHOD = {
 };
 
 export const USER_ROLES = {
-  RENTER: 2,
-  LESSOR: 4,
+  RENTER: 2, // nguoi thue
+  LESSOR: 4, // nguoi cho thue
 };
 
 export const HOUSE_TYPE = {

@@ -19,7 +19,7 @@ const RegisterScreen = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState(false);
-  const [role, setRole] = useState(USER_ROLES.LESSOR);
+  const [role, setRole] = useState(USER_ROLES.RENTER);
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -121,10 +121,10 @@ const RegisterScreen = () => {
                 type="checkbox"
                 label="Đăng ký trở thành người cho thuê"
                 id="role-check"
-                checked={role === USER_ROLES.RENTER}
+                checked={role === USER_ROLES.LESSOR}
                 onChange={(e) => {
                   setRole(
-                    e.target.checked ? USER_ROLES.RENTER : USER_ROLES.LESSOR
+                    e.target.checked ? USER_ROLES.LESSOR : USER_ROLES.RENTER
                   );
                 }}
               />

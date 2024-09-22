@@ -7,7 +7,8 @@ const CusFormSelect = ({
   data,
   required,
   disabled,
-  onChange,
+  setValue,
+  keyName,
 }) => {
   const renderOptions = () => {
     if (Array.isArray(data)) {
@@ -29,7 +30,7 @@ const CusFormSelect = ({
   return (
     <Form.Group
       className="flex items-center justify-center mb-4"
-      controlId="houseName"
+      controlId="houseAddress"
     >
       {title && (
         <p className="font-bold text-nowrap mr-2 min-w-36">
@@ -39,9 +40,14 @@ const CusFormSelect = ({
       )}
       <Form.Select
         aria-label={label}
-        value={value}
+        value={value?.[keyName]}
         disabled={disabled || false}
-        onChange={onChange}
+        onChange={(e) =>
+          setValue((prevState) => ({
+            ...prevState,
+            [keyName]: e.target.value,
+          }))
+        }
       >
         <option>{label}</option>
         {renderOptions()}

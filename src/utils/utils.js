@@ -6,6 +6,8 @@ export const convertTimestampToDate = (timestamp) => {
 };
 
 export const formatCurrencyVND = (number) => {
+  number = Number(number)
+
   return number && number.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
 };
 
