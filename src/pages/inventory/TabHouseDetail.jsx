@@ -31,7 +31,7 @@ const TabHouseDetail = ({ id }) => {
   return (
     <div className="relative">
       <CreateButton
-        className="absolute -top-12 -right-0 z-1"
+        className="absolute -top-14 -right-0 z-1"
         onClick={handleHouseUpdate}
         text="Sửa"
         icon={<></>}

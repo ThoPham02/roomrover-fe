@@ -47,7 +47,7 @@ const HouseDetail = () => {
         </Nav.Item>
         <Nav.Item>
           <Nav.Link eventKey={2} active={tab === "2"}>
-            Dịch vụ phát sinh
+            Chi phí phát sinh
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
