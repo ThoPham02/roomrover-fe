@@ -1,93 +1,96 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Pagination } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { formatCurrencyVND, getArea } from "../../utils/utils";
-import { PAGE_SIZE } from "../../common";
-import logo from "../../assets/images/logo.png";
-import { CusTable } from "../../components/ui";
+import { PAGE_SIZE, ROUTE_PATHS } from "../../common";
+import { CreateButton, CusTable } from "../../components/ui";
 import HouseActionButton from "../../components/ui/House.ActionButton";
+import { RoomModal } from "../../components/containers";
+import { createRoom } from "../../store/services/inventServices";
+import * as actions from "../../store/actions";
 
 const columns = [
   {
-    header: "Hình ảnh",
-    accessorKey: "album",
-  },
-  {
-    header: "Nhà trọ",
+    header: "Tên phòng",
     accessorKey: "name",
   },
   {
-    header: "Địa chỉ",
-    accessorKey: "address",
+    header: "Số người/phòng",
+    accessorKey: "capacity",
   },
   {
-    header: "Diện tích",
-    accessorKey: "area",
-  },
-  {
-    header: "Giá",
-    accessorKey: "price",
+    header: "Trạng thái",
+    accessorKey: "status",
   },
 ];
 
-const TabRoomDetail = () => {
+const TabRoomDetail = ({ id }) => {
+  const dispatch = useDispatch();
+
   const [page, setPage] = useState(1);
+  const [showModal, setShowModal] = useState(false);
+  const [room, setRoom] = useState({});
 
-  const { listHouse, total } = useSelector((state) => state.invent.house);
+  useEffect(() => {
+    dispatch(actions.setCurrentPage(ROUTE_PATHS.INVENTORY));
+    dispatch(actions.getHouseRoomAction(id));
+  }, [dispatch, id]);
 
-  const data = listHouse.map((item) => {
-    var area = getArea(item.provinceID, item.districtID, item.wardID)
-      ? item.address +
-        ", " +
-        getArea(item.provinceID, item.districtID, item.wardID)
-      : item.address;
-    return {
-      id: item.houseID,
-      album:
-        item?.albums && item?.albums.length > 0 ? (
-          <img
-            src={item?.albums[0]}
-            alt="Hình ảnh nhà trọ"
-            className="w-40 h-40 object-cover rounded-lg"
-          />
-        ) : (
-          <img
-            src={logo}
-            alt="Logo mặc định"
-            className="w-40 h-40 object-cover rounded-lg"
-          />
-        ),
-      name: item.name,
-      address: area,
-      area: item.area + " m²",
-      price: formatCurrencyVND(item.price),
-    };
-  });
+  const { houseRoom, totalRoom } = useSelector((state) => state.invent.house);
 
   const handleChange = (event, value) => {
     setPage(value);
   };
+
+  const handleCreateRoomBtn = () => {
+    setShowModal(true);
+  };
+
+  const handleCreateRoom = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await createRoom({
+        houseID: id,
+        ...room,
+      });
+
+      if (res.result.code === 0) {
+        dispatch(actions.getHouseRoomAction(id));
+        setShowModal(false);
+        setRoom({});
+      }
+    } catch (error) {
+      console.error("Error Create Service:", error);
+      return null;
+    }
+  };
+
   return (
-    <div className="my-4">
+    <div className="relative">
+      <CreateButton
+        className="absolute -top-14 -right-0 z-1"
+        onClick={handleCreateRoomBtn}
+      />
+
       <CusTable
         headers={columns}
-        data={data}
+        data={houseRoom}
         page={page}
         ActionButton={HouseActionButton}
       />
-      {data.length > 0 && (
+      {houseRoom?.length > 0 && (
         <div className="flex justify-between items-center">
           <p className="text-sm text-gray-500">
             Hiển thị{" "}
             {`${(page - 1) * PAGE_SIZE + 1} - ${
-              total > page * PAGE_SIZE ? page * PAGE_SIZE : total
+              totalRoom > page * PAGE_SIZE ? page * PAGE_SIZE : totalRoom
             }`}{" "}
-            trong tổng số {total} kết quả
+            trong tổng số {totalRoom} kết quả
           </p>
 
           <Pagination
-            count={Math.ceil(total / PAGE_SIZE)}
+            count={Math.ceil(totalRoom / PAGE_SIZE)}
             defaultPage={1}
             siblingCount={0}
             boundaryCount={2}
@@ -96,6 +99,14 @@ const TabRoomDetail = () => {
           />
         </div>
       )}
+
+      <RoomModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        room={room}
+        setRoom={setRoom}
+        handleSubmit={handleCreateRoom}
+      />
     </div>
   );
 };

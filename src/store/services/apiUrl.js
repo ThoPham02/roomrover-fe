@@ -23,4 +23,46 @@ export const ApiUrl = {
     url: "/invent/upload",
     method: "post",
   },
+
+  GetHouseService: {
+    url: "/invent/service/house/:id",
+    method: "get",
+  },
+  GetService: {
+    url: "/invent/service/:id",
+    method: "get",
+  },
+  CreateService: {
+    url: "/invent/service",
+    method: "post",
+  },
+  UpdateService: {
+    url: "/invent/service/:id",
+    method: "put",
+  },
+  DeleteService: {
+    url: "/invent/service/:id",
+    method: "delete",
+  },
+
+  GetHouseRoom: {
+    url: "/invent/room/house/:id",
+    method: "get",
+  },
+  GetRoom: {
+    url: "/invent/room/:id",
+    method: "get",
+  },
+  CreateRoom: {
+    url: "/invent/room",
+    method: "post",
+  },
+  UpdateRoom: {
+    url: "/invent/room/:id",
+    method: "put",
+  },
+  DeleteRoom: {
+    url: "/invent/room/:id",
+    method: "delete",
+  },
 };

@@ -58,11 +58,39 @@ const inventReducer = (state = initialState, action) => {
         },
       };
 
-    // case actionTypes.UPDATE_HOUSE:
-    // case actionTypes.UPDATE_HOUSE_SUCCESS:
-    //   return {
+    case actionTypes.GET_HOUSE_SERVICE_SUCCESS:
+      return {
+        ...state,
+        house: {
+          ...state.house,
+          houseService: action.data.services,
+        },
+      };
+    case actionTypes.GET_HOUSE_SERVICE_FAIL:
+      return {
+        ...state,
+        house: {
+          ...state.house,
+          houseService: [],
+        },
+      };
 
-    //   }
+    case actionTypes.GET_HOUSE_ROOM_SUCCESS:
+      return {
+        ...state,
+        house: {
+          ...state.house,
+          houseRoom: action.data.rooms,
+        },
+      };
+    case actionTypes.GET_HOUSE_ROOM_FAIL:
+      return {
+        ...state,
+        house: {
+          ...state.house,
+          houseRoom: [],
+        },
+      };
 
     default:
       return state;

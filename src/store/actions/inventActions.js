@@ -1,11 +1,16 @@
 import {
   filterHouses,
   getHouse,
-  createHouse,
-  updateHouse,
-  deleteHouse,
+  getHouseRoom,
+  getHouseService,
 } from "../services/inventServices";
 import actionTypes from "./actionTypes";
+
+export const clearSearchParams = () => (dispatch) => {
+  dispatch({
+    type: actionTypes.CLEAR_SEARCH_PARAMS,
+  });
+};
 
 export const getListHouses = (payload) => async (dispatch) => {
   try {
@@ -29,7 +34,7 @@ export const getListHouses = (payload) => async (dispatch) => {
   }
 };
 
-export const getHouseDetail = (payload) => async (dispatch) => {
+export const getHouseDetailAction = (payload) => async (dispatch) => {
   try {
     const data = await getHouse(payload);
     if (data?.result.code === 0) {
@@ -51,76 +56,46 @@ export const getHouseDetail = (payload) => async (dispatch) => {
   }
 };
 
-export const clearSearchParams = () => (dispatch) => {
-  dispatch({
-    type: actionTypes.CLEAR_SEARCH_PARAMS,
-  });
-};
-
-export const createHouseDetail = (payload) => async (dispatch) => {
+export const getHouseServiceAction = (payload) => async (dispatch) => {
   try {
-    payload.albums = JSON.stringify(payload.albums);
-    const data = await createHouse(payload);
+    const data = await getHouseService(payload);
     if (data?.result.code === 0) {
       dispatch({
-        type: actionTypes.CREATE_HOUSE_SUCCESS,
+        type: actionTypes.GET_HOUSE_SERVICE_SUCCESS,
         data: data,
       });
     } else {
       dispatch({
-        type: actionTypes.CREATE_HOUSE_FAIL,
+        type: actionTypes.GET_HOUSE_SERVICE_FAIL,
         data: data,
       });
     }
   } catch (error) {
     dispatch({
-      type: actionTypes.CREATE_HOUSE_FAIL,
+      type: actionTypes.GET_HOUSE_SERVICE_FAIL,
       data: null,
     });
   }
 };
 
-export const updateHouseAction = (payload) => async (dispatch) => {
+export const getHouseRoomAction = (payload) => async (dispatch) => {
   try {
-    payload.albums = JSON.stringify(payload.albums);
-    const data = await updateHouse(payload);
+    const data = await getHouseRoom(payload);
     if (data?.result.code === 0) {
       dispatch({
-        type: actionTypes.UPDATE_HOUSE_SUCCESS,
+        type: actionTypes.GET_HOUSE_ROOM_SUCCESS,
         data: data,
       });
     } else {
       dispatch({
-        type: actionTypes.UPDATE_HOUSE_FAIL,
+        type: actionTypes.GET_HOUSE_ROOM_FAIL,
         data: data,
       });
     }
   } catch (error) {
     dispatch({
-      type: actionTypes.UPDATE_HOUSE_FAIL,
+      type: actionTypes.GET_HOUSE_ROOM_FAIL,
       data: null,
     });
   }
 };
-
-export const deleteHouseAction = (payload) => async (dispatch) => {
-  try {
-    const data = await deleteHouse(payload);
-    if (data?.result.code === 0) {
-      dispatch({
-        type: actionTypes.DELETE_HOUSE_SUCCESS,
-        data: data,
-      });
-    } else {
-      dispatch({
-        type: actionTypes.DELETE_HOUSE_FAIL,
-        data: data,
-      });
-    }
-  } catch (error) {
-    dispatch({
-      type: actionTypes.DELETE_HOUSE_FAIL,
-      data: null,
-    });
-  }
-}

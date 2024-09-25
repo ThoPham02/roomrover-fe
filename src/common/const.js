@@ -17,4 +17,10 @@ export const HOUSE_TYPE = {
   8: { name: "Ký túc xá" },
 };
 
+export const HOUSE_SERVICE_TYPE = {
+  1: { name: "Giá/Tháng" },
+  2: { name: "Giá/Người" },
+  4: { name: "Số lượng sử dụng" },
+};
+
 export const PAGE_SIZE = 20;

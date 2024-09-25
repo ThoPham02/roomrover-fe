@@ -26,7 +26,7 @@ const HouseDetail = () => {
       case "3":
         return <TabRoomDetail id={id} />;
       default:
-        return <div>Tab 1 content</div>;
+        return <div>Tab content</div>;
     }
   };
 

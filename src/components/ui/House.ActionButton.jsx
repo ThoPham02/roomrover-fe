@@ -7,7 +7,7 @@ import { PAGE_SIZE, ROUTE_PATHS } from "../../common";
 import * as actions from "../../store/actions";
 import { deleteHouse } from "../../store/services/inventServices";
 
-const HouseActionButton = ({ house }) => {
+const HouseActionButton = ({ item }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -17,16 +17,16 @@ const HouseActionButton = ({ house }) => {
   const handleMouseLeave = () => setIsMenuOpen(false);
 
   const handleDetailBtn = () => {
-    navigate(ROUTE_PATHS.HOUSE_DETAIL.replace(":id", house.id));
+    navigate(ROUTE_PATHS.HOUSE_DETAIL.replace(":id", item.id));
   };
 
   const handleUpdateBtn = () => {
-    navigate(ROUTE_PATHS.HOUSE_UPDATE.replace(":id", house.id));
+    navigate(ROUTE_PATHS.HOUSE_UPDATE.replace(":id", item.id));
   };
 
   const handleDeleteButton = async () => {
     try {
-      const res = await deleteHouse(house.id);
+      const res = await deleteHouse(item.id);
 
       if (res.result.code === 0) {
         const data = {

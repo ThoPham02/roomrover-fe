@@ -1,20 +1,67 @@
 import React, { useState } from "react";
 import { AiOutlineEllipsis } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-const ServiceActionButton = () => {
-  const navigate = useNavigate();
+import { ServiceModal } from "../containers";
+import {
+  deleteService,
+  getService,
+  updateService,
+} from "../../store/services/inventServices";
+import * as actions from "../../store/actions";
+
+const ServiceActionButton = ({ item }) => {
   const dispatch = useDispatch();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [service, setService] = useState({});
 
   const handleMouseEnter = () => setIsMenuOpen(true);
   const handleMouseLeave = () => setIsMenuOpen(false);
 
-  const handleDetailBtn = () => {};
-  const handleUpdateBtn = () => {};
-  const handleDeleteButton = async () => {};
+  const handleUpdateBtn = async () => {
+    try {
+      const res = await getService(item.serviceID);
+
+      if (res.result.code === 0) {
+        setService(res.service);
+        setShowModal(true);
+      }
+    } catch (error) {
+      console.error("Error Create Service:", error);
+      return null;
+    }
+
+    setShowModal(true);
+  };
+
+  const handleUpdate = async (e) => {
+    try {
+      const res = await updateService(service);
+
+      if (res.result.code === 0) {
+        dispatch(actions.getHouseServiceAction(item.houseID));
+        setShowModal(false);
+      }
+    } catch (error) {
+      console.error("Error Create Service:", error);
+      return null;
+    }
+  };
+
+  const handleDeleteButton = async () => {
+    try {
+      const res = await deleteService(item.serviceID);
+
+      if (res.result.code === 0) {
+        dispatch(actions.getHouseServiceAction(item.houseID));
+      }
+    } catch (error) {
+      console.error("Error Update House:", error);
+      return null;
+    }
+  };
 
   return (
     <div
@@ -28,14 +75,6 @@ const ServiceActionButton = () => {
       {isMenuOpen && (
         <div className="absolute z-10 top-[15px] right-0 mt-2 bg-white border rounded shadow-lg p-2">
           <ul className="list-none m-0 p-0">
-            <li>
-              <button
-                className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
-                onClick={handleDetailBtn}
-              >
-                Xem
-              </button>
-            </li>
             <li>
               <button
                 onClick={handleUpdateBtn}
@@ -55,6 +94,15 @@ const ServiceActionButton = () => {
           </ul>
         </div>
       )}
+
+      <ServiceModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        service={service}
+        setService={setService}
+        handleSubmit={handleUpdate}
+        option="edit"
+      />
     </div>
   );
 };

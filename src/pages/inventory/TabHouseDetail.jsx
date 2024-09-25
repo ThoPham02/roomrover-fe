@@ -19,7 +19,7 @@ const TabHouseDetail = ({ id }) => {
 
   useEffect(() => {
     dispatch(actions.setCurrentPage(ROUTE_PATHS.INVENTORY));
-    dispatch(actions.getHouseDetail(id));
+    dispatch(actions.getHouseDetailAction(id));
   }, [dispatch, id]);
 
   const { houseDetail } = useSelector((state) => state.invent.house);

@@ -23,10 +23,12 @@ const CusTable = ({ headers, data, page, ActionButton }) => {
                 {(page - 1) * PAGE_SIZE + index + 1}
               </td>
               {headers.map((header, i) => (
-                <td key={i} className="align-middle">{item[header.accessorKey]}</td>
+                <td key={i} className="align-middle">
+                  {item[header.accessorKey]}
+                </td>
               ))}
               <td className="text-nowrap text-center align-middle">
-                <ActionButton house={item} className="p-4"/>
+                <ActionButton item={item} className="p-4" />
               </td>
             </tr>
           ))

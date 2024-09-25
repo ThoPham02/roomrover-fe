@@ -1,5 +1,4 @@
 import { Form } from "react-bootstrap";
-import { formatCurrencyVND } from "../../utils/utils";
 
 const CusFormGroup = ({
   label,
@@ -14,17 +13,17 @@ const CusFormGroup = ({
 }) => {
   const handleValue = (e) => {
     let value = e.target.value;
-    if (keyName === "price") {
-      value = value
-        .replace(/[^0-9]/g, "")
-        .replace(/[₫,]/g, "")
-        .trim();
-    } else if (keyName === "area") {
-      value = value
-        .replace(/[^0-9]/g, "")
-        .replace(" m²", "")
-        .trim();
-    }
+    // if (keyName === "price") {
+    //   value = value
+    //     .replace(/[^0-9]/g, "")
+    //     .replace(/[₫,]/g, "")
+    //     .trim();
+    // } else if (keyName === "area") {
+    //   value = value
+    //     .replace(/[^0-9]/g, "")
+    //     .replace(" m²", "")
+    //     .trim();
+    // }
     return setState((prevState) => ({
       ...prevState,
       [keyName]: value,
@@ -32,13 +31,14 @@ const CusFormGroup = ({
   };
 
   const parseValue = (value) => {
-    if (keyName === "price") {
-      return formatCurrencyVND(value);
-    } else if (keyName === "area") {
-      return value ? `${value} m²` : "";
-    } else {
-      return value;
-    }
+    // if (keyName === "price") {
+    //   return formatCurrencyVND(value);
+    // } else if (keyName === "area") {
+    //   return value ? `${value} m²` : "";
+    // } else {
+    //   return value;
+    // }
+    return value;
   };
 
   return (
