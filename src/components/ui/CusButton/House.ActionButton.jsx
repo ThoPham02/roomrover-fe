@@ -3,9 +3,9 @@ import { AiOutlineEllipsis } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import { PAGE_SIZE, ROUTE_PATHS } from "../../common";
-import * as actions from "../../store/actions";
-import { deleteHouse } from "../../store/services/inventServices";
+import { PAGE_SIZE, ROUTE_PATHS } from "../../../common";
+import * as actions from "../../../store/actions";
+import { deleteHouse } from "../../../store/services/inventServices";
 
 const HouseActionButton = ({ item }) => {
   const navigate = useNavigate();

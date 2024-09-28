@@ -10,6 +10,7 @@ import TabRoomDetail from "./TabRoomDetail";
 
 const HouseDetail = () => {
   const [tab, setTab] = useState("1");
+  const [option, setOption] = useState("get");
 
   const { id } = useParams();
 
@@ -20,11 +21,13 @@ const HouseDetail = () => {
   const renderTab = () => {
     switch (tab) {
       case "1":
-        return <TabHouseDetail id={id} />;
+        return <TabHouseDetail id={id} option={option} setOption={setOption} />;
       case "2":
-        return <TabServiceDetail id={id} />;
+        return (
+          <TabServiceDetail id={id} option={option} setOption={setOption} />
+        );
       case "3":
-        return <TabRoomDetail id={id} />;
+        return <TabRoomDetail id={id} option={option} setOption={setOption} />;
       default:
         return <div>Tab content</div>;
     }

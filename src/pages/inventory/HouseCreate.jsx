@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Col, Form, Row } from "react-bootstrap";
+import { Col, Form, Nav, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 import * as actions from "../../store/actions";
@@ -31,6 +31,7 @@ const HouseCreate = () => {
     wardID: 0,
   });
   const [isUploading, setIsUploading] = useState(false);
+  const [tab, setTab] = useState("1");
 
   useEffect(() => {
     dispatch(actions.setCurrentPage(ROUTE_PATHS.INVENTORY));
@@ -83,13 +84,22 @@ const HouseCreate = () => {
       });
 
       if (res.result.code === 0) {
-        navigate(ROUTE_PATHS.INVENTORY);
+        console.log("Create House Success:", res);
+        navigate(ROUTE_PATHS.HOUSE_DETAIL.replace(":id", res.house.houseID));
       }
     } catch (error) {
       console.error("Error Update House:", error);
       return null;
     }
   };
+
+  const handleSelectTab = (selectedKey) => {
+    setTab(selectedKey);
+  }
+
+  useEffect(() => {
+
+  }, [tab])
 
   return (
     <div className="house-create">
@@ -99,6 +109,24 @@ const HouseCreate = () => {
         backName={BREADCRUMB_DETAIL[ROUTE_PATHS.INVENTORY]}
         displayName={BREADCRUMB_DETAIL["CREATE"]}
       />
+
+      <Nav variant="tabs" onSelect={handleSelectTab} className="mb-2">
+        <Nav.Item>
+          <Nav.Link eventKey={1} active={tab === "1"}>
+            Thông tin nhà trọ
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey={2} active={tab === "2"}>
+            Chi phí phát sinh
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey={3} active={tab === "3"}>
+            Danh sách phòng
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
 
       <div className="relative">
         <Form onSubmit={handleCreateSubmit}>

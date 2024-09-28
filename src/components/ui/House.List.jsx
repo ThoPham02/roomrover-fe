@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import CusTable from "./CusTable";
 import { formatCurrencyVND, getArea } from "../../utils/utils";
-import HouseActionButton from "./House.ActionButton";
+import HouseActionButton from "./CusButton/House.ActionButton";
 import { PAGE_SIZE } from "../../common";
 import logo from "../../assets/images/logo.png";
 

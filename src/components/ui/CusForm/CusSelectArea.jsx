@@ -1,5 +1,5 @@
 import { Col, Row } from "react-bootstrap";
-import { address } from "../../common";
+import { address } from "../../../common";
 import CusFormSelect from "./CusFormSelect";
 
 const CusSelectArea = ({ area, setArea, disabled }) => {

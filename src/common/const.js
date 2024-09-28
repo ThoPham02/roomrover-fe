@@ -23,4 +23,11 @@ export const HOUSE_SERVICE_TYPE = {
   4: { name: "Số lượng sử dụng" },
 };
 
-export const PAGE_SIZE = 20;
+export const HOUSE_ROOM_STATUS = {
+  1: { name: "Trống" },
+  2: { name: "Đã thuê" },
+  4: { name: "Đã đặt cọc" },
+  8: { name: "Đã hết hạn" },
+};
+
+export const PAGE_SIZE = 10;

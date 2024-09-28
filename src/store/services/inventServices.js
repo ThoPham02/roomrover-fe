@@ -146,11 +146,12 @@ export const deleteService = async (id) => {
   }
 };
 
-export const getHouseRoom = async (id) => {
+export const getHouseRoom = async (payload) => {
   try {
     const response = await axios({
       ...ApiUrl.GetHouseRoom,
-      url: ApiUrl.GetHouseRoom.url.replace(":id", id),
+      url: ApiUrl.GetHouseRoom.url.replace(":id", payload.id),
+      params: payload,
     });
 
     return response;

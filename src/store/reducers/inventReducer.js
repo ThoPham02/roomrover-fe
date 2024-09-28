@@ -81,6 +81,7 @@ const inventReducer = (state = initialState, action) => {
         house: {
           ...state.house,
           houseRoom: action.data.rooms,
+          totalRoom: action.data.total,
         },
       };
     case actionTypes.GET_HOUSE_ROOM_FAIL:

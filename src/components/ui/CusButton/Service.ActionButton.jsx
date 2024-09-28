@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 
-import { ServiceModal } from "../containers";
+import { ServiceModal } from "../../containers";
 import {
   deleteService,
   getService,
   updateService,
-} from "../../store/services/inventServices";
-import * as actions from "../../store/actions";
+} from "../../../store/services/inventServices";
+import * as actions from "../../../store/actions";
 
 const ServiceActionButton = ({ item }) => {
   const dispatch = useDispatch();
