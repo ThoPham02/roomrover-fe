@@ -2,7 +2,7 @@ import { Col, Form, Row } from "react-bootstrap";
 import React, { useState } from "react";
 
 import { HOUSE_TYPE } from "../../../common";
-import { CusFormGroup, CusFormSelect, CusFormUpload, CusSelectArea } from "..";
+import { CreateButton, CusFormGroup, CusFormSelect, CusFormUpload, CusSelectArea } from "..";
 import { uploadImage } from "../../../store/services/inventServices";
 
 const HouseDetailForm = ({
@@ -137,6 +137,12 @@ const HouseDetailForm = ({
           keyName={"description"}
         />
       </Row>
+
+      {option !== "get" && (
+        <Row className="flex justify-center my-4">
+          <CreateButton text="Lưu" icon={<></>} />
+        </Row>
+      )}
     </Form>
   );
 };
