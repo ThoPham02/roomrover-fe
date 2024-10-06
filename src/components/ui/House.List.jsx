@@ -37,11 +37,15 @@ const ListHouses = () => {
   const { listHouse, total } = useSelector((state) => state.invent.house);
 
   const data = listHouse.map((item) => {
-    var area = getArea(item.provinceID, item.districtID, item.wardID)
-      ? item.address +
-        ", " +
-        getArea(item.provinceID, item.districtID, item.wardID)
-      : item.address;
+    var area = getArea(item.provinceID, item.districtID, item.wardID) ? (
+      <>
+        {item.address}
+        <br />
+        {getArea(item.provinceID, item.districtID, item.wardID)}
+      </>
+    ) : (
+      item.address
+    );
     return {
       id: item.houseID,
       album:

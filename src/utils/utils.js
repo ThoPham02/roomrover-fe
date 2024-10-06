@@ -5,6 +5,14 @@ export const convertTimestampToDate = (timestamp) => {
   return date;
 };
 
+export const convertDateToTimestamp = (date) => {
+  return new Date(date).getTime();
+};
+
+export const getDate = (n) => {
+  return new Date(Date.now() - (n ? n : 0) * 24 * 60 * 60 * 1000).setHours(0, 0, 0, 0);
+}
+
 export const formatCurrencyVND = (number) => {
   number = Number(number);
 

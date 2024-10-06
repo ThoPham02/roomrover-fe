@@ -5,11 +5,11 @@ import * as actions from "../../store/actions";
 import { ROUTE_PATHS } from "../../common";
 import { CreateButton, HouseDetailForm } from "../../components/ui";
 import { updateHouse } from "../../store/services/inventServices";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const TabHouseDetail = ({ id, option, setOption }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(actions.setCurrentPage(ROUTE_PATHS.INVENTORY));

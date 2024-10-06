@@ -39,19 +39,4 @@ export const inventPrivateRoute = [
     path: ROUTE_PATHS.HOUSE_UPDATE,
     element: <HouseUpdate />,
   },
-  {
-    id: "contract",
-    path: ROUTE_PATHS.CONTRACT,
-    element: <HomeScreen />,
-  },
-  {
-    id: "payment",
-    path: ROUTE_PATHS.PAYMENT,
-    element: <HomeScreen />,
-  },
-  {
-    id: "notification",
-    path: ROUTE_PATHS.NOTIFICATION,
-    element: <HomeScreen />,
-  },
 ];
