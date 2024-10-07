@@ -2,62 +2,78 @@ import { Form, InputGroup } from "react-bootstrap";
 
 const CusFormGroup = ({
   label,
-  labelWidth,
-  type,
-  placeholder,
+  labelWidth = "min-w-36",
+  type = "text",
+  placeholder = "",
   state,
   setState,
   keyName,
-  required,
-  disabled,
-  textarea,
+  required = false,
+  disabled = false,
+  textarea = false,
   unit,
+  position = "right",
 }) => {
   const handleValue = (e) => {
     let value = e.target.value;
-    return setState((prevState) => ({
-      ...prevState,
-      [keyName]: value,
-    }));
+    setState((prevState) => {
+      const newState = { ...prevState };
+      const keys = keyName.split(".");
+      let lastKey = keys.pop();
+
+      let nestedState = keys.reduce((acc, key) => {
+        if (!acc[key]) acc[key] = {};
+        return acc[key];
+      }, newState);
+
+      nestedState[lastKey] = value;
+      return newState;
+    });
   };
 
-  const parseValue = (value) => {
-    return value;
+  const parseValue = (obj, path) => {
+    return path.split(".").reduce((acc, key) => acc && acc[key], obj) || "";
   };
 
-  return (
-    <InputGroup
-      className="flex items-center justify-center mb-4"
-      controlId="houseName"
-    >
-      <p
-        className={`font-bold text-nowrap mr-2 ${
-          labelWidth ? labelWidth : "min-w-36"
-        }`}
-      >
-        {label}
-        {required && <span className="text-red-500">*</span>}:
-      </p>
+  const InputComponent = (
+    <InputGroup>
       <Form.Control
-        type={type || "text"}
+        type={type}
         placeholder={placeholder}
-        value={(state && parseValue(state?.[keyName])) || ""}
-        disabled={disabled || false}
-        as={textarea && "textarea"}
-        rows={textarea && 10}
+        value={(state && parseValue(state, keyName)) || ""}
+        disabled={disabled}
+        as={textarea ? "textarea" : "input"}
+        rows={textarea ? 10 : undefined}
         onChange={handleValue}
         autoComplete="off"
       />
       {unit && <InputGroup.Text>{unit}</InputGroup.Text>}
     </InputGroup>
   );
+
+  return position === "right" ? (
+    <div className="flex items-center mb-4">
+      <p
+        className={`font-bold text-nowrap mr-2 ${
+          labelWidth ? labelWidth : "min-w-24"
+        }`}
+      >
+        {label}
+        {required && <span className="text-red-500">*</span>}:
+      </p>
+      {InputComponent}
+    </div>
+  ) : (
+    <div className="relative">
+      <p className="font-semibold absolute -top-6 w-48">
+        {label}
+        {required && <span className="text-red-500">*</span>}
+      </p>
+      <div className="flex justify-center border rounded-md">
+        {InputComponent}
+      </div>
+    </div>
+  );
 };
 
 export default CusFormGroup;
-
-<InputGroup className="mb-3">
-  <InputGroup.Text id="basic-addon3">
-    https://example.com/users/
-  </InputGroup.Text>
-  <Form.Control id="basic-url" aria-describedby="basic-addon3" />
-</InputGroup>;

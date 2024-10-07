@@ -1,6 +1,5 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useForm } from "react-hook-form";
 import { FaSearch } from "react-icons/fa";
 import { Form } from "react-bootstrap";
 
@@ -10,8 +9,8 @@ import {
   Breadcrumbs,
   CreateButton,
   CusFormDate,
+  CusFormGroup,
   CusTable,
-  InputForm,
 } from "../../components/ui";
 import { getDate } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
@@ -45,28 +44,21 @@ const columns = [
 
 const ContractScreen = () => {
   const dispatch = useDispatch();
-  const  navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const { register, control, handleSubmit } = useForm({
-    defaultValues: {
-      search: "",
-      status: 0,
-      createFrom: getDate(90),
-      createTo: getDate(),
-    },
+  const [filter, setFilter] = useState({
+    search: "",
+    createFrom: getDate(90),
+    createTo: getDate(),
+    limit: PAGE_SIZE,
+    offset: 0,
   });
 
-  const onSubmit = (data, e) => {
+  const handleSubmitFilter = (e) => {
     e.preventDefault();
-    data.limit = PAGE_SIZE;
-    data.offset = 0;
 
-    dispatch(actions.getListContract(data));
+    dispatch(actions.getListContract());
   };
-
-  useEffect(() => {
-    dispatch(actions.setCurrentPage(ROUTE_PATHS.CONTRACT));
-  }, [dispatch]);
 
   const handleCreateContract = () => {
     navigate(ROUTE_PATHS.CONTRACT_CREATE);
@@ -90,35 +82,30 @@ const ContractScreen = () => {
           <div className="p-2 bg-slate-100 rounded">
             <Form
               className="flex flex-wrap gap-4 items-center mt-8"
-              onSubmit={handleSubmit(onSubmit)}
+              onSubmit={handleSubmitFilter}
             >
-              <InputForm
-                title={"Mã hợp đồng"}
+              <CusFormGroup
+                label="Mã hợp đồng"
                 placeholder="Mã hợp đồng"
-                fieldValues={register}
-                label={"search"}
+                state={filter}
+                setState={setFilter}
+                keyName={"search"}
+                position="top"
               />
-
-              <InputForm
-                title={"Trạng thái"}
-                placeholder="Mã hợp đồng"
-                fieldValues={register}
-                label={"status"}
-              />
-
               <CusFormDate
-                title={"Ngày tạo"}
+                label={"Ngày tạo"}
                 placeholder={"Từ ngày"}
-                control={control}
-                name={"createFrom"}
+                state={filter}
+                setState={setFilter}
+                keyName={"createFrom"}
               />
               <p>-</p>
               <CusFormDate
                 placeholder={"Đến ngày"}
-                control={control}
-                name={"createTo"}
+                state={filter}
+                setState={setFilter}
+                keyName={"createTo"}
               />
-
               <button
                 type="submit"
                 className="px-10 py-2 bg-secondary2 rounded"

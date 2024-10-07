@@ -1,4 +1,5 @@
 import axios from '../axios'
+import { ApiUrl } from './apiUrl'
 
 export const apiRegister = (payload) => new Promise(async (resolve, reject) => {
     try {
@@ -38,3 +39,16 @@ export const apiGetCurrent = () => new Promise(async (resolve, reject) => {
         reject(error)
     }
 })
+
+export const apiFilterUser = async (filters) => {
+    try {
+      const response = await axios({
+        ...ApiUrl.FilterUser,
+        params: filters,
+      });
+  
+      return response;
+    } catch (error) {
+      return error;
+    }
+  };

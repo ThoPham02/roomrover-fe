@@ -1,12 +1,16 @@
 import { Breadcrumb, Form, Row, Col, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import { ROUTE_PATHS } from "../../common";
-import { CusFormDate, CusFormGroup } from "../../components/ui";
+import { CusFormDate, CusFormGroup, CusFormSearch } from "../../components/ui";
 
 const ContractCreate = () => {
-  const [contract, setContract] = useState({});
+  const { user } = useSelector((state) => state.auth);
+  const [contract, setContract] = useState({
+    renter: user,
+  });
   const [searchRoom, setSearchRoom] = useState("");
 
   const handleSubmit = (e) => {
@@ -14,9 +18,10 @@ const ContractCreate = () => {
   };
 
   useEffect(() => {
-    console.log("contract", contract);
-    console.log("searchRoom", searchRoom);
+    // console.log(user);
   }, [searchRoom]);
+
+  console.log(contract);
 
   return (
     <div>
@@ -37,21 +42,21 @@ const ContractCreate = () => {
           <Row>
             <Col>
               <CusFormGroup
-                label={"Họ và tên"}
+                label={"Số điện thoại"}
                 state={contract}
                 setState={setContract}
-                placeholder={"Nhập họ và tên"}
-                keyName={"renterName"}
+                placeholder={"Nhập số điện thoại"}
+                keyName={"renter.phone"}
                 required
               />
             </Col>
             <Col>
               <CusFormGroup
-                label={"Số điện thoại"}
+                label={"Họ và tên"}
                 state={contract}
                 setState={setContract}
-                placeholder={"Nhập số điện thoại"}
-                keyName={"renterPhone"}
+                placeholder={"Nhập họ và tên"}
+                keyName={"renter.fullName"}
                 required
               />
             </Col>
@@ -63,7 +68,7 @@ const ContractCreate = () => {
                 state={contract}
                 setState={setContract}
                 placeholder={"Nhập số CCCD"}
-                keyName={"renterCCCD"}
+                keyName={"renter.cccdNumber"}
                 required
               />
             </Col>
@@ -73,7 +78,7 @@ const ContractCreate = () => {
                 state={contract}
                 setState={setContract}
                 placeholder={"Nhập ngày cấp"}
-                keyName={"renterDate"}
+                keyName={"renter.cccdDate"}
                 required
                 position={"right"}
               />
@@ -84,7 +89,7 @@ const ContractCreate = () => {
                 state={contract}
                 setState={setContract}
                 placeholder={"Nhập nơi cấp"}
-                keyName={"renterAddress"}
+                keyName={"renter.cccdAddress"}
                 required
               />
             </Col>
@@ -95,22 +100,22 @@ const ContractCreate = () => {
         <div className="p-2 bg-slate-100 rounded">
           <Row>
             <Col>
+              <CusFormSearch
+                label={"Số điện thoại"}
+                state={contract}
+                setState={setContract}
+                placeholder={"Nhập số điện thoại"}
+                keyName={"lessorPhone"}
+                required
+              />
+            </Col>
+            <Col>
               <CusFormGroup
                 label={"Họ và tên"}
                 state={contract}
                 setState={setContract}
                 placeholder={"Nhập họ và tên"}
                 keyName={"lessorName"}
-                required
-              />
-            </Col>
-            <Col>
-              <CusFormGroup
-                label={"Số điện thoại"}
-                state={contract}
-                setState={setContract}
-                placeholder={"Nhập số điện thoại"}
-                keyName={"lessorPhone"}
                 required
               />
             </Col>
@@ -164,9 +169,7 @@ const ContractCreate = () => {
               />
 
               <div className="absolute left-40 top-12 z-10">
-                <ul className="list-none p-0 m-0">
-                    
-                </ul>
+                <ul className="list-none p-0 m-0"></ul>
               </div>
             </Col>
             <Col>
