@@ -34,8 +34,6 @@ export const uploadImage = async (image) => {
       data: formData,
     });
 
-    console.log(response);
-
     return response.url;
   } catch (error) {
     return error;
@@ -61,6 +59,152 @@ export const updateHouse = async (house) => {
       ...ApiUrl.UpdateHouse,
       url: ApiUrl.UpdateHouse.url.replace(":id", house.houseID),
       data: house,
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const deleteHouse = async (id) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.DeleteHouse,
+      url: ApiUrl.DeleteHouse.url.replace(":id", id),
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getHouseService = async (id) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.GetHouseService,
+      url: ApiUrl.GetHouseService.url.replace(":id", id),
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getService = async (id) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.GetService,
+      url: ApiUrl.GetService.url.replace(":id", id),
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
+
+export const createService = async (service) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.CreateService,
+      data: service,
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const updateService = async (service) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.UpdateService,
+      url: ApiUrl.UpdateService.url.replace(":id", service.serviceID),
+      data: service,
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const deleteService = async (id) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.DeleteService,
+      url: ApiUrl.DeleteService.url.replace(":id", id),
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getHouseRoom = async (payload) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.GetHouseRoom,
+      url: ApiUrl.GetHouseRoom.url.replace(":id", payload.id),
+      params: payload,
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const createRoom = async (room) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.CreateRoom,
+      data: room,
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const updateRoom = async (room) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.UpdateRoom,
+      url: ApiUrl.UpdateRoom.url.replace(":id", room.roomID),
+      data: room,
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const deleteRoom = async (id) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.DeleteRoom,
+      url: ApiUrl.DeleteRoom.url.replace(":id", id),
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getRoom = async (id) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.GetRoom,
+      url: ApiUrl.GetRoom.url.replace(":id", id),
     });
 
     return response;

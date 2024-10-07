@@ -1,19 +1,24 @@
 import { useSelector } from "react-redux";
 import { Pagination } from "@mui/material";
+import { useState } from "react";
 
 import CusTable from "./CusTable";
 import { formatCurrencyVND, getArea } from "../../utils/utils";
-import HouseActionButton from "./House.ActionButton";
+import HouseActionButton from "./CusButton/House.ActionButton";
 import { PAGE_SIZE } from "../../common";
-import { useState } from "react";
+import logo from "../../assets/images/logo.png";
 
 const columns = [
+  {
+    header: "Hình ảnh",
+    accessorKey: "album",
+  },
   {
     header: "Nhà trọ",
     accessorKey: "name",
   },
   {
-    header: "Khu vực",
+    header: "Địa chỉ",
     accessorKey: "address",
   },
   {
@@ -32,14 +37,31 @@ const ListHouses = () => {
   const { listHouse, total } = useSelector((state) => state.invent.house);
 
   const data = listHouse.map((item) => {
-    var area = getArea(item.provinceID, item.districtID, item.wardID)
-      ? getArea(item.provinceID, item.districtID, item.wardID) +
-        ", " +
-        item.address
-      : item.address;
-
+    var area = getArea(item.provinceID, item.districtID, item.wardID) ? (
+      <>
+        {item.address}
+        <br />
+        {getArea(item.provinceID, item.districtID, item.wardID)}
+      </>
+    ) : (
+      item.address
+    );
     return {
       id: item.houseID,
+      album:
+        item?.albums && item?.albums.length > 0 ? (
+          <img
+            src={item?.albums[0]}
+            alt="Hình ảnh nhà trọ"
+            className="w-40 h-40 object-cover rounded-lg"
+          />
+        ) : (
+          <img
+            src={logo}
+            alt="Logo mặc định"
+            className="w-40 h-40 object-cover rounded-lg"
+          />
+        ),
       name: item.name,
       address: area,
       area: item.area + " m²",

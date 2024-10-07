@@ -49,7 +49,9 @@ const CusFormSelect = ({
           }))
         }
       >
-        <option>{label}</option>
+        <option key={0} value={0}>
+          {label}
+        </option>
         {renderOptions()}
       </Form.Select>
     </Form.Group>

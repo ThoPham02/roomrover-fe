@@ -1,183 +1,65 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Form, Row, Col } from "react-bootstrap";
-
-import { BREADCRUMB_DETAIL, HOUSE_TYPE, ROUTE_PATHS } from "../../common";
-import {
-  Breadcrumbs,
-  CreateButton,
-  CusFormGroup,
-  CusFormSelect,
-  CusFormUpload,
-  CusSelectArea,
-} from "../../components/ui";
-import * as actions from "../../store/actions";
-import { uploadImage } from "../../store/services/inventServices";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import { Nav } from "react-bootstrap";
+
+import { BREADCRUMB_DETAIL, ROUTE_PATHS } from "../../common";
+import { Breadcrumbs } from "../../components/ui";
+import TabHouseDetail from "./TabHouseDetail";
+import TabServiceDetail from "./TabServiceDetail";
+import TabRoomDetail from "./TabRoomDetail";
 
 const HouseUpdate = () => {
-  const dispatch = useDispatch();
+  const [tab, setTab] = useState("1");
+  const [option, setOption] = useState("update");
 
   const { id } = useParams();
 
-  const [isUploading, setIsUploading] = useState();
-  const [house, setHouse] = useState({});
-  const { houseDetail } = useSelector((state) => state.invent.house);
-
-  useEffect(() => {
-    dispatch(actions.setCurrentPage(ROUTE_PATHS.INVENTORY));
-    dispatch(actions.getHouseDetail(id));
-  }, [dispatch, id]);
-
-  useEffect(() => {
-    if (houseDetail) {
-      setHouse(houseDetail);
-    }
-  }, [houseDetail]);
-
-  const handleImageUpload = async (e) => {
-    const files = Array.from(e.target.files);
-
-    setIsUploading(true);
-
-    const newAlbums = await Promise.all(
-      files.map(async (file) => {
-        try {
-          const url = await uploadImage(file);
-          return {
-            url,
-            file,
-          };
-        } catch (error) {
-          console.error("Error uploading image:", error);
-          return null;
-        }
-      })
-    );
-
-    const validAlbums = newAlbums.filter((album) => album !== null);
-
-    setHouse((prevHouse) => ({
-      ...prevHouse,
-      albums: [...prevHouse.albums, ...validAlbums],
-    }));
-
-    setIsUploading(false);
+  const handleSelectTab = (selectedKey) => {
+    setTab(selectedKey);
   };
 
-  const handleUpdateHouse = (e) => {
-    e.preventDefault();
-
-    dispatch(
-      actions.updateHouseAction({
-        ...house,
-        type: Number(house.type),
-        price: Number(house.price),
-        area: Number(house.area),
-        albums: house.albums.map((item) => item.url),
-        provinceID: Number(house.provinceID),
-        districtID: Number(house.districtID),
-        wardID: Number(house.wardID),
-      })
-    );
+  const renderTab = () => {
+    switch (tab) {
+      case "1":
+        return <TabHouseDetail id={id} option={option} setOption={setOption} />;
+      case "2":
+        return (
+          <TabServiceDetail id={id} option={option} setOption={setOption} />
+        );
+      case "3":
+        return <TabRoomDetail id={id} option={option} setOption={setOption} />;
+      default:
+        return <div>Tab content</div>;
+    }
   };
 
   return (
-    <div className="house-update">
+    <div className="house-detail-page">
       <Breadcrumbs
-        title={BREADCRUMB_DETAIL["UPDATE"]}
+        title={BREADCRUMB_DETAIL["DETAIL"]}
         backRoute={ROUTE_PATHS.INVENTORY}
         backName={BREADCRUMB_DETAIL[ROUTE_PATHS.INVENTORY]}
-        displayName={BREADCRUMB_DETAIL["UPDATE"]}
+        displayName={BREADCRUMB_DETAIL["DETAIL"]}
       />
-      <div className="relative">
-        <Form onSubmit={handleUpdateHouse}>
-          <Row>
-            <p className="font-bold">Hình ảnh nhà trọ:</p>
-            <div className="mt-2 mb-4 flex flex-wrap">
-              {house?.albums?.map((image, index) => (
-                <img
-                  src={image.url}
-                  alt={`Hình ảnh nhà trọ ${index + 1}`}
-                  className="w-40 h-40 mr-4 mb-4 object-cover rounded-lg"
-                  key={image.url}
-                />
-              ))}
 
-              <CusFormUpload
-                handleUpload={handleImageUpload}
-                isUploading={isUploading}
-              />
-            </div>
-          </Row>
-
-          <Row>
-            <Col>
-              <CusFormGroup
-                label="Tên nhà trọ"
-                required
-                placeholder="Nhập tên nhà trọ"
-                state={house}
-                setState={setHouse}
-                keyName={"name"}
-              />
-              <CusFormSelect
-                title="Loại hình"
-                label="Loại hình"
-                required
-                data={HOUSE_TYPE}
-                value={house}
-                setValue={setHouse}
-                keyName="type"
-              />
-              <CusFormGroup
-                label="Giá thuê"
-                required
-                placeholder="Nhập giá thuê"
-                state={house}
-                setState={setHouse}
-                keyName={"price"}
-              />
-              <CusFormGroup
-                label="Diện tích"
-                required
-                placeholder="Nhập diện tích"
-                state={house}
-                setState={setHouse}
-                keyName={"area"}
-              />
-            </Col>
-            <Col>
-              <Row>
-                <CusFormGroup
-                  label="Địa chỉ "
-                  required
-                  placeholder="Nhập địa chỉ"
-                  state={house}
-                  setState={setHouse}
-                  keyName={"address"}
-                />
-              </Row>
-              <CusSelectArea area={house} setArea={setHouse} />
-            </Col>
-          </Row>
-
-          <Row>
-            <CusFormGroup
-              label="Mô tả"
-              textarea
-              placeholder="Nhập mô tả"
-              state={house}
-              setState={setHouse}
-              keyName={"description"}
-            />
-          </Row>
-
-          <Row className="flex justify-center my-4">
-            <CreateButton text="Lưu" icon={<></>} />
-          </Row>
-        </Form>
-      </div>
+      <Nav variant="tabs" onSelect={handleSelectTab} className="mb-2">
+        <Nav.Item>
+          <Nav.Link eventKey={1} active={tab === "1"}>
+            Thông tin nhà trọ
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey={2} active={tab === "2"}>
+            Chi phí phát sinh
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey={3} active={tab === "3"}>
+            Danh sách phòng
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
+      {renderTab()}
     </div>
   );
 };

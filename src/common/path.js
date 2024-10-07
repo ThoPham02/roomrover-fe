@@ -19,7 +19,10 @@ export const ROUTE_PATHS = {
   HOUSE_DETAIL: "/house-detail/:id",
   HOUSE_UPDATE: "/house-update/:id",
   HOUSE_CREATE: "/house-create",
+
   CONTRACT: "/contract",
+  CONTRACT_CREATE: "/contract-create",
+
   PAYMENT: "/payment",
   NOTIFICATION: "/notification",
   SETTINGS: "/settings",

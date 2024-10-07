@@ -6,9 +6,7 @@ export { default as User } from "./User";
 export { default as SelectForm } from "./SelectForm";
 export { default as SearchHouseForm } from "./House.SearchForm";
 export { default as ListHouses } from "./House.List";
-export { default as HouseItem } from "./HouseItem";
 export { default as CusTable } from "./CusTable";
-export { default as CusFormGroup } from "./CusFormGroup";
-export { default as CusFormSelect } from "./CusFormSelect";
-export { default as CusFormUpload } from "./CusFormUpload";
-export { default as CusSelectArea } from "./CusSelectArea";
+
+export * from "./CusForm";
+export * from "./CusButton";
