@@ -1,10 +1,16 @@
 import { Breadcrumb, Form, Row, Col, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 
-import { ROUTE_PATHS } from "../../common";
-import { CusFormDate, CusFormGroup, CusFormSearch } from "../../components/ui";
+import { HOUSE_TYPE, ROUTE_PATHS } from "../../common";
+import {
+  CusFormDate,
+  CusFormGroup,
+  CusFormSearchRoom,
+  CusFormSearchUser,
+  CusFormSelect,
+} from "../../components/ui";
 
 const ContractCreate = () => {
   const { user } = useSelector((state) => state.auth);
@@ -16,12 +22,6 @@ const ContractCreate = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
-
-  useEffect(() => {
-    // console.log(user);
-  }, [searchRoom]);
-
-  console.log(contract);
 
   return (
     <div>
@@ -41,7 +41,7 @@ const ContractCreate = () => {
         <div className="p-2 bg-slate-100 rounded">
           <Row>
             <Col>
-              <CusFormGroup
+              <CusFormSearchUser
                 label={"Số điện thoại"}
                 state={contract}
                 setState={setContract}
@@ -100,12 +100,12 @@ const ContractCreate = () => {
         <div className="p-2 bg-slate-100 rounded">
           <Row>
             <Col>
-              <CusFormSearch
+              <CusFormSearchUser
                 label={"Số điện thoại"}
                 state={contract}
                 setState={setContract}
                 placeholder={"Nhập số điện thoại"}
-                keyName={"lessorPhone"}
+                keyName={"lessor.phone"}
                 required
               />
             </Col>
@@ -115,7 +115,7 @@ const ContractCreate = () => {
                 state={contract}
                 setState={setContract}
                 placeholder={"Nhập họ và tên"}
-                keyName={"lessorName"}
+                keyName={"lessor.fullName"}
                 required
               />
             </Col>
@@ -127,7 +127,7 @@ const ContractCreate = () => {
                 state={contract}
                 setState={setContract}
                 placeholder={"Nhập số CCCD"}
-                keyName={"lessorCCD"}
+                keyName={"lessor.cccdNumber"}
                 required
               />
             </Col>
@@ -137,7 +137,7 @@ const ContractCreate = () => {
                 state={contract}
                 setState={setContract}
                 placeholder={"Nhập ngày cấp"}
-                keyName={"lessorDate"}
+                keyName={"lessor.cccdDate"}
                 required
                 position={"right"}
               />
@@ -148,7 +148,7 @@ const ContractCreate = () => {
                 state={contract}
                 setState={setContract}
                 placeholder={"Nhập nơi cấp"}
-                keyName={"lessorAddress"}
+                keyName={"lessor.cccdAddress"}
                 required
               />
             </Col>
@@ -158,13 +158,13 @@ const ContractCreate = () => {
         <p className="font-medium mt-4">Thông tin nhà:</p>
         <div className="p-2 bg-slate-100 rounded">
           <Row>
-            <Col className="relative flex">
-              <CusFormGroup
-                label={"Tên nhà"}
+            <Col className="relative">
+              <CusFormSearchRoom
+                label={"Phòng"}
                 state={searchRoom}
                 setState={setSearchRoom}
-                placeholder={"Nhập tên nhà"}
-                keyName={"search"}
+                placeholder={"Nhập phòng muốn thuê"}
+                keyName={"room.name"}
                 required
               />
 
@@ -173,13 +173,13 @@ const ContractCreate = () => {
               </div>
             </Col>
             <Col>
-              <CusFormGroup
-                label={"Phòng"}
-                state={contract}
-                setState={setContract}
-                placeholder={"Phòng"}
-                keyName={"roomName"}
-                disabled
+              <CusFormSelect
+                label={"Loại phòng"}
+                defaultValue="Tất cả loại phòng"
+                value={contract}
+                setValue={setContract}
+                keyName={"room.type"}
+                data={HOUSE_TYPE}
               />
             </Col>
           </Row>
@@ -188,7 +188,7 @@ const ContractCreate = () => {
             state={contract}
             setState={setContract}
             placeholder={"Địa chỉ"}
-            keyName={"houseAddress"}
+            keyName={"room.address"}
             disabled
           />
 
@@ -199,7 +199,7 @@ const ContractCreate = () => {
                 state={contract}
                 setState={setContract}
                 placeholder={"Diện tích"}
-                keyName={"houseArea"}
+                keyName={"room.area"}
                 disabled
                 unit={"m²"}
               />
@@ -221,7 +221,7 @@ const ContractCreate = () => {
                 state={contract}
                 setState={setContract}
                 placeholder={"Giá phòng"}
-                keyName={"housePrice"}
+                keyName={"room.price"}
                 disabled
                 unit={"VNĐ"}
               />
@@ -294,26 +294,6 @@ const ContractCreate = () => {
           </Button>
         </div>
       </Form>
-
-      {/* <div>
-        <Modal
-          show={showSearchRoom}
-          onHide={handleClose}
-          size="lg"
-          centered
-          backdrop="true"
-        >
-          <Modal.Body>
-            <div>
-              <h3 className="">Tìm kiếm phòng</h3>
-
-              <div className="p-2 bg-slate-100 rounded">
-                
-              </div>
-            </div>
-          </Modal.Body>
-        </Modal>
-      </div> */}
     </div>
   );
 };

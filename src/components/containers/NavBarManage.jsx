@@ -45,12 +45,12 @@ const NavBarManage = ({ isExpanded }) => {
     {
       icon: <IoSettingsOutline className="text-3xl" />,
       label: "Cài đặt",
-      path: ROUTE_PATHS.SETTINGS,
+      path: ROUTE_PATHS.USER_SETTINGS,
     },
   ];
 
   const shouldExpand = isExpanded || isHovered;
-  const { currentPage} = useSelector((state) => state.app);
+  const { currentPage } = useSelector((state) => state.app);
 
   return (
     <div>

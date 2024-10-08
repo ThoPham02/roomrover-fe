@@ -47,7 +47,7 @@ const CusFormDate = ({
   );
 
   return position === "right" ? (
-    <div className="flex items-center justify-center mb-4">
+    <div className="flex items-center mb-4">
       <p
         className={`font-bold text-nowrap mr-2 ${
           labelWidth ? labelWidth : "min-w-24"

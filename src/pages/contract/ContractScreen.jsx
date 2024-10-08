@@ -4,12 +4,18 @@ import { FaSearch } from "react-icons/fa";
 import { Form } from "react-bootstrap";
 
 import * as actions from "../../store/actions";
-import { BREADCRUMB_DETAIL, PAGE_SIZE, ROUTE_PATHS } from "../../common";
+import {
+  BREADCRUMB_DETAIL,
+  HOUSE_TYPE,
+  PAGE_SIZE,
+  ROUTE_PATHS,
+} from "../../common";
 import {
   Breadcrumbs,
   CreateButton,
   CusFormDate,
   CusFormGroup,
+  CusFormSelect,
   CusTable,
 } from "../../components/ui";
 import { getDate } from "../../utils/utils";
@@ -90,6 +96,15 @@ const ContractScreen = () => {
                 state={filter}
                 setState={setFilter}
                 keyName={"search"}
+                position="top"
+              />
+              <CusFormSelect
+                defaultValue={"Tất cả loại phòng"}
+                label={"Loại phòng"}
+                value={filter}
+                setValue={setFilter}
+                keyName={"type"}
+                data={HOUSE_TYPE}
                 position="top"
               />
               <CusFormDate

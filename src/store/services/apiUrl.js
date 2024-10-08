@@ -4,6 +4,14 @@ export const ApiUrl = {
     url: "/users/filter",
     method: "get",
   },
+  GetUser: {
+    url: "/users/:id",
+    method: "get",
+  },
+  UpdateUser: {
+    url: "/users/:id",
+    method: "put",
+  },
 
   // invent
   FilterHouses: {

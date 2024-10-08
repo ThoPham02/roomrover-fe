@@ -10,6 +10,12 @@ export const USER_ROLES = {
   LESSOR: 4, // nguoi cho thue
 };
 
+export const GENDER_TYPE = {
+  1: { name: "Nam" },
+  2: { name: "Nữ" },
+  4: { name: "Khác" },
+}
+
 export const HOUSE_TYPE = {
   1: { name: "Phòng trọ" },
   2: { name: "Nhà chung chủ " },

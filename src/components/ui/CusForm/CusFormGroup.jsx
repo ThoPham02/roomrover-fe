@@ -59,7 +59,8 @@ const CusFormGroup = ({
         }`}
       >
         {label}
-        {required && <span className="text-red-500">*</span>}:
+        {required && <span className="text-red-500">*</span>}
+        {label && ":"}
       </p>
       {InputComponent}
     </div>

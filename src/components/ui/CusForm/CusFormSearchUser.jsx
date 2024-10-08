@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Form, InputGroup, Dropdown } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-
-// import * as actions from "../../../store/actions";
 import { apiFilterUser } from "../../../store/services/authServices";
 
-const CusFormSearch = ({
+const parseValue = (obj, path) => {
+  return path.split(".").reduce((acc, key) => acc && acc[key], obj) || "";
+};
+
+const CusFormSearchUser = ({
   label,
   labelWidth = "min-w-36",
   type = "text",
@@ -18,36 +19,51 @@ const CusFormSearch = ({
   textarea = false,
   unit,
 }) => {
-  //   var dispatch = useDispatch();
-
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleSelect = (value) => {
-    setState((prevState) => ({
-      ...prevState,
-      [keyName]: value,
-    }));
+    setState((prevState) => {
+      const newState = { ...prevState };
+
+      const firstKey = keyName.split(".")[0];
+
+      newState[firstKey] = value;
+
+      return newState;
+    });
 
     setIsDropdownOpen(false);
   };
+
   const handleBlur = () => {
     setTimeout(() => {
       setIsDropdownOpen(false);
     }, 200);
   };
+
   const handleFocus = () => {
-    if (state?.[keyName]?.length > 6) {
+    if (parseValue(state, keyName)?.length > 6) {
       setIsDropdownOpen(true);
     }
   };
 
   const handleChange = async (e) => {
     const { value } = e.target;
-    setState((prevState) => ({
-      ...prevState,
-      [keyName]: value,
-    }));
+    setState((prevState) => {
+      const newState = { ...prevState };
+      const keys = keyName.split(".");
+      let lastKey = keys.pop();
+
+      let nestedState = keys.reduce((acc, key) => {
+        if (!acc[key]) acc[key] = {};
+        return acc[key];
+      }, newState);
+
+      nestedState[lastKey] = value;
+      return newState;
+    });
+
     if (value.length > 6) {
       try {
         const res = await apiFilterUser({
@@ -82,7 +98,7 @@ const CusFormSearch = ({
         <Form.Control
           type={type}
           placeholder={placeholder}
-          value={(state && state?.[keyName]) || ""}
+          value={parseValue(state, keyName)}
           disabled={disabled}
           as={textarea ? "textarea" : "input"}
           rows={textarea ? 10 : undefined}
@@ -109,7 +125,9 @@ const CusFormSearch = ({
                   </Dropdown.Item>
                 ))
               ) : (
-                <Dropdown.Item disabled>Không tìm thấy</Dropdown.Item>
+                <Dropdown.Item disabled>
+                  Tài khoản chưa tồn tại trên hệ thống
+                </Dropdown.Item>
               )}
             </Dropdown.Menu>
           </Dropdown>
@@ -119,4 +137,4 @@ const CusFormSearch = ({
   );
 };
 
-export default CusFormSearch;
+export default CusFormSearchUser;
