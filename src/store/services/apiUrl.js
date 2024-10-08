@@ -80,10 +80,19 @@ export const ApiUrl = {
     url: "/invent/room/:id",
     method: "delete",
   },
+  FilterRoom: {
+    url: "/invent/room/filter",
+    method: "get",
+  },
 
   // contract
   FilterContracts: {
     url: "/contract/filter",
     method: "get",
+  },
+
+  CreateContract: {
+    url: "/contract",
+    method: "post",
   },
 };

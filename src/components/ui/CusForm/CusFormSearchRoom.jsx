@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Form, InputGroup, Dropdown } from "react-bootstrap";
-import { apiFilterUser } from "../../../store/services/authServices";
+import { apiFilterRoom } from "../../../store/services/inventServices";
 
 const parseValue = (obj, path) => {
   return path.split(".").reduce((acc, key) => acc && acc[key], obj) || "";
@@ -29,7 +29,6 @@ const CusFormSearchRoom = ({
       const firstKey = keyName.split(".")[0];
 
       newState[firstKey] = value;
-
       return newState;
     });
 
@@ -64,23 +63,22 @@ const CusFormSearchRoom = ({
       return newState;
     });
 
-    if (value.length > 6) {
-      try {
-        const res = await apiFilterUser({
-          searchPhone: value,
-        });
-        if (res.result.code === 0) {
-          setFilteredOptions(res.users);
-        } else {
-          setFilteredOptions([]);
-        }
-      } catch (error) {
-        console.error("Error fetching users:", error);
+    try {
+      const res = await apiFilterRoom({
+        search: value,
+        type: state?.room?.type,
+        status: 1,
+        limit: 0,
+        offset: 0,
+      });
+      if (res.result.code === 0) {
+        setFilteredOptions(res.rooms);
+        setIsDropdownOpen(true);
+      } else {
+        setFilteredOptions([]);
       }
-
-      setIsDropdownOpen(true);
-    } else {
-      setIsDropdownOpen(false);
+    } catch (error) {
+      console.error("Error fetching users:", error);
     }
   };
 
@@ -121,7 +119,7 @@ const CusFormSearchRoom = ({
                     key={index}
                     onClick={() => handleSelect(option)}
                   >
-                    {`${option?.phone} - ${option?.fullName}`}
+                    {option.name}
                   </Dropdown.Item>
                 ))
               ) : (

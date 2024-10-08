@@ -12,3 +12,15 @@ export const filterContracts = async (filters) => {
     return error;
   }
 };
+
+export const apiCreateContract = async (contract) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.CreateContract,
+      data: contract,
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+}

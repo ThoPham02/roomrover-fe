@@ -1,5 +1,5 @@
 import { Breadcrumb, Form, Row, Col, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -11,16 +11,36 @@ import {
   CusFormSearchUser,
   CusFormSelect,
 } from "../../components/ui";
+import { apiCreateContract } from "../../store/services/contractServices";
 
 const ContractCreate = () => {
   const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
   const [contract, setContract] = useState({
     renter: user,
   });
-  const [searchRoom, setSearchRoom] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      const formData = new FormData();
+      contract.price = contract.room.price;
+      for (const [key, value] of Object.entries(contract)) {
+        if (typeof value === "object" && value !== null) {
+          formData.append(key, JSON.stringify(value));
+        } else {
+          formData.append(key, value);
+        }
+      }
+
+      const res = await apiCreateContract(formData);
+      if (res?.result?.code === 0) {
+        navigate(ROUTE_PATHS.CONTRACT);
+      }
+    } catch (error) {
+      console.error("Error creating contract:", error);
+    }
   };
 
   return (
@@ -48,6 +68,7 @@ const ContractCreate = () => {
                 placeholder={"Nhập số điện thoại"}
                 keyName={"renter.phone"}
                 required
+                disabled
               />
             </Col>
             <Col>
@@ -161,8 +182,8 @@ const ContractCreate = () => {
             <Col className="relative">
               <CusFormSearchRoom
                 label={"Phòng"}
-                state={searchRoom}
-                setState={setSearchRoom}
+                state={contract}
+                setState={setContract}
                 placeholder={"Nhập phòng muốn thuê"}
                 keyName={"room.name"}
                 required
@@ -204,7 +225,34 @@ const ContractCreate = () => {
                 unit={"m²"}
               />
             </Col>
-            <Col></Col>
+            <Col>
+              <Row>
+                <Col>
+                  <CusFormGroup
+                    label={"Điện"}
+                    labelWidth="min-w-12"
+                    state={contract}
+                    setState={setContract}
+                    placeholder={"Chỉ số điện"}
+                    keyName={"room.eIndex"}
+                    unit={"Số"}
+                    required
+                  />
+                </Col>
+                <Col>
+                  <CusFormGroup
+                    label={"Nước"}
+                    labelWidth="min-w-12"
+                    state={contract}
+                    setState={setContract}
+                    placeholder={"Chỉ số nước"}
+                    keyName={"room.wIndex"}
+                    unit={"Khối"}
+                    required
+                  />
+                </Col>
+              </Row>
+            </Col>
           </Row>
           <Row>
             <Col></Col>
@@ -224,6 +272,21 @@ const ContractCreate = () => {
                 keyName={"room.price"}
                 disabled
                 unit={"VNĐ"}
+              />
+            </Col>
+            <Col></Col>
+          </Row>
+          <Row>
+            <Col>
+              <CusFormDate
+                label={"Nhận phòng"}
+                labelWidth={"min-w-36"}
+                state={contract}
+                setState={setContract}
+                placeholder={"Ngày nhận phòng"}
+                keyName={"checkIn"}
+                required
+                position={"right"}
               />
             </Col>
             <Col>
