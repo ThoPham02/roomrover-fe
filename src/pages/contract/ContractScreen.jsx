@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { FaSearch } from "react-icons/fa";
 import { Form } from "react-bootstrap";
 
@@ -17,6 +17,7 @@ import {
   CusFormGroup,
   CusFormSelect,
   CusTable,
+  HouseActionButton,
 } from "../../components/ui";
 import { getDate } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
@@ -52,6 +53,8 @@ const ContractScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [page, setPage] = useState(1);
+
   const [filter, setFilter] = useState({
     search: "",
     createFrom: getDate(90),
@@ -60,11 +63,18 @@ const ContractScreen = () => {
     offset: 0,
   });
 
+  useEffect(() => {
+    dispatch(actions.setCurrentPage(ROUTE_PATHS.CONTRACT));
+    dispatch(actions.getListContract(filter));
+  }, [dispatch]);
+
   const handleSubmitFilter = (e) => {
     e.preventDefault();
 
-    dispatch(actions.getListContract());
+    dispatch(actions.getListContract(filter));
   };
+
+  const { listContract, total } = useSelector((state) => state.contract);
 
   const handleCreateContract = () => {
     navigate(ROUTE_PATHS.CONTRACT_CREATE);
@@ -130,7 +140,12 @@ const ContractScreen = () => {
             </Form>
           </div>
 
-          <CusTable headers={columns} />
+          <CusTable
+            headers={columns}
+            data={listContract}
+            page={1}
+            ActionButton={HouseActionButton}
+          />
         </div>
       </div>
     </>
