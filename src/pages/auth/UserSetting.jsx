@@ -1,6 +1,6 @@
 import { Breadcrumb, Form, Button, Row, Col, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaCamera } from "react-icons/fa";
 
@@ -18,6 +18,11 @@ const UserSetting = () => {
   const [userSetting, setUserSetting] = useState(user);
   const [hoverAvatar, setHoverAvatar] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+
+  useEffect(() => {
+    dispatch(actions.setCurrentPage(ROUTE_PATHS.USER_SETTINGS));
+    // eslint-disable-next-line
+  }, [dispatch]);
 
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
@@ -76,7 +81,7 @@ const UserSetting = () => {
               </div>
             ) : (
               <>
-                <img
+                <img 
                   src={
                     userSetting.avatarUrl
                       ? userSetting.avatarUrl

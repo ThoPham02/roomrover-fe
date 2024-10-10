@@ -19,17 +19,19 @@ const SearchHouseForm = () => {
   };
 
   return (
-    <Form className="flex flex-wrap gap-4" onSubmit={handleSubmit(onSubmit)}>
-      <InputForm
-        placeholder="Search house"
-        fieldValues={register}
-        label={"search"}
-      />
+    <div className="p-2 bg-slate-100 rounded">
+      <Form className="flex flex-wrap gap-4" onSubmit={handleSubmit(onSubmit)}>
+        <InputForm
+          placeholder="Search house"
+          fieldValues={register}
+          label={"search"}
+        />
 
-      <button type="submit">
-        <FaSearch className="text-3xl" />
-      </button>
-    </Form>
+        <button type="submit" className="px-8 py-2 bg-secondary2 rounded">
+          <FaSearch className="text-3xl" />
+        </button>
+      </Form>
+    </div>
   );
 };
 

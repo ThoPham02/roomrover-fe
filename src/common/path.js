@@ -37,9 +37,9 @@ export const BREADCRUMB_DETAIL = {
   DETAIL: "Chi tiết",
 
   [ROUTE_PATHS.DASHBOARD]: "Dashboard",
-  [ROUTE_PATHS.INVENTORY]: "Nhà trọ",
-  [ROUTE_PATHS.CONTRACT]: "Hợp đồng",
-  [ROUTE_PATHS.PAYMENT]: "Thanh toán",
+  [ROUTE_PATHS.INVENTORY]: "Danh sách nhà trọ",
+  [ROUTE_PATHS.CONTRACT]: "Danh sách hợp đồng",
+  [ROUTE_PATHS.PAYMENT]: "Hóa đơn thanh toán",
   [ROUTE_PATHS.NOTIFICATION]: "Thông báo",
   [ROUTE_PATHS.SETTINGS]: "Cài đặt",
 };

@@ -20,6 +20,7 @@ import {
   paymentPublicRoute,
 } from "../pages/payment/route";
 import { useSelector } from "react-redux";
+import { notificaionPrivateRoute } from "../pages/notification/route";
 
 const ProtectedRoute = ({
   element,
@@ -62,9 +63,9 @@ const router = createBrowserRouter([
       ...inventPrivateRoute,
       ...contractPrivateRoute,
       ...paymentPrivateRoute,
+      ...notificaionPrivateRoute,
     ],
   },
-  // Default redirect to home if no other routes match
   {
     path: "*",
     element: <Navigate to={ROUTE_PATHS.HOME} replace />,

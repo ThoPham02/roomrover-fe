@@ -32,19 +32,14 @@ const HouseScreen = () => {
 
   return (
     <>
-      <Breadcrumbs
-        title={BREADCRUMB_DETAIL[ROUTE_PATHS.INVENTORY]}
-        backRoute={ROUTE_PATHS.DASHBOARD}
-        backName={BREADCRUMB_DETAIL[ROUTE_PATHS.DASHBOARD]}
-        displayName={BREADCRUMB_DETAIL[ROUTE_PATHS.INVENTORY]}
-      />
+      <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.INVENTORY]} />
       <div className="relative">
         <CreateButton
           className="absolute -top-16 right-0 z-1"
           onClick={handleCreateHouse}
         />
 
-        <div>
+        <div className="mt-8">
           <SearchHouseForm />
           <ListHouses />
         </div>

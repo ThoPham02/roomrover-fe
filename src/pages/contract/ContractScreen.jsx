@@ -118,9 +118,6 @@ const ContractScreen = () => {
     <>
       <Breadcrumbs
         title={BREADCRUMB_DETAIL[ROUTE_PATHS.CONTRACT]}
-        backRoute={ROUTE_PATHS.DASHBOARD}
-        backName={BREADCRUMB_DETAIL[ROUTE_PATHS.DASHBOARD]}
-        displayName={BREADCRUMB_DETAIL[ROUTE_PATHS.CONTRACT]}
       />
       <div className="relative">
         <CreateButton
@@ -128,7 +125,7 @@ const ContractScreen = () => {
           onClick={handleCreateContract}
         />
 
-        <div>
+        <div className="mt-8">
           <div className="p-2 bg-slate-100 rounded">
             <Form
               className="flex flex-wrap gap-4 items-center mt-8"
@@ -166,7 +163,7 @@ const ContractScreen = () => {
               />
               <button
                 type="submit"
-                className="px-10 py-2 bg-secondary2 rounded"
+                className="px-8 py-2 bg-secondary2 rounded"
               >
                 <FaSearch className="text-3xl" />
               </button>
