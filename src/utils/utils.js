@@ -2,7 +2,12 @@ import { address } from "../common";
 
 export const convertTimestampToDate = (timestamp) => {
   const date = new Date(timestamp);
-  return date;
+  
+  const day = date.getDate().toString().padStart(2, '0');
+  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Tháng trong JavaScript bắt đầu từ 0
+  const year = date.getFullYear();
+  
+  return `${day}/${month}/${year}`;
 };
 
 export const convertDateToTimestamp = (date) => {
@@ -18,9 +23,13 @@ export const formatCurrencyVND = (number) => {
 
   return (
     number &&
-    number.toLocaleString("vi-VN", { style: "currency", currency: "VND" })
+    number.toLocaleString("vi-VN", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    })
   );
 };
+
 
 export const getProvince = (provinceID) => {
   provinceID = String(provinceID).padStart(2, "0");
