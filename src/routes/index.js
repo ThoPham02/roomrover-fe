@@ -21,6 +21,7 @@ import {
 } from "../pages/payment/route";
 import { useSelector } from "react-redux";
 import { notificaionPrivateRoute } from "../pages/notification/route";
+import { publicRoute } from "../pages/public/route";
 
 const ProtectedRoute = ({
   element,
@@ -42,7 +43,7 @@ const router = createBrowserRouter([
     path: ROUTE_PATHS.ROOT,
     element: <AuthLayout />,
     errorElement: <ErrorLayout />,
-    children: [...authRoute, ...inventPublicRoute],
+    children: [...authRoute, ...inventPublicRoute, ...publicRoute],
   },
   // Routes for users
   {

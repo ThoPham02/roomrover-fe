@@ -5,6 +5,7 @@ export const API_URL = {
 export const ROUTE_PATHS = {
   // public routes
   ROOT: "/",
+  HOUSE_DETAIL_PUBLIC: "/house-detail/:id",
   LOGIN: "/login",
   REGISTER: "/register",
 
@@ -16,7 +17,7 @@ export const ROUTE_PATHS = {
   // admin routes
   DASHBOARD: "/dashboard",
   INVENTORY: "/inventory",
-  HOUSE_DETAIL: "/house-detail/:id",
+  HOUSE_DETAIL: "/admin-house-detail/:id",
   HOUSE_UPDATE: "/house-update/:id",
   HOUSE_CREATE: "/house-create",
 
