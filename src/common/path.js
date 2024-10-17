@@ -16,7 +16,8 @@ export const ROUTE_PATHS = {
 
   // admin routes
   DASHBOARD: "/dashboard",
-  INVENTORY: "/inventory",
+  HOUSE: "/house",
+  ROOM: "/room",
   HOUSE_DETAIL: "/admin-house-detail/:id",
   HOUSE_UPDATE: "/house-update/:id",
   HOUSE_CREATE: "/house-create",
@@ -39,7 +40,8 @@ export const BREADCRUMB_DETAIL = {
   DETAIL: "Chi tiết",
 
   [ROUTE_PATHS.DASHBOARD]: "Dashboard",
-  [ROUTE_PATHS.INVENTORY]: "Danh sách nhà trọ",
+  [ROUTE_PATHS.HOUSE]: "Danh sách nhà trọ",
+  [ROUTE_PATHS.ROOM]: "Danh sách phòng trọ",
   [ROUTE_PATHS.CONTRACT]: "Danh sách hợp đồng",
   [ROUTE_PATHS.PAYMENT]: "Hóa đơn thanh toán",
   [ROUTE_PATHS.CONTACT]: "Liên hệ",

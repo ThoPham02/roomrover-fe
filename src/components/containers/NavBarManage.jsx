@@ -7,6 +7,7 @@ import {
 } from "react-icons/md";
 import { LiaFileContractSolid } from "react-icons/lia";
 // import { LuBellRing } from "react-icons/lu";
+import { MdOutlineMeetingRoom } from "react-icons/md";
 import { RiContactsBook3Line } from "react-icons/ri";
 import { IoSettingsOutline } from "react-icons/io5";
 
@@ -25,7 +26,12 @@ const NavBarManage = ({ isExpanded }) => {
     {
       icon: <MdOutlineHomeWork className="text-3xl" />,
       label: "Nhà trọ",
-      path: ROUTE_PATHS.INVENTORY,
+      path: ROUTE_PATHS.HOUSE,
+    },
+    {
+      icon: <MdOutlineMeetingRoom className="text-3xl" />,
+      label: "Phòng trọ",
+      path: ROUTE_PATHS.ROOM,
     },
     {
       icon: <LiaFileContractSolid className="text-3xl" />,

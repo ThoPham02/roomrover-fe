@@ -1,12 +1,21 @@
 import { Pagination } from "@mui/material";
 import { useState } from "react";
+import { Form } from "react-bootstrap";
 
-import { BREADCRUMB_DETAIL, PAGE_SIZE, ROUTE_PATHS } from "../../common";
+import {
+  BREADCRUMB_DETAIL,
+  CONTRACT_STATUS,
+  PAGE_SIZE,
+  ROUTE_PATHS,
+} from "../../../common";
 import {
   Breadcrumbs,
+  CusFormGroup,
+  CusFormSelect,
   CusTable,
   RoomActionButton,
-} from "../../components/ui";
+} from "../../../components/ui";
+import { FaSearch } from "react-icons/fa";
 
 const listFields = [
   {
@@ -47,8 +56,9 @@ const listFields = [
   },
 ];
 
-const ContactScreen = () => {
+const RoomScreen = () => {
   const [page, setPage] = useState(1);
+  const [filter, setFilter] = useState({});
 
   var data = [
     {
@@ -78,11 +88,60 @@ const ContactScreen = () => {
   ];
   var total = 100;
 
+  const handleSubmitFilter = (e) => {};
+
   return (
     <div>
-      <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.CONTACT]} />
+      <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.ROOM]} />
 
-      <div className="search-box"></div>
+      <div className="search-box p-2 bg-slate-100 rounded">
+        <Form
+          className="flex flex-wrap gap-4 items-center mt-8"
+          onSubmit={handleSubmitFilter}
+        >
+          <CusFormGroup
+            label="Tên phòng"
+            placeholder="Search..."
+            state={filter}
+            setState={setFilter}
+            keyName={"search"}
+            position="top"
+          />
+          {/* <CusFormDate
+            label={"Ngày tạo"}
+            placeholder={"Từ ngày"}
+            state={filter}
+            setState={setFilter}
+            keyName={"createFrom"}
+          />
+          <p>-</p>
+          <CusFormDate
+            placeholder={"Đến ngày"}
+            state={filter}
+            setState={setFilter}
+            keyName={"createTo"}
+          /> */}
+          <CusFormSelect
+            label="Loại phòng"
+            value={filter}
+            setValue={setFilter}
+            keyName={"status"}
+            data={CONTRACT_STATUS}
+            position="top"
+          />
+          <CusFormSelect
+            label={"Trạng thái"}
+            value={filter}
+            setValue={setFilter}
+            keyName={"status"}
+            data={CONTRACT_STATUS}
+            position="top"
+          />
+          <button type="submit" className="px-8 py-2 bg-secondary2 rounded">
+            <FaSearch className="text-3xl" />
+          </button>
+        </Form>
+      </div>
 
       <div className="table-box">
         <CusTable
@@ -116,4 +175,4 @@ const ContactScreen = () => {
   );
 };
 
-export default ContactScreen;
+export default RoomScreen;

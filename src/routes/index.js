@@ -38,6 +38,22 @@ const ProtectedRoute = ({
   );
 };
 
+// Define admin routes
+const adminRoutes = [
+  ...authPrivateRoute,
+  ...inventPrivateRoute,
+  ...contractPrivateRoute,
+  ...paymentPrivateRoute,
+  ...notificaionPrivateRoute,
+  ...contactPrivateRoute,
+];
+
+// Define user routes (role 2)
+const userRoutes = [
+  ...contractPublicRoute,
+  ...paymentPublicRoute,
+];
+
 const router = createBrowserRouter([
   // Public routes
   {
@@ -46,32 +62,19 @@ const router = createBrowserRouter([
     errorElement: <ErrorLayout />,
     children: [...authRoute, ...inventPublicRoute, ...publicRoute],
   },
-  // Routes for users
+  // Routes for role = 2 (User)
   {
-    path: ROUTE_PATHS.ROOT,
-    element: (
-      <ProtectedRoute element={<DefaultLayout />} allowedRoles={[1, 4]} />
-    ),
+    path: ROUTE_PATHS.USER,
+    element: <ProtectedRoute element={<ManageLayout />} allowedRoles={[2]} />,
     errorElement: <ErrorLayout />,
-    children: [...contractPublicRoute, ...paymentPublicRoute],
+    children: userRoutes,
   },
-  // Routes for admin
+  // Routes for role = 4 (Admin)
   {
-    path: ROUTE_PATHS.ROOT,
+    path: ROUTE_PATHS.ADMIN,
     element: <ProtectedRoute element={<ManageLayout />} allowedRoles={[4]} />,
     errorElement: <ErrorLayout />,
-    children: [
-      ...authPrivateRoute,
-      ...inventPrivateRoute,
-      ...contractPrivateRoute,
-      ...paymentPrivateRoute,
-      ...notificaionPrivateRoute,
-      ...contactPrivateRoute,
-    ],
-  },
-  {
-    path: "*",
-    element: <Navigate to={ROUTE_PATHS.HOME} replace />,
+    children: adminRoutes,
   },
 ]);
 

@@ -7,6 +7,10 @@ export const paymentPrivateRoute = [
   {
     id: "payment_screen",
     path: ROUTE_PATHS.PAYMENT,
-    element: <PaymentScreen />,
+    element: (
+      <div className="p-3 bg-white rounded">
+        <PaymentScreen />
+      </div>
+    ),
   },
 ];
