@@ -22,6 +22,7 @@ import {
 import { useSelector } from "react-redux";
 import { notificaionPrivateRoute } from "../pages/notification/route";
 import { publicRoute } from "../pages/public/route";
+import { contactPrivateRoute } from "../pages/contact/route";
 
 const ProtectedRoute = ({
   element,
@@ -65,6 +66,7 @@ const router = createBrowserRouter([
       ...contractPrivateRoute,
       ...paymentPrivateRoute,
       ...notificaionPrivateRoute,
+      ...contactPrivateRoute,
     ],
   },
   {

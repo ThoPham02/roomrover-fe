@@ -6,8 +6,8 @@ import {
   MdPayment,
 } from "react-icons/md";
 import { LiaFileContractSolid } from "react-icons/lia";
-import { LuBellRing } from "react-icons/lu";
-// import { TbReportMoney } from "react-icons/tb";
+// import { LuBellRing } from "react-icons/lu";
+import { RiContactsBook3Line } from "react-icons/ri";
 import { IoSettingsOutline } from "react-icons/io5";
 
 import logo from "../../assets/images/logo.png";
@@ -38,10 +38,15 @@ const NavBarManage = ({ isExpanded }) => {
       path: ROUTE_PATHS.PAYMENT,
     },
     {
-      icon: <LuBellRing className="text-3xl" />,
-      label: "Thông báo",
-      path: ROUTE_PATHS.NOTIFICATION,
+      icon: <RiContactsBook3Line className="text-3xl" />,
+      label: "Liên hệ",
+      path: ROUTE_PATHS.CONTACT,
     },
+    // {
+    //   icon: <LuBellRing className="text-3xl" />,
+    //   label: "Thông báo",
+    //   path: ROUTE_PATHS.NOTIFICATION,
+    // },
     {
       icon: <IoSettingsOutline className="text-3xl" />,
       label: "Cài đặt",

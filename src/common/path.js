@@ -22,6 +22,7 @@ export const ROUTE_PATHS = {
   HOUSE_CREATE: "/house-create",
 
   CONTRACT: "/contract",
+  CONTACT: "/contact",
   CONTRACT_CREATE: "/contract-create",
 
   PAYMENT: "/payment",
@@ -41,6 +42,7 @@ export const BREADCRUMB_DETAIL = {
   [ROUTE_PATHS.INVENTORY]: "Danh sách nhà trọ",
   [ROUTE_PATHS.CONTRACT]: "Danh sách hợp đồng",
   [ROUTE_PATHS.PAYMENT]: "Hóa đơn thanh toán",
+  [ROUTE_PATHS.CONTACT]: "Liên hệ",
   [ROUTE_PATHS.NOTIFICATION]: "Thông báo",
   [ROUTE_PATHS.SETTINGS]: "Cài đặt",
 };

@@ -115,10 +115,8 @@ const ContractScreen = () => {
     : [];
 
   return (
-    <>
-      <Breadcrumbs
-        title={BREADCRUMB_DETAIL[ROUTE_PATHS.CONTRACT]}
-      />
+    <div className="p-3 bg-white rounded">
+      <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.CONTRACT]} />
       <div className="relative">
         <CreateButton
           className="absolute -top-16 right-0 z-1"
@@ -161,10 +159,7 @@ const ContractScreen = () => {
                 data={CONTRACT_STATUS}
                 position="top"
               />
-              <button
-                type="submit"
-                className="px-8 py-2 bg-secondary2 rounded"
-              >
+              <button type="submit" className="px-8 py-2 bg-secondary2 rounded">
                 <FaSearch className="text-3xl" />
               </button>
             </Form>
@@ -199,7 +194,7 @@ const ContractScreen = () => {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

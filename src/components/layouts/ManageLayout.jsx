@@ -12,9 +12,7 @@ const ManageLayout = () => {
       <div className="relative flex flex-col flex-grow bg-gray-100">
         <HeaderManage isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
         <main className="flex-grow p-4 w-full mx-auto">
-          <div className="p-3 bg-white rounded">
-            <Outlet />
-          </div>
+          <Outlet />
         </main>
       </div>
     </div>
