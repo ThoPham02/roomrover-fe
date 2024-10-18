@@ -6,17 +6,24 @@ import HouseScreen from "./house/HouseScreen";
 import HouseUpdate from "./HouseUpdate";
 import RoomScreen from "./room/RoomScreen";
 
-export const inventPublicRoute = [
+export const inventPublicRoute = [];
+
+export const inventRenterRoute = [
   {
-    id: "home",
+    id: "dashboard_renter",
+    path: ROUTE_PATHS.DASHBOARD,
+    element: <HomeScreen />,
+  },
+  {
+    id: "home_renter",
     path: ROUTE_PATHS.HOME,
     element: <HomeScreen />,
   },
 ];
 
-export const inventPrivateRoute = [
+export const inventLessorRoute = [
   {
-    id: "dashboard",
+    id: "dashboard_lessor",
     path: ROUTE_PATHS.DASHBOARD,
     element: <HomeScreen />,
   },

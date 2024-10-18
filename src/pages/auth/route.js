@@ -16,10 +16,18 @@ export const authRoute = [
   },
 ];
 
-export const authPrivateRoute = [
+export const authRenterRoute = [
   {
-    id: "user-settings",
+    id: "user-settings-renter",
     path: ROUTE_PATHS.USER_SETTINGS,
     element: <UserSetting />,
-  },  
+  },
+];
+
+export const authLessorRoute = [
+  {
+    id: "user-settings-lessor",
+    path: ROUTE_PATHS.USER_SETTINGS,
+    element: <UserSetting />,
+  },
 ];

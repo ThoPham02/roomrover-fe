@@ -1,7 +1,7 @@
 import { ROUTE_PATHS } from "../../common";
 import ContactScreen from "./ContactScreen";
 
-export const contactPrivateRoute = [
+export const contactLessorRoute = [
   {
     id: "contact_screen",
     path: ROUTE_PATHS.CONTACT,

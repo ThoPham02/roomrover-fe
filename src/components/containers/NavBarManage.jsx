@@ -6,59 +6,81 @@ import {
   MdPayment,
 } from "react-icons/md";
 import { LiaFileContractSolid } from "react-icons/lia";
-// import { LuBellRing } from "react-icons/lu";
 import { MdOutlineMeetingRoom } from "react-icons/md";
 import { RiContactsBook3Line } from "react-icons/ri";
 import { IoSettingsOutline } from "react-icons/io5";
+import { useSelector } from "react-redux";
 
 import logo from "../../assets/images/logo.png";
-import { ROUTE_PATHS } from "../../common";
-import { useSelector } from "react-redux";
+import { ROUTE_PATHS, USER_ROLES } from "../../common";
 
 const NavBarManage = ({ isExpanded }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const menuItems = [
-    {
-      icon: <MdOutlineDashboardCustomize className="text-3xl" />,
-      label: "Dashboard",
-      path: ROUTE_PATHS.DASHBOARD,
-    },
-    {
-      icon: <MdOutlineHomeWork className="text-3xl" />,
-      label: "Nhà trọ",
-      path: ROUTE_PATHS.HOUSE,
-    },
-    {
-      icon: <MdOutlineMeetingRoom className="text-3xl" />,
-      label: "Phòng trọ",
-      path: ROUTE_PATHS.ROOM,
-    },
-    {
-      icon: <LiaFileContractSolid className="text-3xl" />,
-      label: "Hợp đồng",
-      path: ROUTE_PATHS.CONTRACT,
-    },
-    {
-      icon: <MdPayment className="text-3xl" />,
-      label: "Thanh toán",
-      path: ROUTE_PATHS.PAYMENT,
-    },
-    {
-      icon: <RiContactsBook3Line className="text-3xl" />,
-      label: "Liên hệ",
-      path: ROUTE_PATHS.CONTACT,
-    },
-    // {
-    //   icon: <LuBellRing className="text-3xl" />,
-    //   label: "Thông báo",
-    //   path: ROUTE_PATHS.NOTIFICATION,
-    // },
-    {
-      icon: <IoSettingsOutline className="text-3xl" />,
-      label: "Cài đặt",
-      path: ROUTE_PATHS.USER_SETTINGS,
-    },
-  ];
+  const { user } = useSelector((state) => state.auth);
+
+  console.log(user?.role);
+
+  const menuItems =
+    user?.role !== USER_ROLES.LESSOR
+      ? [
+          {
+            icon: <MdOutlineDashboardCustomize className="text-3xl" />,
+            label: "Dashboard",
+            path: ROUTE_PATHS.DASHBOARD,
+          },
+          {
+            icon: <LiaFileContractSolid className="text-3xl" />,
+            label: "Hợp đồng",
+            path: ROUTE_PATHS.CONTRACT,
+          },
+          {
+            icon: <MdPayment className="text-3xl" />,
+            label: "Thanh toán",
+            path: ROUTE_PATHS.PAYMENT,
+          },
+          {
+            icon: <IoSettingsOutline className="text-3xl" />,
+            label: "Cài đặt",
+            path: ROUTE_PATHS.USER_SETTINGS,
+          },
+        ]
+      : [
+          {
+            icon: <MdOutlineDashboardCustomize className="text-3xl" />,
+            label: "Dashboard",
+            path: ROUTE_PATHS.DASHBOARD,
+          },
+          {
+            icon: <MdOutlineHomeWork className="text-3xl" />,
+            label: "Nhà trọ",
+            path: ROUTE_PATHS.HOUSE,
+          },
+          {
+            icon: <MdOutlineMeetingRoom className="text-3xl" />,
+            label: "Phòng trọ",
+            path: ROUTE_PATHS.ROOM,
+          },
+          {
+            icon: <LiaFileContractSolid className="text-3xl" />,
+            label: "Hợp đồng",
+            path: ROUTE_PATHS.CONTRACT,
+          },
+          {
+            icon: <MdPayment className="text-3xl" />,
+            label: "Thanh toán",
+            path: ROUTE_PATHS.PAYMENT,
+          },
+          {
+            icon: <RiContactsBook3Line className="text-3xl" />,
+            label: "Liên hệ",
+            path: ROUTE_PATHS.CONTACT,
+          },
+          {
+            icon: <IoSettingsOutline className="text-3xl" />,
+            label: "Cài đặt",
+            path: ROUTE_PATHS.USER_SETTINGS,
+          },
+        ];
 
   const shouldExpand = isExpanded || isHovered;
   const { currentPage } = useSelector((state) => state.app);

@@ -1,57 +1,55 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import { AuthLayout, ErrorLayout, ManageLayout } from "../components/layouts";
 import { ROUTE_PATHS } from "../common/path";
-import { authPrivateRoute, authRoute } from "../pages/auth/route";
 import {
-  AuthLayout,
-  DefaultLayout,
-  ErrorLayout,
-  ManageLayout,
-} from "../components/layouts";
+  authLessorRoute,
+  authRenterRoute,
+  authRoute,
+} from "../pages/auth/route";
 import {
   inventPublicRoute,
-  inventPrivateRoute,
+  inventLessorRoute,
+  inventRenterRoute,
 } from "../pages/inventory/route";
 import {
-  contractPrivateRoute,
-  contractPublicRoute,
+  contractLessorRoute,
+  contractRenterRoute,
 } from "../pages/contract/route";
-import {
-  paymentPrivateRoute,
-  paymentPublicRoute,
-} from "../pages/payment/route";
-import { useSelector } from "react-redux";
+import { paymentLessorRoute, paymentRenterRoute } from "../pages/payment/route";
 import { notificaionPrivateRoute } from "../pages/notification/route";
 import { publicRoute } from "../pages/public/route";
-import { contactPrivateRoute } from "../pages/contact/route";
+import { contactLessorRoute } from "../pages/contact/route";
 
 const ProtectedRoute = ({
   element,
   allowedRoles,
-  redirectPath = ROUTE_PATHS.HOME,
+  redirectPath = ROUTE_PATHS.ROOT,
 }) => {
   const { user } = useSelector((state) => state.auth);
 
-  return user && allowedRoles.includes(user.role ? user.role : 1) ? (
+  return user && allowedRoles.includes(user.role ? user.role : 2) ? (
     element
   ) : (
     <Navigate to={redirectPath} replace />
   );
 };
 
-// Define admin routes
-const adminRoutes = [
-  ...authPrivateRoute,
-  ...inventPrivateRoute,
-  ...contractPrivateRoute,
-  ...paymentPrivateRoute,
-  ...notificaionPrivateRoute,
-  ...contactPrivateRoute,
+const renterRoutes = [
+  ...authRenterRoute,
+  ...inventRenterRoute,
+  ...contractRenterRoute,
+  ...paymentRenterRoute,
 ];
 
-// Define user routes (role 2)
-const userRoutes = [
-  ...contractPublicRoute,
-  ...paymentPublicRoute,
+const lessorRoutes = [
+  ...authLessorRoute,
+  ...inventLessorRoute,
+  ...contractLessorRoute,
+  ...paymentLessorRoute,
+  ...contactLessorRoute,
+  ...notificaionPrivateRoute,
 ];
 
 const router = createBrowserRouter([
@@ -62,19 +60,19 @@ const router = createBrowserRouter([
     errorElement: <ErrorLayout />,
     children: [...authRoute, ...inventPublicRoute, ...publicRoute],
   },
-  // Routes for role = 2 (User)
+  // Routes for role = 2 (Renter role)
   {
-    path: ROUTE_PATHS.USER,
+    path: ROUTE_PATHS.ROOT,
     element: <ProtectedRoute element={<ManageLayout />} allowedRoles={[2]} />,
     errorElement: <ErrorLayout />,
-    children: userRoutes,
+    children: renterRoutes,
   },
-  // Routes for role = 4 (Admin)
+  // Routes for role = 4 (Lessor role)
   {
-    path: ROUTE_PATHS.ADMIN,
+    path: ROUTE_PATHS.ROOT,
     element: <ProtectedRoute element={<ManageLayout />} allowedRoles={[4]} />,
     errorElement: <ErrorLayout />,
-    children: adminRoutes,
+    children: lessorRoutes,
   },
 ]);
 

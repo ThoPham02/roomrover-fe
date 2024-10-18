@@ -1,11 +1,10 @@
 import { Pagination } from "@mui/material";
+import { useEffect, useState } from "react";
+
+import { Breadcrumbs, CusTable, RoomActionButton } from "../../components/ui";
 import { BREADCRUMB_DETAIL, PAGE_SIZE, ROUTE_PATHS } from "../../common";
-import {
-  Breadcrumbs,
-  CusTable,
-  RoomActionButton,
-} from "../../components/ui";
-import { useState } from "react";
+import * as actions from "../../store/actions";
+import { useDispatch } from "react-redux";
 
 const listFields = [
   {
@@ -82,6 +81,19 @@ const PaymentScreen = () => {
     },
   ];
   var total = 100;
+
+  const dispatch = useDispatch();
+  // const [filter, setFilter] = useState({});
+
+  useEffect(() => {
+    dispatch(actions.setCurrentPage(ROUTE_PATHS.PAYMENT));
+    dispatch(
+      actions.getListContract({
+        limit: PAGE_SIZE,
+        offset: 0,
+      })
+    );
+  }, [dispatch]);
 
   return (
     <div>
