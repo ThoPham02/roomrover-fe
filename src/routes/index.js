@@ -60,19 +60,19 @@ const router = createBrowserRouter([
     errorElement: <ErrorLayout />,
     children: [...authRoute, ...inventPublicRoute, ...publicRoute],
   },
-  // Routes for role = 2 (Renter role)
-  {
-    path: ROUTE_PATHS.ROOT,
-    element: <ProtectedRoute element={<ManageLayout />} allowedRoles={[2]} />,
-    errorElement: <ErrorLayout />,
-    children: renterRoutes,
-  },
   // Routes for role = 4 (Lessor role)
   {
     path: ROUTE_PATHS.ROOT,
     element: <ProtectedRoute element={<ManageLayout />} allowedRoles={[4]} />,
     errorElement: <ErrorLayout />,
     children: lessorRoutes,
+  },
+  // Routes for role = 2 (Renter role)
+  {
+    path: ROUTE_PATHS.ROOT,
+    element: <ProtectedRoute element={<ManageLayout />} allowedRoles={[2]} />,
+    errorElement: <ErrorLayout />,
+    children: renterRoutes,
   },
 ]);
 

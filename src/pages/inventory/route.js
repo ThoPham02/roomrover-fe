@@ -11,7 +11,7 @@ export const inventPublicRoute = [];
 export const inventRenterRoute = [
   {
     id: "dashboard_renter",
-    path: ROUTE_PATHS.DASHBOARD,
+    path: ROUTE_PATHS.RENTER_DASHBOARD,
     element: <HomeScreen />,
   },
   {

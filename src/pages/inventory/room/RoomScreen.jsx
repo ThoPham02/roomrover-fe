@@ -1,6 +1,8 @@
 import { Pagination } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
+import { FaSearch } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 
 import {
   BREADCRUMB_DETAIL,
@@ -15,7 +17,7 @@ import {
   CusTable,
   RoomActionButton,
 } from "../../../components/ui";
-import { FaSearch } from "react-icons/fa";
+import * as actions from "../../../store/actions";
 
 const listFields = [
   {
@@ -57,8 +59,13 @@ const listFields = [
 ];
 
 const RoomScreen = () => {
+  const dispatch = useDispatch();
+
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState({});
+  useEffect(() => {
+    dispatch(actions.setCurrentPage(ROUTE_PATHS.ROOM));
+  }, [dispatch]);
 
   var data = [
     {

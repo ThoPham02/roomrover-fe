@@ -21,7 +21,7 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    isLogined && navigate(ROUTE_PATHS.HOME);
+    isLogined && navigate(ROUTE_PATHS.ROOT);
   }, [isLogined, navigate]);
 
   const handleSubmit = (event) => {

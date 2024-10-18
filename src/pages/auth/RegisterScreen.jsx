@@ -49,7 +49,7 @@ const RegisterScreen = () => {
   const { isLogined } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    isLogined && navigate(ROUTE_PATHS.HOME);
+    isLogined && navigate(ROUTE_PATHS.ROOT);
   }, [isLogined, navigate]);
 
   return (

@@ -26,22 +26,22 @@ const NavBarManage = ({ isExpanded }) => {
           {
             icon: <MdOutlineDashboardCustomize className="text-3xl" />,
             label: "Dashboard",
-            path: ROUTE_PATHS.DASHBOARD,
+            path: ROUTE_PATHS.RENTER_DASHBOARD,
           },
           {
             icon: <LiaFileContractSolid className="text-3xl" />,
             label: "Hợp đồng",
-            path: ROUTE_PATHS.CONTRACT,
+            path: ROUTE_PATHS.RENTER_CONTRACT,
           },
           {
             icon: <MdPayment className="text-3xl" />,
             label: "Thanh toán",
-            path: ROUTE_PATHS.PAYMENT,
+            path: ROUTE_PATHS.RENTER_PAYMENT,
           },
           {
             icon: <IoSettingsOutline className="text-3xl" />,
             label: "Cài đặt",
-            path: ROUTE_PATHS.USER_SETTINGS,
+            path: ROUTE_PATHS.RENTER_USER_SETTINGS,
           },
         ]
       : [
@@ -95,7 +95,7 @@ const NavBarManage = ({ isExpanded }) => {
         onMouseLeave={() => setIsHovered(false)}
       >
         <div className="flex flex-col h-full text-black">
-          <Link to={ROUTE_PATHS.HOME}>
+          <Link to={ROUTE_PATHS.ROOT}>
             <div
               className={`flex items-center p-4 ${
                 shouldExpand ? "text-left" : "text-center justify-center"

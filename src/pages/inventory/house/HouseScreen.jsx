@@ -21,7 +21,7 @@ const HouseScreen = () => {
       limit: PAGE_SIZE,
       offset: 0,
     };
-    dispatch(actions.setCurrentPage(ROUTE_PATHS.INVENTORY));
+    dispatch(actions.setCurrentPage(ROUTE_PATHS.HOUSE));
     dispatch(actions.clearSearchParams());
     dispatch(actions.getListHouses(data));
   }, [dispatch]);

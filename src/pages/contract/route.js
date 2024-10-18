@@ -4,14 +4,9 @@ import ContractScreen from "./ContractScreen";
 
 export const contractRenterRoute = [
   {
-    id: "contract_screen_2",
-    path: ROUTE_PATHS.CONTRACT,
+    id: "renter_contract_screen",
+    path: ROUTE_PATHS.RENTER_CONTRACT,
     element: <ContractScreen />,
-  },
-  {
-    id: "contract_create_2",
-    path: ROUTE_PATHS.CONTRACT_CREATE,
-    element: <ContractCreate />,
   },
 ];
 

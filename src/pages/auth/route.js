@@ -19,7 +19,7 @@ export const authRoute = [
 export const authRenterRoute = [
   {
     id: "user-settings-renter",
-    path: ROUTE_PATHS.USER_SETTINGS,
+    path: ROUTE_PATHS.RENTER_USER_SETTINGS,
     element: <UserSetting />,
   },
 ];

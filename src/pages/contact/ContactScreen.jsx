@@ -1,12 +1,10 @@
 import { Pagination } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 import { BREADCRUMB_DETAIL, PAGE_SIZE, ROUTE_PATHS } from "../../common";
-import {
-  Breadcrumbs,
-  CusTable,
-  RoomActionButton,
-} from "../../components/ui";
+import { Breadcrumbs, CusTable, RoomActionButton } from "../../components/ui";
+import * as actions from "../../store/actions";
 
 const listFields = [
   {
@@ -25,13 +23,13 @@ const listFields = [
     header: "Diện tích",
     headerClass: "text-center w-32",
     accessorKey: "area",
-    dataClass: "",
+    dataClass: "text-centerbujm.n nmmmmmmmmmmmmm                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ",
   },
   {
     header: "Số người tối đa",
-    headerClass: "text-center w-96",
+    headerClass: "text-center w-32",
     accessorKey: "maxPeople",
-    dataClass: "",
+    dataClass: "text-center",
   },
   {
     header: "Giá thuê",
@@ -48,7 +46,12 @@ const listFields = [
 ];
 
 const ContactScreen = () => {
+  const dispatch = useDispatch();
+
   const [page, setPage] = useState(1);
+  useEffect(() => {
+    dispatch(actions.setCurrentPage(ROUTE_PATHS.CONTACT));
+  }, [dispatch]);
 
   var data = [
     {

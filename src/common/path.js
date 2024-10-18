@@ -9,23 +9,25 @@ export const ROUTE_PATHS = {
   LOGIN: "/login",
   REGISTER: "/register",
 
-  // user routes
+  // renter routes
+  RENTER_DASHBOARD: "/renter/dashboard",
+  RENTER_CONTRACT: "/renter/contract",
+  RENTER_PAYMENT: "/renter/payment",
+  RENTER_USER_SETTINGS: "/renter/user-settings",
+
+  // lessor routes
   HOME: "/home",
   ERROR: "/error",
   USER_SETTINGS: "/user-settings",
-
-  // admin routes
   DASHBOARD: "/dashboard",
   HOUSE: "/house",
   ROOM: "/room",
   HOUSE_DETAIL: "/admin-house-detail/:id",
   HOUSE_UPDATE: "/house-update/:id",
   HOUSE_CREATE: "/house-create",
-
   CONTRACT: "/contract",
   CONTACT: "/contact",
   CONTRACT_CREATE: "/contract-create",
-
   PAYMENT: "/payment",
   NOTIFICATION: "/notification",
   SETTINGS: "/settings",
