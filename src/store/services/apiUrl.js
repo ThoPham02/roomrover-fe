@@ -1,4 +1,19 @@
 export const ApiUrl = {
+  // auth
+  FilterUser: {
+    url: "/users/filter",
+    method: "get",
+  },
+  GetUser: {
+    url: "/users/:id",
+    method: "get",
+  },
+  UpdateUser: {
+    url: "/users/:id",
+    method: "put",
+  },
+
+  // invent
   FilterHouses: {
     url: "/invent/house/filter",
     method: "get",
@@ -65,10 +80,19 @@ export const ApiUrl = {
     url: "/invent/room/:id",
     method: "delete",
   },
+  FilterRoom: {
+    url: "/invent/room/filter",
+    method: "get",
+  },
 
-  // contract 
+  // contract
   FilterContracts: {
     url: "/contract/filter",
     method: "get",
-  }
+  },
+
+  CreateContract: {
+    url: "/contract",
+    method: "post",
+  },
 };

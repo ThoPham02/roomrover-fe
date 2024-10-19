@@ -212,3 +212,13 @@ export const getRoom = async (id) => {
     return error;
   }
 };
+
+export const apiFilterRoom = async (filters) => {
+  try {
+    const response = await axios({ ...ApiUrl.FilterRoom, params: filters });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+}

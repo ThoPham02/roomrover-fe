@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { MdOutlineHomeWork } from "react-icons/md";
 
 import defaultAvatar from "../../assets/images/default_avatar.png";
-import { ROUTE_PATHS } from "../../common";
+import { ROUTE_PATHS, USER_ROLES } from "../../common";
 import * as actions from "../../store/actions";
 
 const User = () => {
@@ -59,7 +59,11 @@ const User = () => {
             </div>
 
             <Link
-              to={ROUTE_PATHS.DASHBOARD}
+              to={
+                user?.role === USER_ROLES.LESSOR
+                  ? ROUTE_PATHS.DASHBOARD
+                  : ROUTE_PATHS.RENTER_DASHBOARD
+              }
               className="py-2 px-7 mt-4 d-flex align-items-center group"
             >
               <span className="d-flex align-items-center justify-content-center bg-info-subtle rounded p-3 fs-7 text-info">
@@ -74,7 +78,11 @@ const User = () => {
             </Link>
 
             <Link
-              to={ROUTE_PATHS.USER_SETTINGS}
+              to={
+                user?.role === USER_ROLES.LESSOR
+                  ? ROUTE_PATHS.USER_SETTINGS
+                  : ROUTE_PATHS.RENTER_USER_SETTINGS
+              }
               className="py-2 px-7 mt-4 d-flex align-items-center group"
             >
               <span className="d-flex align-items-center justify-content-center bg-info-subtle rounded p-3 fs-7 text-info">

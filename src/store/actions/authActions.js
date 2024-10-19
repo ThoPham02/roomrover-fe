@@ -1,4 +1,4 @@
-import { apiLogin, apiRegister } from "../services/authServices";
+import { apiLogin, apiRegister, apiUpdateUser } from "../services/authServices";
 import actionTypes from "./actionTypes";
 
 export const register = (payload) => async (dispatch) => {
@@ -51,3 +51,25 @@ export const logout = () => ({
 export const getCurrentUser = () => ({
   type: actionTypes.GET_CURRENT_USER,
 });
+
+export const updateCurrentUser = (payload) => async (dispatch) => {
+  try {
+    const data = await apiUpdateUser(payload);
+    if (data?.result.code === 0) {
+      dispatch({
+        type: actionTypes.UPDATE_CURRENT_USER,
+        data: data,
+      });
+    } else {
+      dispatch({
+        type: actionTypes.UPDATE_CURRENT_USER_SUCCESS,
+        data: data,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: actionTypes.UPDATE_CURRENT_USER_FAIL,
+      data: payload,
+    });
+  }
+};

@@ -84,7 +84,6 @@ const HouseCreate = () => {
       });
 
       if (res.result.code === 0) {
-        console.log("Create House Success:", res);
         navigate(ROUTE_PATHS.HOUSE_DETAIL.replace(":id", res.house.houseID));
       }
     } catch (error) {
@@ -95,11 +94,9 @@ const HouseCreate = () => {
 
   const handleSelectTab = (selectedKey) => {
     setTab(selectedKey);
-  }
+  };
 
-  useEffect(() => {
-
-  }, [tab])
+  useEffect(() => {}, [tab]);
 
   return (
     <div className="house-create">

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Breadcrumbs = ({ title, backRoute, backName, displayName }) => {
   return (
     <div>
-      <h1 className="font-bold text-xl mb-1">{title}</h1>
+      <h1 className="font-semibold text-lg mb-1">{title}</h1>
 
       {backName && (
         <Breadcrumb>

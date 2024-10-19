@@ -1,6 +1,7 @@
 import { ROUTE_PATHS } from "../../common/path";
 import LoginScreen from "./LoginScreen";
 import RegisterScreen from "./RegisterScreen";
+import UserSetting from "./UserSetting";
 
 export const authRoute = [
   {
@@ -15,10 +16,18 @@ export const authRoute = [
   },
 ];
 
-export const authPrivateRoute = [
+export const authRenterRoute = [
   {
-    id: "user-settings",
+    id: "user-settings-renter",
+    path: ROUTE_PATHS.RENTER_USER_SETTINGS,
+    element: <UserSetting />,
+  },
+];
+
+export const authLessorRoute = [
+  {
+    id: "user-settings-lessor",
     path: ROUTE_PATHS.USER_SETTINGS,
-    element: <LoginScreen />,
-  },  
+    element: <UserSetting />,
+  },
 ];

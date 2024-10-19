@@ -1,35 +1,57 @@
 import { FaSearch } from "react-icons/fa";
 import { Form } from "react-bootstrap";
-import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 
-import { InputForm } from ".";
 import * as actions from "../../store/actions";
-import { PAGE_SIZE } from "../../common";
+import { HOUSE_ROOM_STATUS, HOUSE_TYPE, PAGE_SIZE } from "../../common";
+import { useState } from "react";
+import { CusFormGroup, CusFormSelect } from "./CusForm";
 
 const SearchHouseForm = () => {
   const dispatch = useDispatch();
-  const { register, handleSubmit } = useForm();
+  const [filter, setFilter] = useState({});
 
-  const onSubmit = (data, e) => {
+  const handleSubmitFilter = (e) => {
     e.preventDefault();
-    data.limit = PAGE_SIZE;
-    data.offset = 0;
-    dispatch(actions.getListHouses(data));
+    setFilter((filter) => ({ ...filter, limit: PAGE_SIZE, offset: 0 }));
+    dispatch(actions.getListHouses(filter));
   };
 
   return (
-    <Form className="flex flex-wrap gap-4" onSubmit={handleSubmit(onSubmit)}>
-      <InputForm
-        placeholder="Search house"
-        fieldValues={register}
-        label={"search"}
-      />
-
-      <button type="submit">
-        <FaSearch className="text-3xl" />
-      </button>
-    </Form>
+    <div className="search-box p-2 bg-slate-100 rounded">
+      <Form
+        className="flex flex-wrap gap-4 items-center mt-8"
+        onSubmit={handleSubmitFilter}
+      >
+        <CusFormGroup
+          label="Tên phòng"
+          placeholder="Search..."
+          state={filter}
+          setState={setFilter}
+          keyName={"search"}
+          position="top"
+        />
+        <CusFormSelect
+          label="Loại phòng"
+          value={filter}
+          setValue={setFilter}
+          keyName={"type"}
+          data={HOUSE_TYPE}
+          position="top"
+        />
+        <CusFormSelect
+          label={"Trạng thái"}
+          value={filter}
+          setValue={setFilter}
+          keyName={"status"}
+          data={HOUSE_ROOM_STATUS}
+          position="top"
+        />
+        <button type="submit" className="px-8 py-2 bg-secondary2 rounded">
+          <FaSearch className="text-3xl" />
+        </button>
+      </Form>
+    </div>
   );
 };
 

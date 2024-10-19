@@ -1,39 +1,56 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import { AuthLayout, ErrorLayout, ManageLayout } from "../components/layouts";
 import { ROUTE_PATHS } from "../common/path";
-import { authPrivateRoute, authRoute } from "../pages/auth/route";
 import {
-  AuthLayout,
-  DefaultLayout,
-  ErrorLayout,
-  ManageLayout,
-} from "../components/layouts";
+  authLessorRoute,
+  authRenterRoute,
+  authRoute,
+} from "../pages/auth/route";
 import {
   inventPublicRoute,
-  inventPrivateRoute,
+  inventLessorRoute,
+  inventRenterRoute,
 } from "../pages/inventory/route";
 import {
-  contractPrivateRoute,
-  contractPublicRoute,
+  contractLessorRoute,
+  contractRenterRoute,
 } from "../pages/contract/route";
-import {
-  paymentPrivateRoute,
-  paymentPublicRoute,
-} from "../pages/payment/route";
-import { useSelector } from "react-redux";
+import { paymentLessorRoute, paymentRenterRoute } from "../pages/payment/route";
+import { notificaionPrivateRoute } from "../pages/notification/route";
+import { publicRoute } from "../pages/public/route";
+import { contactLessorRoute } from "../pages/contact/route";
 
 const ProtectedRoute = ({
   element,
   allowedRoles,
-  redirectPath = ROUTE_PATHS.HOME,
+  redirectPath = ROUTE_PATHS.ROOT,
 }) => {
   const { user } = useSelector((state) => state.auth);
 
-  return user && allowedRoles.includes(user.role ? user.role : 1) ? (
+  return user && allowedRoles.includes(user.role ? user.role : 2) ? (
     element
   ) : (
     <Navigate to={redirectPath} replace />
   );
 };
+
+const renterRoutes = [
+  ...authRenterRoute,
+  ...inventRenterRoute,
+  ...contractRenterRoute,
+  ...paymentRenterRoute,
+];
+
+const lessorRoutes = [
+  ...authLessorRoute,
+  ...inventLessorRoute,
+  ...contractLessorRoute,
+  ...paymentLessorRoute,
+  ...contactLessorRoute,
+  ...notificaionPrivateRoute,
+];
 
 const router = createBrowserRouter([
   // Public routes
@@ -41,33 +58,21 @@ const router = createBrowserRouter([
     path: ROUTE_PATHS.ROOT,
     element: <AuthLayout />,
     errorElement: <ErrorLayout />,
-    children: [...authRoute, ...inventPublicRoute],
+    children: [...authRoute, ...inventPublicRoute, ...publicRoute],
   },
-  // Routes for users
-  {
-    path: ROUTE_PATHS.ROOT,
-    element: (
-      <ProtectedRoute element={<DefaultLayout />} allowedRoles={[1, 4]} />
-    ),
-    errorElement: <ErrorLayout />,
-    children: [...contractPublicRoute, ...paymentPublicRoute],
-  },
-  // Routes for admin
+  // Routes for role = 4 (Lessor role)
   {
     path: ROUTE_PATHS.ROOT,
     element: <ProtectedRoute element={<ManageLayout />} allowedRoles={[4]} />,
     errorElement: <ErrorLayout />,
-    children: [
-      ...authPrivateRoute,
-      ...inventPrivateRoute,
-      ...contractPrivateRoute,
-      ...paymentPrivateRoute,
-    ],
+    children: lessorRoutes,
   },
-  // Default redirect to home if no other routes match
+  // Routes for role = 2 (Renter role)
   {
-    path: "*",
-    element: <Navigate to={ROUTE_PATHS.HOME} replace />,
+    path: ROUTE_PATHS.ROOT,
+    element: <ProtectedRoute element={<ManageLayout />} allowedRoles={[2]} />,
+    errorElement: <ErrorLayout />,
+    children: renterRoutes,
   },
 ]);
 
