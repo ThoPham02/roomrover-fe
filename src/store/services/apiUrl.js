@@ -84,6 +84,10 @@ export const ApiUrl = {
     url: "/invent/room/filter",
     method: "get",
   },
+  UpdateRoomStatus: {
+    url: "/invent/room/:id/status",
+    method: "put",
+  },
 
   // contract
   FilterContracts: {

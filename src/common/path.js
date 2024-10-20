@@ -20,16 +20,24 @@ export const ROUTE_PATHS = {
   ERROR: "/error",
   USER_SETTINGS: "/user-settings",
   DASHBOARD: "/dashboard",
-  HOUSE: "/house",
+
   ROOM: "/room",
-  HOUSE_DETAIL: "/admin-house-detail/:id",
+  ROOM_DETAIL: "/room-detail/:id",
+
+  HOUSE: "/house",
+  HOUSE_DETAIL: "/house-detail/:id",
   HOUSE_UPDATE: "/house-update/:id",
   HOUSE_CREATE: "/house-create",
+
   CONTRACT: "/contract",
-  CONTACT: "/contact",
   CONTRACT_CREATE: "/contract-create",
+
+  CONTACT: "/contact",
+
   PAYMENT: "/payment",
+
   NOTIFICATION: "/notification",
+  
   SETTINGS: "/settings",
 };
 

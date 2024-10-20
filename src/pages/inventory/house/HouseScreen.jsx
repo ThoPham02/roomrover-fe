@@ -21,13 +21,14 @@ const HouseScreen = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const data = {
-      limit: PAGE_SIZE,
-      offset: 0,
-    };
     dispatch(actions.setCurrentPage(ROUTE_PATHS.HOUSE));
     dispatch(actions.clearSearchParams());
-    dispatch(actions.getListHouses(data));
+    dispatch(
+      actions.getListHouses({
+        limit: PAGE_SIZE,
+        offset: 0,
+      })
+    );
   }, [dispatch]);
 
   const handleCreateHouse = () => {

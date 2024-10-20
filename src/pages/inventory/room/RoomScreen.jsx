@@ -2,12 +2,14 @@ import { Pagination } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   BREADCRUMB_DETAIL,
-  CONTRACT_STATUS,
+  HOUSE_ROOM_STATUS,
+  HOUSE_TYPE,
   PAGE_SIZE,
+  RoomStatusComponent,
   ROUTE_PATHS,
 } from "../../../../src/common";
 import {
@@ -18,16 +20,17 @@ import {
   RoomActionButton,
 } from "../../../../src/components/ui";
 import * as actions from "../../../../src/store/actions";
+import { formatCurrencyVND } from "../../../utils/utils";
 
 const listFields = [
   {
     header: "Tên phòng",
     headerClass: "text-center w-96",
     accessorKey: "name",
-    dataClass: "text-center",
+    dataClass: "",
   },
   {
-    header: "Loại phòng",
+    header: "Loại hình",
     headerClass: "text-center w-32",
     accessorKey: "type",
     dataClass: "text-center",
@@ -36,24 +39,24 @@ const listFields = [
     header: "Diện tích",
     headerClass: "text-center w-32",
     accessorKey: "area",
-    dataClass: "",
+    dataClass: "text-center",
   },
   {
     header: "Số người tối đa",
-    headerClass: "text-center w-96",
-    accessorKey: "maxPeople",
-    dataClass: "",
+    headerClass: "text-center w-32",
+    accessorKey: "capacity",
+    dataClass: "text-center",
   },
   {
     header: "Giá thuê",
     headerClass: "text-center w-32",
     accessorKey: "price",
-    dataClass: "",
+    dataClass: "text-center",
   },
   {
     header: "Trạng thái",
-    headerClass: "text-center w-32",
-    accessorKey: "status",
+    headerClass: "text-center w-48",
+    accessorKey: "statusComponent",
     dataClass: "text-center",
   },
 ];
@@ -62,40 +65,43 @@ const RoomScreen = () => {
   const dispatch = useDispatch();
 
   const [page, setPage] = useState(1);
-  const [filter, setFilter] = useState({});
+  const [filter, setFilter] = useState({
+    limit: PAGE_SIZE,
+    offset: 0,
+    search: "",
+    type: 0,
+    status: 0,
+  });
+
   useEffect(() => {
     dispatch(actions.setCurrentPage(ROUTE_PATHS.ROOM));
+    dispatch(
+      actions.getListRooms({
+        limit: PAGE_SIZE,
+        offset: 0,
+      })
+    );
   }, [dispatch]);
 
-  var data = [
-    {
-      name: "Phòng 1",
-      type: "Phòng trọ",
-      area: "10m2",
-      maxPeople: 2,
-      price: "1.000.000",
-      status: "Đã cho thuê",
-    },
-    {
-      name: "Phòng 2",
-      type: "Phòng trọ",
-      area: "15m2",
-      maxPeople: 3,
-      price: "1.500.000",
-      status: "Chưa cho thuê",
-    },
-    {
-      name: "Phòng 3",
-      type: "Phòng trọ",
-      area: "20m2",
-      maxPeople: 4,
-      price: "2.000.000",
-      status: "Đã cho thuê",
-    },
-  ];
-  var total = 100;
+  const { listRooms, total } = useSelector((state) => state.invent.room);
+  var data = listRooms?.map((item) => {
+    return {
+      id: item.roomID,
+      name: `${item.name} (${item.houseName})`,
+      type: HOUSE_TYPE[item.type].name,
+      area: item.area + "m2",
+      capacity: item.capacity === 0 ? "Không giới hạn" : item.capacity,
+      price: formatCurrencyVND(item.price) + " VND",
+      statusComponent: RoomStatusComponent[item.status],
+      status: item.status,
+    };
+  }) || [];
 
-  const handleSubmitFilter = (e) => {};
+  const handleSubmitFilter = (e) => {
+    e.preventDefault();
+
+    dispatch(actions.getListRooms(filter));
+  };
 
   return (
     <div>
@@ -118,8 +124,8 @@ const RoomScreen = () => {
             label="Loại phòng"
             value={filter}
             setValue={setFilter}
-            keyName={"status"}
-            data={CONTRACT_STATUS}
+            keyName={"type"}
+            data={HOUSE_TYPE}
             position="top"
           />
           <CusFormSelect
@@ -127,7 +133,7 @@ const RoomScreen = () => {
             value={filter}
             setValue={setFilter}
             keyName={"status"}
-            data={CONTRACT_STATUS}
+            data={HOUSE_ROOM_STATUS}
             position="top"
           />
           <button type="submit" className="px-8 py-2 bg-secondary2 rounded">

@@ -3,9 +3,13 @@ import actionTypes from "../actions/actionTypes";
 const initialState = {
   house: {
     searchParams: {},
-    page: 0,
     total: 0,
     listHouse: [],
+  },
+  room: {
+    listRooms: [],
+    total: 0,
+    searchParams: {},
   },
 };
 
@@ -90,6 +94,25 @@ const inventReducer = (state = initialState, action) => {
         house: {
           ...state.house,
           houseRoom: [],
+        },
+      };
+
+    case actionTypes.SEARCH_ROOM_SUCCESS:
+      return {
+        ...state,
+        room: {
+          ...state.room,
+          listRooms: action.data.rooms,
+          total: action.data.total,
+        },
+      };
+
+    case actionTypes.UPDATE_ROOM_SEARCH_PARAMS:
+      return {
+        ...state,
+        room: {
+          ...state.room,
+          searchParams: action.data,
         },
       };
 

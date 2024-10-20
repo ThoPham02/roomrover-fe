@@ -10,6 +10,8 @@ export const USER_ROLES = {
   LESSOR: 4, // nguoi cho thue
 };
 
+export const PAGE_SIZE = 10;
+
 export const GENDER_TYPE = {
   1: { name: "Nam" },
   2: { name: "Nữ" },
@@ -30,20 +32,13 @@ export const HOUSE_SERVICE_TYPE = {
 };
 
 export const HOUSE_ROOM_STATUS = {
-  1: { name: "Trống" },
-  2: { name: "Đã thuê" },
-  4: { name: "Đã đặt cọc" },
-  8: { name: "Đã hết hạn" },
-};
-
-export const HOUSE_STATUS = {
   1: { name: "Chờ xác nhận" },
-  2: { name: "Đang cho thuê" },
-  4: { name: "Tạm dừng" },
-  8: { name: "Hết phòng" },
+  2: { name: "Sẵn sàng cho thuê" },
+  4: { name: "Đã được thuê" },
+  8: { name: "Sắp hết hạn" },
+  16: { name: "Tìm nhượng" },
 };
 
-export const PAGE_SIZE = 10;
 
 export const CONTRACT_STATUS = {
   1: { name: "Chờ xác nhận" },

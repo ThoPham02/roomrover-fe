@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { PAGE_SIZE, ROUTE_PATHS } from "../../../common";
+import { ROUTE_PATHS } from "../../../common";
 import * as actions from "../../../store/actions";
+import { apiUpdateRoomStatus } from "../../../store/services/inventServices";
 
 const RoomActionButton = ({ item }) => {
   const navigate = useNavigate();
@@ -16,11 +17,28 @@ const RoomActionButton = ({ item }) => {
   const handleMouseLeave = () => setIsMenuOpen(false);
 
   const handleDetailBtn = () => {
-    // navigate(ROUTE_PATHS.HOUSE_DETAIL.replace(":id", item.id));
+    navigate(ROUTE_PATHS.ROOM_DETAIL.replace(":id", item.id));
   };
 
-  const handleUpdateBtn = () => {
-    // navigate(ROUTE_PATHS.HOUSE_UPDATE.replace(":id", item.id));
+  const { searchParams } = useSelector((state) => state.invent.room);
+
+  const handleUpdateBtn = async () => {
+    try {
+      let status = item.status === 1 ? 2 : 1;
+      const data = await apiUpdateRoomStatus({
+        id: item.id,
+        status: status,
+      });
+      if (data?.result.code === 0) {
+        dispatch(actions.getListRooms(searchParams));
+      } else {
+        console.error("Error Update House:", data);
+        return;
+      }
+    } catch (error) {
+      console.error("Error Update House:", error);
+      return;
+    }
   };
 
   const handleDeleteButton = async () => {
@@ -29,6 +47,10 @@ const RoomActionButton = ({ item }) => {
       console.error("Error Update House:", error);
       return null;
     }
+  };
+
+  const handleCreateContract = () => {
+    // navigate(ROUTE_PATHS.CONTRACT_CREATE.replace(":id", item.id));
   };
 
   return (
@@ -51,14 +73,36 @@ const RoomActionButton = ({ item }) => {
                 Xem
               </button>
             </li>
-            <li>
-              <button
-                onClick={handleUpdateBtn}
-                className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
-              >
-                Chỉnh sửa
-              </button>
-            </li>
+            {item.status === 1 && (
+              <li>
+                <button
+                  onClick={handleUpdateBtn}
+                  className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
+                >
+                  Cập nhật cho thuê
+                </button>
+              </li>
+            )}
+            {item.status === 2 && (
+              <li>
+                <button
+                  onClick={handleUpdateBtn}
+                  className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
+                >
+                  Tạm dừng cho thuê
+                </button>
+              </li>
+            )}
+            {item.status === 2 && (
+              <li>
+                <button
+                  onClick={handleCreateContract}
+                  className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
+                >
+                  Tạo hợp đồng
+                </button>
+              </li>
+            )}
             <li>
               <button
                 onClick={handleDeleteButton}

@@ -4,6 +4,7 @@ import HouseScreen from "./house/HouseScreen";
 import RoomScreen from "./room/RoomScreen";
 import HouseDetail from "./house/HouseDetail";
 import DashboardScreen from "./DashboardScreen";
+import RoomDetail from "./room/RoomDetail";
 
 export const inventPublicRoute = [];
 
@@ -64,11 +65,20 @@ export const inventLessorRoute = [
   },
 
   {
-    id: "admin_room",
+    id: "lessor_room_screen",
     path: ROUTE_PATHS.ROOM,
     element: (
       <div className="p-3 bg-white rounded">
         <RoomScreen />
+      </div>
+    ),
+  },
+  {
+    id: "lessor_room_detail",
+    path: ROUTE_PATHS.ROOM_DETAIL,
+    element: (
+      <div className="p-3 bg-white rounded">
+        <RoomDetail type="detail" />
       </div>
     ),
   },

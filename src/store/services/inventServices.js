@@ -104,7 +104,7 @@ export const getService = async (id) => {
   } catch (error) {
     return error;
   }
-}
+};
 
 export const createService = async (service) => {
   try {
@@ -221,4 +221,20 @@ export const apiFilterRoom = async (filters) => {
   } catch (error) {
     return error;
   }
-}
+};
+
+export const apiUpdateRoomStatus = async (payload) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.UpdateRoomStatus,
+      url: ApiUrl.UpdateRoomStatus.url.replace(":id", payload.id),
+      data: {
+        status: payload.status,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+};

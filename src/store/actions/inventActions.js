@@ -1,4 +1,5 @@
 import {
+  apiFilterRoom,
   filterHouses,
   getHouse,
   getHouseRoom,
@@ -95,6 +96,33 @@ export const getHouseRoomAction = (payload) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: actionTypes.GET_HOUSE_ROOM_FAIL,
+      data: null,
+    });
+  }
+};
+
+export const getListRooms = (payload) => async (dispatch) => {
+  dispatch({
+    type: actionTypes.UPDATE_ROOM_SEARCH_PARAMS,
+    data: payload
+  });
+
+  try {
+    const data = await apiFilterRoom(payload);
+    if (data?.result.code === 0) {
+      dispatch({
+        type: actionTypes.SEARCH_ROOM_SUCCESS,
+        data: data,
+      });
+    } else {
+      dispatch({
+        type: actionTypes.SEARCH_ROOM_FAIL,
+        data: data,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: actionTypes.SEARCH_ROOM_FAIL,
       data: null,
     });
   }

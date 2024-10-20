@@ -11,31 +11,42 @@ import logo from "../../assets/images/logo.png";
 const columns = [
   {
     header: "Hình ảnh",
+    headerClass: " w-48",
     accessorKey: "album",
   },
   {
     header: "Nhà trọ",
+    headerClass: "text-center w-96",
     accessorKey: "name",
   },
   {
     header: "Loại hình",
+    headerClass: "text-center w-32",
     accessorKey: "type",
+    dataClass: "text-center",
   },
   {
     header: "Địa chỉ",
+    headerClass: "w-96",
     accessorKey: "address",
   },
   {
     header: "Diện tích",
+    headerClass: "text-center w-32",
     accessorKey: "area",
+    dataClass: "text-center",
   },
   {
     header: "Giá",
+    headerClass: "text-center w-32",
     accessorKey: "price",
+    dataClass: "text-center",
   },
   {
     header: "Trạng thái",
+    headerClass: "text-center w-48",
     accessorKey: "status",
+    dataClass: "text-center",
   },
 ];
 
