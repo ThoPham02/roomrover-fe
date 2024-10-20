@@ -1,4 +1,4 @@
-import { ROUTE_PATHS } from "../../common/path";
+import { ROUTE_PATHS } from "../../../src/common/path";
 import HouseCreate from "./house/HouseCreate";
 import HouseScreen from "./house/HouseScreen";
 import RoomScreen from "./room/RoomScreen";

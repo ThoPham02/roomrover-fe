@@ -7,10 +7,14 @@ import {
   CreateButton,
   ListHouses,
   SearchHouseForm,
-} from "../../../components/ui";
+} from "../../../../src/components/ui";
 
-import * as actions from "../../../store/actions";
-import { BREADCRUMB_DETAIL, PAGE_SIZE, ROUTE_PATHS } from "../../../common";
+import * as actions from "../../../../src/store/actions";
+import {
+  BREADCRUMB_DETAIL,
+  PAGE_SIZE,
+  ROUTE_PATHS,
+} from "../../../../src/common";
 
 const HouseScreen = () => {
   const dispatch = useDispatch();

@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import * as actions from "../../../store/actions";
-import { BREADCRUMB_DETAIL, ROUTE_PATHS } from "../../../common";
+import * as actions from "../../../../src/store/actions";
+import { BREADCRUMB_DETAIL, ROUTE_PATHS } from "../../../../src/common";
 import {
   Breadcrumbs,
   CreateButton,
   HouseDetailForm,
-} from "../../../components/ui";
-import { updateHouse } from "../../../store/services/inventServices";
+} from "../../../../src/components/ui";
+import { updateHouse } from "../../../../src/store/services/inventServices";
 
 const HouseDetail = () => {
   const { id } = useParams();
@@ -53,7 +53,7 @@ const HouseDetail = () => {
       rooms: JSON.stringify(
         house.rooms
           .filter((room) => room.name !== "")
-          .map((room) => ({ ...room, maxPeople: Number(room.maxPeople) }))
+          .map((room) => ({ ...room, capacity: Number(room.capacity) }))
       ),
       services: JSON.stringify(
         house.services
@@ -72,15 +72,15 @@ const HouseDetail = () => {
     validateForm(data);
 
     try {
-        const res = await updateHouse(data);
-  
-        if (res.result.code === 0) {
-          setOption("get");
-        }
-      } catch (error) {
-        console.error("Error Update House:", error);
-        return null;
+      const res = await updateHouse(data);
+
+      if (res.result.code === 0) {
+        setOption("get");
       }
+    } catch (error) {
+      console.error("Error Update House:", error);
+      return null;
+    }
   };
 
   return (

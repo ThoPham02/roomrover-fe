@@ -48,8 +48,6 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
     setIsUploading(false);
   };
 
-  console.log("HouseDetailForm -> house", house);
-
   return (
     <Form onSubmit={(e) => e.preventDefault()}>
       <Row>
@@ -117,7 +115,11 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
         </Col>
       </Row>
       <Row>
-        <CusSelectArea area={house} setArea={setHouse} disabled={option === "get"}/>
+        <CusSelectArea
+          area={house}
+          setArea={setHouse}
+          disabled={option === "get"}
+        />
       </Row>
       <Row>
         <CusFormGroup

@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import * as actions from "../../../store/actions";
-import { BREADCRUMB_DETAIL, ROUTE_PATHS } from "../../../common";
-import { Breadcrumbs, HouseDetailForm } from "../../../components/ui";
-import { createHouse } from "../../../store/services/inventServices";
+import * as actions from "../../../../src/store/actions";
+import { BREADCRUMB_DETAIL, ROUTE_PATHS } from "../../../../src/common";
+import { Breadcrumbs, HouseDetailForm } from "../../../../src/components/ui";
+import { createHouse } from "../../../../src/store/services/inventServices";
 
 const HouseCreate = () => {
   const dispatch = useDispatch();
@@ -43,7 +43,7 @@ const HouseCreate = () => {
       rooms: JSON.stringify(
         house.rooms
           .filter((room) => room.name !== "")
-          .map((room) => ({ ...room, maxPeople: Number(room.maxPeople) }))
+          .map((room) => ({ ...room, capacity: Number(room.capacity) }))
       ),
       services: JSON.stringify(
         house.services

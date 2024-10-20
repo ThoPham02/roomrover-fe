@@ -9,15 +9,15 @@ import {
   CONTRACT_STATUS,
   PAGE_SIZE,
   ROUTE_PATHS,
-} from "../../../common";
+} from "../../../../src/common";
 import {
   Breadcrumbs,
   CusFormGroup,
   CusFormSelect,
   CusTable,
   RoomActionButton,
-} from "../../../components/ui";
-import * as actions from "../../../store/actions";
+} from "../../../../src/components/ui";
+import * as actions from "../../../../src/store/actions";
 
 const listFields = [
   {
@@ -114,20 +114,6 @@ const RoomScreen = () => {
             keyName={"search"}
             position="top"
           />
-          {/* <CusFormDate
-            label={"Ngày tạo"}
-            placeholder={"Từ ngày"}
-            state={filter}
-            setState={setFilter}
-            keyName={"createFrom"}
-          />
-          <p>-</p>
-          <CusFormDate
-            placeholder={"Đến ngày"}
-            state={filter}
-            setState={setFilter}
-            keyName={"createTo"}
-          /> */}
           <CusFormSelect
             label="Loại phòng"
             value={filter}

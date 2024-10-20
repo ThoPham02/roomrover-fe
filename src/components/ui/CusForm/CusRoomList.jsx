@@ -8,13 +8,13 @@ const CusRoomList = ({ state, setState, disabled }) => {
     if (rooms.length === 0) {
       setState({
         ...state,
-        rooms: [{ id: 1, name: "", maxPeople: "" }],
+        rooms: [{ id: 1, name: "", capacity: "" }],
       });
     }
   }, [rooms, setState, state]);
 
   const handleAddRoom = () => {
-    const newRoom = { id: rooms.length + 1, name: "", maxPeople: "" };
+    const newRoom = { id: rooms.length + 1, name: "", capacity: "" };
     setState({ ...state, rooms: [...rooms, newRoom] });
   };
 
@@ -27,7 +27,7 @@ const CusRoomList = ({ state, setState, disabled }) => {
 
   const handleRoomChange = (index, field, value) => {
     const newRooms = [...rooms];
-    if (field === "maxPeople") {
+    if (field === "capacity") {
       newRooms[index][field] = value.replace(/[^0-9]/g, "");
     } else {
       newRooms[index][field] = value;
@@ -55,9 +55,9 @@ const CusRoomList = ({ state, setState, disabled }) => {
           <input
             type="text"
             className="p-2 border border-gray-300 rounded w-48 text-center form-control"
-            value={room.maxPeople}
+            value={room.capacity}
             onChange={(e) =>
-              handleRoomChange(index, "maxPeople", e.target.value)
+              handleRoomChange(index, "capacity", e.target.value)
             }
             placeholder="Không giới hạn"
             disabled={disabled}

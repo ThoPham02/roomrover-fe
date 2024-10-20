@@ -5,14 +5,14 @@ import { Pagination } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 
-import * as actions from "../../store/actions";
+import * as actions from "../../../src/store/actions";
 import {
   BREADCRUMB_DETAIL,
   CONTRACT_STATUS,
   ContractStatusComponent,
   PAGE_SIZE,
   ROUTE_PATHS,
-} from "../../common";
+} from "../../../src/common";
 import {
   Breadcrumbs,
   ContractActionButton,
@@ -21,12 +21,12 @@ import {
   CusFormGroup,
   CusFormSelect,
   CusTable,
-} from "../../components/ui";
+} from "../../../src/components/ui";
 import {
   convertTimestampToDate,
   formatCurrencyVND,
   getDate,
-} from "../../utils/utils";
+} from "../../../src/utils/utils";
 
 const columns = [
   {
