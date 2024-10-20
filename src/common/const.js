@@ -38,18 +38,16 @@ export const HOUSE_ROOM_STATUS = {
 
 export const PAGE_SIZE = 10;
 
-export const ContractStatusComponent = {
-  1: <p className="px-2 py-1 rounded inline-block text-center bg-gray-300">Chờ xác nhận</p>,
-  2: <p className="px-2 py-1 rounded inline-block text-center bg-cyan-300">Chờ cọc</p>,
-  4: <p className="px-2 py-1 rounded inline-block text-center bg-emerald-300">Đang thuê</p>,
-  8: <p className="px-2 py-1 rounded inline-block text-center bg-yellow-300">Đã hết hạn</p>,
-  16: <p className="px-2 py-1 rounded inline-block text-center bg-rose-500">Đã hủy</p>,
+export const CONTRACT_STATUS = {
+  1: { name: "Chờ xác nhận" },
+  2: { name: "Chờ cọc" },
+  4: { name: "Đang thuê" },
+  8: { name: "Đã hết hạn" },
+  16: { name: "Đã hủy" },
 };
 
-export const CONTRACT_STATUS = {
-  1: {name: "Chờ xác nhận"},
-  2: {name: "Chờ cọc"},
-  4: {name: "Đang thuê"},
-  8: {name: "Đã hết hạn"},
-  16: {name: "Đã hủy"},
-}
+export const SERVICE_UNIT = {
+  1: { name: "Tháng" },
+  2: { name: "Người / Tháng" },
+  4: { name: "Đơn vị tiêu thụ / Tháng" },
+};

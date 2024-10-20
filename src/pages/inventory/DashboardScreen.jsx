@@ -79,7 +79,7 @@ const outstandingRent = [
   },
 ];
 
-const HomeScreen = () => {
+const DashboardScreen = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -229,7 +229,7 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default DashboardScreen;
 
 const StatCard = ({ icon, title, value }) => (
   <div className="bg-white rounded-lg shadow-md p-6 flex items-center">

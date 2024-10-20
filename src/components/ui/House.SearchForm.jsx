@@ -14,6 +14,9 @@ const SearchHouseForm = () => {
   const handleSubmitFilter = (e) => {
     e.preventDefault();
     setFilter((filter) => ({ ...filter, limit: PAGE_SIZE, offset: 0 }));
+
+    console.log(filter);
+
     dispatch(actions.getListHouses(filter));
   };
 

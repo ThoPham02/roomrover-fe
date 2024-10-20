@@ -37,8 +37,8 @@ const HouseDetail = () => {
     <div className="house-detail-page">
       <Breadcrumbs
         title={BREADCRUMB_DETAIL["DETAIL"]}
-        backRoute={ROUTE_PATHS.INVENTORY}
-        backName={BREADCRUMB_DETAIL[ROUTE_PATHS.INVENTORY]}
+        backRoute={ROUTE_PATHS.HOUSE}
+        backName={BREADCRUMB_DETAIL[ROUTE_PATHS.HOUSE]}
         displayName={BREADCRUMB_DETAIL["DETAIL"]}
       />
 

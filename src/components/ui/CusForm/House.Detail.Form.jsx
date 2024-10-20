@@ -2,15 +2,18 @@ import { Col, Form, Row } from "react-bootstrap";
 import React, { useState } from "react";
 
 import { HOUSE_TYPE } from "../../../common";
-import { CreateButton, CusFormGroup, CusFormSelect, CusFormUpload, CusSelectArea } from "..";
+import {
+  CreateButton,
+  CusFormGroup,
+  CusFormSelect,
+  CusFormUpload,
+  CusRoomList,
+  CusSelectArea,
+  CusServiceList,
+} from "..";
 import { uploadImage } from "../../../store/services/inventServices";
 
-const HouseDetailForm = ({
-  houseDetail,
-  setHouseDetail,
-  handleSubmit,
-  option,
-}) => {
+const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
   const [isUploading, setIsUploading] = useState(false);
 
   const handleImageUpload = async (e) => {
@@ -37,7 +40,7 @@ const HouseDetailForm = ({
       .filter((album) => album !== null)
       .map((album) => album.url);
 
-    setHouseDetail((prevHouse) => ({
+    setHouse((prevHouse) => ({
       ...prevHouse,
       albums: [...prevHouse.albums, ...validAlbums],
     }));
@@ -45,19 +48,22 @@ const HouseDetailForm = ({
     setIsUploading(false);
   };
 
+  console.log("HouseDetailForm -> house", house);
+
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={(e) => e.preventDefault()}>
       <Row>
         <p className="font-bold">Hình ảnh nhà trọ:</p>
         <div className="mt-2 mb-4 flex flex-wrap">
-          {houseDetail?.albums.map((url, index) => (
+          {house?.albums.map((image, index) => (
             <img
-              src={url}
+              src={image}
               alt={`Hình ảnh nhà trọ ${index + 1}`}
               className="w-40 h-40 mr-4 mb-4 object-cover rounded-lg"
-              key={url}
+              key={image}
             />
           ))}
+
           <CusFormUpload
             disabled={option === "get"}
             handleUpload={handleImageUpload}
@@ -71,76 +77,85 @@ const HouseDetailForm = ({
           <CusFormGroup
             label="Tên nhà trọ"
             required
-            disabled={option === "get"}
             placeholder="Nhập tên nhà trọ"
-            state={houseDetail}
-            setState={setHouseDetail}
+            state={house}
+            setState={setHouse}
             keyName={"name"}
-          />
-          <CusFormSelect
-            title="Loại hình"
-            label="Loại hình"
-            required
-            data={HOUSE_TYPE}
-            value={houseDetail}
-            setValue={setHouseDetail}
             disabled={option === "get"}
-            keyName="type"
           />
           <CusFormGroup
             label="Giá thuê"
             required
             placeholder="Nhập giá thuê"
-            state={houseDetail}
-            setState={setHouseDetail}
-            disabled={option === "get"}
+            state={house}
+            setState={setHouse}
             keyName={"price"}
+            disabled={option === "get"}
+          />
+        </Col>
+        <Col>
+          <CusFormSelect
+            title="Loại hình"
+            label="Loại hình"
+            labelWidth="min-w-36"
+            required
+            data={HOUSE_TYPE}
+            value={house}
+            setValue={setHouse}
+            keyName="type"
+            disabled={option === "get"}
           />
           <CusFormGroup
             label="Diện tích"
             required
             placeholder="Nhập diện tích"
-            state={houseDetail}
-            setState={setHouseDetail}
-            disabled={option === "get"}
+            state={house}
+            setState={setHouse}
             keyName={"area"}
+            disabled={option === "get"}
           />
         </Col>
-        <Col>
-          <Row>
-            <CusSelectArea
-              area={houseDetail}
-              setArea={setHouseDetail}
-              disabled={option === "get"}
-            />
-            <CusFormGroup
-              label="Địa chỉ "
-              required
-              placeholder="Nhập địa chỉ"
-              state={houseDetail}
-              setState={setHouseDetail}
-              disabled={option === "get"}
-              keyName={"address"}
-            />
-          </Row>
-        </Col>
       </Row>
-
+      <Row>
+        <CusSelectArea area={house} setArea={setHouse} disabled={option === "get"}/>
+      </Row>
       <Row>
         <CusFormGroup
           label="Mô tả"
           textarea
           placeholder="Nhập mô tả"
-          state={houseDetail}
-          setState={setHouseDetail}
-          disabled={option === "get"}
+          state={house}
+          setState={setHouse}
           keyName={"description"}
+          disabled={option === "get"}
         />
+      </Row>
+
+      <Row>
+        <p className="font-bold">Danh sách phòng trọ:</p>
+        <div className="flex flex-wrap">
+          <CusRoomList
+            state={house}
+            setState={setHouse}
+            disabled={option === "get"}
+          />
+        </div>
+      </Row>
+
+      <Row>
+        <p className="font-bold">Chi phí phát sinh:</p>
+        <div className="flex flex-wrap">
+          <CusServiceList
+            state={house}
+            setState={setHouse}
+            disabled={option === "get"}
+          />
+        </div>
       </Row>
 
       {option !== "get" && (
         <Row className="flex justify-center my-4">
-          <CreateButton text="Lưu" icon={<></>} />
+          <CreateButton text="Lưu" icon={<></>} onClick={handleSubmit} />
         </Row>
       )}
     </Form>

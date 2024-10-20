@@ -9,10 +9,9 @@ import { updateHouse } from "../../store/services/inventServices";
 
 const TabHouseDetail = ({ id, option, setOption }) => {
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(actions.setCurrentPage(ROUTE_PATHS.INVENTORY));
+    dispatch(actions.setCurrentPage(ROUTE_PATHS.HOUSE));
     dispatch(actions.getHouseDetailAction(id));
   }, [dispatch, id]);
 

@@ -6,3 +6,5 @@ export { default as CusSelectArea } from "./CusSelectArea";
 export { default as CusFormDate } from "./CusFormDate";
 export { default as CusFormSearchUser } from "./CusFormSearchUser";
 export { default as CusFormSearchRoom } from "./CusFormSearchRoom";
+export { default as CusRoomList } from "./CusRoomList";
+export { default as CusServiceList } from "./CusServiceList";
