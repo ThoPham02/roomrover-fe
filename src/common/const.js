@@ -36,6 +36,13 @@ export const HOUSE_ROOM_STATUS = {
   8: { name: "Đã hết hạn" },
 };
 
+export const HOUSE_STATUS = {
+  1: { name: "Chờ xác nhận" },
+  2: { name: "Đang cho thuê" },
+  4: { name: "Tạm dừng" },
+  8: { name: "Hết phòng" },
+};
+
 export const PAGE_SIZE = 10;
 
 export const CONTRACT_STATUS = {

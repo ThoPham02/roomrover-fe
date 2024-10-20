@@ -5,7 +5,7 @@ import { useState } from "react";
 import CusTable from "./CusTable";
 import { formatCurrencyVND, getArea } from "../../utils/utils";
 import HouseActionButton from "./CusButton/House.ActionButton";
-import { HOUSE_TYPE, PAGE_SIZE } from "../../common";
+import { HOUSE_TYPE, HouseStatusComponent, PAGE_SIZE } from "../../common";
 import logo from "../../assets/images/logo.png";
 
 const columns = [
@@ -31,8 +31,11 @@ const columns = [
   },
   {
     header: "Giá",
-    
     accessorKey: "price",
+  },
+  {
+    header: "Trạng thái",
+    accessorKey: "status",
   },
 ];
 
@@ -70,8 +73,9 @@ const ListHouses = () => {
       name: item.name,
       address: area,
       area: item.area + "m²",
-      price: formatCurrencyVND(item.price) +" VND",
+      price: formatCurrencyVND(item.price) + " VND",
       type: HOUSE_TYPE[item.type].name,
+      status: HouseStatusComponent[item.status],
     };
   });
 

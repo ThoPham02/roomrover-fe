@@ -11,7 +11,7 @@ import {
 } from "../../../../src/components/ui";
 import { updateHouse } from "../../../../src/store/services/inventServices";
 
-const HouseDetail = () => {
+const HouseDetail = ({ type = "get" }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
@@ -21,7 +21,7 @@ const HouseDetail = () => {
     rooms: [],
     services: [],
   });
-  const [option, setOption] = useState("get");
+  const [option, setOption] = useState(type);
 
   useEffect(() => {
     dispatch(actions.setCurrentPage(ROUTE_PATHS.HOUSE));
