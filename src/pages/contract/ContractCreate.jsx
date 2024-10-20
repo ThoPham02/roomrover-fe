@@ -26,7 +26,16 @@ const ContractCreate = () => {
     try {
       const formData = new FormData();
       contract.price = contract.room.price;
-      for (const [key, value] of Object.entries(contract)) {
+      const data = {
+        ...contract,
+        room: {
+          ...contract.room,
+          eIndex: Number(contract.room.eIndex),
+          wIndex: Number(contract.room.wIndex),
+        },
+      };
+
+      for (const [key, value] of Object.entries(data)) {
         if (typeof value === "object" && value !== null) {
           formData.append(key, JSON.stringify(value));
         } else {

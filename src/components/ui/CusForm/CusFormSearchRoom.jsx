@@ -67,7 +67,7 @@ const CusFormSearchRoom = ({
       const res = await apiFilterRoom({
         search: value,
         type: state?.room?.type,
-        status: 1,
+        status: 2,
         limit: 0,
         offset: 0,
       });
@@ -124,7 +124,7 @@ const CusFormSearchRoom = ({
                 ))
               ) : (
                 <Dropdown.Item disabled>
-                  Tài khoản chưa tồn tại trên hệ thống
+                  Không có kết quả phù hợp
                 </Dropdown.Item>
               )}
             </Dropdown.Menu>

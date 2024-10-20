@@ -10,6 +10,7 @@ const initialState = {
     listRooms: [],
     total: 0,
     searchParams: {},
+    roomDetail: {},
   },
 };
 
@@ -113,6 +114,23 @@ const inventReducer = (state = initialState, action) => {
         room: {
           ...state.room,
           searchParams: action.data,
+        },
+      };
+
+    case actionTypes.GET_ROOM_DETAIL_SUCCESS:
+      return {
+        ...state,
+        room: {
+          ...state.room,
+          roomDetail: action.data,
+        },
+      };
+    case actionTypes.GET_ROOM_DETAIL_FAIL:
+      return {
+        ...state,
+        room: {
+          ...state.room,
+          roomDetail: {},
         },
       };
 
