@@ -3,7 +3,13 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      listStyleType: {
+        square: "square",
+        roman: "upper-roman",
+        alpha: "lower-alpha",
+      },
       width: {
+        800: "800px",
         1100: "1100px",
         260: "260px",
         80: "80px",

@@ -50,6 +50,7 @@ const CusFormSearchUser = ({
 
   const handleChange = async (e) => {
     const { value } = e.target;
+
     setState((prevState) => {
       const newState = { ...prevState };
       const keys = keyName.split(".");
