@@ -1,5 +1,6 @@
 import { ROUTE_PATHS } from "../../common";
 import ContractCreate from "./ContractCreate";
+import ContractDetail from "./ContractFile";
 import Contract from "./ContractFile";
 import ContractScreen from "./ContractScreen";
 
@@ -21,7 +22,7 @@ export const contractLessorRoute = [
     path: ROUTE_PATHS.CONTRACT,
     element: (
       <div className="p-3 bg-white rounded">
-        <Contract />
+        <ContractScreen />
       </div>
     ),
   },
@@ -31,6 +32,15 @@ export const contractLessorRoute = [
     element: (
       <div className="p-3 bg-white rounded">
         <ContractCreate />
+      </div>
+    ),
+  },
+  {
+    id: "contract_create",
+    path: ROUTE_PATHS.CONTRACT_DETAIL,
+    element: (
+      <div className="p-3 bg-white rounded">
+        <ContractDetail />
       </div>
     ),
   },
