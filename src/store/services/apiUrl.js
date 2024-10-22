@@ -38,6 +38,10 @@ export const ApiUrl = {
     url: "/invent/upload",
     method: "post",
   },
+  SearchHouse: {
+    url: "/invent/house/search",
+    method: "get",
+  },
 
   GetHouseService: {
     url: "/invent/service/house/:id",

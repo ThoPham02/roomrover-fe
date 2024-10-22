@@ -48,6 +48,12 @@ const columns = [
     dataClass: "",
   },
   {
+    header: "Số điện thoại",
+    headerClass: "text-center w-32",
+    accessorKey: "lessorPhone",
+    dataClass: "",
+  },
+  {
     header: "Ngày bắt đầu",
     headerClass: "text-center w-32",
     accessorKey: "createdAt",
@@ -77,7 +83,7 @@ const ContractScreen = () => {
     search: "",
     status: 0,
     createFrom: getDate(90),
-    createTo: getDate(),
+    createTo: getDate() + 86399999,
     limit: PAGE_SIZE,
     offset: 0,
   });
@@ -91,7 +97,12 @@ const ContractScreen = () => {
   const handleSubmitFilter = (e) => {
     e.preventDefault();
 
-    dispatch(actions.getListContract(filter));
+    dispatch(
+      actions.getListContract({
+        ...filter,
+        createTo: filter.createTo + 86399999,
+      })
+    );
   };
 
   const { listContract, total } = useSelector((state) => state.contract);
@@ -107,10 +118,10 @@ const ContractScreen = () => {
           createdAt: convertTimestampToDate(contract?.createdAt),
           status: ContractStatusComponent[contract?.status],
           room: {
-            name: contract?.room?.name,
+            name: `${contract.room?.name} (${contract.room?.houseName})`,
           },
           payment: {
-            amount: formatCurrencyVND(contract?.payment?.amount) + "VND",
+            amount: formatCurrencyVND(contract.payment?.amount),
           },
         };
       })

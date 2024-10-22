@@ -8,37 +8,41 @@ export const ROUTE_PATHS = {
   HOUSE_DETAIL_PUBLIC: "/house-detail/:id",
   LOGIN: "/login",
   REGISTER: "/register",
+  HOME: "/home",
+  ERROR: "/error",
+  USER_SETTINGS: "/user-settings",
 
   // renter routes
   RENTER_DASHBOARD: "/renter/dashboard",
   RENTER_CONTRACT: "/renter/contract",
+  RENTER_CONTRACT_DETAIL: "/renter/contract-detail/:id",
+
   RENTER_PAYMENT: "/renter/payment",
+  RENTER_PAYMENT_DETAIL: "/renter/payment-detail/:id",
   RENTER_USER_SETTINGS: "/renter/user-settings",
 
   // lessor routes
-  HOME: "/home",
-  ERROR: "/error",
-  USER_SETTINGS: "/user-settings",
-  DASHBOARD: "/dashboard",
+  DASHBOARD: "/lessor/dashboard",
 
-  ROOM: "/room",
-  ROOM_DETAIL: "/room-detail/:id",
+  ROOM: "/lessor/room",
+  ROOM_DETAIL: "/lessor/room-detail/:id",
 
-  HOUSE: "/house",
-  HOUSE_DETAIL: "/lessor-house-detail/:id",
-  HOUSE_UPDATE: "/house-update/:id",
-  HOUSE_CREATE: "/house-create",
+  HOUSE: "/lessor/house",
+  HOUSE_DETAIL: "/lessor/house-detail/:id",
+  HOUSE_UPDATE: "/lessor/house-update/:id",
+  HOUSE_CREATE: "/lessor/house-create",
 
-  CONTRACT: "/contract",
-  CONTRACT_CREATE: "/contract-create",
-  LESSOR_CONTRACT_DETAIL: "/lessor-contract-detail/:id",
+  CONTRACT: "/lessor/contract",
+  CONTRACT_CREATE: "/lessor/contract-create",
+  CONTRACT_DETAIL: "/lessor/contract-detail/:id",
+  CONTRACT_UPDATE: "/lessor/contract-update/:id",
 
   CONTACT: "/contact",
 
   PAYMENT: "/payment",
 
   NOTIFICATION: "/notification",
-  
+
   SETTINGS: "/settings",
 };
 

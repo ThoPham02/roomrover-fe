@@ -16,7 +16,7 @@ const ContractActionButton = ({ item }) => {
   const handleMouseLeave = () => setIsMenuOpen(false);
 
   const handleDetailBtn = () => {
-    navigate(ROUTE_PATHS.LESSOR_CONTRACT_DETAIL.replace(":id", item.contractID));
+    navigate(ROUTE_PATHS.CONTRACT_DETAIL.replace(":id", item.contractID));
   };
 
   const handleDelete = () => {
@@ -24,7 +24,7 @@ const ContractActionButton = ({ item }) => {
   };
 
   const handleEdit = () => {
-    navigate(`${ROUTE_PATHS.LESSOR_CONTRACT_DETAIL}/${item.contractID}`);
+    navigate(ROUTE_PATHS.CONTRACT_UPDATE.replace(":id", item.contractID));
   };
 
   return (
