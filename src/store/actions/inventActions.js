@@ -173,3 +173,25 @@ export const getListHousePublic = (payload) => async (dispatch) => {
     });
   }
 };
+
+export const getHouseDetailPublic = (payload) => async (dispatch) => {
+  try {
+    const data = await getHouse(payload);
+    if (data?.result.code === 0) {
+      dispatch({
+        type: actionTypes.GET_HOUSE_DETAIL_PUBLIC_SUCCESS,
+        data: data,
+      });
+    } else {
+      dispatch({
+        type: actionTypes.GET_HOUSE_DETAIL_PUBLIC_FAIL,
+        data: data,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_HOUSE_DETAIL_PUBLIC_FAIL,
+      data: null,
+    });
+  }
+};

@@ -1,15 +1,38 @@
 import { Breadcrumb } from "react-bootstrap";
-import React, { useState } from "react";
-import { FaWifi, FaBroom, FaUtensils, FaWater, FaBolt } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import {
+  FaWifi,
+  FaBroom,
+  FaUtensils,
+  FaWater,
+  FaBolt,
+  FaChartArea,
+} from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
-import { ROUTE_PATHS } from "../../common";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { TbReportMoney } from "react-icons/tb";
 
-import RoomRoverLogo from "../../assets/images/logo.png"; // Đường dẫn tới logo
+import * as actions from "../../../src/store/actions";
+import { ROUTE_PATHS } from "../../common";
+import RoomRoverLogo from "../../assets/images/logo.png";
+import { formatCurrencyVND } from "../../utils/utils";
+import avatar from "../../assets/images/default_avatar.png";
 
 const BoardingHouseDetail = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(actions.getHouseDetailPublic(id));
+  }, [dispatch, id]);
+
+  const { houseDetail } = useSelector((state) => state.invent.publicHouse);
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const images = [];
+  console.log(houseDetail);
+
+  const images = houseDetail?.albums || [];
   const services = [
     { name: "Wi-Fi", icon: <FaWifi /> },
     { name: "Cleaning", icon: <FaBroom /> },
@@ -34,7 +57,7 @@ const BoardingHouseDetail = () => {
         </Breadcrumb.Item>
         <Breadcrumb.Item linkAs={Link}>Chi tiết nhà trọ</Breadcrumb.Item>
       </Breadcrumb>
-      <h1 className="text-3xl font-bold mb-6">Cozy Downtown Boarding House</h1>
+      <h1 className="text-3xl font-bold mb-6">{houseDetail?.name}</h1>
 
       <div className="mb-4">
         {images.length > 0 ? (
@@ -78,16 +101,18 @@ const BoardingHouseDetail = () => {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-        <div className="md:col-span-2">
-          <h2 className="text-2xl font-semibold mb-4">Mô tả:</h2>
-          <p className="text-gray-600 mb-6">
-            This charming boarding house offers a cozy and comfortable living
-            space in the heart of downtown. With its modern amenities and prime
-            location, it's perfect for students and young professionals looking
-            for a convenient and enjoyable living experience.
-          </p>
+        <div className="md:col-span-2 bg-white shadow-lg rounded-lg p-6 mb-2">
+          <h2 className="text-2xl font-semibold mb-2">Mô tả:</h2>
+          <div className="w-full p-2 border rounded bg-gray-100">
+            {houseDetail?.description?.split("\n").map((line, index) => (
+              <span key={index}>
+                {line}
+                <br />
+              </span>
+            ))}
+          </div>
 
-          <h2 className="text-2xl font-semibold mb-4">Thông tin nhà:</h2>
+          <h2 className="text-2xl font-semibold mb-2 mt-4">Thông tin nhà:</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
             {services.map((service, index) => (
               <div key={index} className="flex items-center space-x-2">
@@ -97,7 +122,7 @@ const BoardingHouseDetail = () => {
             ))}
           </div>
 
-          <h2 className="text-2xl font-semibold mb-4">Địa điểm</h2>
+          <h2 className="text-2xl font-semibold mb-2">Địa điểm</h2>
           <div className="flex items-center space-x-2 mb-6">
             <MdLocationOn className="text-red-500" />
             <span>123 Main St, Anytown, ST 12345</span>
@@ -107,30 +132,38 @@ const BoardingHouseDetail = () => {
 
         <div>
           <div className="bg-white shadow-lg rounded-lg p-6 mb-6">
-            <h2 className="text-2xl font-semibold mb-4">Rental Details</h2>
-            <p className="text-3xl font-bold text-green-600 mb-2">$800/month</p>
-            <p className="text-gray-600 mb-4">Area: 250 sq ft</p>
+            <h2 className="text-2xl font-semibold mb-4">Giá thuê</h2>
+            <div className="flex items-center mb-2">
+              <TbReportMoney className="text-green-500 text-2xl mr-2" />
+              <span className="text-xl font-semibold">
+                {formatCurrencyVND(houseDetail?.price) + "VND/tháng"}
+              </span>
+            </div>
+            <div className="flex items-center mb-2">
+              <FaChartArea className="text-blue-500 text-2xl mr-2" />
+              <span>{houseDetail?.area + "m²"}</span>
+            </div>
             <button className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">
-              Book Now
+              Đặt lịch hẹn xem nhà
             </button>
           </div>
 
           <div className="bg-white shadow-lg rounded-lg p-6">
-            <h2 className="text-2xl font-semibold mb-4">Lessor Information</h2>
+            <h2 className="text-2xl font-semibold mb-4">Người cho thuê</h2>
             <div className="flex items-center space-x-4 mb-4">
               <img
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"
-                alt="Lessor"
-                className="w-16 h-16 rounded-full object-cover"
+                src={houseDetail?.user?.avatarUrl ? houseDetail?.user?.avatarUrl : avatar}
+                alt=""
+                className="rounded-full w-12 h-12"
               />
               <div>
-                <h3 className="font-semibold">John Doe</h3>
-                <p className="text-gray-600">Property Manager</p>
+                <h3 className="font-semibold">{houseDetail?.user?.fullName}</h3>
+                <p className="text-gray-600">{houseDetail?.user?.address}</p>
               </div>
             </div>
-            <p className="text-gray-600 mb-4">Contact: (123) 456-7890</p>
+            <p className="text-gray-600 mb-4">Liên hệ: {houseDetail?.user?.phone}</p>
             <button className="w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300">
-              Contact Lessor
+              Liên hệ người cho thuê
             </button>
           </div>
         </div>

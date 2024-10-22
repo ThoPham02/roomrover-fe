@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { FaPhone } from "react-icons/fa";
+import { FaChartArea, FaPhone } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 import {
   address,
@@ -14,10 +14,12 @@ import { CusFormSelect } from "../../components/ui";
 
 import * as actions from "../../../src/store/actions";
 import { convertTimestampToDate, formatCurrencyVND } from "../../utils/utils";
+import avatar from "../../assets/images/default_avatar.png";
+import { Pagination } from "@mui/material";
+import { TbReportMoney } from "react-icons/tb";
 
 const ListHousePublic = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("");
   const handleChange = (value) => {
     setCurrentPage(value);
   };
@@ -53,15 +55,13 @@ const ListHousePublic = () => {
 
   return (
     <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Main grid container */}
       <div className="grid grid-cols-4 gap-4">
-        {/* Left column: Listing */}
         <div className="col-span-3 bg-white p-4 drop-shadow-md rounded">
           {listHouse &&
             listHouse?.map((item, index) => (
               <div
                 key={item?.houseID}
-                className="flex border-b border-gray-300 py-4 hover:bg-slate-100"
+                className="flex border-b border-gray-300 p-4 hover:bg-slate-100"
                 onDoubleClick={() =>
                   navigate(
                     ROUTE_PATHS.HOUSE_DETAIL_PUBLIC.replace(
@@ -71,37 +71,42 @@ const ListHousePublic = () => {
                   )
                 }
               >
-                <div className="w-1/5 relative">
+                <div className="w-1/5">
                   <img
                     src={item?.albums[0]}
                     alt=""
-                    className="rounded w-full aspect-[1/1] object-cover"
+                    className="rounded w-48 aspect-[1/1] object-cover"
                   />
-                  <p className="mt-2 absolute bottom-4 left-4 font-bold text-blue-500">
-                    {item?.albums.length} ảnh
-                  </p>
                 </div>
                 <div className="w-4/5 pl-4">
                   <p className="text-lg font-bold text-pink-500">
                     {item?.name}
                   </p>
-                  <p className="text-green-600 text-lg">
-                    {formatCurrencyVND(item?.price) + "VND/tháng"}
-                  </p>
-                  <p className="text-gray-600">{item?.area + "m²"}</p>
+                  <div className="flex items-center">
+                    <TbReportMoney className="text-green-500 text-2xl mr-2" />
+                    <span className="text-xl font-semibold">
+                      {formatCurrencyVND(item?.price) + "VND/tháng"}
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <FaChartArea className="text-blue-500 text-2xl mr-2" />
+                    <span>{item?.area + "m²"}</span>
+                  </div>
                   <p className="flex item-center">
-                    <MdLocationOn className="text-2xl text-red-500" />
+                    <MdLocationOn className="text-2xl text-red-500 mr-2" />
                     {item?.location}
                   </p>
-                  <p className="text-gray-500 h-12 truncate">
+                  <p className="text-gray-500 h-12 line-clamp-2">
                     {item?.description}
                   </p>
                   <div className="flex justify-between items-center mt-2">
                     <div className="flex items-center">
                       <img
-                        src={item?.user?.avatarUrl}
+                        src={
+                          item?.user?.avatarUrl ? item?.user?.avatarUrl : avatar
+                        }
                         alt=""
-                        className="rounded-full"
+                        className="rounded-full w-12 h-12"
                       />
                       <p className="ml-4">{item?.user?.fullName}</p>
                       <FaPhone className="text-blue-500 ml-8" />
@@ -115,21 +120,21 @@ const ListHousePublic = () => {
               </div>
             ))}
 
-          <div className="flex justify-center mt-8 w-full">
-            {/* {listHouse?.length > 0 && (
+          <div className="mt-8">
+            {listHouse?.length > 0 && (
               <div className="flex justify-between items-center w-full">
                 <p className="text-sm text-gray-500">
                   Hiển thị{" "}
-                  {`${(currentPage - 1) * itemsPerPage + 1} - ${
-                    total > currentPage * itemsPerPage
-                      ? currentPage * itemsPerPage
+                  {`${(currentPage - 1) * PAGE_SIZE + 1} - ${
+                    total > currentPage * PAGE_SIZE
+                      ? currentPage * PAGE_SIZE
                       : total
                   }`}{" "}
                   trong tổng số {total} kết quả
                 </p>
 
                 <Pagination
-                  count={Math.ceil(total / itemsPerPage)}
+                  count={Math.ceil(total / PAGE_SIZE)}
                   defaultPage={1}
                   siblingCount={0}
                   boundaryCount={2}
@@ -137,11 +142,10 @@ const ListHousePublic = () => {
                   onChange={handleChange}
                 />
               </div>
-            )} */}
+            )}
           </div>
         </div>
 
-        {/* Right column: Filters */}
         <div className="col-span-1">
           <div className="bg-white p-4 rounded drop-shadow-md">
             <h3 className="font-bold mb-2">Xem theo khu vực</h3>
@@ -160,6 +164,7 @@ const ListHousePublic = () => {
               value={filter}
               setValue={setFilter}
               keyName={"districtID"}
+              // eslint-disable-next-line
               disabled={filter?.provinceID == 0}
             />
             <CusFormSelect
@@ -172,6 +177,7 @@ const ListHousePublic = () => {
               value={filter}
               setValue={setFilter}
               keyName={"wardID"}
+              // eslint-disable-next-line
               disabled={filter?.districtID == 0}
             />
           </div>
@@ -191,8 +197,10 @@ const ListHousePublic = () => {
                     setFilter({
                       ...filter,
                       priceIndex: index === filter.priceIndex ? -1 : index,
-                      priceTo: val.priceTo,
-                      priceFrom: val.priceFrom,
+                      priceTo:
+                        index === filter.priceIndex ? 9999999999 : val.priceTo,
+                      priceFrom:
+                        index === filter.priceIndex ? 0 : val.priceFrom,
                     });
                   }}
                 >
@@ -217,8 +225,9 @@ const ListHousePublic = () => {
                     setFilter({
                       ...filter,
                       areaIndex: index === filter.areaIndex ? -1 : index,
-                      areaTo: val.areaTo,
-                      areaFrom: val.areaFrom,
+                      areaTo:
+                        index === filter.areaIndex ? 9999999999 : val.areaTo,
+                      areaFrom: index === filter.areaIndex ? 0 : val.areaFrom,
                     })
                   }
                 >

@@ -6,8 +6,6 @@ import HouseDetail from "./house/HouseDetail";
 import DashboardScreen from "./DashboardScreen";
 import RoomDetail from "./room/RoomDetail";
 
-export const inventPublicRoute = [];
-
 export const inventRenterRoute = [
   {
     id: "dashboard_renter",

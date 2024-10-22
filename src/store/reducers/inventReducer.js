@@ -140,12 +140,17 @@ const inventReducer = (state = initialState, action) => {
         },
       };
     case actionTypes.SEARCH_HOUSE_PUBLIC_SUCCESS:
-      const houses = action.data.houses ? action.data.houses.map(item => {
-        return {
-          ...item,
-          location: item.address + "," + getArea(item?.provinceID, item?.districtID, item?.wardID),
-        };
-      }) : [];
+      const houses = action.data.houses
+        ? action.data.houses.map((item) => {
+            return {
+              ...item,
+              location:
+                item.address +
+                "," +
+                getArea(item?.provinceID, item?.districtID, item?.wardID),
+            };
+          })
+        : [];
 
       return {
         ...state,
@@ -162,6 +167,22 @@ const inventReducer = (state = initialState, action) => {
           ...state.publicHouse,
           listHouse: [],
           total: 0,
+        },
+      };
+    case actionTypes.GET_HOUSE_DETAIL_PUBLIC_SUCCESS:
+      return {
+        ...state,
+        publicHouse: {
+          ...state.publicHouse,
+          houseDetail: action.data.house,
+        },
+      };
+    case actionTypes.GET_HOUSE_DETAIL_PUBLIC_FAIL:
+      return {
+        ...state,
+        publicHouse: {
+          ...state.publicHouse,
+          houseDetail: {},
         },
       };
 
