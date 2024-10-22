@@ -3,7 +3,7 @@ import { address } from "../../../common";
 import CusFormSelect from "./CusFormSelect";
 import CusFormGroup from "./CusFormGroup";
 
-const CusSelectArea = ({ area, setArea, disabled }) => {
+const CusSelectArea = ({ area, setArea, disabled, required, lable = true }) => {
   area = {
     ...area,
     provinceID: String(area?.provinceID).padStart(2, "0"),
@@ -15,18 +15,19 @@ const CusSelectArea = ({ area, setArea, disabled }) => {
     <Row className="mb-4">
       <Col>
         <CusFormSelect
-          label="Thành phố*"
+          label={lable && "Tỉnh/TP" + (required ? "*" : "")}
           labelWidth="min-w-36"
           data={address}
           disabled={disabled}
           value={area}
           setValue={setArea}
           keyName={"provinceID"}
+          required={required}
         />
       </Col>
       <Col>
         <CusFormSelect
-          label="Quận*"
+          label={lable && "Quận/Huyện" + (required ? "*" : "")}
           labelWidth="min-w-36"
           data={address[area?.provinceID]?.districts}
           // eslint-disable-next-line
@@ -38,7 +39,7 @@ const CusSelectArea = ({ area, setArea, disabled }) => {
       </Col>
       <Col>
         <CusFormSelect
-          label="Phường*"
+          label={lable && "Phường/Xã" + (required ? "*" : "")}
           labelWidth="min-w-36"
           data={address[area?.provinceID]?.districts[area?.districtID]?.wards}
           // eslint-disable-next-line
@@ -50,7 +51,7 @@ const CusSelectArea = ({ area, setArea, disabled }) => {
       </Col>
       <Col>
         <CusFormGroup
-          label="Địa chỉ"
+          label={lable && "Địa chỉ"}
           placeholder="Nhập địa chỉ chi tiết"
           state={area}
           setState={setArea}

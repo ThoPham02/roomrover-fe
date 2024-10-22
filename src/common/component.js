@@ -57,7 +57,7 @@ export const RoomStatusComponent = {
   ),
   2: (
     <p className="px-2 py-1 rounded inline-block text-center bg-blue-500 text-white">
-      Sẵn sàng cho thuê
+      Sẵn sàng thuê
     </p>
   ),
   4: (

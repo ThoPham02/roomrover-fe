@@ -1,5 +1,6 @@
 import {
   apiFilterRoom,
+  apiSearchHouse,
   filterHouses,
   getHouse,
   getHouseRoom,
@@ -105,7 +106,7 @@ export const getHouseRoomAction = (payload) => async (dispatch) => {
 export const getListRooms = (payload) => async (dispatch) => {
   dispatch({
     type: actionTypes.UPDATE_ROOM_SEARCH_PARAMS,
-    data: payload
+    data: payload,
   });
 
   try {
@@ -146,6 +147,28 @@ export const getRoomDetailAction = (payload) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: actionTypes.GET_ROOM_DETAIL_FAIL,
+      data: null,
+    });
+  }
+};
+
+export const getListHousePublic = (payload) => async (dispatch) => {
+  try {
+    const data = await apiSearchHouse(payload);
+    if (data?.result.code === 0) {
+      dispatch({
+        type: actionTypes.SEARCH_HOUSE_PUBLIC_SUCCESS,
+        data: data,
+      });
+    } else {
+      dispatch({
+        type: actionTypes.SEARCH_HOUSE_PUBLIC_FAIL,
+        data: data,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: actionTypes.SEARCH_HOUSE_PUBLIC_FAIL,
       data: null,
     });
   }

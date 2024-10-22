@@ -1,3 +1,4 @@
+import { getArea } from "../../utils/utils";
 import actionTypes from "../actions/actionTypes";
 
 const initialState = {
@@ -11,6 +12,11 @@ const initialState = {
     total: 0,
     searchParams: {},
     roomDetail: {},
+  },
+  publicHouse: {
+    listHouse: [],
+    total: 0,
+    houseDetail: {},
   },
 };
 
@@ -131,6 +137,31 @@ const inventReducer = (state = initialState, action) => {
         room: {
           ...state.room,
           roomDetail: {},
+        },
+      };
+    case actionTypes.SEARCH_HOUSE_PUBLIC_SUCCESS:
+      const houses = action.data.houses ? action.data.houses.map(item => {
+        return {
+          ...item,
+          location: item.address + "," + getArea(item?.provinceID, item?.districtID, item?.wardID),
+        };
+      }) : [];
+
+      return {
+        ...state,
+        publicHouse: {
+          ...state.publicHouse,
+          listHouse: houses,
+          total: action.data.total,
+        },
+      };
+    case actionTypes.SEARCH_HOUSE_PUBLIC_FAIL:
+      return {
+        ...state,
+        publicHouse: {
+          ...state.publicHouse,
+          listHouse: [],
+          total: 0,
         },
       };
 

@@ -16,7 +16,6 @@
     "bootstrap": "^5.3.3",
     "framer-motion": "^11.11.9",
     "hanhchinhvn": "^1.6.0",
-    "html2pdf.js": "^0.10.2",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.4",
     "react-datepicker": "^7.4.0",
@@ -59,6 +58,7 @@
     ]
   },
   "devDependencies": {
+    "html2pdf.js": "^0.10.2",
     "tailwindcss": "^3.4.7"
   }
 }

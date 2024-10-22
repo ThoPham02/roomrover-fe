@@ -118,7 +118,7 @@ const ContractScreen = () => {
           createdAt: convertTimestampToDate(contract.createdAt),
           status: ContractStatusComponent[contract.status],
           room: {
-            name: contract.room?.name,
+            name: `${contract.room?.name} (${contract.room?.houseName})`,
           },
           payment: {
             amount: formatCurrencyVND(contract.payment?.amount),

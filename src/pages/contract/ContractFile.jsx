@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import html2pdf from "html2pdf.js";
 
-const ContractDetail = () => {
+const ContractFile = () => {
   const contractRef = useRef();
 
   const handleExportPDF = () => {
@@ -9,7 +9,7 @@ const ContractDetail = () => {
     html2pdf()
       .from(element)
       .set({
-        margin: [20, 20, 20, 20],
+        margin: [18, 18, 18, 18],
         filename: "hop-dong-thue-nha.pdf",
         html2canvas: { scale: 5 },
         jsPDF: { orientation: "portrait" },
@@ -17,15 +17,16 @@ const ContractDetail = () => {
       })
       .save();
   };
+
   return (
-    <div>
+    <div className="relative">
       <button
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 absolute right-0 -top-20"
         onClick={handleExportPDF}
       >
         Xuất PDF
       </button>
-      <div className="container w-800 border">
+      <div className="container w-800 border p-20">
         <div ref={contractRef}>
           <div className="text-center mb-5">
             <h1 className="text-2xl font-bold">
@@ -35,7 +36,7 @@ const ContractDetail = () => {
             <h2 className="text-xl mt-4 font-semibold">
               HỢP ĐỒNG THUÊ NHÀ TRỌ
             </h2>
-            <p>(Số: ……………./HĐTNO)</p>
+            <p>(Số: ./HĐTNO)</p>
           </div>
 
           <div className="mb-2">
@@ -415,4 +416,4 @@ const ContractDetail = () => {
   );
 };
 
-export default ContractDetail;
+export default ContractFile;

@@ -16,15 +16,15 @@ const ContractActionButton = ({ item }) => {
   const handleMouseLeave = () => setIsMenuOpen(false);
 
   const handleDetailBtn = () => {
-    navigate(`${ROUTE_PATHS.CONTRACT}/${item.id}`);
+    navigate(ROUTE_PATHS.CONTRACT_DETAIL.replace(":id", item.contractID));
   };
 
   const handleDelete = () => {
-    dispatch(actions.deleteContract(item.id));
+    dispatch(actions.deleteContract(item.contractID));
   };
 
   const handleEdit = () => {
-    navigate(`${ROUTE_PATHS.CONTRACT}/${item.id}`);
+    navigate(ROUTE_PATHS.CONTRACT_UPDATE.replace(":id", item.contractID));
   };
 
   return (

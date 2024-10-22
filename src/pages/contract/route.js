@@ -1,8 +1,8 @@
 import { ROUTE_PATHS } from "../../common";
 import ContractCreate from "./ContractCreate";
-import ContractDetail from "./ContractFile";
-import Contract from "./ContractFile";
+import ContractDetail from "./ContractDetail";
 import ContractScreen from "./ContractScreen";
+import RenterContractDetail from "./RenterContractDetail";
 
 export const contractRenterRoute = [
   {
@@ -11,6 +11,15 @@ export const contractRenterRoute = [
     element: (
       <div className="p-3 bg-white rounded">
         <ContractScreen />
+      </div>
+    ),
+  },
+  {
+    id: "renter_contract_detail",
+    path: ROUTE_PATHS.RENTER_CONTRACT_DETAIL,
+    element: (
+      <div className="p-3 bg-white rounded">
+        <RenterContractDetail />
       </div>
     ),
   },

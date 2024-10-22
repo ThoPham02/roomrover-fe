@@ -238,3 +238,16 @@ export const apiUpdateRoomStatus = async (payload) => {
     return error;
   }
 };
+
+export const apiSearchHouse = async (payload) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.SearchHouse,
+      params: payload,
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
