@@ -25,12 +25,13 @@ export const ROUTE_PATHS = {
   ROOM_DETAIL: "/room-detail/:id",
 
   HOUSE: "/house",
-  HOUSE_DETAIL: "/house-detail/:id",
+  HOUSE_DETAIL: "/lessor-house-detail/:id",
   HOUSE_UPDATE: "/house-update/:id",
   HOUSE_CREATE: "/house-create",
 
   CONTRACT: "/contract",
   CONTRACT_CREATE: "/contract-create",
+  LESSOR_CONTRACT_DETAIL: "/lessor-contract-detail/:id",
 
   CONTACT: "/contact",
 

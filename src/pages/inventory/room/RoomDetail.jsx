@@ -1,27 +1,27 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Col, Row } from "react-bootstrap";
 import {
-  FaUser,
-  FaCalendarAlt,
-  FaDollarSign,
-  FaClock,
   FaHistory,
   FaChartArea,
+  FaUser,
+  FaPhone,
+  FaCalendarAlt,
+  FaMoneyBill,
+  FaClock,
 } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { TbReportMoney } from "react-icons/tb";
+import { Col, Row } from "react-bootstrap";
 
-import { BREADCRUMB_DETAIL, HOUSE_TYPE, ROUTE_PATHS } from "../../../common";
-import {
-  Breadcrumbs,
-  CusFormGroup,
-  CusFormSelect,
-  CusSelectArea,
-} from "../../../components/ui";
+import { BREADCRUMB_DETAIL, ROUTE_PATHS } from "../../../common";
+import { Breadcrumbs } from "../../../components/ui";
 import * as actions from "../../../../src/store/actions";
-import { formatCurrencyVND, getArea } from "../../../utils/utils";
+import {
+  convertTimestampToDate,
+  formatCurrencyVND,
+  getArea,
+} from "../../../utils/utils";
 
 const RoomDetail = () => {
   const { id } = useParams();
@@ -30,8 +30,11 @@ const RoomDetail = () => {
 
   const { roomDetail } = useSelector((state) => state.invent.room);
   const [room, setRoom] = useState({});
-  const [house, setHouse] = useState({});
+  const [house, setHouse] = useState({ albums: [] });
   const [contract, setContract] = useState({});
+  const [mainImage, setMainImage] = useState(
+    house?.albums ? house?.albums[0] : ""
+  );
 
   useEffect(() => {
     dispatch(actions.setCurrentPage(ROUTE_PATHS.ROOM));
@@ -43,27 +46,14 @@ const RoomDetail = () => {
       setRoom(roomDetail.room);
       setHouse(roomDetail.house);
       setContract(roomDetail.contract);
+      setMainImage(roomDetail.house?.albums ? roomDetail.house?.albums[0] : "");
     }
   }, [roomDetail]);
 
   const [activeTab, setActiveTab] = useState("contract");
 
-  // Dummy data for room details
-  const roomDetails = {
-    name: "Luxurious Studio Apartment",
-    price: "$1,200",
-    area: "500 sq ft",
-    address: "123 Main St, Cityville, State 12345",
-    description:
-      "A modern studio apartment with a stunning city view. Fully furnished with high-end appliances and amenities.",
-  };
-
-  // Dummy data for active contract
-  const contractDetails = {
-    tenantName: "John Doe",
-    rentalPeriod: "Jan 1, 2023 - Dec 31, 2023",
-    depositAmount: "$2,400",
-    depositDeadline: "Dec 15, 2022",
+  const handleThumbnailClick = (image) => {
+    setMainImage(image);
   };
 
   // Dummy data for transaction history
@@ -95,115 +85,92 @@ const RoomDetail = () => {
     <div className="">
       <Breadcrumbs
         title={"Chi tiết phòng"}
-        backRoute={ROUTE_PATHS.HOUSE}
-        backName={BREADCRUMB_DETAIL[ROUTE_PATHS.HOUSE]}
+        backRoute={ROUTE_PATHS.ROOM}
+        backName={BREADCRUMB_DETAIL[ROUTE_PATHS.ROOM]}
         displayName={BREADCRUMB_DETAIL["DETAIL"]}
       />
+      <div className="container mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex flex-col items-center">
+            <div className="mb-4">
+              <img
+                src={mainImage}
+                alt="Main room"
+                className="w-full h-96 object-cover rounded-lg"
+              />
+            </div>
+            <div className="flex space-x-4 overflow-x-auto">
+              {house?.albums.map((image, index) => (
+                <img
+                  key={index}
+                  src={image}
+                  alt={`Thumbnail ${index + 1}`}
+                  className={`w-20 h-20 object-cover rounded-lg cursor-pointer ${
+                    mainImage === image ? "ring-2 ring-blue-500" : ""
+                  }`}
+                  onClick={() => handleThumbnailClick(image)}
+                />
+              ))}
+            </div>
+          </div>
 
-      <div className="p-2 bg-slate-100 rounded">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">{room?.name}</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="flex items-center">
-            <TbReportMoney className="text-green-500 text-2xl mr-2" />
-            <span className="text-xl font-semibold">
-              {formatCurrencyVND(house?.price)}VND/tháng
-            </span>
-          </div>
-          <div className="flex items-center">
-            <FaChartArea className="text-blue-500 text-2xl mr-2" />
-            <span>{house?.area}</span> m²
-          </div>
-          <div className="flex items-center col-span-2">
-            <FaLocationDot className="text-red-500 text-2xl mr-2" />
-            <span>
-              {house?.address +
-                ", " +
-                getArea(house?.provinceID, house?.districtID, house?.wardID)}
-            </span>
+          <div className="flex flex-col justify-center space-y-4">
+            <h1 className="text-2xl font-bold">{room?.name}</h1>
+            <h2 className="text-lg text-gray-700">{house?.name}</h2>
+            <div className="flex items-center">
+              <TbReportMoney className="text-green-500 text-2xl mr-2" />
+              <span className="text-xl font-semibold">
+                {formatCurrencyVND(house?.price)}VND/tháng
+              </span>
+            </div>
+            <div className="flex items-center">
+              <FaChartArea className="text-blue-500 text-2xl mr-2" />
+              <span>{house?.area}</span> m²
+            </div>
+            <div className="flex items-center col-span-2">
+              <FaLocationDot className="text-red-500 text-2xl mr-2" />
+              <span>
+                {house?.address +
+                  ", " +
+                  getArea(house?.provinceID, house?.districtID, house?.wardID)}
+              </span>
+            </div>
           </div>
         </div>
-        <p className="mt-6 text-gray-600">{house?.description}</p>
       </div>
 
-      <div className="border-b border-gray-200 mt-4">
+      <div className="border-b border-t border-gray-200 mt-2">
         <nav className="-mb-px flex" aria-label="Tabs">
           <button
             onClick={() => setActiveTab("contract")}
-            className={`w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm ${
+            className={`w-1/2 py-2 px-1 text-center border-b-2 font-medium text-sm ${
               activeTab === "contract"
                 ? "border-indigo-500 text-indigo-600"
                 : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
             }`}
           >
-            Active Contract
+            Hợp đồng hiện tại
           </button>
           <button
             onClick={() => setActiveTab("history")}
-            className={`w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm ${
+            className={`w-1/2 py-2 px-1 text-center border-b-2 font-medium text-sm ${
               activeTab === "history"
                 ? "border-indigo-500 text-indigo-600"
                 : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
             }`}
           >
-            Transaction History
+            Lịch sử giao dịch
           </button>
         </nav>
       </div>
 
       {/* Tab Content */}
-      <div className="p-8">
-        {activeTab === "contract" && (
-          <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">
-              Active Contract
-            </h2>
-            <div className="bg-white rounded-lg shadow-md p-6 space-y-6">
-              <div className="flex items-center">
-                <FaUser className="text-blue-500 mr-3" />
-                <div>
-                  <p className="text-sm text-gray-500">Tenant</p>
-                  <p className="text-lg font-semibold">
-                    {contractDetails.tenantName}
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center">
-                <FaCalendarAlt className="text-blue-500 mr-3" />
-                <div>
-                  <p className="text-sm text-gray-500">Rental Period</p>
-                  <p className="text-lg font-semibold">
-                    {contractDetails.rentalPeriod}
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center">
-                <FaDollarSign className="text-blue-500 mr-3" />
-                <div>
-                  <p className="text-sm text-gray-500">Deposit Amount</p>
-                  <p className="text-lg font-semibold">
-                    {contractDetails.depositAmount}
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center">
-                <FaClock className="text-blue-500 mr-3" />
-                <div>
-                  <p className="text-sm text-gray-500">Deposit Deadline</p>
-                  <p className="text-lg font-semibold">
-                    {contractDetails.depositDeadline}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+      <div>
+        {activeTab === "contract" && <ContractInfo tenant={contract} />}
 
         {activeTab === "history" && (
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">
-              Transaction History
-            </h2>
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden mt-2">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
@@ -274,3 +241,68 @@ const RoomDetail = () => {
 };
 
 export default RoomDetail;
+
+const ContractInfo = ({ tenant }) => {
+  if (tenant?.contractID === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center h-36 rounded-lg w-full max-w-lg mx-auto">
+        <p className="text-xl text-gray-700 mb-4">
+          Hiện tại phòng chưa được thuê
+        </p>
+        <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+          Tạo hợp đồng
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className=" p-6 rounded-lg">
+      <Row>
+        <Col>
+          <div className="flex items-center">
+            <FaUser className="text-xl mr-2" />
+            <p className="text-lg font-medium">{tenant?.renterName}</p>
+          </div>
+
+          <div className="flex items-center mt-4">
+            <FaPhone className="text-xl mr-2" />
+            <p className="text-lg">{tenant?.renterPhone}</p>
+          </div>
+        </Col>
+        <Col>
+          <div className="flex items-center">
+            <FaMoneyBill className="text-xl mr-2" />
+            <div>
+              <h3 className="text-lg font-medium">
+                Cọc: {formatCurrencyVND(tenant?.payment?.deposit)} VND
+              </h3>
+            </div>
+          </div>
+
+          <div className="flex items-center">
+            <FaClock className="text-xl mr-2" />
+            <h3 className="text-lg font-medium">
+              Hạn đặt cọc:{" "}
+              {convertTimestampToDate(tenant?.payment?.depositDate)}
+            </h3>
+          </div>
+        </Col>
+        <Col>
+          <div className="flex items-center">
+            <FaCalendarAlt className="text-xl mr-2" />
+            <h3 className="text-lg font-medium">
+              Thời gian thuê: {convertTimestampToDate(tenant?.checkIn)}
+            </h3>
+          </div>
+        </Col>
+      </Row>
+
+      <div className="flex flex-col items-center justify-center rounded-lg w-full max-w-lg mx-auto">
+        <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+          Xem chi tiết
+        </button>
+      </div>
+    </div>
+  );
+};

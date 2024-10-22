@@ -36,7 +36,7 @@ const columns = [
     dataClass: "text-center",
   },
   {
-    header: "Nhà trọ",
+    header: "Phòng",
     headerClass: "text-center w-96",
     accessorKey: "room.name",
     dataClass: "",
@@ -56,7 +56,7 @@ const columns = [
   {
     header: "Giá thuê",
     headerClass: "text-center w-32",
-    accessorKey: "room.price",
+    accessorKey: "payment.amount",
     dataClass: "text-center",
   },
   {
@@ -104,11 +104,13 @@ const ContractScreen = () => {
     ? listContract?.map((contract) => {
         return {
           ...contract,
-          createdAt: convertTimestampToDate(contract.createdAt),
-          status: ContractStatusComponent[contract.status],
+          createdAt: convertTimestampToDate(contract?.createdAt),
+          status: ContractStatusComponent[contract?.status],
           room: {
-            name: contract.room?.name,
-            price: formatCurrencyVND(contract.room?.price),
+            name: contract?.room?.name,
+          },
+          payment: {
+            amount: formatCurrencyVND(contract?.payment?.amount) + "VND",
           },
         };
       })
