@@ -36,7 +36,7 @@ export const contractLessorRoute = [
     ),
   },
   {
-    id: "contract_create",
+    id: "contract_detail",
     path: ROUTE_PATHS.CONTRACT_DETAIL,
     element: (
       <div className="p-3 bg-white rounded">
