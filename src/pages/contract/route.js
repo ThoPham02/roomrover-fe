@@ -3,6 +3,7 @@ import ContractCreate from "./ContractCreate";
 import ContractDetail from "./ContractDetail";
 import ContractScreen from "./ContractScreen";
 import RenterContractDetail from "./RenterContractDetail";
+import RenterContractScreen from "./RenterContractScreen";
 
 export const contractRenterRoute = [
   {
@@ -10,7 +11,7 @@ export const contractRenterRoute = [
     path: ROUTE_PATHS.RENTER_CONTRACT,
     element: (
       <div className="p-3 bg-white rounded">
-        <ContractScreen />
+        <RenterContractScreen />
       </div>
     ),
   },

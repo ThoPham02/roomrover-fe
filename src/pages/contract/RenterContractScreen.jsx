@@ -42,15 +42,15 @@ const columns = [
     dataClass: "",
   },
   {
-    header: "Nguời thuê",
+    header: "Nguời cho thuê",
     headerClass: "text-center w-32",
-    accessorKey: "renterName",
+    accessorKey: "lessorName",
     dataClass: "",
   },
   {
     header: "Số điện thoại",
     headerClass: "text-center w-32",
-    accessorKey: "renterPhone",
+    accessorKey: "lessorPhone",
     dataClass: "",
   },
   {
@@ -73,7 +73,7 @@ const columns = [
   },
 ];
 
-const ContractScreen = () => {
+const RenterContractScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -131,11 +131,6 @@ const ContractScreen = () => {
     <div className="p-3 bg-white rounded">
       <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.CONTRACT]} />
       <div className="relative">
-        <CreateButton
-          className="absolute -top-16 right-0 z-1"
-          onClick={handleCreateContract}
-        />
-
         <div className="mt-8">
           <div className="p-2 bg-slate-100 rounded">
             <Form
@@ -211,4 +206,4 @@ const ContractScreen = () => {
   );
 };
 
-export default ContractScreen;
+export default RenterContractScreen;
