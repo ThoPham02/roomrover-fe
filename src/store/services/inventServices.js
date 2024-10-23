@@ -223,6 +223,16 @@ export const apiFilterRoom = async (filters) => {
   }
 };
 
+export const apiSearchRoom = async (filters) => {
+  try {
+    const response = await axios({ ...ApiUrl.SearchRoom, params: filters });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const apiUpdateRoomStatus = async (payload) => {
   try {
     const response = await axios({

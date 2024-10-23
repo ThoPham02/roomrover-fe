@@ -3,12 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { AiOutlineEllipsis } from "react-icons/ai";
 
-import {
-  CONTRACT_STATUS,
-  CONTRACT_STATUS_CODE,
-  ROUTE_PATHS,
-} from "../../../common";
+import { CONTRACT_STATUS_CODE, PAGE_SIZE, ROUTE_PATHS } from "../../../common";
 import * as actions from "../../../store/actions";
+import { apiUpdateStatusContract } from "../../../store/services/contractServices";
 
 const RenterContractActionButton = ({ item }) => {
   const dispatch = useDispatch();
@@ -25,12 +22,26 @@ const RenterContractActionButton = ({ item }) => {
     );
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     dispatch(actions.deleteContract(item.contractID));
   };
 
-  const handleEdit = () => {
-    navigate(ROUTE_PATHS.CONTRACT_UPDATE.replace(":id", item.contractID));
+  const handleConfirm = async () => {
+    try {
+      const data = await apiUpdateStatusContract({
+        id: item.contractID,
+        status: CONTRACT_STATUS_CODE.WAITING_DEPOSIT,
+      });
+      if (data?.result.code === 0) {
+        dispatch(actions.getListContract({ limit: PAGE_SIZE, offset: 0 }));
+      } else {
+        console.error("Error Update House:", data);
+        return;
+      }
+    } catch (error) {
+      console.error("Error Update House:", error);
+      return;
+    }
   };
 
   console.log(item);
@@ -58,7 +69,7 @@ const RenterContractActionButton = ({ item }) => {
             {item?.status === CONTRACT_STATUS_CODE.WAITING && (
               <li>
                 <button
-                  onClick={handleEdit}
+                  onClick={handleConfirm}
                   className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
                 >
                   Xác nhận thuê
@@ -68,14 +79,14 @@ const RenterContractActionButton = ({ item }) => {
             {item?.status === CONTRACT_STATUS_CODE.WAITING && (
               <li>
                 <button
-                  onClick={handleEdit}
+                  onClick={handleDelete}
                   className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
                 >
                   Xác nhận thuê
                 </button>
               </li>
             )}
-            
+
             <li>
               <button
                 onClick={handleDelete}

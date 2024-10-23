@@ -68,7 +68,7 @@ const columns = [
   {
     header: "Trạng thái",
     headerClass: "text-center w-40",
-    accessorKey: "status",
+    accessorKey: "statusComponent",
     dataClass: "text-center",
   },
 ];
@@ -116,7 +116,7 @@ const ContractScreen = () => {
         return {
           ...contract,
           createdAt: convertTimestampToDate(contract?.createdAt),
-          status: ContractStatusComponent[contract?.status],
+          statusComponent: ContractStatusComponent[contract?.status],
           room: {
             name: `${contract.room?.name} (${contract.room?.houseName})`,
           },
@@ -185,7 +185,7 @@ const ContractScreen = () => {
             ActionButton={ContractActionButton}
           />
 
-          {data.length > 0 && (
+          {data?.length > 0 && (
             <div className="flex justify-between items-center">
               <p className="text-sm text-gray-500">
                 Hiển thị{" "}

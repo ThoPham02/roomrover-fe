@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { AiOutlineEllipsis } from "react-icons/ai";
 
-import { ROUTE_PATHS } from "../../../common";
+import { CONTRACT_STATUS_CODE, PAGE_SIZE, ROUTE_PATHS } from "../../../common";
 import * as actions from "../../../store/actions";
+import { apiUpdateStatusContract } from "../../../store/services/contractServices";
 
 const ContractActionButton = ({ item }) => {
   const dispatch = useDispatch();
@@ -27,6 +28,24 @@ const ContractActionButton = ({ item }) => {
     navigate(ROUTE_PATHS.CONTRACT_UPDATE.replace(":id", item.contractID));
   };
 
+  const handleComfirmDeposit = async () => {
+    try {
+      const data = await apiUpdateStatusContract({
+        id: item.contractID,
+        status: CONTRACT_STATUS_CODE.RENTING,
+      });
+      if (data?.result.code === 0) {
+        dispatch(actions.getListContract({ limit: PAGE_SIZE, offset: 0 }));
+      } else {
+        console.error("Error Update House:", data);
+        return;
+      }
+    } catch (error) {
+      console.error("Error Update House:", error);
+      return;
+    }
+  }
+
   return (
     <div
       className="relative inline-block "
@@ -47,6 +66,16 @@ const ContractActionButton = ({ item }) => {
                 Xem
               </button>
             </li>
+            {item.status === CONTRACT_STATUS_CODE.WAITING_DEPOSIT && (
+              <li>
+                <button
+                  onClick={handleComfirmDeposit}
+                  className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
+                >
+                  Xác nhận đã cọc
+                </button>
+              </li>
+            )}
             <li>
               <button
                 onClick={handleEdit}

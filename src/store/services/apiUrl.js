@@ -88,6 +88,10 @@ export const ApiUrl = {
     url: "/invent/room/filter",
     method: "get",
   },
+  SearchRoom: {
+    url: "/invent/room/search",
+    method: "get",
+  },
   UpdateRoomStatus: {
     url: "/invent/room/:id/status",
     method: "put",
@@ -106,5 +110,9 @@ export const ApiUrl = {
   GetContractDetail: {
     url: "/contract/:id",
     method: "get",
+  },
+  UpdateStatusContract: {
+    url: "/contract/:id/status",
+    method: "put",
   },
 };

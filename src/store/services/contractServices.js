@@ -36,3 +36,16 @@ export const apiGetContractDetail = async (id) => {
     return error;
   }
 };
+
+export const apiUpdateStatusContract = async (data) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.UpdateStatusContract,
+      url: ApiUrl.UpdateStatusContract.url.replace(":id", data.id),
+      data: { status: data.status },
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};

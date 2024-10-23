@@ -280,11 +280,29 @@ const ContractCreate = () => {
                 placeholder={"Giá phòng"}
                 keyName={"room.price"}
                 disabled
-                unit={"VNĐ"}
+                unit={"VNĐ/tháng"}
               />
             </Col>
             <Col></Col>
           </Row>
+          {contract?.room?.services && contract?.room?.services?.map((service, index) => {
+            return (
+              <Row key={index}>
+                <Col>
+                  <CusFormGroup
+                    label={service.name}
+                    state={contract}
+                    setState={setContract}
+                    placeholder={service.name}
+                    keyName={`room.services[${index}].price`}
+                    disabled
+                    unit={"VNĐ"}
+                  />
+                </Col>
+                <Col></Col>
+              </Row>
+            );
+          })}
           <Row>
             <Col>
               <CusFormDate

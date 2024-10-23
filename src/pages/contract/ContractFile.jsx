@@ -66,9 +66,6 @@ const ContractFile = ({ item }) => {
                 ... Nơi cấp: {item.lessorAddress ? item.lessorAddress : "...."}
               </li>
               <li className="text-justify">
-                Địa chỉ: {item.lessorAdd ? item.lessorAdd : "...."}.
-              </li>
-              <li className="text-justify">
                 Điện thoại: {item.lessorPhone ? item.lessorPhone : "...."}.
               </li>
               <li className="text-justify">
@@ -91,9 +88,6 @@ const ContractFile = ({ item }) => {
                   : "...."}
                 ... Nơi cấp: ...
                 {item.renterAddress ? item.renterAddress : "...."}...
-              </li>
-              <li className="text-justify">
-                Địa chỉ:{item.renterAdd ? item.renterAdd : "...."}.
               </li>
               <li className="text-justify">
                 Điện thoại: {item.renterPhone ? item.renterPhone : "...."}.
@@ -122,8 +116,8 @@ const ContractFile = ({ item }) => {
           </h3>
           <p>
             2.1. Giá cho thuê nhà ở là{" "}
-            {item?.payment.amount
-              ? formatCurrencyVND(item?.payment.amount)
+            {item?.payment?.amount
+              ? formatCurrencyVND(item?.payment?.amount)
               : "...."}{" "}
             đồng/ tháng.
           </p>

@@ -65,7 +65,8 @@ const HouseCreate = () => {
       const res = await createHouse(data);
 
       if (res.result.code === 0) {
-        navigate(ROUTE_PATHS.HOUSE_DETAIL.replace(":id", res.house.houseID));
+        navigate(ROUTE_PATHS.HOUSE);
+        // navigate(ROUTE_PATHS.HOUSE_DETAIL.replace(":id", res.house.houseID));
       }
     } catch (error) {
       console.error("Error Update House:", error);

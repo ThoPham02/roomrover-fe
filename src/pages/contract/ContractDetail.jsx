@@ -1,12 +1,23 @@
 import { Nav } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 import { BREADCRUMB_DETAIL, ROUTE_PATHS } from "../../common";
 import { Breadcrumbs } from "../../components/ui";
 import ContractFile from "./ContractFile";
 import ContractPayment from "./ContractPayment";
+import * as actions from "../../../src/store/actions";
 
 const ContractDetail = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(actions.getContractDetail(id));
+  }, [dispatch, id]);
+
+  const { contractDetail } = useSelector((state) => state.contract);
   const [tab, setTab] = useState("1");
   const handleSelectTab = (selectedKey) => {
     setTab(selectedKey);
@@ -15,7 +26,7 @@ const ContractDetail = () => {
   const renderTab = () => {
     switch (tab) {
       case "1":
-        return <ContractFile />;
+        return <ContractFile item={contractDetail} />;
       case "2":
         return <ContractPayment />;
       default:

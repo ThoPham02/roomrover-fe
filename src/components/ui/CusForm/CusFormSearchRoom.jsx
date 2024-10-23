@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Form, InputGroup, Dropdown } from "react-bootstrap";
-import { apiFilterRoom } from "../../../store/services/inventServices";
+import { apiSearchRoom } from "../../../store/services/inventServices";
 
 const parseValue = (obj, path) => {
   return path.split(".").reduce((acc, key) => acc && acc[key], obj) || "";
@@ -64,7 +64,7 @@ const CusFormSearchRoom = ({
     });
 
     try {
-      const res = await apiFilterRoom({
+      const res = await apiSearchRoom({
         search: value,
         type: state?.room?.type,
         status: 2,
