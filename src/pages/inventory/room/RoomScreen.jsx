@@ -77,30 +77,33 @@ const RoomScreen = () => {
     dispatch(actions.setCurrentPage(ROUTE_PATHS.ROOM));
     dispatch(
       actions.getListRooms({
+        ...filter,
         limit: PAGE_SIZE,
-        offset: 0,
+        offset: PAGE_SIZE * (page - 1),
       })
     );
-  }, [dispatch]);
+    // eslint-disable-next-line
+  }, [dispatch, page]);
 
   const { listRooms, total } = useSelector((state) => state.invent.room);
-  var data = listRooms?.map((item) => {
-    return {
-      id: item.roomID,
-      name: `${item.name} (${item.houseName})`,
-      type: HOUSE_TYPE[item.type].name,
-      area: item.area + "m2",
-      capacity: item.capacity === 0 ? "Không giới hạn" : item.capacity,
-      price: formatCurrencyVND(item.price) + " VND",
-      statusComponent: RoomStatusComponent[item.status],
-      status: item.status,
-    };
-  }) || [];
+  var data =
+    listRooms?.map((item) => {
+      return {
+        id: item.roomID,
+        name: `${item.name} (${item.houseName})`,
+        type: HOUSE_TYPE[item.type].name,
+        area: item.area + "m2",
+        capacity: item.capacity === 0 ? "Không giới hạn" : item.capacity,
+        price: formatCurrencyVND(item.price) + " VND",
+        statusComponent: RoomStatusComponent[item.status],
+        status: item.status,
+      };
+    }) || [];
 
   const handleSubmitFilter = (e) => {
     e.preventDefault();
 
-    dispatch(actions.getListRooms(filter));
+    setPage(1);
   };
 
   return (

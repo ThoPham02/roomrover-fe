@@ -23,4 +23,16 @@ export const apiCreateContract = async (contract) => {
   } catch (error) {
     return error;
   }
-}
+};
+
+export const apiGetContractDetail = async (id) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.GetContractDetail,
+      url: ApiUrl.GetContractDetail.url.replace(":id", id),
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};

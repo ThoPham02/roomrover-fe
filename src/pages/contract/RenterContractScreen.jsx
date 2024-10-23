@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaSearch } from "react-icons/fa";
 import { Pagination } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 
 import * as actions from "../../../src/store/actions";
@@ -15,12 +14,11 @@ import {
 } from "../../../src/common";
 import {
   Breadcrumbs,
-  ContractActionButton,
-  CreateButton,
   CusFormDate,
   CusFormGroup,
   CusFormSelect,
   CusTable,
+  RenterContractActionButton,
 } from "../../../src/components/ui";
 import {
   convertTimestampToDate,
@@ -68,14 +66,14 @@ const columns = [
   {
     header: "Trạng thái",
     headerClass: "text-center w-40",
-    accessorKey: "status",
+    accessorKey: "statusComponent",
     dataClass: "text-center",
   },
 ];
 
 const RenterContractScreen = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [page, setPage] = useState(1);
 
@@ -107,16 +105,12 @@ const RenterContractScreen = () => {
 
   const { listContract, total } = useSelector((state) => state.contract);
 
-  const handleCreateContract = () => {
-    navigate(ROUTE_PATHS.CONTRACT_CREATE);
-  };
-
   const data = listContract
     ? listContract?.map((contract) => {
         return {
           ...contract,
           createdAt: convertTimestampToDate(contract?.createdAt),
-          status: ContractStatusComponent[contract?.status],
+          statusComponent: ContractStatusComponent[contract?.status],
           room: {
             name: `${contract.room?.name} (${contract.room?.houseName})`,
           },
@@ -177,7 +171,7 @@ const RenterContractScreen = () => {
             headers={columns}
             data={data}
             page={1}
-            ActionButton={ContractActionButton}
+            ActionButton={RenterContractActionButton}
           />
 
           {data.length > 0 && (

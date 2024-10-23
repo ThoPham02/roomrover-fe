@@ -103,4 +103,8 @@ export const ApiUrl = {
     url: "/contract",
     method: "post",
   },
+  GetContractDetail: {
+    url: "/contract/:id",
+    method: "get",
+  },
 };

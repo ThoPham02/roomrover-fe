@@ -47,6 +47,14 @@ export const CONTRACT_STATUS = {
   16: { name: "Đã hủy" },
 };
 
+export const CONTRACT_STATUS_CODE = {
+  WAITING: 1,
+  WAITING_DEPOSIT: 2,
+  RENTING: 4,
+  EXPIRED: 8,
+  CANCELED: 16,
+}
+
 export const SERVICE_UNIT = {
   1: { name: "Tháng" },
   2: { name: "Người / Tháng" },

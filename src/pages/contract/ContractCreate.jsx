@@ -17,7 +17,7 @@ const ContractCreate = () => {
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const [contract, setContract] = useState({
-    renter: user,
+    lessor: user,
   });
 
   const handleSubmit = async (e) => {
@@ -75,68 +75,9 @@ const ContractCreate = () => {
                 state={contract}
                 setState={setContract}
                 placeholder={"Nhập số điện thoại"}
-                keyName={"renter.phone"}
-                required
-                disabled
-              />
-            </Col>
-            <Col>
-              <CusFormGroup
-                label={"Họ và tên"}
-                state={contract}
-                setState={setContract}
-                placeholder={"Nhập họ và tên"}
-                keyName={"renter.fullName"}
-                required
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <CusFormGroup
-                label={"Số CCCD"}
-                state={contract}
-                setState={setContract}
-                placeholder={"Nhập số CCCD"}
-                keyName={"renter.cccdNumber"}
-                required
-              />
-            </Col>
-            <Col>
-              <CusFormDate
-                label={"Ngày cấp"}
-                state={contract}
-                setState={setContract}
-                placeholder={"Nhập ngày cấp"}
-                keyName={"renter.cccdDate"}
-                required
-                position={"right"}
-              />
-            </Col>
-            <Col>
-              <CusFormGroup
-                label={"Nơi cấp"}
-                state={contract}
-                setState={setContract}
-                placeholder={"Nhập nơi cấp"}
-                keyName={"renter.cccdAddress"}
-                required
-              />
-            </Col>
-          </Row>
-        </div>
-
-        <p className="font-medium mt-4">Bên thuê:</p>
-        <div className="p-2 bg-slate-100 rounded">
-          <Row>
-            <Col>
-              <CusFormSearchUser
-                label={"Số điện thoại"}
-                state={contract}
-                setState={setContract}
-                placeholder={"Nhập số điện thoại"}
                 keyName={"lessor.phone"}
                 required
+                disabled
               />
             </Col>
             <Col>
@@ -179,6 +120,65 @@ const ContractCreate = () => {
                 setState={setContract}
                 placeholder={"Nhập nơi cấp"}
                 keyName={"lessor.cccdAddress"}
+                required
+              />
+            </Col>
+          </Row>
+        </div>
+
+        <p className="font-medium mt-4">Bên thuê:</p>
+        <div className="p-2 bg-slate-100 rounded">
+          <Row>
+            <Col>
+              <CusFormSearchUser
+                label={"Số điện thoại"}
+                state={contract}
+                setState={setContract}
+                placeholder={"Nhập số điện thoại"}
+                keyName={"renter.phone"}
+                required
+              />
+            </Col>
+            <Col>
+              <CusFormGroup
+                label={"Họ và tên"}
+                state={contract}
+                setState={setContract}
+                placeholder={"Nhập họ và tên"}
+                keyName={"renter.fullName"}
+                required
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <CusFormGroup
+                label={"Số CCCD"}
+                state={contract}
+                setState={setContract}
+                placeholder={"Nhập số CCCD"}
+                keyName={"renter.cccdNumber"}
+                required
+              />
+            </Col>
+            <Col>
+              <CusFormDate
+                label={"Ngày cấp"}
+                state={contract}
+                setState={setContract}
+                placeholder={"Nhập ngày cấp"}
+                keyName={"renter.cccdDate"}
+                required
+                position={"right"}
+              />
+            </Col>
+            <Col>
+              <CusFormGroup
+                label={"Nơi cấp"}
+                state={contract}
+                setState={setContract}
+                placeholder={"Nhập nơi cấp"}
+                keyName={"renter.cccdAddress"}
                 required
               />
             </Col>

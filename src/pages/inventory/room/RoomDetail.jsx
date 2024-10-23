@@ -100,7 +100,7 @@ const RoomDetail = () => {
               />
             </div>
             <div className="flex space-x-4 overflow-x-auto">
-              {house?.albums.map((image, index) => (
+              {house?.albums?.map((image, index) => (
                 <img
                   key={index}
                   src={image}

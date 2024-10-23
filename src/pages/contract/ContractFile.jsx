@@ -1,7 +1,13 @@
 import React, { useRef } from "react";
 import html2pdf from "html2pdf.js";
+import {
+  convertTimestampToDate,
+  formatCurrencyVND,
+  getDayFromTimestamp,
+  getDayMonthYearFromTimestamp,
+} from "../../utils/utils";
 
-const ContractFile = () => {
+const ContractFile = ({ item }) => {
   const contractRef = useRef();
 
   const handleExportPDF = () => {
@@ -11,7 +17,7 @@ const ContractFile = () => {
       .set({
         margin: [18, 18, 18, 18],
         filename: "hop-dong-thue-nha.pdf",
-        html2canvas: { scale: 5 },
+        html2canvas: { scale: 3 },
         jsPDF: { orientation: "portrait" },
         pagebreak: { mode: ["avoid-all", "css", "legacy"] },
       })
@@ -36,46 +42,61 @@ const ContractFile = () => {
             <h2 className="text-xl mt-4 font-semibold">
               HỢP ĐỒNG THUÊ NHÀ TRỌ
             </h2>
-            <p>(Số: ./HĐTNO)</p>
+            <p>(Số: {item.code}/HĐTNO)</p>
           </div>
 
           <div className="mb-2">
             <p>
-              Hôm nay ngày …. tháng …. năm ….. Tại ……………………….. Chúng tôi gồm có:
+              Hôm nay {getDayMonthYearFromTimestamp(item.createdAt)}. Tại
+              ……………………….. Chúng tôi gồm có:
             </p>
 
             <h3 className="text-lg font-semibold">BÊN CHO THUÊ (BÊN A):</h3>
             <ul className="list-disc ml-5">
               <li className="text-justify">
-                Ông/bà: ………………………………………. Năm sinh: …………………..
+                Ông/bà: {item.lessorName ? item.lessorName : "...."}.
               </li>
               <li className="text-justify">
-                CMND/CCCD số: ………… Ngày cấp ………….. Nơi cấp ………………
+                CMND/CCCD số: ...
+                {item.lessorNumber ? item.lessorNumber : "...."} ... Ngày cấp{" "}
+                ...
+                {item.lessorDate
+                  ? convertTimestampToDate(item.lessorDate)
+                  : "...."}
+                ... Nơi cấp: {item.lessorAddress ? item.lessorAddress : "...."}
               </li>
               <li className="text-justify">
-                Địa chỉ: ……………………………………………..………………………………
+                Địa chỉ: {item.lessorAdd ? item.lessorAdd : "...."}.
               </li>
               <li className="text-justify">
-                Điện thoại: …………………………………………..…………………………
+                Điện thoại: {item.lessorPhone ? item.lessorPhone : "...."}.
               </li>
               <li className="text-justify">
-                Là chủ sở hữu nhà ở: …………………………………………..……………
+                Là chủ sở hữu nhà ở:{" "}
+                {item.lessorName ? item.lessorName : "...."}.
               </li>
             </ul>
 
             <h3 className="text-lg font-semibold">BÊN THUÊ (BÊN B):</h3>
             <ul className="list-disc ml-5">
               <li className="text-justify">
-                Ông/bà: ……………………………………. Năm sinh: …………………..
+                Ông/bà: {item.renterName ? item.renterName : "...."}.
               </li>
               <li className="text-justify">
-                CMND/CCCD số: …………… Ngày cấp: ……………….. Nơi cấp: ……
+                CMND/CCCD số: ...
+                {item.renterNumber ? item.renterNumber : "...."}... Ngày cấp:
+                ...
+                {item.renterDate
+                  ? convertTimestampToDate(item.renterDate)
+                  : "...."}
+                ... Nơi cấp: ...
+                {item.renterAddress ? item.renterAddress : "...."}...
               </li>
               <li className="text-justify">
-                Địa chỉ:…………………………………………..………………………………
+                Địa chỉ:{item.renterAdd ? item.renterAdd : "...."}.
               </li>
               <li className="text-justify">
-                Điện thoại: ……………………………………………..…… Fax:……………
+                Điện thoại: {item.renterPhone ? item.renterPhone : "...."}.
               </li>
             </ul>
           </div>
@@ -85,7 +106,8 @@ const ContractFile = () => {
             ĐIỀU 1. ĐỐI TƯỢNG CỦA HỢP ĐỒNG
           </h3>
           <p className="text-justify">
-            Bên A đồng ý cho Bên B thuê căn hộ tại địa chỉ ….. thuộc sở hữu hợp
+            Bên A đồng ý cho Bên B thuê căn hộ tại địa chỉ ...
+            {item.renterPhone ? item.renterPhone : "...."}... thuộc sở hữu hợp
             pháp của Bên A.
           </p>
           <p className="text-justify">
@@ -98,14 +120,20 @@ const ContractFile = () => {
           <h3 className="text-lg font-semibold">
             ĐIỀU 2. GIÁ CHO THUÊ NHÀ Ở VÀ PHƯƠNG THỨC THANH TOÁN
           </h3>
-          <p>2.1. Giá cho thuê nhà ở là ............ đồng/ tháng.</p>
+          <p>
+            2.1. Giá cho thuê nhà ở là{" "}
+            {item?.payment.amount
+              ? formatCurrencyVND(item?.payment.amount)
+              : "...."}{" "}
+            đồng/ tháng.
+          </p>
           <p>
             2.2. Các chi phí sử dụng điện nước điện thoại và các dịch vụ khác do
             bên B thanh toán cho bên cung cấp.
           </p>
           <p>
             2.3. Phương thức thanh toán: bằng tiền mặt hoặc chuyển khoản. trả
-            vào ngày .......... hàng tháng.
+            vào ngày {getDayFromTimestamp(item.checkIn)} hàng tháng.
           </p>
           {/* </div> */}
 
@@ -114,12 +142,13 @@ const ContractFile = () => {
             ĐIỀU 3. THỜI HẠN THUÊ VÀ THỜI ĐIỂM GIAO NHẬN NHÀ Ở
           </h3>
           <p>
-            3.1. Thời hạn thuê ngôi nhà nêu trên là ..... tháng kể từ ngày…
-            tháng … năm …..
+            3.1. Thời hạn thuê ngôi nhà nêu trên là{" "}
+            {item.duration ? item.duration : "...."} tháng kể từ{" "}
+            {getDayMonthYearFromTimestamp(item.checkIn)}.
           </p>
           <p>
-            3.2. Thời điểm giao nhận nhà ở là ngày ........ tháng ........ năm
-            ….........
+            3.2. Thời điểm giao nhận nhà ở là{" "}
+            {getDayMonthYearFromTimestamp(item.checkIn)}.
           </p>
           {/* </div> */}
 
@@ -176,15 +205,15 @@ const ContractFile = () => {
           <p className="text-justify">
             e. Được lấy lại nhà cho thuê khi hết hạn hợp đồng thuê, nếu hợp đồng
             không quy định thời hạn thuê thì bên cho thuê muốn lấy lại nhà phải
-            báo cho bên thuê biết trước ........ ngày;
+            báo cho bên thuê biết trước 30 ngày;
           </p>
           <p className="text-justify">
             f. Đơn phương chấm dứt thực hiện hợp đồng thuê nhà nhưng phải báo
-            cho bên B biết trước ít nhất ......ngày nếu không có thỏa thuận khác
-            và yêu cầu bồi thường thiệt hại nếu bên B có một trong các hành vi
-            sau đây:
+            cho bên B biết trước ít nhất 30 ngày nếu không có thỏa thuận khác và
+            yêu cầu bồi thường thiệt hại nếu bên B có một trong các hành vi sau
+            đây:
             <p className="text-justify">
-              - Không trả tiền thuê nhà liên tiếp trong ...... trở lên mà không
+              - Không trả tiền thuê nhà liên tiếp trong 1 tháng trở lên mà không
               có lý do chính đáng;
             </p>
             <p className="text-justify">
