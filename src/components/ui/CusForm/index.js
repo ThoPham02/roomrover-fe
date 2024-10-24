@@ -1,4 +1,6 @@
 export { default as HouseDetailForm } from "./House.Detail.Form";
+export { default as ContractDetailForm } from "./Contract.Detail.Form";
+
 export { default as CusFormGroup } from "./CusFormGroup";
 export { default as CusFormSelect } from "./CusFormSelect";
 export { default as CusFormUpload } from "./CusFormUpload";
