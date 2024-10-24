@@ -66,3 +66,26 @@ export const RoomStatusComponent = {
     </p>
   ),
 };
+
+export const PaymentStatusComponent = {
+  1: (
+    <p className="px-2 py-1 rounded inline-block text-center bg-gray-500 text-white">
+      Chờ xác nhận
+    </p>
+  ),
+  2: (
+    <p className="px-2 py-1 rounded inline-block text-center bg-blue-500 text-white">
+      Chờ thanh toán
+    </p>
+  ),
+  4: (
+    <p className="px-2 py-1 rounded inline-block text-center bg-orange-500 text-white">
+      Đã thanh toán
+    </p>
+  ),
+  8: (
+    <p className="px-2 py-1 rounded inline-block text-center bg-orange-500 text-white">
+      Quá hạn
+    </p>
+  ),
+};

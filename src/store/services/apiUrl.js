@@ -115,4 +115,14 @@ export const ApiUrl = {
     url: "/contract/:id/status",
     method: "put",
   },
+
+  // Payment
+  FilterPayments: {
+    url: "/bill/filter",
+    method: "get",
+  },
+  GetPaymentDetail: {
+    url: "/bill/:id",
+    method: "get",
+  },
 };

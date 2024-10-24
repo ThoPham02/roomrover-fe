@@ -1,7 +1,7 @@
 import Table from "react-bootstrap/Table";
 import { PAGE_SIZE } from "../../common";
 
-const CusTable = ({ headers, data, page, ActionButton }) => {
+const CusTable = ({ headers, data, page, ActionButton, actions = true }) => {
   const getNestedValue = (obj, path) => {
     return path.split(".").reduce((acc, part) => acc && acc[part], obj);
   };
@@ -16,7 +16,7 @@ const CusTable = ({ headers, data, page, ActionButton }) => {
               {item.header}
             </th>
           ))}
-          <th className="text-nowrap text-center w-8">Thao tác</th>
+          {actions && <th className="text-nowrap text-center w-8">Thao tác</th>}
         </tr>
       </thead>
       <tbody>
@@ -31,9 +31,11 @@ const CusTable = ({ headers, data, page, ActionButton }) => {
                   {getNestedValue(item, header.accessorKey)}
                 </td>
               ))}
-              <td className="text-nowrap text-center align-middle">
-                <ActionButton item={item} className="p-4" />
-              </td>
+              {actions && (
+                <td className="text-nowrap text-center align-middle">
+                  <ActionButton item={item} className="p-4" />
+                </td>
+              )}
             </tr>
           ))
         ) : (

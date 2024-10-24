@@ -15,6 +15,7 @@ const CusFormSelect = ({
   setValue,
   keyName,
   position = "right",
+  
 }) => {
   const renderOptions = () => {
     if (Array.isArray(data)) {
