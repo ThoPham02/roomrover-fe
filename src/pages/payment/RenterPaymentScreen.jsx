@@ -20,15 +20,15 @@ const listFields = [
     dataClass: "text-center",
   },
   {
-    header: "Người thuê",
+    header: "Người cho thuê",
     headerClass: "text-center w-96",
-    accessorKey: "renter",
+    accessorKey: "lessorName",
     dataClass: "",
   },
   {
     header: "Số điện thoại",
     headerClass: "text-center w-32",
-    accessorKey: "phone",
+    accessorKey: "lessorPhone",
     dataClass: "",
   },
   {
@@ -51,11 +51,12 @@ const listFields = [
   },
 ];
 
-const PaymentScreen = () => {
+const RenterPaymentScreen = () => {
   const [page, setPage] = useState(1);
 
   var data = [
     {
+      id: 1,
       name: "Phòng 1",
       type: "Phòng trọ",
       area: "10m2",
@@ -133,4 +134,4 @@ const PaymentScreen = () => {
   );
 };
 
-export default PaymentScreen;
+export default RenterPaymentScreen;

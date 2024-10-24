@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Form, InputGroup, Dropdown } from "react-bootstrap";
-import { apiFilterRoom } from "../../../store/services/inventServices";
+import { apiSearchRoom } from "../../../store/services/inventServices";
 
 const parseValue = (obj, path) => {
   return path.split(".").reduce((acc, key) => acc && acc[key], obj) || "";
@@ -64,10 +64,10 @@ const CusFormSearchRoom = ({
     });
 
     try {
-      const res = await apiFilterRoom({
+      const res = await apiSearchRoom({
         search: value,
         type: state?.room?.type,
-        status: 1,
+        status: 2,
         limit: 0,
         offset: 0,
       });
@@ -124,7 +124,7 @@ const CusFormSearchRoom = ({
                 ))
               ) : (
                 <Dropdown.Item disabled>
-                  Tài khoản chưa tồn tại trên hệ thống
+                  Không có kết quả phù hợp
                 </Dropdown.Item>
               )}
             </Dropdown.Menu>

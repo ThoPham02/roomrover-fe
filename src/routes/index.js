@@ -1,18 +1,19 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { AuthLayout, ErrorLayout, ManageLayout } from "../components/layouts";
+import {
+  AuthLayout,
+  DefaultLayout,
+  ErrorLayout,
+  ManageLayout,
+} from "../components/layouts";
 import { ROUTE_PATHS } from "../common/path";
 import {
   authLessorRoute,
   authRenterRoute,
   authRoute,
 } from "../pages/auth/route";
-import {
-  inventPublicRoute,
-  inventLessorRoute,
-  inventRenterRoute,
-} from "../pages/inventory/route";
+import { inventLessorRoute, inventRenterRoute } from "../pages/inventory/route";
 import {
   contractLessorRoute,
   contractRenterRoute,
@@ -56,9 +57,15 @@ const router = createBrowserRouter([
   // Public routes
   {
     path: ROUTE_PATHS.ROOT,
+    element: <DefaultLayout />,
+    errorElement: <ErrorLayout />,
+    children: publicRoute,
+  },
+  {
+    path: ROUTE_PATHS.ROOT,
     element: <AuthLayout />,
     errorElement: <ErrorLayout />,
-    children: [...authRoute, ...inventPublicRoute, ...publicRoute],
+    children: [...authRoute],
   },
   // Routes for role = 4 (Lessor role)
   {

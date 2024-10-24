@@ -51,15 +51,13 @@ const CusFormSelect = ({
   };
 
   const InputComponent = (
-    <Form.Group
-    // className="flex items-center justify-center mb-4"
-    // controlId="houseAddress"
-    >
+    <Form.Group>
       <Form.Select
         aria-label={label}
         value={parseValue(value, keyName)}
         disabled={disabled || false}
         onChange={handleValueChange}
+        className="min-w-48"
       >
         <option key={0} value={0}>
           {defaultValue}
@@ -77,7 +75,8 @@ const CusFormSelect = ({
         }`}
       >
         {label}
-        {required && <span className="text-red-500">*</span>}:
+        {required && <span className="text-red-500">*</span>}
+        {label && ":"}
       </p>
       {InputComponent}
     </div>
@@ -92,33 +91,6 @@ const CusFormSelect = ({
       </div>
     </div>
   );
-
-  // return
-  // (
-
-  //   <Form.Group
-  //     className="flex items-center justify-center mb-4"
-  //     controlId="houseAddress"
-  //   >
-  //     {title && (
-  //       <p className="font-bold text-nowrap mr-2 min-w-36">
-  //         {title}
-  //         {required && <span className="text-red-500">*</span>}:
-  //       </p>
-  //     )}
-  //     <Form.Select
-  //       aria-label={label}
-  //       value={parseValue(value, keyName)}
-  //       disabled={disabled || false}
-  //       onChange={handleValueChange}
-  //     >
-  //       <option key={0} value={0}>
-  //         {label}
-  //       </option>
-  //       {renderOptions()}
-  //     </Form.Select>
-  //   </Form.Group>
-  // );
 };
 
 export default CusFormSelect;

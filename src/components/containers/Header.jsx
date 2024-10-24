@@ -50,7 +50,6 @@ const Header = () => {
           )}
         </div>
       </header>
-      <div className="h-24"></div>
     </div>
   );
 };

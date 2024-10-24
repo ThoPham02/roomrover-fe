@@ -56,3 +56,13 @@ export const getArea = (provinceID, districtID, wardID) => {
   wardID = String(wardID).padStart(5, "0");
   return address[provinceID]?.districts[districtID]?.wards[wardID].path;
 };
+
+export const getDayMonthYearFromTimestamp = (timestamp) => {
+  const date = new Date(timestamp);
+  return `ngày ${date.getDate()}, tháng ${date.getMonth() + 1}, năm ${date.getFullYear()}`;
+}
+
+export const getDayFromTimestamp = (timestamp) => {
+  const date = new Date(timestamp);
+  return date.getDate();
+}

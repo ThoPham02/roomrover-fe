@@ -16,9 +16,9 @@ import {
   Line,
 } from "recharts";
 
-import * as actions from "../../store/actions";
-import { BREADCRUMB_DETAIL, ROUTE_PATHS } from "../../common";
-import { Breadcrumbs } from "../../components/ui";
+import * as actions from "../../../src/store/actions";
+import { BREADCRUMB_DETAIL, ROUTE_PATHS } from "../../../src/common";
+import { Breadcrumbs } from "../../../src/components/ui";
 
 const boardingHouses = [
   { name: "Sunrise Residency", revenue: 5000, color: "#3B82F6" },
@@ -79,7 +79,7 @@ const outstandingRent = [
   },
 ];
 
-const HomeScreen = () => {
+const DashboardScreen = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -229,7 +229,7 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default DashboardScreen;
 
 const StatCard = ({ icon, title, value }) => (
   <div className="bg-white rounded-lg shadow-md p-6 flex items-center">

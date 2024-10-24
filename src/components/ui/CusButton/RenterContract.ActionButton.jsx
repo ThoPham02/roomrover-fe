@@ -6,33 +6,33 @@ import { AiOutlineEllipsis } from "react-icons/ai";
 import { CONTRACT_STATUS_CODE, PAGE_SIZE, ROUTE_PATHS } from "../../../common";
 import * as actions from "../../../store/actions";
 import { apiUpdateStatusContract } from "../../../store/services/contractServices";
+import ConfirmActionModal from "../CusModal/ConfirmAction.Modal";
 
-const ContractActionButton = ({ item }) => {
+const RenterContractActionButton = ({ item }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const handleMouseEnter = () => setIsMenuOpen(true);
   const handleMouseLeave = () => setIsMenuOpen(false);
 
   const handleDetailBtn = () => {
-    navigate(ROUTE_PATHS.CONTRACT_DETAIL.replace(":id", item.contractID));
+    navigate(
+      ROUTE_PATHS.RENTER_CONTRACT_DETAIL.replace(":id", item.contractID)
+    );
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     dispatch(actions.deleteContract(item.contractID));
   };
 
-  const handleEdit = () => {
-    navigate(ROUTE_PATHS.CONTRACT_UPDATE.replace(":id", item.contractID));
-  };
-
-  const handleComfirmDeposit = async () => {
+  const handleConfirm = async () => {
     try {
       const data = await apiUpdateStatusContract({
         id: item.contractID,
-        status: CONTRACT_STATUS_CODE.RENTING,
+        status: CONTRACT_STATUS_CODE.WAITING_DEPOSIT,
       });
       if (data?.result.code === 0) {
         dispatch(actions.getListContract({ limit: PAGE_SIZE, offset: 0 }));
@@ -44,7 +44,7 @@ const ContractActionButton = ({ item }) => {
       console.error("Error Update House:", error);
       return;
     }
-  }
+  };
 
   return (
     <div
@@ -66,24 +66,27 @@ const ContractActionButton = ({ item }) => {
                 Xem
               </button>
             </li>
-            {item.status === CONTRACT_STATUS_CODE.WAITING_DEPOSIT && (
+            {item?.status === CONTRACT_STATUS_CODE.WAITING && (
               <li>
                 <button
-                  onClick={handleComfirmDeposit}
+                  onClick={() => setShowModal(true)}
                   className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
                 >
-                  Xác nhận đã cọc
+                  Xác nhận thuê
                 </button>
               </li>
             )}
-            <li>
-              <button
-                onClick={handleEdit}
-                className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
-              >
-                Chỉnh sửa
-              </button>
-            </li>
+            {/* {item?.status === CONTRACT_STATUS_CODE.WAITING && (
+              <li>
+                <button
+                  onClick={handleDelete}
+                  className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
+                >
+                  Xác nhận thuê
+                </button>
+              </li>
+            )} */}
+
             <li>
               <button
                 onClick={handleDelete}
@@ -95,8 +98,14 @@ const ContractActionButton = ({ item }) => {
           </ul>
         </div>
       )}
+
+      <ConfirmActionModal
+        show={showModal}
+        handleClose={() => setShowModal(false)}
+        handleConfirm={handleConfirm}
+      />
     </div>
   );
 };
 
-export default ContractActionButton;
+export default RenterContractActionButton;

@@ -104,7 +104,7 @@ export const getService = async (id) => {
   } catch (error) {
     return error;
   }
-}
+};
 
 export const createService = async (service) => {
   try {
@@ -216,6 +216,45 @@ export const getRoom = async (id) => {
 export const apiFilterRoom = async (filters) => {
   try {
     const response = await axios({ ...ApiUrl.FilterRoom, params: filters });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const apiSearchRoom = async (filters) => {
+  try {
+    const response = await axios({ ...ApiUrl.SearchRoom, params: filters });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const apiUpdateRoomStatus = async (payload) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.UpdateRoomStatus,
+      url: ApiUrl.UpdateRoomStatus.url.replace(":id", payload.id),
+      data: {
+        status: payload.status,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const apiSearchHouse = async (payload) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.SearchHouse,
+      params: payload,
+    });
 
     return response;
   } catch (error) {

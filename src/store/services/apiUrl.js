@@ -38,6 +38,10 @@ export const ApiUrl = {
     url: "/invent/upload",
     method: "post",
   },
+  SearchHouse: {
+    url: "/invent/house/search",
+    method: "get",
+  },
 
   GetHouseService: {
     url: "/invent/service/house/:id",
@@ -84,6 +88,14 @@ export const ApiUrl = {
     url: "/invent/room/filter",
     method: "get",
   },
+  SearchRoom: {
+    url: "/invent/room/search",
+    method: "get",
+  },
+  UpdateRoomStatus: {
+    url: "/invent/room/:id/status",
+    method: "put",
+  },
 
   // contract
   FilterContracts: {
@@ -94,5 +106,13 @@ export const ApiUrl = {
   CreateContract: {
     url: "/contract",
     method: "post",
+  },
+  GetContractDetail: {
+    url: "/contract/:id",
+    method: "get",
+  },
+  UpdateStatusContract: {
+    url: "/contract/:id/status",
+    method: "put",
   },
 };

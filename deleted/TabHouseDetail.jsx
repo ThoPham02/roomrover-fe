@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import * as actions from "../../store/actions";
-import { ROUTE_PATHS } from "../../common";
-import { CreateButton, HouseDetailForm } from "../../components/ui";
-import { updateHouse } from "../../store/services/inventServices";
+import * as actions from "../src/store/actions";
+import { ROUTE_PATHS } from "../src/common";
+import { CreateButton, HouseDetailForm } from "../src/components/ui";
+import { updateHouse } from "../src/store/services/inventServices";
 // import { useNavigate } from "react-router-dom";
 
 const TabHouseDetail = ({ id, option, setOption }) => {
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(actions.setCurrentPage(ROUTE_PATHS.INVENTORY));
+    dispatch(actions.setCurrentPage(ROUTE_PATHS.HOUSE));
     dispatch(actions.getHouseDetailAction(id));
   }, [dispatch, id]);
 

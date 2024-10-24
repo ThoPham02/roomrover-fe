@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaSearch } from "react-icons/fa";
 import { Pagination } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 
 import * as actions from "../../../src/store/actions";
@@ -15,12 +14,11 @@ import {
 } from "../../../src/common";
 import {
   Breadcrumbs,
-  ContractActionButton,
-  CreateButton,
   CusFormDate,
   CusFormGroup,
   CusFormSelect,
   CusTable,
+  RenterContractActionButton,
 } from "../../../src/components/ui";
 import {
   convertTimestampToDate,
@@ -42,15 +40,15 @@ const columns = [
     dataClass: "",
   },
   {
-    header: "Nguời thuê",
+    header: "Nguời cho thuê",
     headerClass: "text-center w-32",
-    accessorKey: "renterName",
+    accessorKey: "lessorName",
     dataClass: "",
   },
   {
     header: "Số điện thoại",
     headerClass: "text-center w-32",
-    accessorKey: "renterPhone",
+    accessorKey: "lessorPhone",
     dataClass: "",
   },
   {
@@ -73,9 +71,9 @@ const columns = [
   },
 ];
 
-const ContractScreen = () => {
+const RenterContractScreen = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [page, setPage] = useState(1);
 
@@ -107,10 +105,6 @@ const ContractScreen = () => {
 
   const { listContract, total } = useSelector((state) => state.contract);
 
-  const handleCreateContract = () => {
-    navigate(ROUTE_PATHS.CONTRACT_CREATE);
-  };
-
   const data = listContract
     ? listContract?.map((contract) => {
         return {
@@ -131,11 +125,6 @@ const ContractScreen = () => {
     <div className="p-3 bg-white rounded">
       <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.CONTRACT]} />
       <div className="relative">
-        <CreateButton
-          className="absolute -top-16 right-0 z-1"
-          onClick={handleCreateContract}
-        />
-
         <div className="mt-8">
           <div className="p-2 bg-slate-100 rounded">
             <Form
@@ -182,10 +171,10 @@ const ContractScreen = () => {
             headers={columns}
             data={data}
             page={1}
-            ActionButton={ContractActionButton}
+            ActionButton={RenterContractActionButton}
           />
 
-          {data?.length > 0 && (
+          {data.length > 0 && (
             <div className="flex justify-between items-center">
               <p className="text-sm text-gray-500">
                 Hiển thị{" "}
@@ -211,4 +200,4 @@ const ContractScreen = () => {
   );
 };
 
-export default ContractScreen;
+export default RenterContractScreen;

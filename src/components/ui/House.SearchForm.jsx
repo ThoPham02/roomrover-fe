@@ -9,11 +9,11 @@ import { CusFormGroup, CusFormSelect } from "./CusForm";
 
 const SearchHouseForm = () => {
   const dispatch = useDispatch();
-  const [filter, setFilter] = useState({});
+  const [filter, setFilter] = useState({ limit: PAGE_SIZE, offset: 0 });
 
   const handleSubmitFilter = (e) => {
     e.preventDefault();
-    setFilter((filter) => ({ ...filter, limit: PAGE_SIZE, offset: 0 }));
+    
     dispatch(actions.getListHouses(filter));
   };
 

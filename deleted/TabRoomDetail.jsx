@@ -2,11 +2,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { Pagination } from "@mui/material";
 import { useEffect, useState } from "react";
 
-import { HOUSE_ROOM_STATUS, PAGE_SIZE, ROUTE_PATHS } from "../../common";
-import { CreateButton, CusTable, HouseActionButton } from "../../components/ui";
-import { RoomModal } from "../../components/containers";
-import { createRoom } from "../../store/services/inventServices";
-import * as actions from "../../store/actions";
+import { HOUSE_ROOM_STATUS, PAGE_SIZE, ROUTE_PATHS } from "../src/common";
+import {
+  CreateButton,
+  CusTable,
+  HouseActionButton,
+} from "../src/components/ui";
+import { RoomModal } from "../src/components/containers";
+import { createRoom } from "../src/store/services/inventServices";
+import * as actions from "../src/store/actions";
 
 const columns = [
   {

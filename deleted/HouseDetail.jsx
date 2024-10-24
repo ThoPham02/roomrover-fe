@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 
-import { BREADCRUMB_DETAIL, ROUTE_PATHS } from "../../common";
-import { Breadcrumbs } from "../../components/ui";
+import { BREADCRUMB_DETAIL, ROUTE_PATHS } from "../src/common";
+import { Breadcrumbs } from "../src/components/ui";
 import TabHouseDetail from "./TabHouseDetail";
 import TabServiceDetail from "./TabServiceDetail";
 import TabRoomDetail from "./TabRoomDetail";
@@ -37,8 +37,8 @@ const HouseDetail = () => {
     <div className="house-detail-page">
       <Breadcrumbs
         title={BREADCRUMB_DETAIL["DETAIL"]}
-        backRoute={ROUTE_PATHS.INVENTORY}
-        backName={BREADCRUMB_DETAIL[ROUTE_PATHS.INVENTORY]}
+        backRoute={ROUTE_PATHS.HOUSE}
+        backName={BREADCRUMB_DETAIL[ROUTE_PATHS.HOUSE]}
         displayName={BREADCRUMB_DETAIL["DETAIL"]}
       />
 

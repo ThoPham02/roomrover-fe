@@ -7,3 +7,4 @@ export { default as CusTable } from "./CusTable";
 
 export * from "./CusForm";
 export * from "./CusButton";
+export * from "./CusModal";

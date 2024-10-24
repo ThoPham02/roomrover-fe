@@ -7,23 +7,28 @@ import {
   CreateButton,
   ListHouses,
   SearchHouseForm,
-} from "../../../components/ui";
+} from "../../../../src/components/ui";
 
-import * as actions from "../../../store/actions";
-import { BREADCRUMB_DETAIL, PAGE_SIZE, ROUTE_PATHS } from "../../../common";
+import * as actions from "../../../../src/store/actions";
+import {
+  BREADCRUMB_DETAIL,
+  PAGE_SIZE,
+  ROUTE_PATHS,
+} from "../../../../src/common";
 
 const HouseScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const data = {
-      limit: PAGE_SIZE,
-      offset: 0,
-    };
     dispatch(actions.setCurrentPage(ROUTE_PATHS.HOUSE));
     dispatch(actions.clearSearchParams());
-    dispatch(actions.getListHouses(data));
+    dispatch(
+      actions.getListHouses({
+        limit: PAGE_SIZE,
+        offset: 0,
+      })
+    );
   }, [dispatch]);
 
   const handleCreateHouse = () => {

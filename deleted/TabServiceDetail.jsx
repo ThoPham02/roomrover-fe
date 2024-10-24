@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import * as actions from "../../store/actions";
+import * as actions from "../src/store/actions";
 import {
   CreateButton,
   CusTable,
   ServiceActionButton,
-} from "../../components/ui";
-import { HOUSE_SERVICE_TYPE, ROUTE_PATHS } from "../../common";
-import { createService } from "../../store/services/inventServices";
-import { ServiceModal } from "../../components/containers";
-import { formatCurrencyVND } from "../../utils/utils";
+} from "../src/components/ui";
+import { HOUSE_SERVICE_TYPE, ROUTE_PATHS } from "../src/common";
+import { createService } from "../src/store/services/inventServices";
+import { ServiceModal } from "../src/components/containers";
+import { formatCurrencyVND } from "../src/utils/utils";
 
 const columns = [
   {

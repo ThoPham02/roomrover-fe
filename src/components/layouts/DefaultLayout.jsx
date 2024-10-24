@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
-import {Header} from "../containers";
+import { Header } from "../containers";
 
 const DefaultLayout = () => {
   return (
-    <div className="h-screen w-screen bg-slate-50">
+    <div className="min-h-screen h-full w-screen bg-slate-200">
       <Header />
-      <div className="default-body">
+      <div className="bg-white">
         <Outlet />
       </div>
     </div>
