@@ -6,12 +6,14 @@ import { AiOutlineEllipsis } from "react-icons/ai";
 import { CONTRACT_STATUS_CODE, PAGE_SIZE, ROUTE_PATHS } from "../../../common";
 import * as actions from "../../../store/actions";
 import { apiUpdateStatusContract } from "../../../store/services/contractServices";
+import ConfirmActionModal from "../CusModal/ConfirmAction.Modal";
 
 const RenterContractActionButton = ({ item }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const handleMouseEnter = () => setIsMenuOpen(true);
   const handleMouseLeave = () => setIsMenuOpen(false);
@@ -44,8 +46,6 @@ const RenterContractActionButton = ({ item }) => {
     }
   };
 
-  console.log(item);
-
   return (
     <div
       className="relative inline-block "
@@ -69,14 +69,14 @@ const RenterContractActionButton = ({ item }) => {
             {item?.status === CONTRACT_STATUS_CODE.WAITING && (
               <li>
                 <button
-                  onClick={handleConfirm}
+                  onClick={() => setShowModal(true)}
                   className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
                 >
                   Xác nhận thuê
                 </button>
               </li>
             )}
-            {item?.status === CONTRACT_STATUS_CODE.WAITING && (
+            {/* {item?.status === CONTRACT_STATUS_CODE.WAITING && (
               <li>
                 <button
                   onClick={handleDelete}
@@ -85,7 +85,7 @@ const RenterContractActionButton = ({ item }) => {
                   Xác nhận thuê
                 </button>
               </li>
-            )}
+            )} */}
 
             <li>
               <button
@@ -98,6 +98,12 @@ const RenterContractActionButton = ({ item }) => {
           </ul>
         </div>
       )}
+
+      <ConfirmActionModal
+        show={showModal}
+        handleClose={() => setShowModal(false)}
+        handleConfirm={handleConfirm}
+      />
     </div>
   );
 };

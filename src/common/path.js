@@ -40,6 +40,7 @@ export const ROUTE_PATHS = {
   CONTACT: "/contact",
 
   PAYMENT: "/payment",
+  PAYMENT_DETAIL: "/payment-detail/:id",
 
   NOTIFICATION: "/notification",
 

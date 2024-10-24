@@ -46,7 +46,7 @@ const listFields = [
   {
     header: "Trạng thái",
     headerClass: "text-center w-32",
-    accessorKey: "status",
+    accessorKey: "statusComponent",
     dataClass: "text-center",
   },
 ];

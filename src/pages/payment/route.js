@@ -1,6 +1,7 @@
 import { ROUTE_PATHS } from "../../common";
 import PaymentDetail from "./PaymentDetail";
 import PaymentScreen from "./PaymentScreen";
+import RenterPaymentDetail from "./RenterPaymentDetail";
 import RenterPaymentScreen from "./RenterPaymentScreen";
 
 export const paymentRenterRoute = [
@@ -18,7 +19,7 @@ export const paymentRenterRoute = [
     path: ROUTE_PATHS.RENTER_PAYMENT_DETAIL,
     element: (
       <div className="p-3 bg-white rounded">
-        <RenterPaymentScreen />
+        <RenterPaymentDetail />
       </div>
     ),
   },
@@ -36,7 +37,7 @@ export const paymentLessorRoute = [
   },
   {
     id: "payment_deatail_lessor",
-    path: ROUTE_PATHS.PAYMENT,
+    path: ROUTE_PATHS.PAYMENT_DETAIL,
     element: (
       <div className="p-3 bg-white rounded">
         <PaymentDetail />
