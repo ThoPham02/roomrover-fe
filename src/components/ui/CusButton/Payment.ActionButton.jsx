@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
 import { ROUTE_PATHS } from "../../../common";
 // import * as actions from "../../../store/actions";
@@ -16,7 +15,7 @@ const PaymentActionButton = ({ item }) => {
   const handleMouseLeave = () => setIsMenuOpen(false);
 
   const handleDetailBtn = () => {
-    navigate(ROUTE_PATHS.PAYMENT_DETAIL.replace(":id", item.id));
+    navigate(ROUTE_PATHS.PAYMENT_DETAIL.replace(":id", item.billID));
   };
 
   //   const handleUpdateBtn = () => {

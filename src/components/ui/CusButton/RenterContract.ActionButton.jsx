@@ -25,7 +25,7 @@ const RenterContractActionButton = ({ item }) => {
   };
 
   const handleDelete = async () => {
-    dispatch(actions.deleteContract(item.contractID));
+    // dispatch(actions.deleteContract(item.contractID));
   };
 
   const handleConfirm = async () => {

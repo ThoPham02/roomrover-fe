@@ -47,6 +47,13 @@ export const CONTRACT_STATUS = {
   16: { name: "Đã hủy" },
 };
 
+export const BILL_STATUS = {
+  1: { name: "Chờ xác nhận" },
+  2: { name: "Chờ thanh toán" },
+  4: { name: "Đã thanh toán" },
+  8: { name: "Đã hủy" },
+};
+
 export const CONTRACT_STATUS_CODE = {
   WAITING: 1,
   WAITING_DEPOSIT: 2,

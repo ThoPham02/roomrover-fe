@@ -1,51 +1,67 @@
 import { Pagination } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { Breadcrumbs, CusTable, RoomActionButton } from "../../components/ui";
+import {
+  Breadcrumbs,
+  CusTable,
+  PaymentActionButton,
+} from "../../components/ui";
 import { BREADCRUMB_DETAIL, PAGE_SIZE, ROUTE_PATHS } from "../../common";
 import * as actions from "../../store/actions";
-import { useDispatch } from "react-redux";
 
 const listFields = [
   {
     header: "Hoá đơn",
     headerClass: "text-center w-96",
-    accessorKey: "code",
+    accessorKey: "title",
     dataClass: "text-center",
   },
   {
-    header: "Phòng",
+    header: "Mã hợp đồng",
     headerClass: "text-center w-32",
-    accessorKey: "name",
+    accessorKey: "contractCode",
     dataClass: "text-center",
   },
-  {
-    header: "Người thuê",
-    headerClass: "text-center w-96",
-    accessorKey: "renter",
-    dataClass: "",
-  },
-  {
-    header: "Số điện thoại",
-    headerClass: "text-center w-32",
-    accessorKey: "phone",
-    dataClass: "",
-  },
+  // {
+  //   header: "Người thuê",
+  //   headerClass: "text-center w-96",
+  //   accessorKey: "renter",
+  //   dataClass: "",
+  // },
+  // {
+  //   header: "Số điện thoại",
+  //   headerClass: "text-center w-32",
+  //   accessorKey: "phone",
+  //   dataClass: "",
+  // },
   {
     header: "Số tiền",
-    headerClass: "text-center w-96",
-    accessorKey: "total",
-    dataClass: "",
+    headerClass: "text-center w-32",
+    accessorKey: "amount",
+    dataClass: "text-center",
+  },
+  {
+    header: "Đã trả",
+    headerClass: "text-center w-32",
+    accessorKey: "pay",
+    dataClass: "text-center",
+  },
+  {
+    header: "Còn lại",
+    headerClass: "text-center w-32",
+    accessorKey: "remain",
+    dataClass: "text-center",
   },
   {
     header: "Hạn thanh toán",
     headerClass: "text-center w-32",
     accessorKey: "paymentDate",
-    dataClass: "",
+    dataClass: "text-center",
   },
   {
     header: "Trạng thái",
-    headerClass: "text-center w-32",
+    headerClass: "text-center w-60",
     accessorKey: "statusComponent",
     dataClass: "text-center",
   },
@@ -53,62 +69,42 @@ const listFields = [
 
 const PaymentScreen = () => {
   const [page, setPage] = useState(1);
-
-  var data = [
-    {
-      name: "Phòng 1",
-      type: "Phòng trọ",
-      area: "10m2",
-      maxPeople: 2,
-      price: "1.000.000",
-      status: "Đã cho thuê",
-    },
-    {
-      name: "Phòng 2",
-      type: "Phòng trọ",
-      area: "15m2",
-      maxPeople: 3,
-      price: "1.500.000",
-      status: "Chưa cho thuê",
-    },
-    {
-      name: "Phòng 3",
-      type: "Phòng trọ",
-      area: "20m2",
-      maxPeople: 4,
-      price: "2.000.000",
-      status: "Đã cho thuê",
-    },
-  ];
-  var total = 100;
-
+  const [filter, setFilter] = useState({
+    limit: PAGE_SIZE,
+    offset: 0,
+  });
   const dispatch = useDispatch();
-  // const [filter, setFilter] = useState({});
 
   useEffect(() => {
     dispatch(actions.setCurrentPage(ROUTE_PATHS.PAYMENT));
     dispatch(
-      actions.getListContract({
+      actions.getListPayment({
+        ...filter,
         limit: PAGE_SIZE,
-        offset: 0,
+        offset: PAGE_SIZE * (page - 1),
       })
     );
-  }, [dispatch]);
+    // eslint-disable-next-line
+  }, [dispatch, page]);
+
+  const { listBill, total } = useSelector((state) => state.payment.bill);
 
   return (
     <div>
       <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.PAYMENT]} />
 
-      <div className="search-box"></div>
+      <div className="search-box">
+        
+      </div>
 
       <div className="table-box">
         <CusTable
           headers={listFields}
-          data={data}
+          data={listBill}
           page={page}
-          ActionButton={RoomActionButton}
+          ActionButton={PaymentActionButton}
         />
-        {data.length > 0 && (
+        {listBill?.length > 0 && (
           <div className="flex justify-between items-center">
             <p className="text-sm text-gray-500">
               Hiển thị{" "}
