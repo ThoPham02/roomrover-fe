@@ -69,6 +69,7 @@ const listFields = [
 
 const PaymentScreen = () => {
   const [page, setPage] = useState(1);
+  // eslint-disable-next-line
   const [filter, setFilter] = useState({
     limit: PAGE_SIZE,
     offset: 0,
@@ -93,9 +94,7 @@ const PaymentScreen = () => {
     <div>
       <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.PAYMENT]} />
 
-      <div className="search-box">
-        
-      </div>
+      <div className="search-box"></div>
 
       <div className="table-box">
         <CusTable

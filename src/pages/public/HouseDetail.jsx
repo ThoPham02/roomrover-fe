@@ -16,7 +16,7 @@ import { TbReportMoney } from "react-icons/tb";
 import * as actions from "../../../src/store/actions";
 import { ROUTE_PATHS } from "../../common";
 import RoomRoverLogo from "../../assets/images/logo.png";
-import { formatCurrencyVND } from "../../utils/utils";
+import { formatCurrencyVND, getArea } from "../../utils/utils";
 import avatar from "../../assets/images/default_avatar.png";
 
 const BoardingHouseDetail = () => {
@@ -57,7 +57,6 @@ const BoardingHouseDetail = () => {
         </Breadcrumb.Item>
         <Breadcrumb.Item linkAs={Link}>Chi tiết nhà trọ</Breadcrumb.Item>
       </Breadcrumb>
-      <h1 className="text-3xl font-bold mb-6">{houseDetail?.name}</h1>
 
       <div className="mb-4">
         {images.length > 0 ? (
@@ -101,7 +100,8 @@ const BoardingHouseDetail = () => {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-        <div className="md:col-span-2 bg-white shadow-lg rounded-lg p-6 mb-2">
+        <div className="md:col-span-2 bg-white shadow rounded-lg p-6 mb-2">
+          <h1 className="text-3xl font-bold mb-6">{houseDetail?.name}</h1>
           <h2 className="text-2xl font-semibold mb-2">Mô tả:</h2>
           <div className="w-full p-2 border rounded bg-gray-100">
             {houseDetail?.description?.split("\n").map((line, index) => (
@@ -124,22 +124,22 @@ const BoardingHouseDetail = () => {
 
           <h2 className="text-2xl font-semibold mb-2">Địa điểm</h2>
           <div className="flex items-center space-x-2 mb-6">
-            <MdLocationOn className="text-red-500" />
-            <span>123 Main St, Anytown, ST 12345</span>
+            <MdLocationOn className="text-red-500 text-2xl" />
+            <span>{houseDetail?.address + ", " + getArea(houseDetail?.provinceID, houseDetail?.districtID, houseDetail?.wardID)}</span>
           </div>
           <div className="w-full h-64 bg-gray-300 rounded-lg"></div>
         </div>
 
         <div>
-          <div className="bg-white shadow-lg rounded-lg p-6 mb-6">
+          <div className="bg-white shadow rounded-lg p-6 mb-6">
             <h2 className="text-2xl font-semibold mb-4">Giá thuê</h2>
-            <div className="flex items-center mb-2">
+            <div className="flex items-center mb-4">
               <TbReportMoney className="text-green-500 text-2xl mr-2" />
               <span className="text-xl font-semibold">
                 {formatCurrencyVND(houseDetail?.price) + "VND/tháng"}
               </span>
             </div>
-            <div className="flex items-center mb-2">
+            <div className="flex items-center mb-4">
               <FaChartArea className="text-blue-500 text-2xl mr-2" />
               <span>{houseDetail?.area + "m²"}</span>
             </div>
@@ -148,11 +148,15 @@ const BoardingHouseDetail = () => {
             </button>
           </div>
 
-          <div className="bg-white shadow-lg rounded-lg p-6">
+          <div className="bg-white shadow rounded-lg p-6">
             <h2 className="text-2xl font-semibold mb-4">Người cho thuê</h2>
             <div className="flex items-center space-x-4 mb-4">
               <img
-                src={houseDetail?.user?.avatarUrl ? houseDetail?.user?.avatarUrl : avatar}
+                src={
+                  houseDetail?.user?.avatarUrl
+                    ? houseDetail?.user?.avatarUrl
+                    : avatar
+                }
                 alt=""
                 className="rounded-full w-12 h-12"
               />
@@ -161,10 +165,12 @@ const BoardingHouseDetail = () => {
                 <p className="text-gray-600">{houseDetail?.user?.address}</p>
               </div>
             </div>
-            <p className="text-gray-600 mb-4">Liên hệ: {houseDetail?.user?.phone}</p>
-            <button className="w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300">
+            <p className="text-gray-600 mb-4 ">
+              Liên hệ: {houseDetail?.user?.phone}
+            </p>
+            {/* <button className="w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300">
               Liên hệ người cho thuê
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

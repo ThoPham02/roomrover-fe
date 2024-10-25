@@ -36,6 +36,8 @@ const RenterContractActionButton = ({ item }) => {
       });
       if (data?.result.code === 0) {
         dispatch(actions.getListContract({ limit: PAGE_SIZE, offset: 0 }));
+
+        setShowModal(false);
       } else {
         console.error("Error Update House:", data);
         return;
@@ -47,36 +49,40 @@ const RenterContractActionButton = ({ item }) => {
   };
 
   return (
-    <div
-      className="relative inline-block "
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <button className="text-3xl">
-        <AiOutlineEllipsis className="text-4xl" />
-      </button>
-      {isMenuOpen && (
-        <div className="absolute z-10 top-[15px] right-0 mt-2 bg-white border rounded shadow-lg p-2">
-          <ul className="list-none m-0 p-0">
-            <li>
-              <button
-                className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
-                onClick={handleDetailBtn}
-              >
-                Xem
-              </button>
-            </li>
-            {item?.status === CONTRACT_STATUS_CODE.WAITING && (
+    <>
+      <div
+        className="relative inline-block "
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <button className="text-3xl">
+          <AiOutlineEllipsis className="text-4xl" />
+        </button>
+        {isMenuOpen && (
+          <div className="absolute z-10 top-[15px] right-0 mt-2 bg-white border rounded shadow-lg p-2">
+            <ul className="list-none m-0 p-0">
               <li>
                 <button
-                  onClick={() => setShowModal(true)}
                   className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
+                  onClick={handleDetailBtn}
                 >
-                  Xác nhận thuê
+                  Xem
                 </button>
               </li>
-            )}
-            {/* {item?.status === CONTRACT_STATUS_CODE.WAITING && (
+              {item?.status === CONTRACT_STATUS_CODE.WAITING && (
+                <li>
+                  <button
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      setShowModal(true);
+                    }}
+                    className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
+                  >
+                    Xác nhận thuê
+                  </button>
+                </li>
+              )}
+              {/* {item?.status === CONTRACT_STATUS_CODE.WAITING && (
               <li>
                 <button
                   onClick={handleDelete}
@@ -87,24 +93,24 @@ const RenterContractActionButton = ({ item }) => {
               </li>
             )} */}
 
-            <li>
-              <button
-                onClick={handleDelete}
-                className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
-              >
-                Hủy
-              </button>
-            </li>
-          </ul>
-        </div>
-      )}
-
+              <li>
+                <button
+                  onClick={handleDelete}
+                  className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
+                >
+                  Hủy
+                </button>
+              </li>
+            </ul>
+          </div>
+        )}
+      </div>
       <ConfirmActionModal
         show={showModal}
         handleClose={() => setShowModal(false)}
         handleConfirm={handleConfirm}
       />
-    </div>
+    </>
   );
 };
 

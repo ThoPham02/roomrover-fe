@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
-// eslint-disable-next-line
-import html2pdf from "html2pdf.js";
+import html2pdf from "html2pdf.js/dist/html2pdf.min.js";
 import {
   convertTimestampToDate,
   formatCurrencyVND,

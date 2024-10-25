@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { Col, Row } from "react-bootstrap";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -68,7 +67,7 @@ const PaymentDetail = () => {
 
   useEffect(() => {
     dispatch(actions.getPaymentDetail(id));
-  }, []);
+  }, [dispatch, id]);
 
   const { billDetail } = useSelector((state) => state.payment.bill);
 
