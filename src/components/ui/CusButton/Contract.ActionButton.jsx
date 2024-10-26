@@ -21,11 +21,11 @@ const ContractActionButton = ({ item }) => {
   };
 
   const handleDelete = () => {
-    dispatch(actions.deleteContract(item.contractID));
+    // dispatch(actions.deleteContract(item.contractID));
   };
 
   const handleEdit = () => {
-    navigate(ROUTE_PATHS.CONTRACT_UPDATE.replace(":id", item.contractID));
+    // navigate(ROUTE_PATHS.CONTRACT_UPDATE.replace(":id", item.contractID));
   };
 
   const handleComfirmDeposit = async () => {
@@ -44,7 +44,7 @@ const ContractActionButton = ({ item }) => {
       console.error("Error Update House:", error);
       return;
     }
-  }
+  };
 
   return (
     <div

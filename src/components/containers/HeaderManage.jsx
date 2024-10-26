@@ -51,7 +51,9 @@ export default HeaderManage;
 
 const NotificationModule = () => {
   const [notifications, setNotifications] = useState([]);
+  // eslint-disable-next-line
   const [filter, setFilter] = useState("all");
+  // eslint-disable-next-line
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -167,9 +169,7 @@ const NotificationModule = () => {
         </AnimatePresence>
       </ul>
       {filteredNotifications.length === 0 && (
-        <p className="text-center text-gray-500 mt-4">
-          Không có thông báo 
-        </p>
+        <p className="text-center text-gray-500 mt-4">Không có thông báo</p>
       )}
     </div>
   );

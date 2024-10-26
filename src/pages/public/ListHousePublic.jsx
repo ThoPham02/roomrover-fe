@@ -56,7 +56,7 @@ const ListHousePublic = () => {
   return (
     <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="grid grid-cols-4 gap-4">
-        <div className="col-span-3 bg-white p-4 drop-shadow-md rounded">
+        <div className="col-span-3 bg-white p-4 shadow rounded ">
           {listHouse &&
             listHouse?.map((item, index) => (
               <div
@@ -147,7 +147,7 @@ const ListHousePublic = () => {
         </div>
 
         <div className="col-span-1">
-          <div className="bg-white p-4 rounded drop-shadow-md">
+          <div className="bg-white p-4 rounded shadow ">
             <h3 className="font-bold mb-2">Xem theo khu vực</h3>
             <CusFormSelect
               label={"Tỉnh/TP"}
@@ -182,7 +182,7 @@ const ListHousePublic = () => {
             />
           </div>
 
-          <div className="mt-8 bg-white p-4 rounded drop-shadow-md">
+          <div className="mt-8 bg-white p-4 rounded shadow">
             <h3 className="font-bold mb-2">Xem theo giá</h3>
             <ul className="grid grid-cols-2 gap-2">
               {MAP_PRICE.map((val, index) => (
@@ -210,7 +210,7 @@ const ListHousePublic = () => {
             </ul>
           </div>
 
-          <div className="mt-8 bg-white p-4 rounded drop-shadow-md">
+          <div className="mt-8 bg-white p-4 rounded shadow">
             <h3 className="font-bold mb-2">Xem theo diện tích</h3>
             <ul className="grid grid-cols-2 gap-2">
               {MAP_AREA.map((val, index) => (
