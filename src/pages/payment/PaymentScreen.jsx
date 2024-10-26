@@ -23,18 +23,6 @@ const listFields = [
     accessorKey: "contractCode",
     dataClass: "text-center",
   },
-  // {
-  //   header: "Người thuê",
-  //   headerClass: "text-center w-96",
-  //   accessorKey: "renter",
-  //   dataClass: "",
-  // },
-  // {
-  //   header: "Số điện thoại",
-  //   headerClass: "text-center w-32",
-  //   accessorKey: "phone",
-  //   dataClass: "",
-  // },
   {
     header: "Số tiền",
     headerClass: "text-center w-32",

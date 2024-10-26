@@ -147,52 +147,58 @@ const ListHousePublic = () => {
         </div>
 
         <div className="col-span-1">
-          <div className="bg-white p-4 rounded shadow ">
-            <h3 className="font-bold mb-2">Xem theo khu vực</h3>
-            <CusFormSelect
-              label={"Tỉnh/TP"}
-              labelWidth={"min-w-36"}
-              data={address}
-              value={filter}
-              setValue={setFilter}
-              keyName={"provinceID"}
-            />
-            <CusFormSelect
-              label={"Quận/Huyện"}
-              labelWidth={"min-w-36"}
-              data={address[filter?.provinceID]?.districts}
-              value={filter}
-              setValue={setFilter}
-              keyName={"districtID"}
-              // eslint-disable-next-line
-              disabled={filter?.provinceID == 0}
-            />
-            <CusFormSelect
-              label={"Phường/Xã"}
-              labelWidth={"min-w-36"}
-              data={
-                address[filter?.provinceID]?.districts[filter?.districtID]
-                  ?.wards
-              }
-              value={filter}
-              setValue={setFilter}
-              keyName={"wardID"}
-              // eslint-disable-next-line
-              disabled={filter?.districtID == 0}
-            />
-          </div>
+          {/* <div className="bg-white rounded shadow mb-8">
+            <h3 className="text-xl text-white capitalize w-full bg-primary rounded-t-lg p-2">
+              Xem theo khu vực
+            </h3>
+            <div className="p-2">
+              <CusFormSelect
+                label={"Tỉnh/TP"}
+                labelWidth={"min-w-36"}
+                data={address}
+                value={filter}
+                setValue={setFilter}
+                keyName={"provinceID"}
+              />
+              <CusFormSelect
+                label={"Quận/Huyện"}
+                labelWidth={"min-w-36"}
+                data={address[filter?.provinceID]?.districts}
+                value={filter}
+                setValue={setFilter}
+                keyName={"districtID"}
+                // eslint-disable-next-line
+                disabled={filter?.provinceID == 0}
+              />
+              <CusFormSelect
+                label={"Phường/Xã"}
+                labelWidth={"min-w-36"}
+                data={
+                  address[filter?.provinceID]?.districts[filter?.districtID]
+                    ?.wards
+                }
+                value={filter}
+                setValue={setFilter}
+                keyName={"wardID"}
+                // eslint-disable-next-line
+                disabled={filter?.districtID == 0}
+              />
+            </div>
+          </div> */}
 
-          <div className="mt-8 bg-white p-4 rounded shadow">
-            <h3 className="font-bold mb-2">Xem theo giá</h3>
-            <ul className="grid grid-cols-2 gap-2">
+          <div className="bg-white rounded shadow mb-8">
+            <h3 className="text-xl text-white capitalize w-full bg-primary rounded-t-lg p-2">
+              Xem theo giá
+            </h3>
+            <ul className="grid grid-cols-2 gap-2 p-4">
               {MAP_PRICE.map((val, index) => (
                 <li
                   key={index}
                   className={`${
                     index === filter.priceIndex
-                      ? "text-red-500"
-                      : " text-blue-500"
-                  } cursor-pointer mb-2`}
+                      ? "text-blue-500"
+                      : " text-black-500"
+                  } cursor-pointer mb-2 hover:text-blue-500`}
                   onClick={() => {
                     setFilter({
                       ...filter,
@@ -210,17 +216,19 @@ const ListHousePublic = () => {
             </ul>
           </div>
 
-          <div className="mt-8 bg-white p-4 rounded shadow">
-            <h3 className="font-bold mb-2">Xem theo diện tích</h3>
-            <ul className="grid grid-cols-2 gap-2">
+          <div className="bg-white rounded shadow mb-8">
+            <h3 className="text-xl text-white capitalize w-full bg-primary rounded-t-lg p-2">
+              Xem theo diện tích
+            </h3>
+            <ul className="grid grid-cols-2 gap-2 p-4">
               {MAP_AREA.map((val, index) => (
                 <li
                   key={index}
                   className={`${
                     index === filter.areaIndex
-                      ? "text-red-500"
-                      : " text-blue-500"
-                  } cursor-pointer mb-2`}
+                      ? "text-blue-500"
+                      : " text-black-500"
+                  } cursor-pointer mb-2 hover:text-blue-500`}
                   onClick={() =>
                     setFilter({
                       ...filter,
@@ -230,6 +238,36 @@ const ListHousePublic = () => {
                       areaFrom: index === filter.areaIndex ? 0 : val.areaFrom,
                     })
                   }
+                >
+                  {val.label}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="bg-white rounded shadow mb-8">
+            <h3 className="text-xl text-white capitalize w-full bg-primary rounded-t-lg p-2">
+              Xem theo tiện ích
+            </h3>
+            <ul className="grid grid-cols-2 gap-2 p-4">
+              {MAP_PRICE.map((val, index) => (
+                <li
+                  key={index}
+                  className={`${
+                    index === filter.priceIndex
+                      ? "text-blue-500"
+                      : " text-black-500"
+                  } cursor-pointer mb-2 hover:text-blue-500`}
+                  onClick={() => {
+                    setFilter({
+                      ...filter,
+                      priceIndex: index === filter.priceIndex ? -1 : index,
+                      priceTo:
+                        index === filter.priceIndex ? 9999999999 : val.priceTo,
+                      priceFrom:
+                        index === filter.priceIndex ? 0 : val.priceFrom,
+                    });
+                  }}
                 >
                   {val.label}
                 </li>

@@ -12,15 +12,13 @@ const Header = () => {
 
   return (
     <div>
-      <header className="bg-secondary2 p-4 shadow-lg">
+      <header className="bg-primary p-4">
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
           <Link to={ROUTE_PATHS.ROOT}>
             <div className="flex items-center">
               <img src={logo} alt="logo" className="h-20 w-20 rounded-full" />
-              <h1 className="text-2xl font-bold ml-2 uppercase">
-                Nhà Trọ
-                <br />
-                HUMG
+              <h1 className="text-4xl font-bold ml-2 uppercase text-white">
+                Nhà Trọ HUMG
               </h1>
             </div>
           </Link>

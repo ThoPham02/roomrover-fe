@@ -42,13 +42,13 @@ const columns = [
   {
     header: "Nguời cho thuê",
     headerClass: "text-center w-32",
-    accessorKey: "lessorName",
+    accessorKey: "lessor.fullName",
     dataClass: "",
   },
   {
     header: "Số điện thoại",
     headerClass: "text-center w-32",
-    accessorKey: "lessorPhone",
+    accessorKey: "lessor.phone",
     dataClass: "",
   },
   {
@@ -161,7 +161,7 @@ const RenterContractScreen = () => {
                 data={CONTRACT_STATUS}
                 position="top"
               />
-              <button type="submit" className="px-8 py-2 bg-secondary2 rounded">
+              <button type="submit" className="px-8 py-2 bg-primary rounded">
                 <FaSearch className="text-3xl" />
               </button>
             </Form>

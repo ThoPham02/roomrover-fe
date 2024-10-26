@@ -33,10 +33,10 @@ export const HOUSE_SERVICE_TYPE = {
 
 export const HOUSE_ROOM_STATUS = {
   1: { name: "Chờ xác nhận" },
-  2: { name: "Sẵn sàng cho thuê" },
+  2: { name: "Sẵn sàng thuê" },
   4: { name: "Đã được thuê" },
   8: { name: "Sắp hết hạn" },
-  16: { name: "Tìm nhượng" },
+  // 16: { name: "Tìm nhượng" },
 };
 
 export const CONTRACT_STATUS = {
@@ -54,13 +54,20 @@ export const BILL_STATUS = {
   8: { name: "Đã hủy" },
 };
 
+export const BILL_STATUS_CODE = {
+  WAITING: 1,
+  WAITING_PAYMENT: 2,
+  PAID: 4,
+  CANCELED: 8,
+}
+
 export const CONTRACT_STATUS_CODE = {
   WAITING: 1,
   WAITING_DEPOSIT: 2,
   RENTING: 4,
   EXPIRED: 8,
   CANCELED: 16,
-}
+};
 
 export const SERVICE_UNIT = {
   1: { name: "Tháng" },

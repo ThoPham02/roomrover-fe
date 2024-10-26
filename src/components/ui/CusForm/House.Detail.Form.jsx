@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 import { HOUSE_TYPE } from "../../../common";
 import {
+  ConfirmActionModal,
   CreateButton,
   CusFormGroup,
   CusFormSelect,
@@ -15,6 +16,7 @@ import { uploadImage } from "../../../store/services/inventServices";
 
 const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
   const [isUploading, setIsUploading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const handleImageUpload = async (e) => {
     const files = Array.from(e.target.files);
@@ -47,6 +49,8 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
 
     setIsUploading(false);
   };
+
+  console.log("House:", option);
 
   return (
     <Form onSubmit={(e) => e.preventDefault()}>
@@ -157,9 +161,23 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
 
       {option !== "get" && (
         <Row className="flex justify-center my-4">
-          <CreateButton text="Lưu" icon={<></>} onClick={handleSubmit} />
+          <CreateButton
+            text="Lưu"
+            icon={<></>}
+            onClick={() => setShowModal(true)}
+          />
         </Row>
       )}
+
+      <ConfirmActionModal
+        label={"Bạn có chắc chắn muốn cập nhật thông tin nhà trọ không?"}
+        show={showModal}
+        handleClose={() => setShowModal(false)}
+        handleConfirm={(e) => {
+          handleSubmit(e);
+          setShowModal(false);
+        }}
+      />
     </Form>
   );
 };

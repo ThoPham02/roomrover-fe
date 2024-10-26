@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { formatCurrencyVND } from "../../utils/utils";
+import { convertTimestampToDate, formatCurrencyVND } from "../../utils/utils";
 import * as actions from "../../store/actions";
-import { CusFormSelect, CusTable } from "../../components/ui";
+import { CusFormSelect, CusTable, RoomActionButton } from "../../components/ui";
 import { BILL_STATUS } from "../../common";
 
 const listFields = [
@@ -76,10 +76,18 @@ const PaymentDetail = () => {
       id: 1,
       name: "Giá thuê",
       quantity: 1,
-      price: formatCurrencyVND(billDetail?.payment?.amount),
-      amount: formatCurrencyVND(billDetail?.payment?.amount),
+      price: formatCurrencyVND(billDetail?.amount),
+      amount: formatCurrencyVND(billDetail?.amount),
     },
-    ...(billDetail?.details || []),
+    ...(billDetail?.billDetails?.map((item) => {
+      return {
+        id: item?.id,
+        name: item?.name,
+        quantity: item?.quantity,
+        price: formatCurrencyVND(item?.price),
+        amount: formatCurrencyVND(item?.price * item?.quantity),
+      };
+    }) || []),
   ];
   return (
     <div>
@@ -87,26 +95,26 @@ const PaymentDetail = () => {
       <div className="p-2 bg-slate-100 rounded">
         <div className="grid grid-cols-2 gap-4">
           {/* Bên trái - Thông tin hóa đơn */}
-          <div>
+          <div className="mr-24">
             <div className="flex justify-between mb-2">
               <span>Mã hợp đồng:</span>
               <span>{billDetail?.contractCode}</span>
             </div>
             <div className="flex justify-between mb-2">
               <span>Người thuê:</span>
-              {/* <span>{billDetail?.renter}</span> */}
-              <span>{"billDetail?.renter"}</span>
+              <span>{billDetail?.renterName}</span>
             </div>
             <div className="flex justify-between mt-2">
               <span>Số điện thoại:</span>
-              <span>{billDetail?.phone}</span>
+              <span>{billDetail?.renterPhone}</span>
             </div>
           </div>
 
           {/* Bên phải - Thông tin thanh toán */}
-          <div>
+          <div className="mr-24">
             <div className="flex justify-between mb-2">
               <span>Hạn thanh toán:</span>
+              <span>{convertTimestampToDate(billDetail?.paymentDate)}</span>
             </div>
             <div className="flex justify-between mb-2">
               <span>Trạng thái:</span>
@@ -132,34 +140,36 @@ const PaymentDetail = () => {
               data={details}
             />
           </div>
-          <div className="flex justify-between mb-2">
-            <span>Tổng tiền</span>
-            <span className="text-red-500 font-bold">
-              {formatCurrencyVND(billDetail?.amount)} VNĐ
-            </span>
-          </div>
-          <div className="flex justify-between mb-2">
-            <span>Đã trả</span>
-            <span>{formatCurrencyVND(billDetail?.pay)} VNĐ</span>
-          </div>
-          <div className="flex justify-between mt-2">
-            <span>Còn phải trả</span>
-            <span className="font-bold">
-              {formatCurrencyVND(billDetail?.remain)} VNĐ
-            </span>
+          <div className="grid grid-cols-3 gap-4">
+            <div></div>
+            <div></div>
+            <div className="mx-12">
+              <div className="flex justify-between mb-2">
+                <span>Tổng tiền</span>
+                <span className="font-bold">
+                  {formatCurrencyVND(billDetail?.amount)} VNĐ
+                </span>
+              </div>
+              <div className="flex justify-between mb-2">
+                <span>Đã trả</span>
+                <span>
+                  {formatCurrencyVND(billDetail?.amount - billDetail?.remain)}{" "}
+                  VNĐ
+                </span>
+              </div>
+              <div className="flex justify-between mt-2">
+                <span>Còn phải trả</span>
+                <span className="font-bold text-red-500">
+                  {formatCurrencyVND(billDetail?.remain)} VNĐ
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <p className="font-medium mt-4">Giao dịch:</p>
-      <div className="p-2 bg-slate-100 rounded">
-        <CusTable
-          headers={listFieldsPay}
-          actions={false}
-          page={1}
-          data={details}
-        />
-      </div>
+      <div className="p-2 bg-slate-100 rounded"></div>
     </div>
   );
 };

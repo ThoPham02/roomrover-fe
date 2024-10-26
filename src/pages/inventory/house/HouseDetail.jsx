@@ -93,12 +93,14 @@ const HouseDetail = ({ type = "get" }) => {
       />
 
       <div className="relative">
-        <CreateButton
-          className="absolute -top-16 right-0 z-1"
-          icon={<></>}
-          text="Sửa"
-          onClick={() => setOption("update")}
-        />
+        {option === "get" && (
+          <CreateButton
+            className="absolute -top-16 right-0 z-1"
+            icon={<></>}
+            text="Sửa"
+            onClick={() => setOption("update")}
+          />
+        )}
 
         <HouseDetailForm
           house={house}

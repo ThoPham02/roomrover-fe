@@ -9,7 +9,7 @@ import User from "../ui/User";
 const HeaderButton = ({ icon, onClick }) => {
   return (
     <button
-      className="p-3 text-black rounded-circle flex items-center justify-center hover:bg-blue-400 ml-2"
+      className="p-3 text-white rounded-full flex items-center justify-center hover:bg-yellow-400 ml-2 transition duration-300"
       onClick={onClick}
     >
       {icon}
@@ -23,7 +23,7 @@ const HeaderManage = ({ setIsExpanded, isExpanded }) => {
   return (
     <div>
       <header
-        className={`fixed flex items-center justify-between h-70 px-4 bg-secondary2 shadow-md z-20 transition-width duration-300 ${
+        className={`fixed flex items-center justify-between h-70 px-4 bg-primary z-20 transition-width duration-300 ${
           isExpanded ? "width260px" : "width80px"
         }`}
       >

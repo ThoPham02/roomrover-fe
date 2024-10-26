@@ -48,49 +48,49 @@ const ContractFile = ({ item }) => {
           <div className="mb-2">
             <p>
               Hôm nay {getDayMonthYearFromTimestamp(item.createdAt)}. Tại
-              ……………………….. Chúng tôi gồm có:
+              ......{item.room?.address ? item.room?.address : "...."}..... Chúng tôi gồm có:
             </p>
 
             <h3 className="text-lg font-semibold">BÊN CHO THUÊ (BÊN A):</h3>
             <ul className="list-disc ml-5">
               <li className="text-justify">
-                Ông/bà: {item.lessorName ? item.lessorName : "...."}.
+                Ông/bà: {item.lessor?.fullName ? item.lessor?.fullName : "...."}.
               </li>
               <li className="text-justify">
                 CMND/CCCD số: ...
-                {item.lessorNumber ? item.lessorNumber : "...."} ... Ngày cấp{" "}
+                {item.lessor?.cccdNumber ? item.lessor?.cccdNumber : "...."} ... Ngày cấp{" "}
                 ...
-                {item.lessorDate
-                  ? convertTimestampToDate(item.lessorDate)
+                {item?.lessor.cccdDate
+                  ? convertTimestampToDate(item?.lessor.cccdDate)
                   : "...."}
-                ... Nơi cấp: {item.lessorAddress ? item.lessorAddress : "...."}
+                ... Nơi cấp: {item.lessor.cccdAddress ? item.lessor.cccdAddress : "...."}
               </li>
               <li className="text-justify">
-                Điện thoại: {item.lessorPhone ? item.lessorPhone : "...."}.
+                Điện thoại: {item?.lessor?.phone ? item?.lessor?.phone : "...."}.
               </li>
               <li className="text-justify">
                 Là chủ sở hữu nhà ở:{" "}
-                {item.lessorName ? item.lessorName : "...."}.
+                {item?.room.name ? item?.room.name : "...."}.
               </li>
             </ul>
 
             <h3 className="text-lg font-semibold">BÊN THUÊ (BÊN B):</h3>
             <ul className="list-disc ml-5">
               <li className="text-justify">
-                Ông/bà: {item.renterName ? item.renterName : "...."}.
+                Ông/bà: {item.renter.fullName ? item.renter.fullName : "...."}.
               </li>
               <li className="text-justify">
                 CMND/CCCD số: ...
-                {item.renterNumber ? item.renterNumber : "...."}... Ngày cấp:
+                {item.renter.cccdNumber ? item.renter.cccdNumber : "...."}... Ngày cấp:
                 ...
-                {item.renterDate
-                  ? convertTimestampToDate(item.renterDate)
+                {item.renter.cccdDate
+                  ? convertTimestampToDate(item.renter.cccdDate)
                   : "...."}
                 ... Nơi cấp: ...
-                {item.renterAddress ? item.renterAddress : "...."}...
+                {item.renter.cccdAddress ? item.renter.cccdAddress : "...."}...
               </li>
               <li className="text-justify">
-                Điện thoại: {item.renterPhone ? item.renterPhone : "...."}.
+                Điện thoại: {item.renter.phone ? item.renter.phone : "...."}.
               </li>
             </ul>
           </div>
@@ -101,7 +101,7 @@ const ContractFile = ({ item }) => {
           </h3>
           <p className="text-justify">
             Bên A đồng ý cho Bên B thuê căn hộ tại địa chỉ ...
-            {item.renterPhone ? item.renterPhone : "...."}... thuộc sở hữu hợp
+            {item.room?.address ? item.room?.address : "...."}... thuộc sở hữu hợp
             pháp của Bên A.
           </p>
           <p className="text-justify">

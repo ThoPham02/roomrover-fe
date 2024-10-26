@@ -39,7 +39,7 @@ export const inventLessorRoute = [
     path: ROUTE_PATHS.HOUSE_DETAIL,
     element: (
       <div className="p-3 bg-white rounded">
-        <HouseDetail type="detail" />
+        <HouseDetail type="get" />
       </div>
     ),
   },
@@ -76,7 +76,7 @@ export const inventLessorRoute = [
     path: ROUTE_PATHS.ROOM_DETAIL,
     element: (
       <div className="p-3 bg-white rounded">
-        <RoomDetail type="detail" />
+        <RoomDetail type="get" />
       </div>
     ),
   },
