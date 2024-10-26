@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { FaChartArea, FaPhone } from "react-icons/fa";
+import { FaChartArea, FaPhone, FaSearch } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 import {
   address,
+  HOUSE_TYPE,
   MAP_AREA,
   MAP_PRICE,
   PAGE_SIZE,
@@ -17,6 +18,7 @@ import { convertTimestampToDate, formatCurrencyVND } from "../../utils/utils";
 import avatar from "../../assets/images/default_avatar.png";
 import { Pagination } from "@mui/material";
 import { TbReportMoney } from "react-icons/tb";
+import { Form } from "react-bootstrap";
 
 const ListHousePublic = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -37,9 +39,11 @@ const ListHousePublic = () => {
     areaIndex: -1,
     areaFrom: 0,
     areaTo: 9999999999,
+    type: "0",
     limit: PAGE_SIZE,
     offset: 0,
   });
+  const [address, setAddress] = useState({});
 
   useEffect(() => {
     dispatch(
@@ -51,10 +55,75 @@ const ListHousePublic = () => {
       })
     );
   }, [dispatch, filter]);
+
   const { listHouse, total } = useSelector((state) => state.invent.publicHouse);
+
+  const handleSubmitFilter = (e) => {
+    e.preventDefault();
+
+    dispatch(
+      actions.getListHousePublic({
+        limit: PAGE_SIZE,
+        offset: PAGE_SIZE * (currentPage - 1),
+        ...filter,
+      })
+    );
+  };
 
   return (
     <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="p-2 bg-yellow-500 rounded mb-4">
+        <Form
+          className="flex flex-wrap gap-4 justify-around w-full mt-4"
+          onSubmit={handleSubmitFilter}
+        >
+          <CusFormSelect
+            label={"Loại hình"}
+            value={filter}
+            setValue={setFilter}
+            keyName={"type"}
+            position="top"
+            data={HOUSE_TYPE}
+          />
+          <CusFormSelect
+            label={"Tỉnh/Thành phố"}
+            value={filter}
+            setValue={setFilter}
+            keyName={"provinceID"}
+            data={address}
+            position="top"
+          />
+          <CusFormSelect
+            label={"Quận/Huyện"}
+            value={filter}
+            setValue={setFilter}
+            keyName={"districtID"}
+            data={address[filter?.provinceID]?.districts}
+            // eslint-disable-next-line
+            disabled={filter?.provinceID == 0 ? true : false}
+            position="top"
+          />
+          <CusFormSelect
+            label={"Xã/Phường"}
+            value={filter}
+            setValue={setFilter}
+            keyName={"wardID"}
+            data={
+              address[filter?.provinceID]?.districts[filter?.districtID]?.wards
+            }
+            // eslint-disable-next-line
+            disabled={filter?.districtID == 0 ? true : false}
+            position="top"
+          />
+          <button
+            type="submit"
+            className="flex items-center justify-center px-4 py-1 bg-blue-500 rounded group w-48"
+          >
+            <FaSearch className="text-2xl text-white group-hover:text-yellow-500 mr-2" />
+            <span className="font-bold text-white ">Tìm kiếm</span>
+          </button>
+        </Form>
+      </div>
       <div className="grid grid-cols-4 gap-4">
         <div className="col-span-3 bg-white p-4 shadow rounded ">
           {listHouse &&
@@ -79,7 +148,7 @@ const ListHousePublic = () => {
                   />
                 </div>
                 <div className="w-4/5 pl-4">
-                  <p className="text-lg font-bold text-pink-500">
+                  <p className="text-2xl font-bold text-pink-500 uppercase">
                     {item?.name}
                   </p>
                   <div className="flex items-center">
@@ -196,9 +265,9 @@ const ListHousePublic = () => {
                   key={index}
                   className={`${
                     index === filter.priceIndex
-                      ? "text-blue-500"
+                      ? "text-orange-500"
                       : " text-black-500"
-                  } cursor-pointer mb-2 hover:text-blue-500`}
+                  } cursor-pointer mb-2 hover:text-orange-500 border-b border-gray-200`}
                   onClick={() => {
                     setFilter({
                       ...filter,
@@ -226,9 +295,9 @@ const ListHousePublic = () => {
                   key={index}
                   className={`${
                     index === filter.areaIndex
-                      ? "text-blue-500"
+                      ? "text-orange-500"
                       : " text-black-500"
-                  } cursor-pointer mb-2 hover:text-blue-500`}
+                  } cursor-pointer mb-2 hover:text-orange-500 border-b border-gray-200`}
                   onClick={() =>
                     setFilter({
                       ...filter,
@@ -255,9 +324,9 @@ const ListHousePublic = () => {
                   key={index}
                   className={`${
                     index === filter.priceIndex
-                      ? "text-blue-500"
+                      ? "text-orange-500"
                       : " text-black-500"
-                  } cursor-pointer mb-2 hover:text-blue-500`}
+                  } cursor-pointer mb-2 hover:text-orange-500 border-b border-gray-200`}
                   onClick={() => {
                     setFilter({
                       ...filter,

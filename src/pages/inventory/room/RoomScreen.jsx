@@ -110,7 +110,7 @@ const RoomScreen = () => {
     <div>
       <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.ROOM]} />
 
-      <div className="search-box p-2 bg-slate-100 rounded">
+      <div className="search-box p-2 bg-slate-100 rounded mt-4">
         <Form
           className="flex flex-wrap gap-4 items-center mt-8"
           onSubmit={handleSubmitFilter}
@@ -139,8 +139,12 @@ const RoomScreen = () => {
             data={HOUSE_ROOM_STATUS}
             position="top"
           />
-          <button type="submit" className="px-8 py-2 bg-primary rounded">
-            <FaSearch className="text-3xl" />
+          <button
+            type="submit"
+            className="flex items-center justify-center px-4 py-2 bg-blue-500 rounded group w-48"
+          >
+            <FaSearch className="text-2xl text-white group-hover:text-yellow-500 mr-2" />
+            <span className="font-bold text-white ">Tìm kiếm</span>
           </button>
         </Form>
       </div>

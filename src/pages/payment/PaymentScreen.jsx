@@ -1,21 +1,30 @@
 import { Pagination } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Form } from "react-bootstrap";
 
 import {
   Breadcrumbs,
+  CusFormDate,
+  CusFormSelect,
   CusTable,
   PaymentActionButton,
 } from "../../components/ui";
-import { BREADCRUMB_DETAIL, PAGE_SIZE, ROUTE_PATHS } from "../../common";
+import {
+  BILL_STATUS,
+  BREADCRUMB_DETAIL,
+  PAGE_SIZE,
+  ROUTE_PATHS,
+} from "../../common";
 import * as actions from "../../store/actions";
+import { FaSearch } from "react-icons/fa";
 
 const listFields = [
   {
     header: "Hoá đơn",
     headerClass: "text-center w-96",
     accessorKey: "title",
-    dataClass: "text-center",
+    dataClass: "",
   },
   {
     header: "Mã hợp đồng",
@@ -76,13 +85,60 @@ const PaymentScreen = () => {
     // eslint-disable-next-line
   }, [dispatch, page]);
 
+  const handleSubmitFilter = (e) => {
+    e.preventDefault();
+
+    dispatch(
+      actions.getListPayment({
+        ...filter,
+        limit: PAGE_SIZE,
+        offset: PAGE_SIZE * (page - 1),
+      })
+    );
+  };
+
   const { listBill, total } = useSelector((state) => state.payment.bill);
 
   return (
     <div>
       <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.PAYMENT]} />
 
-      <div className="search-box"></div>
+      <div className="p-2 bg-slate-100 rounded mt-4">
+        <Form
+          className="flex flex-wrap gap-4 items-center mt-4"
+          onSubmit={handleSubmitFilter}
+        >
+          <CusFormDate
+            label={"Hạn thanh toán"}
+            placeholder={"Từ ngày"}
+            state={filter}
+            setState={setFilter}
+            keyName={"createFrom"}
+          />
+          <p>-</p>
+          <CusFormDate
+            placeholder={"Đến ngày"}
+            state={filter}
+            setState={setFilter}
+            keyName={"createTo"}
+          />
+          <CusFormSelect
+            label={"Trạng thái"}
+            value={filter}
+            setValue={setFilter}
+            keyName={"status"}
+            data={BILL_STATUS}
+            position="top"
+          />
+          <button
+            type="submit"
+            className="flex items-center justify-center px-4 py-2 bg-blue-500 rounded group w-48"
+          >
+            <FaSearch className="text-2xl text-white group-hover:text-yellow-500 mr-2" />
+            <span className="font-bold text-white ">Tìm kiếm</span>
+          </button>
+        </Form>
+      </div>
 
       <div className="table-box">
         <CusTable

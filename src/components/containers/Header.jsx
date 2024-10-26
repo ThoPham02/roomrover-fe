@@ -17,7 +17,7 @@ const Header = () => {
           <Link to={ROUTE_PATHS.ROOT}>
             <div className="flex items-center">
               <img src={logo} alt="logo" className="h-20 w-20 rounded-full" />
-              <h1 className="text-4xl font-bold ml-2 uppercase text-white">
+              <h1 className="text-5xl font-bold ml-2 uppercase text-white">
                 Nhà Trọ HUMG
               </h1>
             </div>
