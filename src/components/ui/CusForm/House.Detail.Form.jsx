@@ -13,6 +13,7 @@ import {
   CusServiceList,
 } from "..";
 import { uploadImage } from "../../../store/services/inventServices";
+import CusFormUtils from "./CusFormUtils";
 
 const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
   const [isUploading, setIsUploading] = useState(false);
@@ -49,8 +50,6 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
 
     setIsUploading(false);
   };
-
-  console.log("House:", option);
 
   return (
     <Form onSubmit={(e) => e.preventDefault()}>
@@ -136,22 +135,36 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
           disabled={option === "get"}
         />
       </Row>
-
       <Row>
-        <p className="font-bold">Danh sách phòng trọ:</p>
         <div className="flex flex-wrap">
-          <CusRoomList
+          <p className="font-bold min-w-36 mr-2">
+            Tiện ích <br /> nhà trọ:
+          </p>
+          <CusFormUtils
             state={house}
             setState={setHouse}
             disabled={option === "get"}
           />
         </div>
       </Row>
-
       <Row>
-        <p className="font-bold">Chi phí phát sinh:</p>
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap  mt-4">
+          <p className="font-bold min-w-36 mr-2 mt-4">
+            Chi phí <br /> phát sinh:
+          </p>
           <CusServiceList
+            state={house}
+            setState={setHouse}
+            disabled={option === "get"}
+          />
+        </div>
+      </Row>
+      <Row>
+        <div className="flex flex-wrap mt-4">
+          <p className="font-bold min-w-36 mr-2 mt-4">
+            Danh sách <br /> phòng trọ:
+          </p>
+          <CusRoomList
             state={house}
             setState={setHouse}
             disabled={option === "get"}

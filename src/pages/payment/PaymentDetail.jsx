@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 import { convertTimestampToDate, formatCurrencyVND } from "../../utils/utils";
 import * as actions from "../../store/actions";
-import { CusFormSelect, CusTable, RoomActionButton } from "../../components/ui";
+import { CusFormSelect, CusTable } from "../../components/ui";
 import { BILL_STATUS } from "../../common";
 
 const listFields = [
@@ -169,7 +169,16 @@ const PaymentDetail = () => {
       </div>
 
       <p className="font-medium mt-4">Giao dịch:</p>
-      <div className="p-2 bg-slate-100 rounded"></div>
+      <div className="p-2 bg-slate-100 rounded">
+        <div>
+          <CusTable
+            headers={listFieldsPay}
+            actions={false}
+            page={1}
+            data={billDetail?.payments}
+          />
+        </div>
+      </div>
     </div>
   );
 };

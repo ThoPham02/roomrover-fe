@@ -41,6 +41,7 @@ const CusServiceList = ({ state, setState, disabled }) => {
       <div className="flex items-center ">
         <p className="min-w-96">Loại dịch vụ</p>
         <p className="min-w-48 pl-2">Đơn giá</p>
+        <p className="min-w-48 pl-8">Đơn vị tính</p>
       </div>
       {services.map((service, index) => (
         <div key={index} className="flex items-center mb-4 space-x-2">
