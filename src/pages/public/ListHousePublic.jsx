@@ -136,7 +136,7 @@ const ListHousePublic = () => {
       </div>
       <div className="grid grid-cols-4 gap-4">
         <div className="col-span-3 bg-white p-4 shadow rounded ">
-          {listHouse &&
+          {listHouse?.length > 0 ? (
             listHouse?.map((item, index) => (
               <div
                 key={item?.houseID}
@@ -197,7 +197,12 @@ const ListHousePublic = () => {
                   </div>
                 </div>
               </div>
-            ))}
+            ))
+          ) : (
+            <div className="text-center text-2xl mt-16">
+              Rất tiếc! Không có nhà trọ nào phù hợp
+            </div>
+          )}
 
           <div className="mt-8">
             {listHouse?.length > 0 && (
@@ -289,7 +294,11 @@ const ListHousePublic = () => {
             <h3 className="text-xl text-white capitalize w-full bg-primary rounded-t-lg p-2">
               Xem theo tiện ích
             </h3>
-            <CusFormUtils state={filter} setState={setFilter} page="public-house" />
+            <CusFormUtils
+              state={filter}
+              setState={setFilter}
+              page="public-house"
+            />
           </div>
         </div>
       </div>

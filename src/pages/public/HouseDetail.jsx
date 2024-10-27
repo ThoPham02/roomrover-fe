@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaChartArea } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { TbReportMoney } from "react-icons/tb";
 
@@ -15,6 +15,8 @@ import AppointmentModal from "../../components/ui/CusModal/Appointment.Model";
 
 const BoardingHouseDetail = () => {
   const { id } = useParams();
+  const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,6 +30,13 @@ const BoardingHouseDetail = () => {
   const images = houseDetail?.albums || [];
   const setMainImage = (index) => {
     setCurrentImageIndex(index);
+  };
+  const handleClickAppointment = () => {
+    if (user === null) {
+      navigate(ROUTE_PATHS.LOGIN);
+    } else {
+      setShowModal(true);
+    }
   };
 
   return (
@@ -173,7 +182,7 @@ const BoardingHouseDetail = () => {
               </div>
               <button
                 className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300"
-                onClick={() => setShowModal(true)}
+                onClick={handleClickAppointment}
               >
                 Đặt lịch hẹn xem nhà
               </button>

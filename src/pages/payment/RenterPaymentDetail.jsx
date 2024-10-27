@@ -4,8 +4,13 @@ import { Link, useParams } from "react-router-dom";
 
 import { convertTimestampToDate, formatCurrencyVND } from "../../utils/utils";
 import * as actions from "../../store/actions";
-import { CusFormSelect, CusTable } from "../../components/ui";
-import { BILL_STATUS, ROUTE_PATHS } from "../../common";
+import { CreateButton, CusFormSelect, CusTable } from "../../components/ui";
+import {
+  BILL_PAYMENT_METHOD,
+  BILL_STATUS,
+  BillPayStatusComponent,
+  ROUTE_PATHS,
+} from "../../common";
 
 const listFields = [
   {
@@ -36,27 +41,33 @@ const listFields = [
 
 const listFieldsPay = [
   {
-    header: "Ghi chú",
-    headerClass: "text-center w-32",
-    accessorKey: "name",
-    dataClass: "text-center",
-  },
-  {
     header: "Ngày thanh toán",
     headerClass: "text-center w-32",
-    accessorKey: "price",
+    accessorKey: "payDate",
     dataClass: "text-center",
   },
   {
     header: "Số tiền",
     headerClass: "text-center w-32",
-    accessorKey: "quantity",
+    accessorKey: "amount",
+    dataClass: "text-center",
+  },
+  {
+    header: "Phương thức",
+    headerClass: "text-center w-32",
+    accessorKey: "typeText",
+    dataClass: "text-center",
+  },
+  {
+    header: "Trạng thái",
+    headerClass: "text-center w-32",
+    accessorKey: "statusComponent",
     dataClass: "text-center",
   },
   {
     header: "Chứng từ",
     headerClass: "text-center w-32",
-    accessorKey: "amount",
+    accessorKey: "url",
     dataClass: "text-center",
   },
 ];
@@ -66,6 +77,7 @@ const RenterPaymentDetail = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(actions.setCurrentPage(ROUTE_PATHS.RENTER_PAYMENT));
     dispatch(actions.getPaymentDetail(id));
   }, [dispatch, id]);
 
@@ -90,15 +102,16 @@ const RenterPaymentDetail = () => {
   ];
   const pays = [
     ...(billDetail?.billPays?.map((item) => {
-        return {
-            id: item?.id,
-            name: item?.note,
-            price: convertTimestampToDate(item?.payDate),
-            quantity: formatCurrencyVND(item?.amount),
-            amount: item?.document,
-        };
-    })) || [],
-  ]
+      return {
+        ...item,
+        payDate: convertTimestampToDate(item?.payDate),
+        amount: formatCurrencyVND(item?.amount),
+        typeText: BILL_PAYMENT_METHOD[item?.type].name,
+        statusComponent: BillPayStatusComponent[item?.status],
+        url: item?.url ? "" : "Không có",
+      };
+    }) || []),
+  ];
   return (
     <div>
       <div className="flex">
@@ -150,8 +163,20 @@ const RenterPaymentDetail = () => {
         </div>
       </div>
 
-      <p className="font-medium mt-4">Thông tin thanh toán:</p>
-      <div className="p-2 bg-slate-100 rounded">
+      <p
+        className={`font-semibold ${
+          billDetail?.status === 1 ? "mt-12" : "mt-4"
+        }`}
+      >
+        Thông tin thanh toán:
+      </p>
+      <div className="p-2 bg-slate-100 rounded relative">
+        {billDetail?.status === 1 && (
+          <div className="absolute right-0 -top-12">
+            <CreateButton icon={<></>} text={"Cập nhật số lượng"} />
+          </div>
+        )}
+
         <CusTable
           headers={listFields}
           actions={false}
@@ -181,8 +206,25 @@ const RenterPaymentDetail = () => {
         </div>
       </div>
 
-      <p className="font-medium mt-4">Giao dịch:</p>
-      <div className="p-2 bg-slate-100 rounded">
+      <p
+        className={`font-semibold ${
+          billDetail?.status === 2 ? "mt-12" : "mt-4"
+        }`}
+      >
+        Giao dịch:
+      </p>
+      <div className="p-2 bg-slate-100 rounded relative">
+        {billDetail?.status === 2 && (
+          <div className="absolute right-0 -top-12 flex">
+            <CreateButton
+              icon={<></>}
+              className={"mr-4"}
+              text={"Thanh toán online"}
+            />
+            <CreateButton />
+          </div>
+        )}
+
         <div>
           <CusTable
             headers={listFieldsPay}

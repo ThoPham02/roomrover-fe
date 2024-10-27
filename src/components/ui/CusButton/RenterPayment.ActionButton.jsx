@@ -17,7 +17,7 @@ const RenterPaymentActionButton = ({ item }) => {
   const handleMouseLeave = () => setIsMenuOpen(false);
 
   const handleDetailBtn = () => {
-    navigate(ROUTE_PATHS.RENTER_PAYMENT_DETAIL.replace(":id", item.id));
+    navigate(ROUTE_PATHS.RENTER_PAYMENT_DETAIL.replace(":id", item.billID));
   };
 
   const handlePaymentOnline = async () => {

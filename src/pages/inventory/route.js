@@ -5,17 +5,18 @@ import RoomScreen from "./room/RoomScreen";
 import HouseDetail from "./house/HouseDetail";
 import DashboardScreen from "./DashboardScreen";
 import RoomDetail from "./room/RoomDetail";
+import RenterDashboardScreen from "./RenterDashboardScreen";
 
 export const inventRenterRoute = [
   {
     id: "dashboard_renter",
     path: ROUTE_PATHS.RENTER_DASHBOARD,
-    element: <DashboardScreen />,
+    element: <RenterDashboardScreen />,
   },
   {
     id: "home_renter",
     path: ROUTE_PATHS.HOME,
-    element: <DashboardScreen />,
+    element: <RenterDashboardScreen />,
   },
 ];
 

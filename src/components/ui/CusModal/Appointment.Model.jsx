@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import DatePicker from "react-datepicker";
+
 import { convertDateToTimestamp } from "../../../utils/utils";
 
 const AppointmentModal = ({ show, handleClose, house }) => {
@@ -11,7 +12,6 @@ const AppointmentModal = ({ show, handleClose, house }) => {
   });
 
   const handleConfirm = () => {
-
     console.log("Contact:", house);
   };
 
