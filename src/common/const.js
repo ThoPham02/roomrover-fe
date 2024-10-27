@@ -10,7 +10,7 @@ export const USER_ROLES = {
   LESSOR: 4, // nguoi cho thue
 };
 
-export const PAGE_SIZE = 10;
+export const PAGE_SIZE = 1;
 
 export const GENDER_TYPE = {
   1: { name: "Nam" },
@@ -36,7 +36,7 @@ export const HOUSE_ROOM_STATUS = {
   2: { name: "Sẵn sàng thuê" },
   4: { name: "Đã được thuê" },
   8: { name: "Sắp hết hạn" },
-  // 16: { name: "Tìm nhượng" },
+  16: { name: "Tạm dừng" },
 };
 
 export const CONTRACT_STATUS = {
@@ -59,7 +59,7 @@ export const BILL_STATUS_CODE = {
   WAITING_PAYMENT: 2,
   PAID: 4,
   CANCELED: 8,
-}
+};
 
 export const CONTRACT_STATUS_CODE = {
   WAITING: 1,

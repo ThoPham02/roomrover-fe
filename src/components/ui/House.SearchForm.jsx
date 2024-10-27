@@ -1,10 +1,10 @@
 import { FaSearch } from "react-icons/fa";
 import { Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 import * as actions from "../../store/actions";
 import { HOUSE_ROOM_STATUS, HOUSE_TYPE, PAGE_SIZE } from "../../common";
-import { useState } from "react";
 import { CusFormGroup, CusFormSelect } from "./CusForm";
 
 const SearchHouseForm = () => {

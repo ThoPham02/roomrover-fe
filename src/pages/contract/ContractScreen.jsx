@@ -51,7 +51,7 @@ const columns = [
     header: "Số điện thoại",
     headerClass: "text-center w-32",
     accessorKey: "renter.phone",
-    dataClass: "",
+    dataClass: "text-center",
   },
   {
     header: "Ngày bắt đầu",
@@ -151,7 +151,7 @@ const ContractScreen = () => {
                 position="top"
               />
               <CusFormDate
-                label={"Ngày tạo"}
+                label={"Ngày bắt đầu"}
                 placeholder={"Từ ngày"}
                 state={filter}
                 setState={setFilter}

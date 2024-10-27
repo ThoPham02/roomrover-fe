@@ -1,26 +1,26 @@
 export const ContractStatusComponent = {
   1: (
-    <p className="px-2 py-1 rounded inline-block text-center bg-gray-300">
+    <p className="px-2 py-1 rounded inline-block text-center bg-gray-500 text-white">
       Chờ xác nhận
     </p>
   ),
   2: (
-    <p className="px-2 py-1 rounded inline-block text-center bg-cyan-300">
+    <p className="px-2 py-1 rounded inline-block text-center bg-blue-500 text-white">
       Chờ cọc
     </p>
   ),
   4: (
-    <p className="px-2 py-1 rounded inline-block text-center bg-emerald-300">
+    <p className="px-2 py-1 rounded inline-block text-center bg-green-500 text-white">
       Đang thuê
     </p>
   ),
   8: (
-    <p className="px-2 py-1 rounded inline-block text-center bg-yellow-300">
+    <p className="px-2 py-1 rounded inline-block text-center bg-yellow-300 text-white">
       Đã hết hạn
     </p>
   ),
   16: (
-    <p className="px-2 py-1 rounded inline-block text-center bg-rose-500">
+    <p className="px-2 py-1 rounded inline-block text-center bg-red-500 text-white">
       Đã hủy
     </p>
   ),
@@ -38,7 +38,7 @@ export const HouseStatusComponent = {
     </p>
   ),
   4: (
-    <p className="px-2 py-1 rounded inline-block text-center bg-orange-500 text-white">
+    <p className="px-2 py-1 rounded inline-block text-center bg-yellow-500 text-white">
       Tạm dừng
     </p>
   ),
@@ -63,6 +63,16 @@ export const RoomStatusComponent = {
   4: (
     <p className="px-2 py-1 rounded inline-block text-center bg-green-500 text-white">
       Đã được thuê
+    </p>
+  ),
+  8: (
+    <p className="px-2 py-1 rounded inline-block text-center bg-green-500 text-white">
+      Tạm dừng
+    </p>
+  ),
+  16: (
+    <p className="px-2 py-1 rounded inline-block text-center bg-red-500 text-white">
+      Tạm dừng
     </p>
   ),
 };

@@ -3,6 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FaChartArea, FaPhone, FaSearch } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
+import { Pagination } from "@mui/material";
+import { TbReportMoney } from "react-icons/tb";
+import { Form } from "react-bootstrap";
+
 import {
   address,
   HOUSE_TYPE,
@@ -12,49 +16,49 @@ import {
   ROUTE_PATHS,
 } from "../../common";
 import { CusFormSelect } from "../../components/ui";
-
 import * as actions from "../../../src/store/actions";
 import { convertTimestampToDate, formatCurrencyVND } from "../../utils/utils";
 import avatar from "../../assets/images/default_avatar.png";
-import { Pagination } from "@mui/material";
-import { TbReportMoney } from "react-icons/tb";
-import { Form } from "react-bootstrap";
 
 const ListHousePublic = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const handleChange = (value) => {
-    setCurrentPage(value);
-  };
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [currentPage, setCurrentPage] = useState(1);
   const [filter, setFilter] = useState({
-    provinceID: "01",
-    districtID: "000",
-    wardID: "00000",
     priceIndex: -1,
     priceFrom: 0,
     priceTo: 9999999999,
     areaIndex: -1,
     areaFrom: 0,
     areaTo: 9999999999,
-    type: "0",
     limit: PAGE_SIZE,
     offset: 0,
   });
-  const [address, setAddress] = useState({});
+  const [filterTop, setFilterTop] = useState({
+    provinceID: "01",
+    districtID: "000",
+    wardID: "00000",
+    type: "0",
+  });
 
+  const handleChange = (event, value) => {
+    setCurrentPage(value);
+  };
   useEffect(() => {
     dispatch(
       actions.getListHousePublic({
         ...filter,
-        provinceID: Number(filter?.provinceID),
-        districtID: Number(filter?.districtID),
-        wardID: Number(filter?.wardID),
+        ...filterTop,
+        provinceID: Number(filterTop?.provinceID),
+        districtID: Number(filterTop?.districtID),
+        wardID: Number(filterTop?.wardID),
+        limit: PAGE_SIZE,
+        offset: PAGE_SIZE * (currentPage - 1),
       })
     );
-  }, [dispatch, filter]);
+    // eslint-disable-next-line
+  }, [dispatch, filter, currentPage]);
 
   const { listHouse, total } = useSelector((state) => state.invent.publicHouse);
 
@@ -66,6 +70,7 @@ const ListHousePublic = () => {
         limit: PAGE_SIZE,
         offset: PAGE_SIZE * (currentPage - 1),
         ...filter,
+        ...filterTop,
       })
     );
   };
@@ -79,40 +84,41 @@ const ListHousePublic = () => {
         >
           <CusFormSelect
             label={"Loại hình"}
-            value={filter}
-            setValue={setFilter}
+            value={filterTop}
+            setValue={setFilterTop}
             keyName={"type"}
             position="top"
             data={HOUSE_TYPE}
           />
           <CusFormSelect
             label={"Tỉnh/Thành phố"}
-            value={filter}
-            setValue={setFilter}
+            value={filterTop}
+            setValue={setFilterTop}
             keyName={"provinceID"}
             data={address}
             position="top"
           />
           <CusFormSelect
             label={"Quận/Huyện"}
-            value={filter}
-            setValue={setFilter}
+            value={filterTop}
+            setValue={setFilterTop}
             keyName={"districtID"}
-            data={address[filter?.provinceID]?.districts}
+            data={address[filterTop?.provinceID]?.districts}
             // eslint-disable-next-line
-            disabled={filter?.provinceID == 0 ? true : false}
+            disabled={filterTop?.provinceID == 0 ? true : false}
             position="top"
           />
           <CusFormSelect
             label={"Xã/Phường"}
-            value={filter}
-            setValue={setFilter}
+            value={filterTop}
+            setValue={setFilterTop}
             keyName={"wardID"}
             data={
-              address[filter?.provinceID]?.districts[filter?.districtID]?.wards
+              address[filterTop?.provinceID]?.districts[filterTop?.districtID]
+                ?.wards
             }
             // eslint-disable-next-line
-            disabled={filter?.districtID == 0 ? true : false}
+            disabled={filterTop?.districtID == 0 ? true : false}
             position="top"
           />
           <button

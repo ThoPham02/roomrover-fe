@@ -104,6 +104,13 @@ const RoomScreen = () => {
     e.preventDefault();
 
     setPage(1);
+    dispatch(
+      actions.getListRooms({
+        ...filter,
+        limit: PAGE_SIZE,
+        offset: PAGE_SIZE * (page - 1),
+      })
+    );
   };
 
   return (
