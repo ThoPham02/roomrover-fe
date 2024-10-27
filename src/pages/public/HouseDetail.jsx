@@ -11,6 +11,7 @@ import RoomRoverLogo from "../../assets/images/logo.png";
 import { formatCurrencyVND, getArea } from "../../utils/utils";
 import avatar from "../../assets/images/default_avatar.png";
 import CusFormUtils from "../../components/ui/CusForm/CusFormUtils";
+import AppointmentModal from "../../components/ui/CusModal/Appointment.Model";
 
 const BoardingHouseDetail = () => {
   const { id } = useParams();
@@ -22,6 +23,8 @@ const BoardingHouseDetail = () => {
 
   const { houseDetail } = useSelector((state) => state.invent.publicHouse);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+
   const images = houseDetail?.albums || [];
   const setMainImage = (index) => {
     setCurrentImageIndex(index);
@@ -120,9 +123,12 @@ const BoardingHouseDetail = () => {
                 houseDetail?.services?.map((service, index) => {
                   return (
                     <div key={index}>
-                      <span className="font-semibold mr-4">{service.name + ":"}</span>
+                      <span className="font-semibold mr-4">
+                        {service.name + ":"}
+                      </span>
                       <span className="text-lg">
-                        {formatCurrencyVND(service.price) + ` đ/${SERVICE_UNIT[service.unit].name}`}
+                        {formatCurrencyVND(service.price) +
+                          ` đ/${SERVICE_UNIT[service.unit].name}`}
                       </span>
                     </div>
                   );
@@ -165,7 +171,10 @@ const BoardingHouseDetail = () => {
                 <FaChartArea className="text-blue-500 text-2xl mr-2" />
                 <span>{houseDetail?.area + "m²"}</span>
               </div>
-              <button className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">
+              <button
+                className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300"
+                onClick={() => setShowModal(true)}
+              >
                 Đặt lịch hẹn xem nhà
               </button>
             </div>
@@ -203,6 +212,12 @@ const BoardingHouseDetail = () => {
           </div>
         </div>
       </div>
+
+      <AppointmentModal
+        show={showModal}
+        handleClose={() => setShowModal(false)}
+        house={houseDetail}
+      />
     </div>
   );
 };

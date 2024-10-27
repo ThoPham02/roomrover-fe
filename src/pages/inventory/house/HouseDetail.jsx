@@ -33,13 +33,11 @@ const HouseDetail = ({ type = "get" }) => {
 
   useEffect(() => {
     if (houseDetail) {
-      setHouse(houseDetail);
+      setHouse({ ...houseDetail, option: houseDetail.status === 1 ? 0 : 1 });
     }
   }, [houseDetail]);
 
-  const validateForm = (data) => {
-    console.log("Data:", data);
-  };
+  const validateForm = (data) => {};
 
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();

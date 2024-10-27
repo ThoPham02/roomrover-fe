@@ -18,8 +18,6 @@ const NavBarManage = ({ isExpanded }) => {
   const [isHovered, setIsHovered] = useState(false);
   const { user } = useSelector((state) => state.auth);
 
-  console.log(user?.role);
-
   const menuItems =
     user?.role !== USER_ROLES.LESSOR
       ? [

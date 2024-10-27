@@ -36,7 +36,7 @@ export const USER_ROLES = {
   LESSOR: 4, // nguoi cho thue
 };
 
-export const PAGE_SIZE = 1;
+export const PAGE_SIZE = 10;
 
 export const GENDER_TYPE = {
   1: { name: "Nam" },

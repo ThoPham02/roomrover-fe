@@ -183,7 +183,7 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
       )}
 
       <ConfirmActionModal
-        label={"Bạn có chắc chắn muốn cập nhật thông tin nhà trọ không?"}
+        label={<ModalLabel option={option} state={house} setState={setHouse} />}
         show={showModal}
         handleClose={() => setShowModal(false)}
         handleConfirm={(e) => {
@@ -196,3 +196,33 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
 };
 
 export default HouseDetailForm;
+
+const ModalLabel = ({ state, setState, option }) => {
+  console.log("Option:", state.option);
+
+  var title = "Nhà trọ đang được cập nhật!";
+
+  if (option === "create") {
+    title = "Nhà trọ đang được tạo mới!";
+  }
+
+  return (
+    <div>
+      <p className="text-2xl font-semibold">{title}</p>
+      <div className="inline-block mt-2">
+        <Form.Check
+          type="switch"
+          id="custom-switch"
+          className="text-3xl"
+          label="Đăng tin cho thuê"
+          checked={state.option === 1}
+          onChange={(e) => {
+            setState((prev) => {
+              return { ...prev, option: e.target.checked ? 1 : 0 };
+            });
+          }}
+        />
+      </div>
+    </div>
+  );
+};
