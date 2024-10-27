@@ -133,8 +133,8 @@ const HouseScreen = () => {
         ),
       name: item.name,
       address: area,
-      area: item.area + "m²",
-      price: formatCurrencyVND(item.price) + " VND",
+      area: item.area + " m²",
+      price: formatCurrencyVND(item.price),
       type: HOUSE_TYPE[item.type].name,
       status: HouseStatusComponent[item.status],
     };

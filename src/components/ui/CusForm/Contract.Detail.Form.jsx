@@ -235,7 +235,7 @@ const ContractDetailForm = ({
         </Row>
       </div>
 
-      <p className="font-medium mt-4">Thông tin thanh toán:</p>
+      <p className="font-medium mt-4">Chi phí hàng tháng:</p>
       <div className="p-2 bg-slate-100 rounded">
         <Row>
           <Col>
@@ -246,30 +246,15 @@ const ContractDetailForm = ({
               placeholder={"Giá phòng"}
               keyName={"room.price"}
               disabled
-              unit={"VNĐ/tháng"}
+              unit={"VNĐ"}
             />
           </Col>
           <Col></Col>
         </Row>
-        {/* {contract?.room?.services &&
-          contract?.room?.services?.map((service, index) => {
-            return (
-              <Row key={index}>
-                <Col>
-                  <CusFormGroup
-                    label={service.name}
-                    state={contract}
-                    setState={setContract}
-                    placeholder={service.name}
-                    keyName={`room.services[${index}].price`}
-                    disabled
-                    unit={"VNĐ"}
-                  />
-                </Col>
-                <Col></Col>
-              </Row>
-            );
-          })} */}
+      </div>
+
+      <p className="font-medium mt-4">Thông tin thanh toán:</p>
+      <div className="p-2 bg-slate-100 rounded">
         <Row>
           <Col>
             <CusFormDate
@@ -304,7 +289,7 @@ const ContractDetailForm = ({
               state={contract}
               setState={setContract}
               placeholder={"Giảm giá"}
-              keyName={"discount"}
+              keyName={"payment.discount"}
               unit={"VNĐ"}
               disabled={option === "get"}
             />
@@ -316,7 +301,7 @@ const ContractDetailForm = ({
               state={contract}
               setState={setContract}
               placeholder={"Số tiền cọc"}
-              keyName={"deposit"}
+              keyName={"payment.deposit"}
               required
               unit={"VNĐ"}
               disabled={option === "get"}
@@ -329,7 +314,7 @@ const ContractDetailForm = ({
               state={contract}
               setState={setContract}
               placeholder={"hạn cọc"}
-              keyName={"depositDate"}
+              keyName={"payment.depositDate"}
               required
               position={"right"}
               disabled={option === "get"}
@@ -352,7 +337,7 @@ const ContractDetailForm = ({
         <div className="flex justify-center mt-4">
           <Button
             onClick={handleSubmit}
-            className="px-6 py-2 bg-primary2 rounded text-white"
+            className="px-6 py-2 bg-blue-500 rounded text-white"
           >
             Tạo hợp đồng
           </Button>

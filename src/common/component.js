@@ -99,3 +99,16 @@ export const PaymentStatusComponent = {
     </p>
   ),
 };
+
+export const BillPayStatusComponent = {
+  1: (
+    <p className="px-2 py-1 rounded inline-block text-center bg-gray-500 text-white">
+      Đang xử lý
+    </p>
+  ),
+  2: (
+    <p className="px-2 py-1 rounded inline-block text-center bg-green-500 text-white">
+      Đã thanh toán
+    </p>
+  ),
+};

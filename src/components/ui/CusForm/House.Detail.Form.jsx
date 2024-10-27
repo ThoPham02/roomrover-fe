@@ -92,6 +92,7 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
             setState={setHouse}
             keyName={"price"}
             disabled={option === "get"}
+            unit={"VNĐ"}
           />
         </Col>
         <Col>
@@ -114,6 +115,7 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
             setState={setHouse}
             keyName={"area"}
             disabled={option === "get"}
+            unit={"m²"}
           />
         </Col>
       </Row>

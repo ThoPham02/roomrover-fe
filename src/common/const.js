@@ -229,3 +229,9 @@ export const UtilsTickComponent = {
     icon: <FaToilet className="text-2xl group-hover:text-blue-500" />,
   },
 };
+
+export const BILL_PAYMENT_METHOD = {
+  1: { name: "Tiền mặt" },
+  2: { name: "Chuyển khoản" },
+  4: { name: "Ví điện tử" },
+}

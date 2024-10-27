@@ -92,9 +92,9 @@ const RoomScreen = () => {
         id: item.roomID,
         name: `${item.name} (${item.houseName})`,
         type: HOUSE_TYPE[item.type].name,
-        area: item.area + "m2",
+        area: item.area + " m2",
         capacity: item.capacity === 0 ? "Không giới hạn" : item.capacity,
-        price: formatCurrencyVND(item.price) + " VND",
+        price: formatCurrencyVND(item.price),
         statusComponent: RoomStatusComponent[item.status],
         status: item.status,
       };
