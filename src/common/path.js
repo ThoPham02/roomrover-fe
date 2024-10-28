@@ -16,6 +16,7 @@ export const ROUTE_PATHS = {
   RENTER_DASHBOARD: "/renter/dashboard",
   RENTER_CONTRACT: "/renter/contract",
   RENTER_CONTRACT_DETAIL: "/renter/contract-detail/:id",
+  RENTER_CONTACT: "/renter/contact",
 
   RENTER_PAYMENT: "/renter/payment",
   RENTER_PAYMENT_DETAIL: "/renter/payment-detail/:id",

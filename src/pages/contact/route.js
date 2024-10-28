@@ -1,13 +1,14 @@
 import { ROUTE_PATHS } from "../../common";
 import ContactScreen from "./ContactScreen";
+import RenterContactScreen from "./RenterContactScreen";
 
 export const contactRenterRoute = [
   {
     id: "contact_screen",
-    path: ROUTE_PATHS.CONTACT,
+    path: ROUTE_PATHS.RENTER_CONTACT,
     element: (
       <div className="p-3 bg-white rounded">
-        <ContactScreen />
+        <RenterContactScreen />
       </div>
     ),
   },

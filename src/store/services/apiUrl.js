@@ -97,6 +97,23 @@ export const ApiUrl = {
     method: "put",
   },
 
+  CreateContact: {
+    url: "/invent/contact",
+    method: "post",
+  },
+  FilterContact: {
+    url: "/invent/contact/filter",
+    method: "get",
+  },
+  DeleteContact: {
+    url: "/invent/contact/:id",
+    method: "delete",
+  },
+  UpdateStatusContact: {
+    url: "/invent/contact/:id",
+    method: "put",
+  },
+
   // contract
   FilterContracts: {
     url: "/contract/filter",

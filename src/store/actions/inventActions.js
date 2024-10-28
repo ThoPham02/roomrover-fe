@@ -1,4 +1,5 @@
 import {
+  apiFilterContact,
   apiFilterRoom,
   apiSearchHouse,
   filterHouses,
@@ -195,3 +196,25 @@ export const getHouseDetailPublic = (payload) => async (dispatch) => {
     });
   }
 };
+
+export const getFilterContact = (payload) => async (dispatch) => {
+  try {
+    const data = await apiFilterContact(payload);
+    if (data?.result.code === 0) {
+      dispatch({
+        type: actionTypes.FILTER_CONTACT_SUCCESS,
+        data: data,
+      });
+    } else {
+      dispatch({
+        type: actionTypes.FILTER_CONTACT_FAIL,
+        data: data,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: actionTypes.FILTER_CONTACT_FAIL,
+      data: null,
+    });
+  }
+}

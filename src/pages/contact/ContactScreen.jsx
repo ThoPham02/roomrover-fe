@@ -8,14 +8,14 @@ import * as actions from "../../store/actions";
 
 const listFields = [
   {
-    header: "Tên nhà trọ",
+    header: "Nhà trọ",
     headerClass: "text-center w-96",
     accessorKey: "houseName",
-    dataClass: "text-center",
+    dataClass: "",
   },
   {
     header: "Người thuê",
-    headerClass: "text-center w-32",
+    headerClass: "text-center w-96",
     accessorKey: "renterName",
     dataClass: "text-center",
   },
@@ -26,14 +26,14 @@ const listFields = [
     dataClass: "text-center",
   },
   {
-    header: "Ngày hẹn xem phòng",
-    headerClass: "text-center w-96",
+    header: "Ngày hẹn",
+    headerClass: "text-center w-32",
     accessorKey: "datetime",
     dataClass: "text-center",
   },
   {
     header: "Trạng thái",
-    headerClass: "text-center w-32",
+    headerClass: "text-center w-96",
     accessorKey: "statusComponent",
     dataClass: "text-center",
   },
@@ -45,9 +45,10 @@ const ContactScreen = () => {
   const [page, setPage] = useState(1);
   useEffect(() => {
     dispatch(actions.setCurrentPage(ROUTE_PATHS.CONTACT));
+    dispatch(actions.getFilterContact({}));
   }, [dispatch]);
 
-  const { listContact, total } = useSelector((state) => state.contact);
+  const { listContact, total } = useSelector((state) => state.invent.contact);
 
   return (
     <div>
@@ -62,7 +63,7 @@ const ContactScreen = () => {
           page={page}
           ActionButton={RoomActionButton}
         />
-        {listContact.length > 0 && (
+        {listContact?.length > 0 && (
           <div className="flex justify-between items-center">
             <p className="text-sm text-gray-500">
               Hiển thị{" "}

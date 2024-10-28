@@ -37,6 +37,11 @@ const NavBarManage = ({ isExpanded }) => {
             path: ROUTE_PATHS.RENTER_PAYMENT,
           },
           {
+            icon: <RiContactsBook3Line className="text-3xl" />,
+            label: "Liên hệ",
+            path: ROUTE_PATHS.RENTER_CONTACT,
+          },
+          {
             icon: <IoSettingsOutline className="text-3xl" />,
             label: "Cài đặt",
             path: ROUTE_PATHS.RENTER_USER_SETTINGS,

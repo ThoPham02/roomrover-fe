@@ -112,3 +112,16 @@ export const BillPayStatusComponent = {
     </p>
   ),
 };
+
+export const ContactStatusComponent = {
+  1: (
+    <p className="px-2 py-1 rounded inline-block text-center bg-gray-500 text-white">
+      Chờ xác nhận
+    </p>
+  ),
+  2: (
+    <p className="px-2 py-1 rounded inline-block text-center bg-green-500 text-white">
+      Đồng ý
+    </p>
+  ),
+};

@@ -261,3 +261,58 @@ export const apiSearchHouse = async (payload) => {
     return error;
   }
 }
+
+export const apiCreateContact = async (payload) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.CreateContact,
+      data: payload,
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
+
+export const apiFilterContact = async (payload) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.FilterContact,
+      params: payload,
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
+
+export const apiDeleteContact = async (id) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.DeleteContact,
+      url: ApiUrl.DeleteContact.url.replace(":id", id),
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
+
+export const apiUpdateStatusContact = async (payload) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.UpdateStatusContact,
+      url: ApiUrl.UpdateStatusContact.url.replace(":id", payload.id),
+      data: {
+        status: payload.status,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
