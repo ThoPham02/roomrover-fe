@@ -9,8 +9,10 @@ import {
   ROUTE_PATHS,
 } from "../common";
 
+console.log(process.env);
+
 const instance = axios.create({
-  baseURL: "http://localhost:8888",
+  baseURL: process.env.REACT_APP_SERVER_URL,
   headers: {
     Accept: "application/json",
     "Content-Type": "multipart/form-data",
