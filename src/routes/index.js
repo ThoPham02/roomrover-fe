@@ -21,7 +21,7 @@ import {
 import { paymentLessorRoute, paymentRenterRoute } from "../pages/payment/route";
 import { notificaionPrivateRoute } from "../pages/notification/route";
 import { publicRoute } from "../pages/public/route";
-import { contactLessorRoute } from "../pages/contact/route";
+import { contactLessorRoute, contactRenterRoute } from "../pages/contact/route";
 
 const ProtectedRoute = ({
   element,
@@ -42,6 +42,7 @@ const renterRoutes = [
   ...inventRenterRoute,
   ...contractRenterRoute,
   ...paymentRenterRoute,
+  ...contactRenterRoute,
 ];
 
 const lessorRoutes = [

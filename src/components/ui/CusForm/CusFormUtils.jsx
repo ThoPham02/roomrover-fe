@@ -4,6 +4,9 @@ const CusFormUtils = ({ state, setState, disable, page = "create-house" }) => {
   const utilsItems = Object.entries(UtilsTickComponent);
   var utilContainer = `grid grid-cols-2 w-full p-2`;
 
+  console.log("CusFormUtils", state);
+  console.log("CusFormUtils", disable);
+
   const handleSelect = (key) => {
     if (disable) return;
 

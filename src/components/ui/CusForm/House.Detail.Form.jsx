@@ -145,7 +145,7 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
           <CusFormUtils
             state={house}
             setState={setHouse}
-            disabled={option === "get"}
+            disable={option === "get"}
           />
         </div>
       </Row>

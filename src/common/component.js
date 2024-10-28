@@ -124,4 +124,9 @@ export const ContactStatusComponent = {
       Đồng ý
     </p>
   ),
+  4: (
+    <p className="px-2 py-1 rounded inline-block text-center bg-red-500 text-white">
+      Từ chối
+    </p>
+  ),
 };

@@ -4,7 +4,7 @@ import RenterContactScreen from "./RenterContactScreen";
 
 export const contactRenterRoute = [
   {
-    id: "contact_screen",
+    id: "renter_contact_screen",
     path: ROUTE_PATHS.RENTER_CONTACT,
     element: (
       <div className="p-3 bg-white rounded">

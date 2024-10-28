@@ -2,7 +2,7 @@ import { Col, Form, Row } from "react-bootstrap";
 import React from "react";
 import { Button } from "react-bootstrap";
 
-import { HOUSE_TYPE } from "../../../common";
+import { HOUSE_TYPE, SERVICE_UNIT } from "../../../common";
 import {
   CusFormGroup,
   CusFormSearchUser,
@@ -17,6 +17,8 @@ const ContractDetailForm = ({
   handleSubmit,
   option,
 }) => {
+  console.log("contract", contract?.room?.services[0].price);
+
   return (
     <Form className="mt-4" onSubmit={(e) => e.preventDefault()}>
       <p className="font-medium">Bên cho thuê:</p>
@@ -199,7 +201,7 @@ const ContractDetailForm = ({
             />
           </Col>
           <Col>
-            <Row>
+            {/* <Row>
               <Col>
                 <CusFormGroup
                   label={"Điện"}
@@ -226,7 +228,7 @@ const ContractDetailForm = ({
                   disabled={option === "get"}
                 />
               </Col>
-            </Row>
+            </Row> */}
           </Col>
         </Row>
         <Row>
@@ -235,7 +237,7 @@ const ContractDetailForm = ({
         </Row>
       </div>
 
-      <p className="font-medium mt-4">Chi phí hàng tháng:</p>
+      <p className="font-medium mt-4">Thông tin thanh toán:</p>
       <div className="p-2 bg-slate-100 rounded">
         <Row>
           <Col>
@@ -251,10 +253,25 @@ const ContractDetailForm = ({
           </Col>
           <Col></Col>
         </Row>
-      </div>
-
-      <p className="font-medium mt-4">Thông tin thanh toán:</p>
-      <div className="p-2 bg-slate-100 rounded">
+        {contract?.room?.services &&
+          contract?.room?.services?.map((service, index) => {
+            return (
+              <Row key={index}>
+                <Col>
+                  <CusFormGroup
+                    label={service.name}
+                    state={contract}
+                    setState={setContract}
+                    placeholder={service.name}
+                    keyName={`room.services[0].price`}
+                    disabled
+                    unit={`VNĐ/${SERVICE_UNIT[service.unit].name}`}
+                  />
+                </Col>
+                <Col></Col>
+              </Row>
+            );
+          })}
         <Row>
           <Col>
             <CusFormDate
@@ -289,7 +306,7 @@ const ContractDetailForm = ({
               state={contract}
               setState={setContract}
               placeholder={"Giảm giá"}
-              keyName={"payment.discount"}
+              keyName={"discount"}
               unit={"VNĐ"}
               disabled={option === "get"}
             />
@@ -301,7 +318,7 @@ const ContractDetailForm = ({
               state={contract}
               setState={setContract}
               placeholder={"Số tiền cọc"}
-              keyName={"payment.deposit"}
+              keyName={"deposit"}
               required
               unit={"VNĐ"}
               disabled={option === "get"}
@@ -314,7 +331,7 @@ const ContractDetailForm = ({
               state={contract}
               setState={setContract}
               placeholder={"hạn cọc"}
-              keyName={"payment.depositDate"}
+              keyName={"depositDate"}
               required
               position={"right"}
               disabled={option === "get"}

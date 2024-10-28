@@ -2,11 +2,11 @@ import { address } from "../common";
 
 export const convertTimestampToDate = (timestamp) => {
   const date = new Date(timestamp);
-  
-  const day = date.getDate().toString().padStart(2, '0');
-  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Tháng trong JavaScript bắt đầu từ 0
+
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Tháng trong JavaScript bắt đầu từ 0
   const year = date.getFullYear();
-  
+
   return `${day}/${month}/${year}`;
 };
 
@@ -15,8 +15,13 @@ export const convertDateToTimestamp = (date) => {
 };
 
 export const getDate = (n) => {
-  return new Date(Date.now() - (n ? n : 0) * 24 * 60 * 60 * 1000).setHours(0, 0, 0, 0);
-}
+  return new Date(Date.now() - (n ? n : 0) * 24 * 60 * 60 * 1000).setHours(
+    0,
+    0,
+    0,
+    0
+  );
+};
 
 export const formatCurrencyVND = (number) => {
   number = Number(number);
@@ -29,7 +34,6 @@ export const formatCurrencyVND = (number) => {
     })
   );
 };
-
 
 export const getProvince = (provinceID) => {
   provinceID = String(provinceID).padStart(2, "0");
@@ -59,10 +63,12 @@ export const getArea = (provinceID, districtID, wardID) => {
 
 export const getDayMonthYearFromTimestamp = (timestamp) => {
   const date = new Date(timestamp);
-  return `ngày ${date.getDate()}, tháng ${date.getMonth() + 1}, năm ${date.getFullYear()}`;
-}
+  return `ngày ${date.getDate()}, tháng ${
+    date.getMonth() + 1
+  }, năm ${date.getFullYear()}`;
+};
 
 export const getDayFromTimestamp = (timestamp) => {
   const date = new Date(timestamp);
   return date.getDate();
-}
+};

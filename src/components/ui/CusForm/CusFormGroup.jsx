@@ -17,9 +17,9 @@ const CusFormGroup = ({
 }) => {
   const handleValue = (e) => {
     let value = e.target.value;
-
-    let numericValue = value;
-
+    if (unit === "VNĐ") {
+      value = value.replace(/\D/g, "");
+    }
     setState((prevState) => {
       const newState = { ...prevState };
       const keys = keyName.split(".");
@@ -30,14 +30,14 @@ const CusFormGroup = ({
         return acc[key];
       }, newState);
 
-      nestedState[lastKey] = numericValue;
+      nestedState[lastKey] = value;
       return newState;
     });
   };
 
   const parseValue = (obj, path) => {
     let val = path.split(".").reduce((acc, key) => acc && acc[key], obj) || "";
-    return unit === "VNĐ" ? formatCurrencyVND(val.replace(/[^0-9]/g, "")) : val;
+    return unit === "VNĐ" ? formatCurrencyVND(val) : val;
   };
 
   const InputComponent = (

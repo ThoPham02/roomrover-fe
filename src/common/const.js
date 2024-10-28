@@ -95,6 +95,12 @@ export const CONTRACT_STATUS_CODE = {
   CANCELED: 16,
 };
 
+export const CONTACT_STATUS_CODE = {
+  WAITING: 1,
+  CONFIRMED: 2,
+  CANCELED: 4,
+};
+
 export const SERVICE_UNIT = {
   1: { name: "Phòng" },
   2: { name: "Người" },
@@ -234,4 +240,10 @@ export const BILL_PAYMENT_METHOD = {
   1: { name: "Tiền mặt" },
   2: { name: "Chuyển khoản" },
   4: { name: "Ví điện tử" },
-}
+};
+
+export const CONTACT_STATUS = {
+  1: { name: "Chờ xác nhận" },
+  2: { name: "Đồng ý" },
+  4: { name: "Từ chối" },
+};
