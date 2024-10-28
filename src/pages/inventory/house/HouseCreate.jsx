@@ -21,6 +21,8 @@ const HouseCreate = () => {
     provinceID: 1,
     districtID: 0,
     wardID: 0,
+    unit: 0,
+    option: 0,
   });
 
   useEffect(() => {
@@ -66,7 +68,6 @@ const HouseCreate = () => {
 
       if (res.result.code === 0) {
         navigate(ROUTE_PATHS.HOUSE);
-        // navigate(ROUTE_PATHS.HOUSE_DETAIL.replace(":id", res.house.houseID));
       }
     } catch (error) {
       console.error("Error Update House:", error);

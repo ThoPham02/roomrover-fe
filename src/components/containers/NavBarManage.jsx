@@ -18,8 +18,6 @@ const NavBarManage = ({ isExpanded }) => {
   const [isHovered, setIsHovered] = useState(false);
   const { user } = useSelector((state) => state.auth);
 
-  console.log(user?.role);
-
   const menuItems =
     user?.role !== USER_ROLES.LESSOR
       ? [
@@ -105,7 +103,7 @@ const NavBarManage = ({ isExpanded }) => {
                 src={logo}
                 alt="logo"
                 className={`rounded-full ${
-                  shouldExpand ? "w-16 h-16" : "w-10 h-10"
+                  shouldExpand ? "w-16 h-16" : "w-8 h-8"
                 }`}
               />
               {shouldExpand ? (

@@ -44,14 +44,14 @@ const columns = [
   {
     header: "Nguời thuê",
     headerClass: "text-center w-32",
-    accessorKey: "renterName",
+    accessorKey: "renter.fullName",
     dataClass: "",
   },
   {
     header: "Số điện thoại",
     headerClass: "text-center w-32",
-    accessorKey: "renterPhone",
-    dataClass: "",
+    accessorKey: "renter.phone",
+    dataClass: "text-center",
   },
   {
     header: "Ngày bắt đầu",
@@ -128,15 +128,15 @@ const ContractScreen = () => {
     : [];
 
   return (
-    <div className="p-3 bg-white rounded">
+    <div className="">
       <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.CONTRACT]} />
       <div className="relative">
         <CreateButton
-          className="absolute -top-16 right-0 z-1"
+          className="absolute -top-12 right-0 z-1"
           onClick={handleCreateContract}
         />
 
-        <div className="mt-8">
+        <div className="mt-4">
           <div className="p-2 bg-slate-100 rounded">
             <Form
               className="flex flex-wrap gap-4 items-center mt-8"
@@ -151,7 +151,7 @@ const ContractScreen = () => {
                 position="top"
               />
               <CusFormDate
-                label={"Ngày tạo"}
+                label={"Ngày bắt đầu"}
                 placeholder={"Từ ngày"}
                 state={filter}
                 setState={setFilter}
@@ -172,8 +172,12 @@ const ContractScreen = () => {
                 data={CONTRACT_STATUS}
                 position="top"
               />
-              <button type="submit" className="px-8 py-2 bg-secondary2 rounded">
-                <FaSearch className="text-3xl" />
+              <button
+                type="submit"
+                className="flex items-center justify-center px-4 py-2 bg-blue-500 rounded group w-48"
+              >
+                <FaSearch className="text-2xl text-white group-hover:text-yellow-500 mr-2" />
+                <span className="font-bold text-white ">Tìm kiếm</span>
               </button>
             </Form>
           </div>

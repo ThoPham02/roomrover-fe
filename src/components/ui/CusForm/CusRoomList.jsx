@@ -55,7 +55,8 @@ const CusRoomList = ({ state, setState, disabled }) => {
           <input
             type="text"
             className="p-2 border border-gray-300 rounded w-48 text-center form-control"
-            value={room.capacity}
+            // eslint-disable-next-line
+            value={room.capacity == 0 ? "" : room.capacity}
             onChange={(e) =>
               handleRoomChange(index, "capacity", e.target.value)
             }

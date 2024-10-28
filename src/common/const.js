@@ -1,3 +1,29 @@
+import {
+  GiClothesline, // Sân phơi đồ
+  GiCookingPot, // Bếp
+  GiWashingMachine, // Máy giặt
+} from "react-icons/gi";
+
+import {
+  MdChair, // Nội thất
+  MdSecurity, // Dịch vụ bảo vệ
+} from "react-icons/md";
+
+import {
+  GrElevator, // Thang máy
+} from "react-icons/gr";
+import {
+  CgSmartHomeRefrigerator, // Tủ lạnh
+} from "react-icons/cg";
+
+import {
+  FaVideo, // Camera an ninh
+  FaParking, // Chỗ để xe
+  FaFan, // Điều hòa và quạt
+  FaHotTub, // Nóng lạnh
+  FaToilet, // Vệ sinh khép kín
+} from "react-icons/fa";
+
 export const API_METHOD = {
   GET: "get",
   POST: "post",
@@ -33,10 +59,10 @@ export const HOUSE_SERVICE_TYPE = {
 
 export const HOUSE_ROOM_STATUS = {
   1: { name: "Chờ xác nhận" },
-  2: { name: "Sẵn sàng cho thuê" },
+  2: { name: "Sẵn sàng thuê" },
   4: { name: "Đã được thuê" },
   8: { name: "Sắp hết hạn" },
-  16: { name: "Tìm nhượng" },
+  16: { name: "Tạm dừng" },
 };
 
 export const CONTRACT_STATUS = {
@@ -54,18 +80,25 @@ export const BILL_STATUS = {
   8: { name: "Đã hủy" },
 };
 
+export const BILL_STATUS_CODE = {
+  WAITING: 1,
+  WAITING_PAYMENT: 2,
+  PAID: 4,
+  CANCELED: 8,
+};
+
 export const CONTRACT_STATUS_CODE = {
   WAITING: 1,
   WAITING_DEPOSIT: 2,
   RENTING: 4,
   EXPIRED: 8,
   CANCELED: 16,
-}
+};
 
 export const SERVICE_UNIT = {
-  1: { name: "Tháng" },
-  2: { name: "Người / Tháng" },
-  4: { name: "Đơn vị tiêu thụ / Tháng" },
+  1: { name: "Phòng" },
+  2: { name: "Người" },
+  4: { name: "Số " },
 };
 
 export const MAP_PRICE = [
@@ -143,3 +176,62 @@ export const MAP_AREA = [
     label: "Trên 90m²",
   },
 ];
+
+export const UtilsTickComponent = {
+  1: {
+    name: "Sân phơi đồ",
+    icon: <GiClothesline className="text-2xl group-hover:text-blue-500" />,
+  },
+  2: {
+    name: "Thang máy",
+    icon: <GrElevator className="text-2xl group-hover:text-blue-500" />,
+  },
+  4: {
+    name: "Camera an ninh",
+    icon: <FaVideo className="text-2xl group-hover:text-blue-500" />,
+  },
+  8: {
+    name: "Dịch vụ bảo vệ",
+    icon: <MdSecurity className="text-2xl group-hover:text-blue-500" />,
+  },
+  16: {
+    name: "Máy giặt",
+    icon: <GiWashingMachine className="text-2xl group-hover:text-blue-500" />,
+  },
+  32: {
+    name: "Chỗ để xe",
+    icon: <FaParking className="text-2xl group-hover:text-blue-500" />,
+  },
+  64: {
+    name: "Điều hòa và quạt",
+    icon: <FaFan className="text-2xl group-hover:text-blue-500" />,
+  },
+  128: {
+    name: "Bếp",
+    icon: <GiCookingPot className="text-2xl group-hover:text-blue-500" />,
+  },
+  256: {
+    name: "Tủ lạnh",
+    icon: (
+      <CgSmartHomeRefrigerator className="text-2xl group-hover:text-blue-500" />
+    ),
+  },
+  512: {
+    name: "Nội thất",
+    icon: <MdChair className="text-2xl group-hover:text-blue-500" />,
+  },
+  1024: {
+    name: "Nóng lạnh",
+    icon: <FaHotTub className="text-2xl group-hover:text-blue-500" />,
+  },
+  2048: {
+    name: "Vệ sinh khép kín",
+    icon: <FaToilet className="text-2xl group-hover:text-blue-500" />,
+  },
+};
+
+export const BILL_PAYMENT_METHOD = {
+  1: { name: "Tiền mặt" },
+  2: { name: "Chuyển khoản" },
+  4: { name: "Ví điện tử" },
+}

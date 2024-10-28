@@ -92,9 +92,9 @@ const RoomScreen = () => {
         id: item.roomID,
         name: `${item.name} (${item.houseName})`,
         type: HOUSE_TYPE[item.type].name,
-        area: item.area + "m2",
+        area: item.area + " m2",
         capacity: item.capacity === 0 ? "Không giới hạn" : item.capacity,
-        price: formatCurrencyVND(item.price) + " VND",
+        price: formatCurrencyVND(item.price),
         statusComponent: RoomStatusComponent[item.status],
         status: item.status,
       };
@@ -104,13 +104,20 @@ const RoomScreen = () => {
     e.preventDefault();
 
     setPage(1);
+    dispatch(
+      actions.getListRooms({
+        ...filter,
+        limit: PAGE_SIZE,
+        offset: PAGE_SIZE * (page - 1),
+      })
+    );
   };
 
   return (
     <div>
       <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.ROOM]} />
 
-      <div className="search-box p-2 bg-slate-100 rounded">
+      <div className="search-box p-2 bg-slate-100 rounded mt-4">
         <Form
           className="flex flex-wrap gap-4 items-center mt-8"
           onSubmit={handleSubmitFilter}
@@ -139,8 +146,12 @@ const RoomScreen = () => {
             data={HOUSE_ROOM_STATUS}
             position="top"
           />
-          <button type="submit" className="px-8 py-2 bg-secondary2 rounded">
-            <FaSearch className="text-3xl" />
+          <button
+            type="submit"
+            className="flex items-center justify-center px-4 py-2 bg-blue-500 rounded group w-48"
+          >
+            <FaSearch className="text-2xl text-white group-hover:text-yellow-500 mr-2" />
+            <span className="font-bold text-white ">Tìm kiếm</span>
           </button>
         </Form>
       </div>

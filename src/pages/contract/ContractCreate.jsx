@@ -280,7 +280,7 @@ const ContractCreate = () => {
                 placeholder={"Giá phòng"}
                 keyName={"room.price"}
                 disabled
-                unit={"VNĐ/tháng"}
+                unit={"VNĐ"}
               />
             </Col>
             <Col></Col>

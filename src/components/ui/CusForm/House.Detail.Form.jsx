@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 import { HOUSE_TYPE } from "../../../common";
 import {
+  ConfirmActionModal,
   CreateButton,
   CusFormGroup,
   CusFormSelect,
@@ -12,9 +13,11 @@ import {
   CusServiceList,
 } from "..";
 import { uploadImage } from "../../../store/services/inventServices";
+import CusFormUtils from "./CusFormUtils";
 
 const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
   const [isUploading, setIsUploading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const handleImageUpload = async (e) => {
     const files = Array.from(e.target.files);
@@ -89,6 +92,7 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
             setState={setHouse}
             keyName={"price"}
             disabled={option === "get"}
+            unit={"VNĐ"}
           />
         </Col>
         <Col>
@@ -111,6 +115,7 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
             setState={setHouse}
             keyName={"area"}
             disabled={option === "get"}
+            unit={"m²"}
           />
         </Col>
       </Row>
@@ -132,22 +137,36 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
           disabled={option === "get"}
         />
       </Row>
-
       <Row>
-        <p className="font-bold">Danh sách phòng trọ:</p>
         <div className="flex flex-wrap">
-          <CusRoomList
+          <p className="font-bold min-w-36 mr-2">
+            Tiện ích <br /> nhà trọ:
+          </p>
+          <CusFormUtils
             state={house}
             setState={setHouse}
             disabled={option === "get"}
           />
         </div>
       </Row>
-
       <Row>
-        <p className="font-bold">Chi phí phát sinh:</p>
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap  mt-4">
+          <p className="font-bold min-w-36 mr-2 mt-4">
+            Chi phí <br /> phát sinh:
+          </p>
           <CusServiceList
+            state={house}
+            setState={setHouse}
+            disabled={option === "get"}
+          />
+        </div>
+      </Row>
+      <Row>
+        <div className="flex flex-wrap mt-4">
+          <p className="font-bold min-w-36 mr-2 mt-4">
+            Danh sách <br /> phòng trọ:
+          </p>
+          <CusRoomList
             state={house}
             setState={setHouse}
             disabled={option === "get"}
@@ -157,11 +176,55 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
 
       {option !== "get" && (
         <Row className="flex justify-center my-4">
-          <CreateButton text="Lưu" icon={<></>} onClick={handleSubmit} />
+          <CreateButton
+            text="Lưu"
+            icon={<></>}
+            onClick={() => setShowModal(true)}
+          />
         </Row>
       )}
+
+      <ConfirmActionModal
+        label={<ModalLabel option={option} state={house} setState={setHouse} />}
+        show={showModal}
+        handleClose={() => setShowModal(false)}
+        handleConfirm={(e) => {
+          handleSubmit(e);
+          setShowModal(false);
+        }}
+      />
     </Form>
   );
 };
 
 export default HouseDetailForm;
+
+const ModalLabel = ({ state, setState, option }) => {
+  console.log("Option:", state.option);
+
+  var title = "Nhà trọ đang được cập nhật!";
+
+  if (option === "create") {
+    title = "Nhà trọ đang được tạo mới!";
+  }
+
+  return (
+    <div>
+      <p className="text-2xl font-semibold">{title}</p>
+      <div className="inline-block mt-2">
+        <Form.Check
+          type="switch"
+          id="custom-switch"
+          className="text-3xl"
+          label="Đăng tin cho thuê"
+          checked={state.option === 1}
+          onChange={(e) => {
+            setState((prev) => {
+              return { ...prev, option: e.target.checked ? 1 : 0 };
+            });
+          }}
+        />
+      </div>
+    </div>
+  );
+};

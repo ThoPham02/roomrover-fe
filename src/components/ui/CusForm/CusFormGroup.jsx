@@ -1,4 +1,5 @@
 import { Form, InputGroup } from "react-bootstrap";
+import { formatCurrencyVND } from "../../../utils/utils";
 
 const CusFormGroup = ({
   label,
@@ -16,6 +17,13 @@ const CusFormGroup = ({
 }) => {
   const handleValue = (e) => {
     let value = e.target.value;
+
+    // Remove non-numeric characters for parsing, keeping only digits
+    let numericValue = value.replace(/\D/g, "");
+    if (unit === "vnd") {
+      numericValue = formatCurrencyVND(numericValue);
+    }
+
     setState((prevState) => {
       const newState = { ...prevState };
       const keys = keyName.split(".");
@@ -26,13 +34,14 @@ const CusFormGroup = ({
         return acc[key];
       }, newState);
 
-      nestedState[lastKey] = value;
+      nestedState[lastKey] = numericValue;
       return newState;
     });
   };
 
   const parseValue = (obj, path) => {
-    return path.split(".").reduce((acc, key) => acc && acc[key], obj) || "";
+    let val = path.split(".").reduce((acc, key) => acc && acc[key], obj) || "";
+    return unit === "VNĐ" ? formatCurrencyVND(val) : val;
   };
 
   const InputComponent = (

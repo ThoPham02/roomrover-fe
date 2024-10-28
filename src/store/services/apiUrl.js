@@ -125,4 +125,8 @@ export const ApiUrl = {
     url: "/bill/:id",
     method: "get",
   },
+  ZaloPayment: {
+    url: "/bill/zalo",
+    method: "post",
+  },
 };

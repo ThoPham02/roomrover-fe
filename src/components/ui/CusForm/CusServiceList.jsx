@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo } from "react";
 import { FiPlus, FiX } from "react-icons/fi";
 import { SERVICE_UNIT } from "../../../common";
+import { formatCurrencyVND } from "../../../utils/utils";
 
 const CusServiceList = ({ state, setState, disabled }) => {
   const services = useMemo(() => state.services || [], [state.services]);
@@ -41,6 +42,7 @@ const CusServiceList = ({ state, setState, disabled }) => {
       <div className="flex items-center ">
         <p className="min-w-96">Loại dịch vụ</p>
         <p className="min-w-48 pl-2">Đơn giá</p>
+        <p className="min-w-48 pl-16">Đơn vị tính</p>
       </div>
       {services.map((service, index) => (
         <div key={index} className="flex items-center mb-4 space-x-2">
@@ -55,15 +57,15 @@ const CusServiceList = ({ state, setState, disabled }) => {
 
           <input
             type="text"
-            className="p-2 border border-gray-300 rounded w-full min-w-24 form-control"
-            value={service.price}
+            className="p-2 border border-gray-300 rounded w-full min-w-48 form-control"
+            value={formatCurrencyVND(service.price)}
             onChange={(e) =>
               handleServiceChange(index, "price", e.target.value)
             }
             placeholder="Nhập giá"
             disabled={disabled}
           />
-          <p>/</p>
+          <p>VNĐ/</p>
           <select
             className="form-control"
             onChange={(e) => handleServiceChange(index, "unit", e.target.value)}

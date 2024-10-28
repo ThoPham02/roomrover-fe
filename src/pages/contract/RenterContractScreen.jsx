@@ -42,13 +42,13 @@ const columns = [
   {
     header: "Nguời cho thuê",
     headerClass: "text-center w-32",
-    accessorKey: "lessorName",
+    accessorKey: "lessor.fullName",
     dataClass: "",
   },
   {
     header: "Số điện thoại",
     headerClass: "text-center w-32",
-    accessorKey: "lessorPhone",
+    accessorKey: "lessor.phone",
     dataClass: "",
   },
   {
@@ -87,7 +87,7 @@ const RenterContractScreen = () => {
   });
 
   useEffect(() => {
-    dispatch(actions.setCurrentPage(ROUTE_PATHS.CONTRACT));
+    dispatch(actions.setCurrentPage(ROUTE_PATHS.RENTER_CONTRACT));
     dispatch(actions.getListContract(filter));
     // eslint-disable-next-line
   }, [dispatch]);
@@ -122,10 +122,10 @@ const RenterContractScreen = () => {
     : [];
 
   return (
-    <div className="p-3 bg-white rounded">
+    <div className="">
       <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.CONTRACT]} />
       <div className="relative">
-        <div className="mt-8">
+        <div className="">
           <div className="p-2 bg-slate-100 rounded">
             <Form
               className="flex flex-wrap gap-4 items-center mt-8"
@@ -161,8 +161,12 @@ const RenterContractScreen = () => {
                 data={CONTRACT_STATUS}
                 position="top"
               />
-              <button type="submit" className="px-8 py-2 bg-secondary2 rounded">
-                <FaSearch className="text-3xl" />
+              <button
+                type="submit"
+                className="flex items-center justify-center px-4 py-2 bg-blue-500 rounded group w-48"
+              >
+                <FaSearch className="text-2xl text-white group-hover:text-yellow-500 mr-2" />
+                <span className="font-bold text-white ">Tìm kiếm</span>
               </button>
             </Form>
           </div>

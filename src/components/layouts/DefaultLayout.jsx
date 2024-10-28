@@ -1,13 +1,14 @@
 import { Outlet } from "react-router-dom";
-import { Header } from "../containers";
+import { Footer, Header } from "../containers";
 
 const DefaultLayout = () => {
   return (
-    <div className="min-h-screen h-full w-screen bg-slate-200">
-      <Header />
-      <div className="bg-white">
+    <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen bg-slate-200">
+        <Header />
         <Outlet />
       </div>
+      <Footer />
     </div>
   );
 };

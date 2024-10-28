@@ -1,6 +1,7 @@
 import { ROUTE_PATHS } from "../../common/path";
 import LoginScreen from "./LoginScreen";
 import RegisterScreen from "./RegisterScreen";
+import RenterUserSetting from "./RenterUserSetting";
 import UserSetting from "./UserSetting";
 
 export const authRoute = [
@@ -20,7 +21,7 @@ export const authRenterRoute = [
   {
     id: "user-settings-renter",
     path: ROUTE_PATHS.RENTER_USER_SETTINGS,
-    element: <UserSetting />,
+    element: <RenterUserSetting />,
   },
 ];
 

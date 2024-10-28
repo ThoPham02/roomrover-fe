@@ -33,13 +33,11 @@ const HouseDetail = ({ type = "get" }) => {
 
   useEffect(() => {
     if (houseDetail) {
-      setHouse(houseDetail);
+      setHouse({ ...houseDetail, option: houseDetail.status === 1 ? 0 : 1 });
     }
   }, [houseDetail]);
 
-  const validateForm = (data) => {
-    console.log("Data:", data);
-  };
+  const validateForm = (data) => {};
 
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
@@ -93,12 +91,14 @@ const HouseDetail = ({ type = "get" }) => {
       />
 
       <div className="relative">
-        <CreateButton
-          className="absolute -top-16 right-0 z-1"
-          icon={<></>}
-          text="Sửa"
-          onClick={() => setOption("update")}
-        />
+        {option === "get" && (
+          <CreateButton
+            className="absolute -top-16 right-0 z-1"
+            icon={<></>}
+            text="Sửa"
+            onClick={() => setOption("update")}
+          />
+        )}
 
         <HouseDetailForm
           house={house}

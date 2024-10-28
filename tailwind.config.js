@@ -24,8 +24,7 @@ module.exports = {
       },
       backgroundColor: {
         primary: "#F5F5F5",
-        secondary1: "rgb(251 191 36)",
-        secondary2: "rgb(165 243 252)",
+        secondary2: "#2fa4e7",
         "overlay-30": "rgba(0,0,0,0.3)",
         "overlay-70": "rgba(0,0,0,0.7)",
       },

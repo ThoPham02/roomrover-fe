@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+// import { useDispatch } from "react-redux";
 
-import { ROUTE_PATHS } from "../../../common";
+import { BILL_STATUS_CODE, ROUTE_PATHS } from "../../../common";
 // import * as actions from "../../../store/actions";
+import { apiZaloPayment } from "../../../store/services/paymentServices";
 
 const RenterPaymentActionButton = ({ item }) => {
   const navigate = useNavigate();
-  //   const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -15,29 +17,29 @@ const RenterPaymentActionButton = ({ item }) => {
   const handleMouseLeave = () => setIsMenuOpen(false);
 
   const handleDetailBtn = () => {
-    navigate(ROUTE_PATHS.RENTER_PAYMENT_DETAIL.replace(":id", item.id));
+    navigate(ROUTE_PATHS.RENTER_PAYMENT_DETAIL.replace(":id", item.billID));
   };
 
-  //   const handleUpdateBtn = () => {
-  //     navigate(ROUTE_PATHS.HOUSE_UPDATE.replace(":id", item.id));
-  //   };
+  const handlePaymentOnline = async () => {
+    try {
+      const res = await apiZaloPayment(item.billID);
 
-  //   const handleDeleteButton = async () => {
-  //     try {
-  //       const res = await deleteHouse(item.id);
+      if (res.result.code === 0) {
+        console.log("res.result.data", res);
 
-  //       if (res.result.code === 0) {
-  //         const data = {
-  //           limit: PAGE_SIZE,
-  //           offset: 0,
-  //         };
-  //         dispatch(actions.getListHouses(data));
-  //       }
-  //     } catch (error) {
-  //       console.error("Error Update House:", error);
-  //       return null;
-  //     }
-  //   };
+        window.open(res.orderUrl, '_blank');
+
+        // const data = {
+        //   limit: PAGE_SIZE,
+        //   offset: 0,
+        // };
+        // dispatch(actions.getListHouses(data));
+      }
+    } catch (error) {
+      console.error("Error Update House:", error);
+      return null;
+    }
+  };
 
   return (
     <div
@@ -59,6 +61,17 @@ const RenterPaymentActionButton = ({ item }) => {
                 Xem
               </button>
             </li>
+
+            {item.status === BILL_STATUS_CODE.WAITING_PAYMENT && (
+              <li>
+                <button
+                  className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
+                  onClick={handlePaymentOnline}
+                >
+                  Thanh toán online
+                </button>
+              </li>
+            )}
           </ul>
         </div>
       )}
