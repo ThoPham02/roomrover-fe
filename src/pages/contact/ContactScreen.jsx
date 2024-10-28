@@ -53,9 +53,7 @@ const ContactScreen = () => {
     <div>
       <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.CONTACT]} />
 
-      <div className="search-box">
-        
-      </div>
+      <div className="search-box"></div>
 
       <div className="table-box">
         <CusTable

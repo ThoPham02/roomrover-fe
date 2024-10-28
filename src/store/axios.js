@@ -16,9 +16,6 @@ const instance = axios.create({
   headers: {
     Accept: "application/json",
     "Content-Type": "multipart/form-data",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, HEAD, PATCH",
-    "Access-Control-Allow-Headers": "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization",
   },
 });
 

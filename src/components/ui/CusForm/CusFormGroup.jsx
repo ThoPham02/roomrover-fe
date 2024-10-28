@@ -18,11 +18,7 @@ const CusFormGroup = ({
   const handleValue = (e) => {
     let value = e.target.value;
 
-    // Remove non-numeric characters for parsing, keeping only digits
-    let numericValue = value.replace(/\D/g, "");
-    if (unit === "vnd") {
-      numericValue = formatCurrencyVND(numericValue);
-    }
+    let numericValue = value;
 
     setState((prevState) => {
       const newState = { ...prevState };
@@ -41,7 +37,7 @@ const CusFormGroup = ({
 
   const parseValue = (obj, path) => {
     let val = path.split(".").reduce((acc, key) => acc && acc[key], obj) || "";
-    return unit === "VNĐ" ? formatCurrencyVND(val) : val;
+    return unit === "VNĐ" ? formatCurrencyVND(val.replace(/[^0-9]/g, "")) : val;
   };
 
   const InputComponent = (
