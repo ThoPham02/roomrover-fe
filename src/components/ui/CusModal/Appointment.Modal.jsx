@@ -13,10 +13,12 @@ const AppointmentModal = ({ show, handleClose, house }) => {
   });
 
   const handleConfirm = async () => {
-    console.log(contact);
-
     try {
-      const res = await apiCreateContact(contact);
+      const res = await apiCreateContact({
+        houseID: house?.houseID,
+        lessorID: house?.user?.userID,
+        datetime: contact.datetime,
+      });
       if (res?.result?.code === 0) {
         handleClose();
       }

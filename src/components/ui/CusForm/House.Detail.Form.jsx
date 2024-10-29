@@ -200,8 +200,6 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
 export default HouseDetailForm;
 
 const ModalLabel = ({ state, setState, option }) => {
-  console.log("Option:", state.option);
-
   var title = "Nhà trọ đang được cập nhật!";
 
   if (option === "create") {

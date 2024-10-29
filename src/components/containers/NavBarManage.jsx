@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 
 import logo from "../../assets/images/logo.png";
 import { ROUTE_PATHS, USER_ROLES } from "../../common";
+import { FiCalendar } from "react-icons/fi";
 
 const NavBarManage = ({ isExpanded }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -37,8 +38,8 @@ const NavBarManage = ({ isExpanded }) => {
             path: ROUTE_PATHS.RENTER_PAYMENT,
           },
           {
-            icon: <RiContactsBook3Line className="text-3xl" />,
-            label: "Liên hệ",
+            icon: <FiCalendar className="text-3xl" />,
+            label: "Lịch hẹn",
             path: ROUTE_PATHS.RENTER_CONTACT,
           },
           {
@@ -76,6 +77,11 @@ const NavBarManage = ({ isExpanded }) => {
           {
             icon: <RiContactsBook3Line className="text-3xl" />,
             label: "Liên hệ",
+            path: ROUTE_PATHS.CONTACT,
+          },
+          {
+            icon: <FiCalendar className="text-3xl" />,
+            label: "Lịch hẹn",
             path: ROUTE_PATHS.CONTACT,
           },
           {

@@ -82,8 +82,6 @@ const PaymentDetail = () => {
 
   const { billDetail } = useSelector((state) => state.payment.bill);
 
-  console.log(billDetail);
-
   const details = [
     {
       id: 1,

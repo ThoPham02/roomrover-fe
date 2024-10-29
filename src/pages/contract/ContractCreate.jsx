@@ -12,6 +12,9 @@ const ContractCreate = () => {
   const navigate = useNavigate();
   const [contract, setContract] = useState({
     lessor: user,
+    renter: {},
+    room: {},
+    payment: {},
   });
 
   const handleSubmit = async (e) => {
@@ -27,6 +30,8 @@ const ContractCreate = () => {
           eIndex: Number(contract.room.eIndex),
           wIndex: Number(contract.room.wIndex),
         },
+        deposit: contract.payment.deposit,
+        depositDate: contract.payment.depositDate,
       };
 
       for (const [key, value] of Object.entries(data)) {

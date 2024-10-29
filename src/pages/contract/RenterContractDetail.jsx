@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { BREADCRUMB_DETAIL, ROUTE_PATHS } from "../../common";
 import {
   Breadcrumbs,
+  ContractConfirmModal,
   ContractDetailForm,
   ContractFileModal,
   CreateButton,
@@ -14,7 +15,8 @@ import * as actions from "../../../src/store/actions";
 const RenterContractDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const [showModal, setShowModal] = useState(false);
+  const [showContractModal, setShowContractModal] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   useEffect(() => {
     dispatch(actions.getContractDetail(id));
@@ -35,16 +37,29 @@ const RenterContractDetail = () => {
 
       <div className="absolute top-0 right-0 flex">
         <CreateButton
+          className="mr-4"
+          text={"Xác nhận hợp đồng"}
+          icon={<></>}
+          onClick={() => setShowConfirmModal(true)}
+        />
+
+        <CreateButton
           className=""
           text={"Xem hợp đồng"}
           icon={<></>}
-          onClick={() => setShowModal(true)}
+          onClick={() => setShowContractModal(true)}
         />
       </div>
 
       <ContractFileModal
-        show={showModal}
-        handleClose={() => setShowModal(false)}
+        show={showContractModal}
+        handleClose={() => setShowContractModal(false)}
+        contract={contractDetail}
+      />
+
+      <ContractConfirmModal
+        show={showConfirmModal}
+        handleClose={() => setShowConfirmModal(false)}
         contract={contractDetail}
       />
     </div>

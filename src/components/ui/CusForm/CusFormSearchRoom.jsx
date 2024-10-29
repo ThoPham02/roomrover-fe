@@ -23,8 +23,17 @@ const CusFormSearchRoom = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleSelect = (value) => {
+    const details = value?.services?.map((item) => {
+      return {
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        type: item.unit,
+      };
+    });
+
     setState((prevState) => {
-      const newState = { ...prevState };
+      const newState = { ...prevState, payment: { paymentDetails: details } };
 
       const firstKey = keyName.split(".")[0];
 
@@ -123,9 +132,7 @@ const CusFormSearchRoom = ({
                   </Dropdown.Item>
                 ))
               ) : (
-                <Dropdown.Item disabled>
-                  Không có kết quả phù hợp
-                </Dropdown.Item>
+                <Dropdown.Item disabled>Không có kết quả phù hợp</Dropdown.Item>
               )}
             </Dropdown.Menu>
           </Dropdown>

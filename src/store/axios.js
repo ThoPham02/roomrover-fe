@@ -9,8 +9,6 @@ import {
   ROUTE_PATHS,
 } from "../common";
 
-console.log(process.env);
-
 const instance = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
   headers: {

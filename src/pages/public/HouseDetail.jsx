@@ -11,7 +11,7 @@ import RoomRoverLogo from "../../assets/images/logo.png";
 import { formatCurrencyVND, getArea } from "../../utils/utils";
 import avatar from "../../assets/images/default_avatar.png";
 import CusFormUtils from "../../components/ui/CusForm/CusFormUtils";
-import AppointmentModal from "../../components/ui/CusModal/Appointment.Model";
+import { AppointmentModal } from "../../components/ui";
 
 const BoardingHouseDetail = () => {
   const { id } = useParams();
