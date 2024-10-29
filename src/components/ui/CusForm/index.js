@@ -11,3 +11,4 @@ export { default as CusFormSearchUser } from "./CusFormSearchUser";
 export { default as CusFormSearchRoom } from "./CusFormSearchRoom";
 export { default as CusRoomList } from "./CusRoomList";
 export { default as CusServiceList } from "./CusServiceList";
+export { default as CusRenterList } from "./CusRenterList";

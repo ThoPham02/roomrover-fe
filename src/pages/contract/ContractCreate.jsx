@@ -15,6 +15,7 @@ const ContractCreate = () => {
     renter: {},
     room: {},
     payment: {},
+    paymentRenters: [],
   });
 
   const handleSubmit = async (e) => {

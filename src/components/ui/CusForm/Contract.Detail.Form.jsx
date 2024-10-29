@@ -10,6 +10,7 @@ import {
   CusFormDate,
   CusFormSearchRoom,
   CusFormObject,
+  CusRenterList,
 } from "..";
 import { formatCurrencyVND } from "../../../utils/utils";
 
@@ -146,6 +147,14 @@ const ContractDetailForm = ({
               disabled={option === "get"}
             />
           </Col>
+        </Row>
+        <Row>
+          <div className="flex flex-wrap">
+            <p className="font-bold min-w-36 mr-2 mt-4">
+              Danh sách <br /> người ở:
+            </p>
+            <CusRenterList state={contract} setState={setContract} />
+          </div>
         </Row>
       </div>
 
