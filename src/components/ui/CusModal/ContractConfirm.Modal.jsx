@@ -16,21 +16,26 @@ const ContractConfirmModal = ({ show, handleClose, id }) => {
 
   const { contractDetail } = useSelector((state) => state.contract);
 
-  const [renters, setReners] = useState([
-    {
-      id: contractDetail?.renter.userID,
-      name: contractDetail?.renter.fullName,
-      phone: contractDetail?.renter.phone,
-      cccdNumber: contractDetail?.renter.cccdNumber,
-      cccdDate: contractDetail?.renter.cccdDate,
-      cccdAddress: contractDetail?.renter.cccdAddress,
-    },
-  ]);
-  const [services, setServices] = useState(
-    contractDetail?.payment?.paymentDetails
-  );
+  const [renters, setRenters] = useState([]);
+  const [services, setServices] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
   const [albums, setAlbums] = useState([]);
+
+  useEffect(() => {
+    if (contractDetail) {
+      setRenters([
+        {
+          id: contractDetail?.renter?.userID,
+          name: contractDetail?.renter?.fullName,
+          phone: contractDetail?.renter?.phone,
+          cccdNumber: contractDetail?.renter?.cccdNumber,
+          cccdDate: contractDetail?.renter?.cccdDate,
+          cccdAddress: contractDetail?.renter?.cccdAddress,
+        },
+      ]);
+      setServices(contractDetail?.payment?.paymentDetails || []);
+    }
+  }, [contractDetail]);
 
   const handleImageUpload = async (e) => {
     const files = Array.from(e.target.files);
@@ -72,6 +77,8 @@ const ContractConfirmModal = ({ show, handleClose, id }) => {
 
       if (res?.result.code === 0) {
         dispatch(actions.getContractDetail(id));
+
+        dispatch(actions.getListContract({ limit: 10, offset: 0 }));
         handleClose();
       }
     } catch (error) {
@@ -91,12 +98,14 @@ const ContractConfirmModal = ({ show, handleClose, id }) => {
           <p className="font-bold min-w-36 mr-2 mt-2">
             Danh sách người sử dụng:
           </p>
-          <CusRenterList state={renters} setState={setReners} />
+          <CusRenterList state={renters} setState={setRenters} />
         </Row>
-        <Row>
-          <p className="font-bold min-w-36 mr-2 mt-2">Danh sách dịch vụ:</p>
-          <CusServiceConfirm state={services} setState={setServices} />
-        </Row>
+        {services && (
+          <Row>
+            <p className="font-bold min-w-36 mr-2 mt-2">Danh sách dịch vụ:</p>
+            <CusServiceConfirm state={services} setState={setServices} />
+          </Row>
+        )}
         <Row>
           <p className="font-bold min-w-36 mr-2 mt-2">Hình ảnh thực tế:</p>
           <div className="mt-2 mb-4 flex flex-wrap">

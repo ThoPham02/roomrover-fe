@@ -69,7 +69,7 @@ const CalenderScreen = () => {
     offset: 0,
   });
   useEffect(() => {
-    dispatch(actions.setCurrentPage(ROUTE_PATHS.CONTACT));
+    dispatch(actions.setCurrentPage(ROUTE_PATHS.CALENDAR));
     dispatch(
       actions.getFilterContact({
         ...filter,

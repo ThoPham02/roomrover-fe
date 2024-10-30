@@ -7,6 +7,7 @@ import { CONTRACT_STATUS_CODE, PAGE_SIZE, ROUTE_PATHS } from "../../../common";
 import * as actions from "../../../store/actions";
 import { apiUpdateStatusContract } from "../../../store/services/contractServices";
 import ConfirmActionModal from "../CusModal/ConfirmAction.Modal";
+import { ContractConfirmModal } from "../CusModal";
 
 const RenterContractActionButton = ({ item }) => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const RenterContractActionButton = ({ item }) => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showModalCancel, setShowModalCancel] = useState(false);
 
   const handleMouseEnter = () => setIsMenuOpen(true);
   const handleMouseLeave = () => setIsMenuOpen(false);
@@ -25,7 +27,21 @@ const RenterContractActionButton = ({ item }) => {
   };
 
   const handleDelete = async () => {
-    // dispatch(actions.deleteContract(item.contractID));
+    try {
+      const data = await apiUpdateStatusContract({
+        id: item.contractID,
+        status: CONTRACT_STATUS_CODE.CANCELED,
+      });
+      if (data?.result.code === 0) {
+        dispatch(actions.getListContract({ limit: PAGE_SIZE, offset: 0 }));
+      } else {
+        console.error("Error Update House:", data);
+        return;
+      }
+    } catch (error) {
+      console.error("Error Update House:", error);
+      return;
+    }
   };
 
   const handleConfirm = async () => {
@@ -95,7 +111,7 @@ const RenterContractActionButton = ({ item }) => {
 
               <li>
                 <button
-                  onClick={handleDelete}
+                  onClick={() => setShowModalCancel(true)}
                   className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
                 >
                   Hủy
@@ -106,10 +122,19 @@ const RenterContractActionButton = ({ item }) => {
         )}
       </div>
       <ConfirmActionModal
-        show={showModal}
-        handleClose={() => setShowModal(false)}
-        handleConfirm={handleConfirm}
+        show={showModalCancel}
+        handleClose={() => setShowModalCancel(false)}
+        handleConfirm={handleDelete}
+        label={"Bạn có chắc chắn muốn hủy hợp đồng không?"}
       />
+
+      {showModal && (
+        <ContractConfirmModal
+          show={showModal}
+          handleClose={() => setShowModal(false)}
+          id={item.contractID}
+        />
+      )}
     </>
   );
 };

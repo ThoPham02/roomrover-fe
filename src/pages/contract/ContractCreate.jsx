@@ -10,8 +10,17 @@ import { apiCreateContract } from "../../store/services/contractServices";
 const ContractCreate = () => {
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+
+  console.log(user);
+
   const [contract, setContract] = useState({
-    lessor: user,
+    lessor: {
+      phone: user.phone,
+      fullName: user.fullName,
+      cccdNumber: user.cccdNumber,
+      cccdDate: user.cccdDate,
+      cccdAddress: user.cccdAddress,
+    },
     renter: {},
     room: {},
     payment: {},
@@ -31,6 +40,7 @@ const ContractCreate = () => {
           eIndex: Number(contract.room.eIndex),
           wIndex: Number(contract.room.wIndex),
         },
+        lessor: { ...contract.lessor, userID: user.userID },
         deposit: contract.payment.deposit,
         depositDate: contract.payment.depositDate,
       };

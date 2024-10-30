@@ -41,12 +41,12 @@ const CusServiceConfirm = ({ state, setState, disabled }) => {
           <input
             type="number"
             className="p-2 border border-gray-300 rounded w-48 form-control"
-            value={service.index}
+            value={service.index || ""}
             onChange={(e) =>
               handleServiceChange(index, "index", e.target.value)
             }
-            placeholder="Nhập chỉ số"
-            disabled={disabled}
+            placeholder={service?.type === 4 ? "Nhập chỉ số" : "Đã xác định"}
+            disabled={service?.type !== 4 || disabled}
           />
           {/* {!disabled && (
             <div>
