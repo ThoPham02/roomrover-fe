@@ -66,6 +66,18 @@ const columns = [
     dataClass: "text-center",
   },
   {
+    header: "Giá thuê",
+    headerClass: "text-center w-32",
+    accessorKey: "payment.amount",
+    dataClass: "text-center",
+  },
+  {
+    header: "Giá thuê",
+    headerClass: "text-center w-32",
+    accessorKey: "payment.amount",
+    dataClass: "text-center",
+  },
+  {
     header: "Trạng thái",
     headerClass: "text-center w-40",
     accessorKey: "statusComponent",

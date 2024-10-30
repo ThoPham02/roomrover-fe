@@ -16,8 +16,8 @@ import {
   CusTable,
 } from "../../components/ui";
 import * as actions from "../../store/actions";
+import ContactActionButton from "../../components/ui/CusButton/Contact.ActionButton";
 import { Form } from "react-router-dom";
-import RenterContactActionButton from "../../components/ui/CusButton/RenterContact.ActionButton";
 
 const listFields = [
   {
@@ -27,15 +27,15 @@ const listFields = [
     dataClass: "",
   },
   {
-    header: "Người cho thuê",
+    header: "Người thuê",
     headerClass: "text-center w-96",
-    accessorKey: "lessorName",
+    accessorKey: "renterName",
     dataClass: "text-center",
   },
   {
     header: "Số điện thoại",
     headerClass: "text-center w-32",
-    accessorKey: "lessorPhone",
+    accessorKey: "renterPhone",
     dataClass: "text-center",
   },
   {
@@ -52,7 +52,7 @@ const listFields = [
   },
 ];
 
-const RenterContactScreen = () => {
+const CalenderScreen = () => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState({
@@ -85,7 +85,7 @@ const RenterContactScreen = () => {
 
   return (
     <div>
-      <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.CONTACT]} />
+      <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.CALENDAR]} />
 
       <div className="mt-4">
         <div className="p-2 bg-slate-100 rounded">
@@ -131,7 +131,7 @@ const RenterContactScreen = () => {
           headers={listFields}
           data={listContact}
           page={page}
-          ActionButton={RenterContactActionButton}
+          ActionButton={ContactActionButton}
         />
         {listContact?.length > 0 && (
           <div className="flex justify-between items-center">
@@ -158,4 +158,4 @@ const RenterContactScreen = () => {
   );
 };
 
-export default RenterContactScreen;
+export default CalenderScreen;

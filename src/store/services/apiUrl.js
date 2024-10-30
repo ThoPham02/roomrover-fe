@@ -132,6 +132,10 @@ export const ApiUrl = {
     url: "/contract/:id/status",
     method: "put",
   },
+  ConfirmContract: {
+    url: "/contract/:id/confirm",
+    method: "put",
+  },
 
   // Payment
   FilterPayments: {

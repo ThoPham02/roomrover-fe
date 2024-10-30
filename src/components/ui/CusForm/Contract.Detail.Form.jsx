@@ -10,7 +10,6 @@ import {
   CusFormDate,
   CusFormSearchRoom,
   CusFormObject,
-  CusRenterList,
 } from "..";
 import { formatCurrencyVND } from "../../../utils/utils";
 
@@ -148,14 +147,6 @@ const ContractDetailForm = ({
             />
           </Col>
         </Row>
-        <Row>
-          <div className="flex flex-wrap">
-            <p className="font-bold min-w-36 mr-2 mt-4">
-              Danh sách <br /> người ở:
-            </p>
-            <CusRenterList state={contract} setState={setContract} />
-          </div>
-        </Row>
       </div>
 
       <p className="font-medium mt-4">Thông tin nhà:</p>
@@ -211,36 +202,6 @@ const ContractDetailForm = ({
               unit={"m²"}
             />
           </Col>
-          {/* <Col>
-            <Row>
-              <Col>
-                <CusFormGroup
-                  label={"Điện"}
-                  labelWidth="min-w-12"
-                  state={contract}
-                  setState={setContract}
-                  placeholder={"Chỉ số điện"}
-                  keyName={"room.eIndex"}
-                  unit={"Số"}
-                  required
-                  disabled={option === "get"}
-                />
-              </Col>
-              <Col>
-                <CusFormGroup
-                  label={"Nước"}
-                  labelWidth="min-w-12"
-                  state={contract}
-                  setState={setContract}
-                  placeholder={"Chỉ số nước"}
-                  keyName={"room.wIndex"}
-                  unit={"Khối"}
-                  required
-                  disabled={option === "get"}
-                />
-              </Col>
-            </Row>
-          </Col> */}
         </Row>
         <Row>
           <Col>

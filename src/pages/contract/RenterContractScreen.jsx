@@ -47,9 +47,9 @@ const columns = [
   },
   {
     header: "Số điện thoại",
-    headerClass: "text-center w-32",
+    headerClass: "text-center",
     accessorKey: "lessor.phone",
-    dataClass: "",
+    dataClass: "text-center",
   },
   {
     header: "Ngày bắt đầu",
@@ -59,8 +59,20 @@ const columns = [
   },
   {
     header: "Giá thuê",
-    headerClass: "text-center w-32",
+    headerClass: "text-center",
     accessorKey: "payment.amount",
+    dataClass: "text-center",
+  },
+  {
+    header: "Đặt cọc",
+    headerClass: "text-center",
+    accessorKey: "payment.deposit",
+    dataClass: "text-center",
+  },
+  {
+    header: "Hạn cọc",
+    headerClass: "text-center",
+    accessorKey: "payment.depositDate",
     dataClass: "text-center",
   },
   {
@@ -116,6 +128,8 @@ const RenterContractScreen = () => {
           },
           payment: {
             amount: formatCurrencyVND(contract.payment?.amount),
+            deposit: formatCurrencyVND(contract.payment?.deposit),
+            depositDate: convertTimestampToDate(contract.payment?.depositDate),
           },
         };
       })

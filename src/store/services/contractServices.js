@@ -49,3 +49,16 @@ export const apiUpdateStatusContract = async (data) => {
     return error;
   }
 };
+
+export const apiConfirmContract = async (data) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.ConfirmContract,
+      url: ApiUrl.ConfirmContract.url.replace(":id", data.contractID),
+      data,
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};

@@ -57,12 +57,18 @@ export const HOUSE_SERVICE_TYPE = {
   4: { name: "Số lượng sử dụng" },
 };
 
+export const HOUSE_STATUS = {
+  1: { name: "Chờ xác nhận" },
+  2: { name: "Đang hoạt động" },
+  4: { name: "Tạm dừng" },
+  8: { name: "Hết phòng" },
+};
+
 export const HOUSE_ROOM_STATUS = {
   1: { name: "Chờ xác nhận" },
   2: { name: "Sẵn sàng thuê" },
   4: { name: "Đã được thuê" },
-  8: { name: "Sắp hết hạn" },
-  16: { name: "Tạm dừng" },
+  8: { name: "Tạm dừng" },
 };
 
 export const CONTRACT_STATUS = {
@@ -71,6 +77,7 @@ export const CONTRACT_STATUS = {
   4: { name: "Đang thuê" },
   8: { name: "Đã hết hạn" },
   16: { name: "Đã hủy" },
+  32: { name: "Sắp hết hạn" },
 };
 
 export const BILL_STATUS = {

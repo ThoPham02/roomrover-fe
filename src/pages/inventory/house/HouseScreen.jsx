@@ -15,7 +15,7 @@ import {
 import * as actions from "../../../../src/store/actions";
 import {
   BREADCRUMB_DETAIL,
-  HOUSE_ROOM_STATUS,
+  HOUSE_STATUS,
   HOUSE_TYPE,
   HouseStatusComponent,
   PAGE_SIZE,
@@ -180,7 +180,7 @@ const HouseScreen = () => {
                 value={filter}
                 setValue={setFilter}
                 keyName={"status"}
-                data={HOUSE_ROOM_STATUS}
+                data={HOUSE_STATUS}
                 position="top"
               />
               <button

@@ -57,11 +57,13 @@ const RenterContractDetail = () => {
         contract={contractDetail}
       />
 
-      <ContractConfirmModal
-        show={showConfirmModal}
-        handleClose={() => setShowConfirmModal(false)}
-        contract={contractDetail}
-      />
+      {showConfirmModal && (
+        <ContractConfirmModal
+          show={showConfirmModal}
+          handleClose={() => setShowConfirmModal(false)}
+          id={id}
+        />
+      )}
     </div>
   );
 };

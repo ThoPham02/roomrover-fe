@@ -1,20 +1,30 @@
 import { ROUTE_PATHS } from "../../common";
+import CalenderScreen from "./CalendarScreen";
 import ContactScreen from "./ContactScreen";
-import RenterContactScreen from "./RenterContactScreen";
+import RenterCalenderScreen from "./RenterCalenderScreen";
 
 export const contactRenterRoute = [
   {
-    id: "renter_contact_screen",
-    path: ROUTE_PATHS.RENTER_CONTACT,
+    id: "renter_calendar_screen",
+    path: ROUTE_PATHS.RENTER_CALENDAR,
     element: (
       <div className="p-3 bg-white rounded">
-        <RenterContactScreen />
+        <RenterCalenderScreen />
       </div>
     ),
   },
 ];
 
 export const contactLessorRoute = [
+  {
+    id: "calendar_screen",
+    path: ROUTE_PATHS.CALENDAR,
+    element: (
+      <div className="p-3 bg-white rounded">
+        <CalenderScreen />
+      </div>
+    ),
+  },
   {
     id: "contact_screen",
     path: ROUTE_PATHS.CONTACT,

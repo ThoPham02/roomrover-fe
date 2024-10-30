@@ -40,7 +40,7 @@ const NavBarManage = ({ isExpanded }) => {
           {
             icon: <FiCalendar className="text-3xl" />,
             label: "Lịch hẹn",
-            path: ROUTE_PATHS.RENTER_CONTACT,
+            path: ROUTE_PATHS.RENTER_CALENDAR,
           },
           {
             icon: <IoSettingsOutline className="text-3xl" />,
@@ -82,7 +82,7 @@ const NavBarManage = ({ isExpanded }) => {
           {
             icon: <FiCalendar className="text-3xl" />,
             label: "Lịch hẹn",
-            path: ROUTE_PATHS.CONTACT,
+            path: ROUTE_PATHS.CALENDAR,
           },
           {
             icon: <IoSettingsOutline className="text-3xl" />,

@@ -1,40 +1,16 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import { FiPlus, FiX } from "react-icons/fi";
+import DatePicker from "react-datepicker";
+import { nanoid } from "nanoid";
+
+import { convertDateToTimestamp } from "../../../utils/utils";
 
 const CusRenterList = ({ state, setState, disabled }) => {
-  const paymentRenters = useMemo(
-    () => state.paymentRenters || [],
-    [state.paymentRenters]
-  );
-
   useEffect(() => {
-    if (paymentRenters.length === 0) {
-      setState((prev) => ({
-        ...prev,
-        paymentRenters: [
-          {
-            id: 1,
-            paymentID: "",
-            name: "",
-            phone: "",
-            cccdNumber: "",
-            cccdDate: "",
-            cccdAddress: "",
-          },
-        ],
-      }));
-    }
-  }, [paymentRenters.length, setState]);
-
-  console.log("paymentRenters", paymentRenters);
-
-  const handleAddRenter = () => {
-    setState((prev) => ({
-      ...prev,
-      paymentRenters: [
-        ...prev.paymentRenters,
+    if (state.length === 0) {
+      setState([
         {
-          id: prev.paymentRenters.length + 1,
+          id: nanoid(),
           paymentID: "",
           name: "",
           phone: "",
@@ -42,22 +18,34 @@ const CusRenterList = ({ state, setState, disabled }) => {
           cccdDate: "",
           cccdAddress: "",
         },
-      ],
-    }));
+      ]);
+    }
+  }, [state.length, setState]);
+
+  const handleAddRenter = () => {
+    setState((prev) => [
+      ...prev,
+      {
+        id: nanoid(),
+        paymentID: "",
+        name: "",
+        phone: "",
+        cccdNumber: "",
+        cccdDate: "",
+        cccdAddress: "",
+      },
+    ]);
   };
 
   const handleRemoveRenter = (index) => {
-    setState((prev) => ({
-      ...prev,
-      paymentRenters: prev.paymentRenters.filter((_, i) => i !== index),
-    }));
+    setState((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleRenterChange = (index, field, value) => {
     setState((prev) => {
-      const updatedRenters = [...prev.paymentRenters];
+      const updatedRenters = [...prev];
       updatedRenters[index][field] = value;
-      return { ...prev, paymentRenters: updatedRenters };
+      return updatedRenters;
     });
   };
 
@@ -70,7 +58,7 @@ const CusRenterList = ({ state, setState, disabled }) => {
         <p className="w-48 pl-6">Ngày cấp</p>
         <p className="w-48 pl-8">Nơi cấp</p>
       </div>
-      {paymentRenters.map((renter, index) => (
+      {state.map((renter, index) => (
         <div key={index} className="flex items-center mb-4 space-x-2">
           <input
             type="text"
@@ -98,15 +86,18 @@ const CusRenterList = ({ state, setState, disabled }) => {
             placeholder="Nhập số CCCD"
             disabled={disabled}
           />
-          <input
-            type="date"
+          <DatePicker
             className="p-2 border border-gray-300 rounded  w-48 form-control"
-            value={renter.cccdDate}
-            onChange={(e) =>
-              handleRenterChange(index, "cccdDate", e.target.value)
+            placeholderText={"Chọn ngày"}
+            selected={renter.cccdDate ? new Date(renter.cccdDate) : null}
+            onChange={(date) =>
+              setState((prev) => {
+                const updatedRenters = [...prev];
+                updatedRenters[index].cccdDate = convertDateToTimestamp(date);
+                return updatedRenters;
+              })
             }
-            placeholder="Nhập ngày cấp"
-            disabled={disabled}
+            dateFormat="dd/MM/yyyy"
           />
           <input
             type="text"
@@ -120,7 +111,7 @@ const CusRenterList = ({ state, setState, disabled }) => {
           />
           {!disabled && (
             <div>
-              {index === paymentRenters.length - 1 ? (
+              {index === state.length - 1 ? (
                 <button className="text-blue-500" onClick={handleAddRenter}>
                   <FiPlus size={20} />
                 </button>
