@@ -27,6 +27,12 @@ const listFields = [
     dataClass: "",
   },
   {
+    header: "Địa chỉ",
+    headerClass: "text-center w-96",
+    accessorKey: "address",
+    dataClass: "",
+  },
+  {
     header: "Người cho thuê",
     headerClass: "text-center w-96",
     accessorKey: "lessorName",

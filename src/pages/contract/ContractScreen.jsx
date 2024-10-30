@@ -61,20 +61,20 @@ const columns = [
   },
   {
     header: "Giá thuê",
-    headerClass: "text-center w-32",
+    headerClass: "text-center",
     accessorKey: "payment.amount",
     dataClass: "text-center",
   },
   {
-    header: "Giá thuê",
-    headerClass: "text-center w-32",
-    accessorKey: "payment.amount",
+    header: "Đặt cọc",
+    headerClass: "text-center",
+    accessorKey: "payment.deposit",
     dataClass: "text-center",
   },
   {
-    header: "Giá thuê",
-    headerClass: "text-center w-32",
-    accessorKey: "payment.amount",
+    header: "Hạn cọc",
+    headerClass: "text-center",
+    accessorKey: "payment.depositDate",
     dataClass: "text-center",
   },
   {
@@ -134,6 +134,8 @@ const ContractScreen = () => {
           },
           payment: {
             amount: formatCurrencyVND(contract.payment?.amount),
+            deposit: formatCurrencyVND(contract.payment?.deposit),
+            depositDate: convertTimestampToDate(contract.payment?.depositDate),
           },
         };
       })

@@ -197,6 +197,10 @@ const inventReducer = (state = initialState, action) => {
               ...item,
               datetime: convertTimestampToDate(item.datetime),
               statusComponent: ContactStatusComponent[item.status],
+              address:
+                item.address +
+                ", " +
+                getArea(item.provinceID, item.districtID, item.wardID),
             };
           })
         : [];
