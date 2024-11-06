@@ -12,16 +12,14 @@ import {
 import {
   GrElevator, // Thang máy
 } from "react-icons/gr";
-import {
-  CgSmartHomeRefrigerator, // Tủ lạnh
-} from "react-icons/cg";
 
 import {
   FaVideo, // Camera an ninh
   FaParking, // Chỗ để xe
   FaFan, // Điều hòa và quạt
   FaHotTub, // Nóng lạnh
-  FaToilet, // Vệ sinh khép kín
+  FaToilet,
+  FaFingerprint, // Vệ sinh khép kín
 } from "react-icons/fa";
 
 export const API_METHOD = {
@@ -224,10 +222,8 @@ export const UtilsTickComponent = {
     icon: <GiCookingPot className="text-2xl group-hover:text-blue-500" />,
   },
   256: {
-    name: "Tủ lạnh",
-    icon: (
-      <CgSmartHomeRefrigerator className="text-2xl group-hover:text-blue-500" />
-    ),
+    name: "Khóa vân tay",
+    icon: <FaFingerprint className="text-2xl group-hover:text-blue-500" />,
   },
   512: {
     name: "Nội thất",

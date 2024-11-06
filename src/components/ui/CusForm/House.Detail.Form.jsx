@@ -175,8 +175,9 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
       </Row>
 
       {option !== "get" && (
-        <Row className="flex justify-center my-4">
+        <Row className="flex justify-center items-center my-4">
           <CreateButton
+            className={"w-36"}
             text="Lưu"
             icon={<></>}
             onClick={() => setShowModal(true)}
