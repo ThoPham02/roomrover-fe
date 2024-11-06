@@ -36,12 +36,23 @@ const RenterContractDetail = () => {
       <ContractDetailForm contract={contractDetail} option={"get"} />
 
       <div className="absolute top-0 right-0 flex">
-        <CreateButton
-          className="mr-4"
-          text={"Xác nhận hợp đồng"}
-          icon={<></>}
-          onClick={() => setShowConfirmModal(true)}
-        />
+        {contractDetail?.status === 1 && (
+          <CreateButton
+            className="mr-4"
+            text={"Xác nhận hợp đồng"}
+            icon={<></>}
+            onClick={() => setShowConfirmModal(true)}
+          />
+        )}
+
+        {contractDetail?.status === 4 && (
+          <CreateButton
+            className="mr-4"
+            text={"Thiết lập người ở"}
+            icon={<></>}
+            onClick={() => setShowConfirmModal(true)}
+          />
+        )}
 
         <CreateButton
           className=""

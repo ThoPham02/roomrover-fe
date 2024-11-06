@@ -72,3 +72,7 @@ export const getDayFromTimestamp = (timestamp) => {
   const date = new Date(timestamp);
   return date.getDate();
 };
+
+export const genUnixID = () => {
+  return Math.floor(Date.now() / 1000)-Math.floor(Math.random() * 100000);
+};

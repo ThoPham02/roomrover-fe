@@ -29,9 +29,7 @@ const HouseCreate = () => {
     dispatch(actions.setCurrentPage(ROUTE_PATHS.HOUSE));
   }, [dispatch]);
 
-  const validateForm = (data) => {
-    console.log("Data:", data);
-  };
+  const validateForm = (data) => {};
 
   const handleCreateSubmit = async (e) => {
     e.preventDefault();

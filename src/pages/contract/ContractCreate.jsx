@@ -11,8 +11,6 @@ const ContractCreate = () => {
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
-  console.log(user);
-
   const [contract, setContract] = useState({
     lessor: {
       phone: user.phone,

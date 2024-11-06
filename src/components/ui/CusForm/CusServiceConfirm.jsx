@@ -10,8 +10,6 @@ const CusServiceConfirm = ({ state, setState, disabled }) => {
     });
   };
 
-  console.log("state", state);
-
   return (
     <div className="mt-2">
       <div className="flex items-center ">
@@ -48,22 +46,6 @@ const CusServiceConfirm = ({ state, setState, disabled }) => {
             placeholder={service?.type === 4 ? "Nhập chỉ số" : "Đã xác định"}
             disabled={service?.type !== 4 || disabled}
           />
-          {/* {!disabled && (
-            <div>
-              {index === state.length - 1 ? (
-                <button className="text-blue-500" onClick={handleAddRenter}>
-                  <FiPlus size={20} />
-                </button>
-              ) : (
-                <button
-                  className="text-red-500"
-                  onClick={() => handleRemoveRenter(index)}
-                >
-                  <FiX size={20} />
-                </button>
-              )}
-            </div>
-          )} */}
         </div>
       ))}
     </div>

@@ -1,17 +1,15 @@
 import React, { useEffect } from "react";
 import { FiPlus, FiX } from "react-icons/fi";
 import DatePicker from "react-datepicker";
-import { nanoid } from "nanoid";
 
-import { convertDateToTimestamp } from "../../../utils/utils";
+import { convertDateToTimestamp, genUnixID } from "../../../utils/utils";
 
-const CusRenterList = ({ state, setState, disabled }) => {
+const CusRenterList = ({ state, setState, capacity = 0, disabled }) => {
   useEffect(() => {
     if (state.length === 0) {
       setState([
         {
-          id: nanoid(),
-          paymentID: "",
+          id: genUnixID(),
           name: "",
           phone: "",
           cccdNumber: "",
@@ -26,8 +24,7 @@ const CusRenterList = ({ state, setState, disabled }) => {
     setState((prev) => [
       ...prev,
       {
-        id: nanoid(),
-        paymentID: "",
+        id: genUnixID(),
         name: "",
         phone: "",
         cccdNumber: "",
@@ -111,10 +108,12 @@ const CusRenterList = ({ state, setState, disabled }) => {
           />
           {!disabled && (
             <div>
-              {index === state.length - 1 ? (
-                <button className="text-blue-500" onClick={handleAddRenter}>
-                  <FiPlus size={20} />
-                </button>
+              {index === 0 ? (
+                (capacity === 0) && (
+                  <button className="text-blue-500" onClick={handleAddRenter}>
+                    <FiPlus size={20} />
+                  </button>
+                )
               ) : (
                 <button
                   className="text-red-500"

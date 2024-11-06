@@ -237,6 +237,22 @@ const ContractDetailForm = ({
               </Row>
             );
           })}
+
+        {contract?.confirmedImgs?.length > 0 && option === "get" && (
+          <div>
+            <p className="font-bold">Hình ảnh người thuê xác nhận:</p>
+            <div className="flex mt-2">
+              {contract?.confirmedImgs?.map((image, index) => (
+                <img
+                  src={image}
+                  alt={"Hình ảnh thực tế"}
+                  className="w-40 h-40 mr-4 mb-4 object-cover rounded-lg"
+                  key={index}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       <p className="font-medium mt-4">Thông tin thanh toán:</p>

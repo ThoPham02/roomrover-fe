@@ -44,25 +44,25 @@ const RenterContractActionButton = ({ item }) => {
     }
   };
 
-  const handleConfirm = async () => {
-    try {
-      const data = await apiUpdateStatusContract({
-        id: item.contractID,
-        status: CONTRACT_STATUS_CODE.WAITING_DEPOSIT,
-      });
-      if (data?.result.code === 0) {
-        dispatch(actions.getListContract({ limit: PAGE_SIZE, offset: 0 }));
+  // const handleConfirm = async () => {
+  //   try {
+  //     const data = await apiUpdateStatusContract({
+  //       id: item.contractID,
+  //       status: CONTRACT_STATUS_CODE.WAITING_DEPOSIT,
+  //     });
+  //     if (data?.result.code === 0) {
+  //       dispatch(actions.getListContract({ limit: PAGE_SIZE, offset: 0 }));
 
-        setShowModal(false);
-      } else {
-        console.error("Error Update House:", data);
-        return;
-      }
-    } catch (error) {
-      console.error("Error Update House:", error);
-      return;
-    }
-  };
+  //       setShowModal(false);
+  //     } else {
+  //       console.error("Error Update House:", data);
+  //       return;
+  //     }
+  //   } catch (error) {
+  //     console.error("Error Update House:", error);
+  //     return;
+  //   }
+  // };
 
   return (
     <>
@@ -98,17 +98,6 @@ const RenterContractActionButton = ({ item }) => {
                   </button>
                 </li>
               )}
-              {/* {item?.status === CONTRACT_STATUS_CODE.WAITING && (
-              <li>
-                <button
-                  onClick={handleDelete}
-                  className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
-                >
-                  Xác nhận thuê
-                </button>
-              </li>
-            )} */}
-
               <li>
                 <button
                   onClick={() => setShowModalCancel(true)}
