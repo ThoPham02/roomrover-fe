@@ -9,6 +9,7 @@ import {
   ContractDetailForm,
   ContractFileModal,
   CreateButton,
+  RenterSettingModal,
 } from "../../components/ui";
 import * as actions from "../../../src/store/actions";
 
@@ -17,6 +18,7 @@ const RenterContractDetail = () => {
   const dispatch = useDispatch();
   const [showContractModal, setShowContractModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showRenter, setShowRenter] = useState(false);
 
   useEffect(() => {
     dispatch(actions.getContractDetail(id));
@@ -48,9 +50,9 @@ const RenterContractDetail = () => {
         {contractDetail?.status === 4 && (
           <CreateButton
             className="mr-4"
-            text={"Thiết lập người ở"}
+            text={"Cài đặt"}
             icon={<></>}
-            onClick={() => setShowConfirmModal(true)}
+            onClick={() => setShowRenter(true)}
           />
         )}
 
@@ -67,6 +69,14 @@ const RenterContractDetail = () => {
         handleClose={() => setShowContractModal(false)}
         contract={contractDetail}
       />
+
+      {showRenter && (
+        <RenterSettingModal
+          show={showRenter}
+          handleClose={() => setShowRenter(false)}
+          id={id}
+        />
+      )}
 
       {showConfirmModal && (
         <ContractConfirmModal

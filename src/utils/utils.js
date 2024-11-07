@@ -26,6 +26,10 @@ export const getDate = (n) => {
 export const formatCurrencyVND = (number) => {
   number = Number(number);
 
+  if (isNaN(number)) {
+    return 0;
+  }
+
   return (
     number &&
     number.toLocaleString("vi-VN", {

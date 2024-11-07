@@ -1,10 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 
 import { convertTimestampToDate, formatCurrencyVND } from "../../utils/utils";
 import * as actions from "../../store/actions";
-import { CreateButton, CusFormSelect, CusTable } from "../../components/ui";
+import {
+  BillQuantityModal,
+  CreateButton,
+  CusFormSelect,
+  CusTable,
+} from "../../components/ui";
 import {
   BILL_PAYMENT_METHOD,
   BILL_STATUS,
@@ -82,6 +87,9 @@ const RenterPaymentDetail = () => {
   }, [dispatch, id]);
 
   const { billDetail } = useSelector((state) => state.payment.bill);
+  const [showQuantity, setShowQuantity] = useState(false);
+  const [showPay, setShowPay] = useState(false);
+
   const details = [
     {
       id: 1,
@@ -163,17 +171,15 @@ const RenterPaymentDetail = () => {
         </div>
       </div>
 
-      <p
-        className={`font-semibold ${
-          billDetail?.status === 1 ? "mt-12" : "mt-4"
-        }`}
-      >
-        Thông tin thanh toán:
-      </p>
+      <p className={`font-semibold mt-12`}>Thông tin thanh toán:</p>
       <div className="p-2 bg-slate-100 rounded relative">
         {billDetail?.status === 1 && (
           <div className="absolute right-0 -top-12">
-            <CreateButton icon={<></>} text={"Cập nhật số lượng"} />
+            <CreateButton
+              icon={<></>}
+              text={"Cập nhật số lượng"}
+              onClick={setShowQuantity}
+            />
           </div>
         )}
 
@@ -206,13 +212,7 @@ const RenterPaymentDetail = () => {
         </div>
       </div>
 
-      <p
-        className={`font-semibold ${
-          billDetail?.status === 2 ? "mt-12" : "mt-4"
-        }`}
-      >
-        Giao dịch:
-      </p>
+      <p className={`font-semibold mt-12`}>Giao dịch:</p>
       <div className="p-2 bg-slate-100 rounded relative">
         {billDetail?.status === 2 && (
           <div className="absolute right-0 -top-12 flex">
@@ -234,6 +234,14 @@ const RenterPaymentDetail = () => {
           />
         </div>
       </div>
+
+      {showQuantity && (
+        <BillQuantityModal
+          show={showQuantity}
+          handleClose={() => setShowQuantity(false)}
+          id={id}
+        />
+      )}
     </div>
   );
 };

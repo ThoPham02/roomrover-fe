@@ -46,6 +46,8 @@ const CusRenterList = ({ state, setState, capacity = 0, disabled }) => {
     });
   };
 
+  console.log(capacity === 0 ? true : capacity > state.length);
+
   return (
     <div className="mt-2">
       <div className="flex items-center ">
@@ -109,7 +111,7 @@ const CusRenterList = ({ state, setState, capacity = 0, disabled }) => {
           {!disabled && (
             <div>
               {index === 0 ? (
-                (capacity === 0) && (
+                (capacity === 0 ? true : capacity > state.length) && (
                   <button className="text-blue-500" onClick={handleAddRenter}>
                     <FiPlus size={20} />
                   </button>

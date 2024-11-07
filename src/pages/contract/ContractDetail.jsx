@@ -8,6 +8,7 @@ import {
   ContractDetailForm,
   ContractFileModal,
   CreateButton,
+  RenterSettingModal,
 } from "../../components/ui";
 import * as actions from "../../../src/store/actions";
 
@@ -15,6 +16,7 @@ const ContractDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+  const [showRenter, setShowRenter] = useState(false);
 
   useEffect(() => {
     dispatch(actions.getContractDetail(id));
@@ -34,6 +36,15 @@ const ContractDetail = () => {
       <ContractDetailForm contract={contractDetail} option={"get"} />
 
       <div className="absolute top-0 right-0 flex">
+        {contractDetail?.status === 4 && (
+          <CreateButton
+            className="mr-4"
+            text={"Cài đặt"}
+            icon={<></>}
+            onClick={() => setShowRenter(true)}
+          />
+        )}
+
         <CreateButton
           className=""
           text={"Xem hợp đồng"}
@@ -41,6 +52,14 @@ const ContractDetail = () => {
           onClick={() => setShowModal(true)}
         />
       </div>
+
+      {showRenter && (
+        <RenterSettingModal
+          show={showRenter}
+          handleClose={() => setShowRenter(false)}
+          id={id}
+        />
+      )}
 
       <ContractFileModal
         show={showModal}

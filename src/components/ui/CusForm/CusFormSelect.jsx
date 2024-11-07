@@ -72,7 +72,7 @@ const CusFormSelect = ({
     <div className="flex items-center mb-4">
       <p
         className={`font-bold text-nowrap mr-2 ${
-          labelWidth ? labelWidth : "min-w-24"
+          labelWidth ? labelWidth : "min-w-36"
         }`}
       >
         {label}
