@@ -25,7 +25,7 @@ const ContractActionButton = ({ item }) => {
   };
 
   const handleEdit = () => {
-    // navigate(ROUTE_PATHS.CONTRACT_UPDATE.replace(":id", item.contractID));
+    navigate(ROUTE_PATHS.CONTRACT_UPDATE.replace(":id", item.contractID));
   };
 
   const handleComfirmDeposit = async () => {

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Button, Modal, Row } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 
-import { CusRenterList } from "../CusForm";
 import * as actions from "../../../../src/store/actions";
 import {
   apiConfirmContract,
@@ -33,29 +32,10 @@ const BillQuantityModal = ({ show, handleClose, id }) => {
     // eslint-disable-next-line
   }, [contractDetail]);
 
-  //   const handleConfirm = async () => {
-  //     const contract = {
-  //       contractID: id,
-  //       renters: JSON.stringify(renters),
-  //     };
-
-  //     try {
-  //       const res = await apiConfirmContract(contract);
-
-  //       if (res?.result.code === 0) {
-  //         dispatch(actions.getListContract({ limit: 10, offset: 0 }));
-  //         handleClose();
-  //       }
-  //     } catch (error) {
-  //       console.error("Error confirming contract:", error);
-  //     }
-  //   };
   const handleConfirm = async () => {
     const contract = {
       contractID: id,
-      renters: JSON.stringify(renters),
       services: JSON.stringify(services),
-      albums: JSON.stringify(albums),
     };
 
     try {
@@ -74,11 +54,11 @@ const BillQuantityModal = ({ show, handleClose, id }) => {
     <Modal show={show} onHide={handleClose} size="xl" backdrop="static">
       <Modal.Header className="text-xl text-white capitalize w-full bg-primary rounded-t-lg p-4">
         <Modal.Title className="text-xl text-white capitalize">
-          Thiết lập danh sách người sử dụng
+          Xác nhận số lượng sử dụng
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Row>
+        {/* <Row>
           <p className="font-bold min-w-36 mr-2 mt-2">
             Danh sách người sử dụng:{" "}
             {contractDetail?.room?.capacity === 0
@@ -90,7 +70,7 @@ const BillQuantityModal = ({ show, handleClose, id }) => {
             setState={setRenters}
             capacity={contractDetail?.room?.capacity}
           />
-        </Row>
+        </Row> */}
         <div className="flex justify-center space-x-4">
           <Button
             variant="secondary"

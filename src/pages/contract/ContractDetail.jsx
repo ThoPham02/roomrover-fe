@@ -12,17 +12,24 @@ import {
 } from "../../components/ui";
 import * as actions from "../../../src/store/actions";
 
-const ContractDetail = () => {
+const ContractDetail = ({ option = "get" }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [showRenter, setShowRenter] = useState(false);
+  const [contract, setContract] = useState({});
 
   useEffect(() => {
     dispatch(actions.getContractDetail(id));
   }, [dispatch, id]);
 
   const { contractDetail } = useSelector((state) => state.contract);
+
+  useEffect(() => {
+    if (contractDetail) {
+      setContract(contractDetail);
+    }
+  }, [contractDetail]);
 
   return (
     <div className="relative">
@@ -33,7 +40,12 @@ const ContractDetail = () => {
         displayName={BREADCRUMB_DETAIL["DETAIL"]}
       />
 
-      <ContractDetailForm contract={contractDetail} option={"get"} />
+      <ContractDetailForm
+        contract={contract}
+        setContract={setContract}
+        option={option}
+        handleSubmit={() => setShowConfirm}
+      />
 
       <div className="absolute top-0 right-0 flex">
         {contractDetail?.status === 4 && (
@@ -66,6 +78,8 @@ const ContractDetail = () => {
         handleClose={() => setShowModal(false)}
         contract={contractDetail}
       />
+
+      {}
     </div>
   );
 };

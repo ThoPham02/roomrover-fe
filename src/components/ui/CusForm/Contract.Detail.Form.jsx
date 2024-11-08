@@ -335,13 +335,24 @@ const ContractDetailForm = ({
         />
       </div>
 
-      {option !== "get" && (
+      {option !== "get" && option !== "update" &&   (
         <div className="flex justify-center mt-4">
           <Button
             onClick={handleSubmit}
             className="px-6 py-2 bg-blue-500 rounded text-white"
           >
             Tạo hợp đồng
+          </Button>
+        </div>
+      )}
+
+      {option === "update" && (
+        <div className="flex justify-center mt-4">
+          <Button
+            onClick={handleSubmit}
+            className="px-6 py-2 bg-blue-500 rounded text-white"
+          >
+            Lưu
           </Button>
         </div>
       )}
