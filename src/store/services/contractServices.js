@@ -52,8 +52,6 @@ export const apiUpdateStatusContract = async (data) => {
 
 export const apiUpdateContract = async (contractID, data) => {
   try {
-    console.log(data);
-
     const response = await axios({
       ...ApiUrl.UpdateContract,
       url: ApiUrl.UpdateContract.url.replace(":id", contractID),
@@ -71,6 +69,33 @@ export const apiConfirmContract = async (data) => {
       ...ApiUrl.ConfirmContract,
       url: ApiUrl.ConfirmContract.url.replace(":id", data.contractID),
       data,
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const apiGetListBillDetail = async (id) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.GetListBillDetail,
+      url: ApiUrl.GetListBillDetail.url.replace(":id", id),
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const apiUpdateListBillDetail = async (id, data) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.UpdateListBillDetail,
+      url: ApiUrl.UpdateListBillDetail.url.replace(":id", id),
+      data: {
+        billDetails: data,
+      },
     });
     return response;
   } catch (error) {

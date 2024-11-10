@@ -1,52 +1,48 @@
 import React, { useEffect, useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Modal, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 
-import * as actions from "../../../../src/store/actions";
+import * as actions from "../../../store/actions";
+import { CusServiceQuantity } from "..";
 import {
-  apiConfirmContract,
-  apiGetContractDetail,
+  apiGetListBillDetail,
+  apiUpdateListBillDetail,
 } from "../../../store/services/contractServices";
 
 const BillQuantityModal = ({ show, handleClose, id }) => {
   const dispatch = useDispatch();
-
-  const [contractDetail, setContractDetail] = useState(null);
   const [services, setServices] = useState([]);
 
   useEffect(() => {
-    const fetchContractDetail = async () => {
-      const data = await apiGetContractDetail(id);
-      if (data?.result.code === 0) {
-        setContractDetail(data.contract);
+    const fetchData = async () => {
+      try {
+        const res = await apiGetListBillDetail(id);
+
+        if (res?.result.code === 0) {
+          setServices(res.billDetails);
+        }
+      } catch (error) {
+        console.error("Error fetching bill details:", error);
       }
     };
 
-    fetchContractDetail();
+    fetchData();
+    // get list of services
   }, [id]);
 
-  useEffect(() => {
-    if (contractDetail) {
-      setServices(contractDetail?.payment?.paymentDetails || []);
-    }
-    // eslint-disable-next-line
-  }, [contractDetail]);
-
   const handleConfirm = async () => {
-    const contract = {
-      contractID: id,
-      services: JSON.stringify(services),
-    };
-
     try {
-      const res = await apiConfirmContract(contract);
+      // const res = await apiUpdateListBillDetail({id: id, billDetails: services});
+
+      const res = await apiUpdateListBillDetail(id, JSON.stringify(services));
 
       if (res?.result.code === 0) {
         dispatch(actions.getContractDetail(id));
+
         handleClose();
       }
     } catch (error) {
-      console.error("Error confirming contract:", error);
+      console.error("Error confirm bill:", error);
     }
   };
 
@@ -58,19 +54,13 @@ const BillQuantityModal = ({ show, handleClose, id }) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {/* <Row>
+        <Row>
           <p className="font-bold min-w-36 mr-2 mt-2">
-            Danh sách người sử dụng:{" "}
-            {contractDetail?.room?.capacity === 0
-              ? "(Không giới hạn số người)"
-              : `(Tối đa ${contractDetail?.room?.capacity} người)`}
+            Danh sách chi phí phát sinh:
           </p>
-          <CusRenterList
-            state={renters}
-            setState={setRenters}
-            capacity={contractDetail?.room?.capacity}
-          />
-        </Row> */}
+
+          <CusServiceQuantity state={services} setState={setServices} />
+        </Row>
         <div className="flex justify-center space-x-4">
           <Button
             variant="secondary"

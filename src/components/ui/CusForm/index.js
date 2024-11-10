@@ -13,3 +13,4 @@ export { default as CusRoomList } from "./CusRoomList";
 export { default as CusServiceList } from "./CusServiceList";
 export { default as CusRenterList } from "./CusRenterList";
 export { default as CusServiceConfirm } from "./CusServiceConfirm";
+export { default as CusServiceQuantity } from "./CusServiceQuantity";

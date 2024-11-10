@@ -154,4 +154,12 @@ export const ApiUrl = {
     url: "/bill/zalo",
     method: "post",
   },
+  GetListBillDetail: {
+    url: `/contract/bill-detail/:id`,
+    method: "get",
+  },
+  UpdateListBillDetail: {
+    url: `/contract/bill-detail/:id`,
+    method: "put",
+  },
 };
