@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { BREADCRUMB_DETAIL, ROUTE_PATHS } from "../../common";
 import {
@@ -11,10 +11,12 @@ import {
   RenterSettingModal,
 } from "../../components/ui";
 import * as actions from "../../../src/store/actions";
+import { apiUpdateStatusContract } from "../../store/services/contractServices";
 
 const ContractDetail = ({ option = "get" }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [showRenter, setShowRenter] = useState(false);
   const [contract, setContract] = useState({});
@@ -31,6 +33,20 @@ const ContractDetail = ({ option = "get" }) => {
     }
   }, [contractDetail]);
 
+  const handleUpdateContract = async () => {
+    try {
+      const res = await apiUpdateStatusContract(contract);
+
+      if (res?.result.code === 0) {
+        dispatch(actions.getContractDetail(id));
+
+        navigate(ROUTE_PATHS.CONTRACT_DETAIL.replace(":id", id));
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div className="relative">
       <Breadcrumbs
@@ -44,7 +60,7 @@ const ContractDetail = ({ option = "get" }) => {
         contract={contract}
         setContract={setContract}
         option={option}
-        handleSubmit={() => setShowConfirm}
+        handleSubmit={handleUpdateContract}
       />
 
       <div className="absolute top-0 right-0 flex">
@@ -78,8 +94,6 @@ const ContractDetail = ({ option = "get" }) => {
         handleClose={() => setShowModal(false)}
         contract={contractDetail}
       />
-
-      {}
     </div>
   );
 };

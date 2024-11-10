@@ -1,5 +1,5 @@
 import { Col, Form, Row } from "react-bootstrap";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 
 import { HOUSE_TYPE, SERVICE_UNIT } from "../../../common";
@@ -10,6 +10,7 @@ import {
   CusFormDate,
   CusFormSearchRoom,
   CusFormObject,
+  ConfirmActionModal,
 } from "..";
 import { formatCurrencyVND } from "../../../utils/utils";
 
@@ -19,6 +20,8 @@ const ContractDetailForm = ({
   handleSubmit,
   option,
 }) => {
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+
   return (
     <Form className="mt-4" onSubmit={(e) => e.preventDefault()}>
       <p className="font-medium">Bên cho thuê:</p>
@@ -335,7 +338,7 @@ const ContractDetailForm = ({
         />
       </div>
 
-      {option !== "get" && option !== "update" &&   (
+      {option !== "get" && option !== "update" && (
         <div className="flex justify-center mt-4">
           <Button
             onClick={handleSubmit}
@@ -349,12 +352,23 @@ const ContractDetailForm = ({
       {option === "update" && (
         <div className="flex justify-center mt-4">
           <Button
-            onClick={handleSubmit}
+            onClick={() => setShowUpdateModal(true)}
             className="px-6 py-2 bg-blue-500 rounded text-white"
           >
             Lưu
           </Button>
         </div>
+      )}
+
+      {showUpdateModal && (
+        <ConfirmActionModal
+          show={showUpdateModal}
+          handleClose={() => setShowUpdateModal(false)}
+          handleConfirm={() => {
+            setShowUpdateModal(false);
+            handleSubmit();
+          }}
+        />
       )}
     </Form>
   );

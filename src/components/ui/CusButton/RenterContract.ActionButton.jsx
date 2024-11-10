@@ -29,7 +29,7 @@ const RenterContractActionButton = ({ item }) => {
   const handleDelete = async () => {
     try {
       const data = await apiUpdateStatusContract({
-        id: item.contractID,
+        contractID: item.contractID,
         status: CONTRACT_STATUS_CODE.CANCELED,
       });
       if (data?.result.code === 0) {
@@ -43,26 +43,6 @@ const RenterContractActionButton = ({ item }) => {
       return;
     }
   };
-
-  // const handleConfirm = async () => {
-  //   try {
-  //     const data = await apiUpdateStatusContract({
-  //       id: item.contractID,
-  //       status: CONTRACT_STATUS_CODE.WAITING_DEPOSIT,
-  //     });
-  //     if (data?.result.code === 0) {
-  //       dispatch(actions.getListContract({ limit: PAGE_SIZE, offset: 0 }));
-
-  //       setShowModal(false);
-  //     } else {
-  //       console.error("Error Update House:", data);
-  //       return;
-  //     }
-  //   } catch (error) {
-  //     console.error("Error Update House:", error);
-  //     return;
-  //   }
-  // };
 
   return (
     <>
@@ -86,26 +66,28 @@ const RenterContractActionButton = ({ item }) => {
                 </button>
               </li>
               {item?.status === CONTRACT_STATUS_CODE.WAITING && (
-                <li>
-                  <button
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      setShowModal(true);
-                    }}
-                    className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
-                  >
-                    Xác nhận thuê
-                  </button>
-                </li>
+                <>
+                  <li>
+                    <button
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        setShowModal(true);
+                      }}
+                      className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
+                    >
+                      Xác nhận thuê
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() => setShowModalCancel(true)}
+                      className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
+                    >
+                      Hủy
+                    </button>
+                  </li>
+                </>
               )}
-              <li>
-                <button
-                  onClick={() => setShowModalCancel(true)}
-                  className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
-                >
-                  Hủy
-                </button>
-              </li>
             </ul>
           </div>
         )}

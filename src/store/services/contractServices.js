@@ -41,7 +41,7 @@ export const apiUpdateStatusContract = async (data) => {
   try {
     const response = await axios({
       ...ApiUrl.UpdateStatusContract,
-      url: ApiUrl.UpdateStatusContract.url.replace(":id", data.id),
+      url: ApiUrl.UpdateStatusContract.url.replace(":id", data.contractID),
       data: { status: data.status },
     });
     return response;
@@ -49,6 +49,19 @@ export const apiUpdateStatusContract = async (data) => {
     return error;
   }
 };
+
+export const apiUpdateContract = async (data) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.UpdateContract,
+      url: ApiUrl.UpdateContract.url.replace(":id", data.contractID),
+      data,
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
 
 export const apiConfirmContract = async (data) => {
   try {
