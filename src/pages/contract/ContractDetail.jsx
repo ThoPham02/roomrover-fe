@@ -11,10 +11,11 @@ import {
   RenterSettingModal,
 } from "../../components/ui";
 import * as actions from "../../../src/store/actions";
-import { apiUpdateStatusContract } from "../../store/services/contractServices";
+import { apiUpdateContract } from "../../store/services/contractServices";
 
 const ContractDetail = ({ option = "get" }) => {
   const { id } = useParams();
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
@@ -29,17 +30,40 @@ const ContractDetail = ({ option = "get" }) => {
 
   useEffect(() => {
     if (contractDetail) {
-      setContract(contractDetail);
+      setContract({ ...contractDetail });
     }
   }, [contractDetail]);
 
+  const handleUpdateButton = () => {
+    navigate(ROUTE_PATHS.CONTRACT_UPDATE.replace(":id", id));
+  };
+
   const handleUpdateContract = async () => {
     try {
-      const res = await apiUpdateStatusContract(contract);
+      const formData = new FormData();
+      contract.price = contract.room.price;
+      const data = {
+        ...contract,
+        room: {
+          ...contract.room,
+          eIndex: Number(contract.room.eIndex),
+          wIndex: Number(contract.room.wIndex),
+        },
+        lessor: { ...contract.lessor, userID: user.userID },
+        deposit: contract.payment.deposit,
+        depositDate: contract.payment.depositDate,
+      };
+
+      for (const [key, value] of Object.entries(data)) {
+        if (typeof value === "object" && value !== null) {
+          formData.append(key, JSON.stringify(value));
+        } else {
+          formData.append(key, value);
+        }
+      }
+      const res = await apiUpdateContract(contract.contractID, formData);
 
       if (res?.result.code === 0) {
-        dispatch(actions.getContractDetail(id));
-
         navigate(ROUTE_PATHS.CONTRACT_DETAIL.replace(":id", id));
       }
     } catch (err) {
@@ -70,6 +94,14 @@ const ContractDetail = ({ option = "get" }) => {
             text={"Cài đặt"}
             icon={<></>}
             onClick={() => setShowRenter(true)}
+          />
+        )}
+        {contractDetail?.status === 1 && option === "get" && (
+          <CreateButton
+            className="mr-4"
+            text={"Chỉnh sửa"}
+            icon={<></>}
+            onClick={handleUpdateButton}
           />
         )}
 
