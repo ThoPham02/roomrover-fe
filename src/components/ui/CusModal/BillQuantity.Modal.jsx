@@ -32,13 +32,10 @@ const BillQuantityModal = ({ show, handleClose, id }) => {
 
   const handleConfirm = async () => {
     try {
-      // const res = await apiUpdateListBillDetail({id: id, billDetails: services});
-
       const res = await apiUpdateListBillDetail(id, JSON.stringify(services));
 
       if (res?.result.code === 0) {
-        dispatch(actions.getContractDetail(id));
-
+        dispatch(actions.getPaymentDetail(id));
         handleClose();
       }
     } catch (error) {

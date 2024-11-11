@@ -108,8 +108,9 @@ export const CONTACT_STATUS_CODE = {
 
 export const SERVICE_UNIT = {
   1: { name: "Phòng" },
-  2: { name: "Người" },
-  4: { name: "Số " },
+  2: { name: "Số " },
+  4: { name: "Người" },
+  8: { name: "Tháng" },
 };
 
 export const MAP_PRICE = [

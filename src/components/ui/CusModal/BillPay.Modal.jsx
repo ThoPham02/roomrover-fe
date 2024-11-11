@@ -1,90 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { Button, Modal, Row } from "react-bootstrap";
+import { Button, Modal, Row, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 
-import { CusRenterList } from "../CusForm";
 import * as actions from "../../../../src/store/actions";
 import {
   apiConfirmContract,
   apiGetContractDetail,
 } from "../../../store/services/contractServices";
+import { CusFormDate } from "../CusForm";
 
 const BillPayModal = ({ show, handleClose, id }) => {
-  const dispatch = useDispatch();
-  const [renters, setRenters] = useState([]);
-  const [contractDetail, setContractDetail] = useState(null);
+  const [pay, setPay] = useState({});
 
-  useEffect(() => {
-    const fetchContractDetail = async () => {
-      const data = await apiGetContractDetail(id);
-      if (data?.result.code === 0) {
-        setContractDetail(data.contract);
-      }
-    };
-
-    fetchContractDetail();
-  }, [id]);
-
-  useEffect(() => {
-    if (contractDetail) {
-      if (renters.length === 0) {
-        setRenters([
-          {
-            id: contractDetail?.renter?.userID,
-            name: contractDetail?.renter?.fullName,
-            phone: contractDetail?.renter?.phone,
-            cccdNumber: contractDetail?.renter?.cccdNumber,
-            cccdDate: contractDetail?.renter?.cccdDate,
-            cccdAddress: contractDetail?.renter?.cccdAddress,
-          },
-        ]);
-      } else {
-        setRenters(contractDetail?.payment?.paymentRenters || []);
-      }
-    }
-    // eslint-disable-next-line
-  }, [contractDetail]);
-
-  const handleConfirm = async () => {
-    const contract = {
-      contractID: id,
-      renters: JSON.stringify(renters),
-    };
-
-    try {
-      const res = await apiConfirmContract(contract);
-
-      if (res?.result.code === 0) {
-        dispatch(actions.getListContract({ limit: 10, offset: 0 }));
-        handleClose();
-      }
-    } catch (error) {
-      console.error("Error confirming contract:", error);
-    }
-  };
+  const handleConfirm = async () => {};
 
   return (
-    <Modal show={show} onHide={handleClose} size="xl" backdrop="static">
-      <Modal.Header className="text-xl text-white capitalize w-full bg-primary rounded-t-lg p-4">
-        <Modal.Title className="text-xl text-white capitalize">
-          Thiết lập danh sách người sử dụng
-        </Modal.Title>
-      </Modal.Header>
+    <Modal show={show} onHide={handleClose} backdrop="static">
       <Modal.Body>
         <Row>
-          <p className="font-bold min-w-36 mr-2 mt-2">
-            Danh sách người sử dụng:{" "}
-            {contractDetail?.room?.capacity === 0
-              ? "(Không giới hạn số người)"
-              : `(Tối đa ${contractDetail?.room?.capacity} người)`}
-          </p>
-          <CusRenterList
-            state={renters}
-            setState={setRenters}
-            capacity={contractDetail?.room?.capacity}
-          />
+          <p className="font-bold min-w-36 mr-2 mt-2">Thêm mới chứng từ</p>
+          <div className="p-2 bg-slate-100 rounded relative">
+            <Form onSubmit={(e) => e.preventDefault()}>
+              <CusFormDate />
+            </Form>
+          </div>
         </Row>
-        <div className="flex justify-center space-x-4">
+        <div className="flex justify-center space-x-4 mt-4">
           <Button
             variant="secondary"
             onClick={handleClose}

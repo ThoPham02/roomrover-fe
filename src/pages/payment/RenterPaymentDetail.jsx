@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { convertTimestampToDate, formatCurrencyVND } from "../../utils/utils";
 import * as actions from "../../store/actions";
 import {
+  BillPayModal,
   BillQuantityModal,
   CreateButton,
   CusFormSelect,
@@ -91,13 +92,6 @@ const RenterPaymentDetail = () => {
   const [showPay, setShowPay] = useState(false);
 
   const details = [
-    {
-      id: 1,
-      name: "Giá thuê",
-      quantity: 1,
-      price: formatCurrencyVND(billDetail?.amount),
-      amount: formatCurrencyVND(billDetail?.amount) + " VNĐ",
-    },
     ...(billDetail?.billDetails?.map((item) => {
       return {
         id: item?.id,
@@ -105,9 +99,11 @@ const RenterPaymentDetail = () => {
         quantity: item?.quantity,
         price: formatCurrencyVND(item?.price),
         amount: formatCurrencyVND(item?.price * item?.quantity) + " VNĐ",
+        type: item?.type,
       };
     }) || []),
-  ];
+  ].sort((a, b) => (b.type === 8 ? 1 : a.type === 8 ? -1 : 0));
+
   const pays = [
     ...(billDetail?.billPays?.map((item) => {
       return {
@@ -120,6 +116,7 @@ const RenterPaymentDetail = () => {
       };
     }) || []),
   ];
+
   return (
     <div>
       <div className="flex">
@@ -221,7 +218,7 @@ const RenterPaymentDetail = () => {
               className={"mr-4"}
               text={"Thanh toán online"}
             />
-            <CreateButton />
+            <CreateButton onClick={() => setShowPay(true)} />
           </div>
         )}
 
@@ -239,6 +236,13 @@ const RenterPaymentDetail = () => {
         <BillQuantityModal
           show={showQuantity}
           handleClose={() => setShowQuantity(false)}
+          id={id}
+        />
+      )}
+      {showPay && (
+        <BillPayModal
+          show={showPay}
+          handleClose={() => setShowPay(false)}
           id={id}
         />
       )}

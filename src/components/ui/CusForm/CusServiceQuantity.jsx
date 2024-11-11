@@ -47,32 +47,34 @@ const CusServiceQuantity = ({ state, setState, disabled }) => {
             onChange={(e) => handleServiceChange(index, "type", e.target.value)}
             disabled
           />
-          <input
-            type="text"
-            className="p-2 border border-gray-300 rounded w-48 form-control"
-            value={service?.type === 4 ? service.oldIndex : "Đã xác định"}
-            disabled
-          />
-          <input
-            type="number"
-            className="p-2 border border-gray-300 rounded w-48 form-control"
-            value={service.newIndex || ""}
-            placeholder={
-              service?.type === 4 ? "Nhập chỉ số mới" : "Đã xác định"
-            }
-            onChange={(e) =>
-              handleServiceChange(index, "newIndex", e.target.value)
-            }
-            disabled={service?.type !== 4 || disabled}
-          />
+          {service?.type === 2 && (
+            <>
+              <input
+                type="text"
+                className="p-2 border border-gray-300 rounded w-48 form-control"
+                value={service?.type === 2 ? service.oldIndex : "Đã xác định"}
+                disabled
+              />
+              <input
+                type="number"
+                className="p-2 border border-gray-300 rounded w-48 form-control"
+                value={service.newIndex || ""}
+                placeholder={
+                  service?.type === 2 ? "Nhập chỉ số mới" : "Đã xác định"
+                }
+                onChange={(e) =>
+                  handleServiceChange(index, "newIndex", e.target.value)
+                }
+                disabled={service?.type !== 2 || disabled}
+              />
 
-          {service?.type === 4 && (
-            <CusFormProof
-              state={service?.imgUrl}
-              onChange={(url) => {
-                handleImg(index, url);
-              }}
-            />
+              <CusFormProof
+                state={service?.imgUrl}
+                onChange={(url) => {
+                  handleImg(index, url);
+                }}
+              />
+            </>
           )}
         </div>
       ))}
