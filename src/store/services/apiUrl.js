@@ -162,4 +162,8 @@ export const ApiUrl = {
     url: `/contract/bill-detail/:id`,
     method: "put",
   },
+  CreateBillPay: {
+    url: "/bill/pay",
+    method: "post",
+  },
 };

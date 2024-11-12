@@ -103,7 +103,7 @@ export const BillPayStatusComponent = {
   ),
   2: (
     <p className="px-2 py-1 rounded inline-block text-center bg-green-500 text-white">
-      Đã thanh toán
+      Thành công
     </p>
   ),
 };

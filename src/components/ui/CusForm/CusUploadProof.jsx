@@ -5,7 +5,7 @@ import { FiDownloadCloud } from "react-icons/fi";
 import { ImageModal } from "..";
 import { uploadImage } from "../../../store/services/inventServices";
 
-const CusFormProof = ({ state, onChange }) => {
+const CusFormProof = ({ state, onChange, label }) => {
   const [isUploading, setIsUploading] = useState(false);
   const [img, setImg] = useState(state);
   const [showImg, setShowImg] = useState(false);
@@ -30,37 +30,40 @@ const CusFormProof = ({ state, onChange }) => {
   };
 
   return (
-    <label className="w-full flex flex-col items-center justify-center border border-dashed border-gray-300 rounded-md cursor-pointer">
-      {!isUploading ? (
-        img ? (
-          <div className="flex items-center space-x-2 p-2">
-            <FiDownloadCloud className="text-blue-600" />
-            <button
-              className="text-gray-500 text-center text-blue-600"
-              onClick={() => setShowImg(true)}
-            >
-              Xem chứng từ
-            </button>
-          </div>
+    <div className="flex">
+      {label && <p className="font-bold min-w-36 mr-2 mt-2">{label}</p>}
+      <label className="w-full flex flex-col items-center justify-center border border-dashed border-gray-300 rounded-md cursor-pointer">
+        {!isUploading ? (
+          img ? (
+            <div className="flex items-center space-x-2 p-2">
+              <FiDownloadCloud className="text-blue-600" />
+              <button
+                className="text-gray-500 text-center text-blue-600"
+                onClick={() => setShowImg(true)}
+              >
+                Xem chứng từ
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center space-x-2 p-2">
+              <FaPlus />
+              <span className="text-gray-500 text-center">Upload</span>
+              <input type="file" className="hidden" onChange={handleUpload} />
+            </div>
+          )
         ) : (
-          <div className="flex items-center space-x-2 p-2">
-            <FaPlus />
-            <span className="text-gray-500 text-center">Upload</span>
-            <input type="file" className="hidden" onChange={handleUpload} />
-          </div>
-        )
-      ) : (
-        <Spinner animation="border" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
-      )}
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        )}
+      </label>
 
       <ImageModal
         show={showImg}
         handleClose={() => setShowImg(false)}
         image={img}
       />
-    </label>
+    </div>
   );
 };
 

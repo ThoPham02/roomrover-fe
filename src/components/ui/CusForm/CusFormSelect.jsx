@@ -15,7 +15,8 @@ const CusFormSelect = ({
   setValue,
   keyName,
   position = "right",
-  
+  noDefault = false,
+  width
 }) => {
   const renderOptions = () => {
     if (Array.isArray(data)) {
@@ -52,7 +53,7 @@ const CusFormSelect = ({
   };
 
   const InputComponent = (
-    <Form.Group>
+    <Form.Group className="w-full">
       <Form.Select
         aria-label={label}
         value={parseValue(value, keyName)}
@@ -60,9 +61,11 @@ const CusFormSelect = ({
         onChange={handleValueChange}
         className="min-w-48"
       >
-        <option key={0} value={0}>
-          {defaultValue}
-        </option>
+        {!noDefault && (
+          <option key={0} value={0}>
+            {defaultValue}
+          </option>
+        )}
         {renderOptions()}
       </Form.Select>
     </Form.Group>

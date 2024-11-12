@@ -102,3 +102,15 @@ export const apiUpdateListBillDetail = async (id, data) => {
     return error;
   }
 };
+
+export const apiCreateBillPay = async (data) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.CreateBillPay,
+      data: { ...data },
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
