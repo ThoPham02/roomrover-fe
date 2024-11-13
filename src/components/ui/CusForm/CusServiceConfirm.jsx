@@ -43,8 +43,8 @@ const CusServiceConfirm = ({ state, setState, disabled }) => {
             onChange={(e) =>
               handleServiceChange(index, "index", e.target.value)
             }
-            placeholder={service?.type === 4 ? "Nhập chỉ số" : "Đã xác định"}
-            disabled={service?.type !== 4 || disabled}
+            placeholder={service?.type === 2 ? "Nhập chỉ số" : ""}
+            disabled={service?.type !== 2 || disabled}
           />
         </div>
       ))}
