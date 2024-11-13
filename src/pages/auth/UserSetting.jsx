@@ -60,7 +60,7 @@ const UserSetting = () => {
   return (
     <div className="p-3 bg-white rounded">
       <div>
-        <Breadcrumbs title={"Tài khoản của tôi"} />
+        <Breadcrumbs backName={"Tài khoản của tôi"} />
         <Form onSubmit={handleSubmit}>
           <div className="relative h-32 border-b-2 mb-20">
             <div

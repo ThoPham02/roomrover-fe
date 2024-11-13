@@ -1,5 +1,6 @@
 import { Col, Form, Row } from "react-bootstrap";
 import React, { useState } from "react";
+import { TbXboxX } from "react-icons/tb";
 
 import { HOUSE_TYPE } from "../../../common";
 import {
@@ -57,12 +58,29 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
         <p className="font-bold">Hình ảnh nhà trọ:</p>
         <div className="mt-2 mb-4 flex flex-wrap">
           {house?.albums.map((image, index) => (
-            <img
-              src={image}
-              alt={`Hình ảnh nhà trọ ${index + 1}`}
-              className="w-40 h-40 mr-4 mb-4 object-cover rounded-lg"
-              key={image}
-            />
+            <div className="relative">
+              <img
+                src={image}
+                alt={`Nhà trọ ${index + 1}`}
+                className="w-40 h-40 mr-4 mb-4 object-cover rounded-lg"
+                key={image}
+              />
+
+              {option !== "get" && (
+                <TbXboxX
+                  className="text-red-500 text-3xl absolute top-2 right-6"
+                  onClick={() =>
+                    setHouse((prevHouse) => {
+                      const newAlbums = prevHouse.albums.filter(
+                        (album) => album !== image
+                      );
+
+                      return { ...prevHouse, albums: newAlbums };
+                    })
+                  }
+                />
+              )}
+            </div>
           ))}
 
           <CusFormUpload
