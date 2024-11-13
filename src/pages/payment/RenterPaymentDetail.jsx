@@ -130,7 +130,7 @@ const RenterPaymentDetail = () => {
         <p>Chi tiết</p>
       </div>
 
-      <p className="font-medium mt-4">Thông tin hóa đơn:</p>
+      <p className="font-semibold mt-4">Thông tin hóa đơn:</p>
       <div className="p-2 bg-slate-100 rounded">
         <div className="grid grid-cols-2 gap-4">
           {/* Bên trái - Thông tin hóa đơn */}
