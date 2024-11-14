@@ -137,7 +137,7 @@ const RenterContractScreen = () => {
 
   return (
     <div className="">
-      <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.CONTRACT]} />
+      <Breadcrumbs backName={BREADCRUMB_DETAIL[ROUTE_PATHS.CONTRACT]} />
       <div className="relative">
         <div className="">
           <div className="p-2 bg-slate-100 rounded">
