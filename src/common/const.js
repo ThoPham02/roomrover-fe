@@ -215,7 +215,7 @@ export const UtilsTickComponent = {
     icon: <FaParking className="text-2xl group-hover:text-blue-500" />,
   },
   64: {
-    name: "Điều hòa và quạt",
+    name: "Điều hòa",
     icon: <FaFan className="text-2xl group-hover:text-blue-500" />,
   },
   128: {

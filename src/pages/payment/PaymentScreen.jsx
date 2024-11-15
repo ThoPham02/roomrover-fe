@@ -101,9 +101,9 @@ const PaymentScreen = () => {
 
   return (
     <div>
-      <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.PAYMENT]} />
+      <Breadcrumbs backName={BREADCRUMB_DETAIL[ROUTE_PATHS.PAYMENT]} />
 
-      <div className="p-2 bg-slate-100 rounded mt-4">
+      <div className="p-2 bg-slate-100 rounded mt-2">
         <Form
           className="flex flex-wrap gap-4 items-center mt-4"
           onSubmit={handleSubmitFilter}

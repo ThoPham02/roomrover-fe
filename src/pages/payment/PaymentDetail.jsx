@@ -1,14 +1,15 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { convertTimestampToDate, formatCurrencyVND } from "../../utils/utils";
 import * as actions from "../../store/actions";
-import { CusFormSelect, CusTable } from "../../components/ui";
+import { Breadcrumbs, CusFormSelect, CusTable } from "../../components/ui";
 import {
   BILL_PAYMENT_METHOD,
   BILL_STATUS,
   BillPayStatusComponent,
+  BREADCRUMB_DETAIL,
   ROUTE_PATHS,
 } from "../../common";
 
@@ -113,13 +114,7 @@ const PaymentDetail = () => {
 
   return (
     <div>
-      <div className="flex">
-        <Link to={ROUTE_PATHS.PAYMENT} className="text-blue-700 font-semibold">
-          Danh sách hóa đơn
-        </Link>
-        <span className="mx-2">/</span>
-        <p>Chi tiết</p>
-      </div>
+      <Breadcrumbs backName={BREADCRUMB_DETAIL[ROUTE_PATHS.PAYMENT]} backRoute={ROUTE_PATHS.PAYMENT} displayName={"Chi tiết"}/>
 
       <p className="font-medium mt-4">Thông tin hóa đơn:</p>
       <div className="p-2 bg-slate-100 rounded">

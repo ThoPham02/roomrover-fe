@@ -146,14 +146,14 @@ const HouseScreen = () => {
 
   return (
     <>
-      <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.HOUSE]} />
+      <Breadcrumbs backName={BREADCRUMB_DETAIL[ROUTE_PATHS.HOUSE]} />
       <div className="relative">
         <CreateButton
           className="absolute -top-12 right-0 z-1"
           onClick={handleCreateHouse}
         />
 
-        <div className="mt-4">
+        <div className="mt-2">
           <div className="search-box p-2 bg-slate-100 rounded">
             <Form
               className="flex flex-wrap gap-4 items-center mt-8"

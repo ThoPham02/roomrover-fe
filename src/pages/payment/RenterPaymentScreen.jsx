@@ -101,7 +101,7 @@ const RenterPaymentScreen = () => {
 
   return (
     <div>
-      <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.PAYMENT]} />
+      <Breadcrumbs backName={BREADCRUMB_DETAIL[ROUTE_PATHS.PAYMENT]} />
 
       <div className="p-2 bg-slate-100 rounded">
         <Form

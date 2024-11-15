@@ -23,7 +23,7 @@ const ContractDetailForm = ({
   const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   return (
-    <Form className="mt-4" onSubmit={(e) => e.preventDefault()}>
+    <Form className="mt-2" onSubmit={(e) => e.preventDefault()}>
       <p className="font-medium">Bên cho thuê:</p>
       <div className="p-2 bg-slate-100 rounded">
         <Row>

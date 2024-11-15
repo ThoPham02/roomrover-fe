@@ -29,10 +29,9 @@ const RenterContractDetail = () => {
   return (
     <div className="relative">
       <Breadcrumbs
-        title={"Chi tiết hợp đồng"}
         backRoute={ROUTE_PATHS.RENTER_CONTRACT}
         backName={BREADCRUMB_DETAIL[ROUTE_PATHS.RENTER_CONTRACT]}
-        displayName={BREADCRUMB_DETAIL["DETAIL"]}
+        displayName={"Chi tiết"}
       />
 
       <ContractDetailForm contract={contractDetail} option={"get"} />

@@ -84,16 +84,15 @@ const HouseDetail = ({ type = "get" }) => {
   return (
     <div className="house-detail-page">
       <Breadcrumbs
-        title={BREADCRUMB_DETAIL["DETAIL"]}
         backRoute={ROUTE_PATHS.HOUSE}
         backName={BREADCRUMB_DETAIL[ROUTE_PATHS.HOUSE]}
-        displayName={BREADCRUMB_DETAIL["DETAIL"]}
+        displayName={option === "get" ? BREADCRUMB_DETAIL["DETAIL"] : BREADCRUMB_DETAIL["UPDATE"]}
       />
 
       <div className="relative">
         {option === "get" && (
           <CreateButton
-            className="absolute -top-16 right-0 z-1"
+            className="absolute -top-10 right-0 z-1"
             icon={<></>}
             text="Sửa"
             onClick={() => setOption("update")}

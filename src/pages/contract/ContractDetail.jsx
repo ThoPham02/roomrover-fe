@@ -74,7 +74,6 @@ const ContractDetail = ({ option = "get" }) => {
   return (
     <div className="relative">
       <Breadcrumbs
-        title={"Chi tiết hợp đồng"}
         backRoute={ROUTE_PATHS.CONTRACT}
         backName={BREADCRUMB_DETAIL[ROUTE_PATHS.CONTRACT]}
         displayName={BREADCRUMB_DETAIL["DETAIL"]}

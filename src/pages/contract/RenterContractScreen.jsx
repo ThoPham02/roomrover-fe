@@ -54,7 +54,7 @@ const columns = [
   {
     header: "Ngày bắt đầu",
     headerClass: "text-center w-32",
-    accessorKey: "createdAt",
+    accessorKey: "checkIn",
     dataClass: "text-center",
   },
   {
@@ -121,7 +121,7 @@ const RenterContractScreen = () => {
     ? listContract?.map((contract) => {
         return {
           ...contract,
-          createdAt: convertTimestampToDate(contract?.createdAt),
+          checkIn: convertTimestampToDate(contract?.checkIn),
           statusComponent: ContractStatusComponent[contract?.status],
           room: {
             name: `${contract.room?.name} (${contract.room?.houseName})`,
@@ -137,7 +137,7 @@ const RenterContractScreen = () => {
 
   return (
     <div className="">
-      <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.CONTRACT]} />
+      <Breadcrumbs backName={BREADCRUMB_DETAIL[ROUTE_PATHS.CONTRACT]} />
       <div className="relative">
         <div className="">
           <div className="p-2 bg-slate-100 rounded">

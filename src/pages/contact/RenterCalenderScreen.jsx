@@ -91,9 +91,9 @@ const RenterCalenderScreen = () => {
 
   return (
     <div>
-      <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.CALENDAR]} />
+      <Breadcrumbs backName={BREADCRUMB_DETAIL[ROUTE_PATHS.CALENDAR]} />
 
-      <div className="mt-4">
+      <div className="mt-2">
         <div className="p-2 bg-slate-100 rounded">
           <Form
             className="flex flex-wrap gap-4 items-center mt-8"

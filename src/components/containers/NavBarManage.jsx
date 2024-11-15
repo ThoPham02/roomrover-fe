@@ -22,11 +22,11 @@ const NavBarManage = ({ isExpanded }) => {
   const menuItems =
     user?.role !== USER_ROLES.LESSOR
       ? [
-          {
-            icon: <MdOutlineDashboardCustomize className="text-3xl" />,
-            label: "Dashboard",
-            path: ROUTE_PATHS.RENTER_DASHBOARD,
-          },
+          // {
+          //   icon: <MdOutlineDashboardCustomize className="text-3xl" />,
+          //   label: "Dashboard",
+          //   path: ROUTE_PATHS.RENTER_DASHBOARD,
+          // },
           {
             icon: <LiaFileContractSolid className="text-3xl" />,
             label: "Hợp đồng",
