@@ -166,4 +166,14 @@ export const ApiUrl = {
     url: "/bill/pay",
     method: "post",
   },
+
+  // Noti 
+  listNotis: {
+    url: "/notifications/list",
+    method: "get",
+  },
+  markAsReadNoti: {
+    url: "/notifications/mark-read/:id",
+    method: "put",
+  },
 };
