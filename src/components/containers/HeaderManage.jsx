@@ -13,13 +13,14 @@ import {
   apiGetListNotis,
   apiMarkAsReadNoti,
 } from "../../store/services/notiServices";
-import { PAGE_SIZE } from "../../common";
+import { useNavigate } from "react-router-dom";
+import { ROUTE_PATHS } from "../../common";
+// import { PAGE_SIZE } from "../../common";
 
 const HeaderManage = ({ setIsExpanded, isExpanded }) => {
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
-  const notificationRef = useRef(null); // Tham chiếu đến NotificationModule
+  const notificationRef = useRef(null);
 
-  // Khi click ra ngoài NotificationModule, đóng module
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -30,10 +31,8 @@ const HeaderManage = ({ setIsExpanded, isExpanded }) => {
       }
     };
 
-    // Lắng nghe sự kiện click
     document.addEventListener("mousedown", handleClickOutside);
 
-    // Cleanup event listener khi component unmount
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -59,9 +58,9 @@ const HeaderManage = ({ setIsExpanded, isExpanded }) => {
 
         {isNotificationOpen && (
           <div ref={notificationRef}>
-            {" "}
-            {/* Thêm ref vào NotificationModule */}
-            <NotificationModule />
+            <NotificationModule
+              handleClose={() => setIsNotificationOpen(!isNotificationOpen)}
+            />
           </div>
         )}
 
@@ -85,7 +84,7 @@ const HeaderButton = ({ icon, onClick }) => {
   );
 };
 
-const NotificationModule = () => {
+const NotificationModule = ({ handleClose }) => {
   const [notifications, setNotifications] = useState([]);
   // const [page, setPage] = useState("all");
 
@@ -107,7 +106,7 @@ const NotificationModule = () => {
 
   return (
     <div className="absolute top-16 left-24 max-w-lg w-full bg-white shadow-lg rounded-lg p-4 z-50 h-96">
-      <h2 className="text-xl font-bold mb-4 flex items-center">
+      <h2 className="text-xl font-bold mb-2 flex items-center">
         <FaBell className="mr-2" /> Thông báo
       </h2>
       <ul className="space-y-2">
@@ -120,10 +119,10 @@ const NotificationModule = () => {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
               className={`p-2 cursor-pointer rounded ${
-                notif.unread === 1 ? "bg-sky-200" : "bg-sky-50"
+                notif.unread === 1 ? "bg-sky-200" : "bg-gray-100"
               }`}
             >
-              <NotiItem noti={notif} setNotification={setNotifications} />
+              <NotiItem noti={notif} handleClose={handleClose} />
             </motion.li>
           ))}
         </AnimatePresence>
@@ -135,22 +134,23 @@ const NotificationModule = () => {
   );
 };
 
-const NotiItem = ({ noti, setNotifications }) => {
-  const handleMarkAsRead = async () => {
-    if (noti.unread === 1) {
-      try {
-        const res = await apiMarkAsReadNoti(noti.id);
+const NotiItem = ({ noti, handleClose }) => {
+  const navigate = useNavigate();
 
-        if (res.status === 200) {
-          const res = await apiGetListNotis({ limit: 0, offset: 0 }); // Lấy tất cả thông báo
-
-          if (res?.result.code === 0) {
-            setNotifications(res.notifications);
-          }
-        }
-      } catch (e) {
-        console.log("Mark as read error", e);
-      }
+  const handleRedirect = () => {
+    switch (noti.refType) {
+      case 1:
+        navigate(ROUTE_PATHS.CALENDAR);
+        break;
+      case 2:
+        navigate(ROUTE_PATHS.RENTER_CALENDAR);
+        break;
+      case 4:
+        navigate(ROUTE_PATHS.RENTER_CALENDAR);
+        break;
+      default:
+        console.log("Unknown refType, no redirect available");
+        break;
     }
   };
 
@@ -159,31 +159,59 @@ const NotiItem = ({ noti, setNotifications }) => {
     case 1:
       content = (
         <div>
-          <span className="text-red-500 font-semibold">
-            {noti.notiInfos[0].name}
-          </span>{" "}
-          đã đặt lịch hẹn xem phòng{" "}
-          <span className="text-red-500 font-semibold">
-            {noti.notiInfos[1].name}
-          </span>{" "}
-          vào ngày{" "}
-          <span className="text-red-500 font-semibold">
+          <span className="font-semibold">{noti.notiInfos[0].name}</span> đã đặt
+          lịch hẹn xem phòng{" "}
+          <span className="font-semibold">{noti.notiInfos[1].name}</span> vào
+          ngày{" "}
+          <span className="font-semibold">
             {convertTimestampToDate(noti.notiInfos[2].name)}
           </span>
         </div>
       );
       break;
-    case (2, 4):
+    case 2:
       content = (
-        <span>
-          {noti.refName} đã đăng ký thuê nhà {noti.refTitle}
-        </span>
+        <div>
+          <span className="font-semibold">{noti.notiInfos[0].name}</span> đã
+          đồng ý lịch hẹn xem phòng{" "}
+          <span className="font-semibold">{noti.notiInfos[1].name}</span> vào
+          ngày{" "}
+          <span className="font-semibold">
+            {convertTimestampToDate(noti.notiInfos[2].name)}
+          </span>
+        </div>
+      );
+      break;
+    case 4:
+      content = (
+        <div>
+          <span className="font-semibold">{noti.notiInfos[0].name}</span> đã từ
+          chối lịch hẹn xem phòng{" "}
+          <span className="font-semibold">{noti.notiInfos[1].name}</span> vào
+          ngày{" "}
+          <span className="font-semibold">
+            {convertTimestampToDate(noti.notiInfos[2].name)}
+          </span>
+        </div>
       );
       break;
     default:
       content = <span>Thông báo mới</span>;
       break;
   }
+
+  const handleMarkAsRead = async () => {
+    if (noti.unread === 1) {
+      try {
+        await apiMarkAsReadNoti(noti.id);
+      } catch (e) {
+        console.log("Mark as read error", e);
+      }
+    }
+    handleClose();
+
+    handleRedirect();
+  };
 
   return (
     <div className="" onDoubleClick={handleMarkAsRead}>

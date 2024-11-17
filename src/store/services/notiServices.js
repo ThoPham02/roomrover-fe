@@ -14,7 +14,8 @@ export const apiGetListNotis = async (filters) => {
 export const apiMarkAsReadNoti = async (id) => {
   try {
     const response = await axios({
-      ...ApiUrl.markAsReadNoti.replace(":id", id),
+      url: `/notifications/mark-read/${id}`,
+      method: "PUT",
     });
 
     return response;

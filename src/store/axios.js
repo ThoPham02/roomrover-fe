@@ -37,12 +37,22 @@ instance.interceptors.request.use(
   }
 );
 
+const NO_TOAST_API_LIST = [
+  '/login', // API login
+  '/register', // Thêm các API khác nếu cần
+  'mark-read'
+];
 instance.interceptors.response.use(
   (response) => {
     const config = response.config;
     const errorCode = response.data.result?.code;
 
-    if (config.method !== API_METHOD.GET) {
+    // Kiểm tra nếu API hiện tại nằm trong danh sách NO_TOAST_API_LIST
+    const isNoToastApi = NO_TOAST_API_LIST.some((api) =>
+      config.url.includes(api)
+    );
+
+    if (!isNoToastApi && config.method !== API_METHOD.GET) {
       if (errorCode === 0) {
         toast.success(DEFAULT_MESSAGE.SUCCESS);
       } else if (Object.values(HANDLE_ERROR_CODE).includes(errorCode)) {
