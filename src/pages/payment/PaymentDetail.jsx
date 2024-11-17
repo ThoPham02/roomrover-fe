@@ -34,7 +34,7 @@ const listFields = [
   },
   {
     header: "Thành tiền",
-    headerClass: "text-center w-32",
+    headerClass: "text-end w-32",
     accessorKey: "amount",
     dataClass: "grid justify-items-end",
   },

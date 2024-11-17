@@ -38,3 +38,31 @@ export const apiZaloPayment = async (id) => {
     return error;
   }
 };
+
+export const apiFilterRenterContacts = async (filter) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.filterRenterContact,
+      params: filter,
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const apiConfirmContact = async (id) => {
+  try {
+    const response = await axios({
+      url: `contract/renters/${id}`,
+      data: {
+        status: 1,
+      },
+      method: "put",
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};

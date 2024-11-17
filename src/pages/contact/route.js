@@ -1,7 +1,7 @@
 import { ROUTE_PATHS } from "../../common";
 import CalenderScreen from "./CalendarScreen";
 import ContactScreen from "./ContactScreen";
-import RenterCalenderScreen from "./RenterCalenderScreen";
+import RenterCalendarScreen from "./RenterCalendarScreen";
 
 export const contactRenterRoute = [
   {
@@ -9,7 +9,7 @@ export const contactRenterRoute = [
     path: ROUTE_PATHS.RENTER_CALENDAR,
     element: (
       <div className="p-3 bg-white rounded">
-        <RenterCalenderScreen />
+        <RenterCalendarScreen />
       </div>
     ),
   },

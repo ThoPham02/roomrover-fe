@@ -125,3 +125,16 @@ export const ContactStatusComponent = {
     </p>
   ),
 };
+
+export const RenterContactStatusComponent = {
+  0: (
+    <p className="px-2 py-1 rounded inline-block text-center bg-gray-500 text-white">
+      Chưa đăng ký
+    </p>
+  ),
+  1: (
+    <p className="px-2 py-1 rounded inline-block text-center bg-green-500 text-white">
+      Đã đăng ký
+    </p>
+  ),
+};

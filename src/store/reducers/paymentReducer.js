@@ -1,4 +1,4 @@
-import { PaymentStatusComponent } from "../../common";
+import { PaymentStatusComponent, RenterContactStatusComponent } from "../../common";
 import { convertTimestampToDate, formatCurrencyVND } from "../../utils/utils";
 import actionTypes from "../actions/actionTypes";
 
@@ -9,6 +9,12 @@ const initialState = {
     page: 0,
     searchParams: {},
     billDetails: {},
+  },
+  renterContact: {
+    listRenterContacts: [],
+    total: 0,
+    page: 0,
+    searchParams: {},
   },
 };
 
@@ -59,6 +65,33 @@ const paymentReducer = (state = initialState, action) => {
         bill: {
           ...state.bill,
           billDetail: {},
+        },
+      };
+
+    case actionTypes.GET_FILTER_RENTER_CONTACT_SUCCESS:
+      const renterContacts = action.data.renters
+        ? action.data.renters.map((item) => {
+            return {
+              ...item,
+              cccdDate: convertTimestampToDate(item.cccdDate),
+              statusComponent: RenterContactStatusComponent[item.status]
+            };
+          })
+        : [];
+      return {
+        ...state,
+        renterContact: {
+          listRenterContacts: renterContacts,
+          total: action.data.total,
+        },
+      };
+    case actionTypes.GET_FILTER_RENTER_CONTACT_FAIL:
+      return {
+        ...state,
+        renter_contact: {
+          ...state.renter_contact,
+          listRenterContacts: [],
+          total: 0,
         },
       };
 

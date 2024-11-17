@@ -111,7 +111,7 @@ const NotificationModule = ({ handleClose }) => {
       </h2>
       <ul className="space-y-2">
         <AnimatePresence>
-          {notifications.map((notif) => (
+          {notifications?.map((notif) => (
             <motion.li
               key={notif.id}
               initial={{ opacity: 0, y: 20 }}
@@ -127,7 +127,7 @@ const NotificationModule = ({ handleClose }) => {
           ))}
         </AnimatePresence>
       </ul>
-      {notifications.length === 0 && (
+      {(!Array.isArray(notifications) || notifications.length === 0) && (
         <p className="text-center text-gray-500 mt-4">Không có thông báo</p>
       )}
     </div>

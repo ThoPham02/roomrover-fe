@@ -176,4 +176,12 @@ export const ApiUrl = {
     url: "/notifications/mark-read/:id",
     method: "put",
   },
+  filterRenterContact: {
+    url: "/contract/renters",
+    method: "get",
+  },
+  ConfirmContact: {
+    url: "/contract/renters/:id",
+    method: "put",
+  }
 };

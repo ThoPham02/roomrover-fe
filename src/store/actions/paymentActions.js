@@ -1,4 +1,8 @@
-import { apiFilterPayment, apiGetPaymentDetail } from "../services/paymentServices";
+import {
+  apiFilterPayment,
+  apiFilterRenterContacts,
+  apiGetPaymentDetail,
+} from "../services/paymentServices";
 import actionTypes from "./actionTypes";
 
 export const getListPayment = (payload) => async (dispatch) => {
@@ -44,3 +48,25 @@ export const getPaymentDetail = (id) => async (dispatch) => {
     });
   }
 };
+
+export const getFilterRenterContact = () => async (dispatch) => {
+  try {
+    const data = await apiFilterRenterContacts();
+    if (data?.result.code === 0) {
+      dispatch({
+        type: actionTypes.GET_FILTER_RENTER_CONTACT_SUCCESS,
+        data: data,
+      });
+    } else {
+      dispatch({
+        type: actionTypes.GET_FILTER_RENTER_CONTACT_FAIL,
+        data: data,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_FILTER_RENTER_CONTACT_FAIL,
+      data: null,
+    });
+  }
+}

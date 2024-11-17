@@ -58,7 +58,7 @@ const listFields = [
   },
 ];
 
-const RenterCalenderScreen = () => {
+const RenterCalendarScreen = () => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState({
@@ -164,4 +164,4 @@ const RenterCalenderScreen = () => {
   );
 };
 
-export default RenterCalenderScreen;
+export default RenterCalendarScreen;

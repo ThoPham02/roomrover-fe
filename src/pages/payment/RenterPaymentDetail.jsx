@@ -41,7 +41,7 @@ const listFields = [
   },
   {
     header: "Thành tiền",
-    headerClass: "text-center w-32",
+    headerClass: "text-end w-32",
     accessorKey: "amount",
     dataClass: "grid justify-items-end",
   },
@@ -121,7 +121,11 @@ const RenterPaymentDetail = () => {
 
   return (
     <div>
-      <Breadcrumbs backName={BREADCRUMB_DETAIL[ROUTE_PATHS.RENTER_PAYMENT]} backRoute={ROUTE_PATHS.PAYMENT} displayName={"Chi tiết"}/>
+      <Breadcrumbs
+        backName={BREADCRUMB_DETAIL[ROUTE_PATHS.PAYMENT]}
+        backRoute={ROUTE_PATHS.RENTER_PAYMENT}
+        displayName={"Chi tiết"}
+      />
 
       <p className="font-semibold mt-4">Thông tin hóa đơn:</p>
       <div className="p-2 bg-slate-100 rounded">
