@@ -113,6 +113,12 @@ export const SERVICE_UNIT = {
   8: { name: "Tháng" },
 };
 
+export const UNIT_SERVICE = {
+  1: { name: "Phòng" },
+  2: { name: "Số " },
+  4: { name: "Người" },
+};
+
 export const MAP_PRICE = [
   {
     priceFrom: 0,

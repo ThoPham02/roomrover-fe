@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { TbReportMoney } from "react-icons/tb";
 
 import * as actions from "../../../src/store/actions";
-import { ROUTE_PATHS, SERVICE_UNIT, USER_ROLES } from "../../common";
+import { ROUTE_PATHS, UNIT_SERVICE, USER_ROLES } from "../../common";
 import RoomRoverLogo from "../../assets/images/logo.png";
 import { formatCurrencyVND, getArea } from "../../utils/utils";
 import avatar from "../../assets/images/default_avatar.png";
@@ -137,7 +137,7 @@ const BoardingHouseDetail = () => {
                       </span>
                       <span className="text-lg">
                         {formatCurrencyVND(service.price) +
-                          ` đ/${SERVICE_UNIT[service.unit].name}`}
+                          ` đ/${UNIT_SERVICE[service.unit].name}`}
                       </span>
                     </div>
                   );
