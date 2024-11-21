@@ -27,13 +27,7 @@ const RenterPaymentActionButton = ({ item }) => {
       if (res.result.code === 0) {
         console.log("res.result.data", res);
 
-        window.open(res.orderUrl, '_blank');
-
-        // const data = {
-        //   limit: PAGE_SIZE,
-        //   offset: 0,
-        // };
-        // dispatch(actions.getListHouses(data));
+        window.open(res.orderUrl, "_blank");
       }
     } catch (error) {
       console.error("Error Update House:", error);

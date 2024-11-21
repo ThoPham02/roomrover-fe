@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 
 import logo from "../../assets/images/logo.png";
 import { ROUTE_PATHS, USER_ROLES } from "../../common";
+import { FiCalendar } from "react-icons/fi";
 
 const NavBarManage = ({ isExpanded }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -21,11 +22,11 @@ const NavBarManage = ({ isExpanded }) => {
   const menuItems =
     user?.role !== USER_ROLES.LESSOR
       ? [
-          {
-            icon: <MdOutlineDashboardCustomize className="text-3xl" />,
-            label: "Dashboard",
-            path: ROUTE_PATHS.RENTER_DASHBOARD,
-          },
+          // {
+          //   icon: <MdOutlineDashboardCustomize className="text-3xl" />,
+          //   label: "Dashboard",
+          //   path: ROUTE_PATHS.RENTER_DASHBOARD,
+          // },
           {
             icon: <LiaFileContractSolid className="text-3xl" />,
             label: "Hợp đồng",
@@ -35,6 +36,11 @@ const NavBarManage = ({ isExpanded }) => {
             icon: <MdPayment className="text-3xl" />,
             label: "Thanh toán",
             path: ROUTE_PATHS.RENTER_PAYMENT,
+          },
+          {
+            icon: <FiCalendar className="text-3xl" />,
+            label: "Lịch hẹn",
+            path: ROUTE_PATHS.RENTER_CALENDAR,
           },
           {
             icon: <IoSettingsOutline className="text-3xl" />,
@@ -72,6 +78,11 @@ const NavBarManage = ({ isExpanded }) => {
             icon: <RiContactsBook3Line className="text-3xl" />,
             label: "Liên hệ",
             path: ROUTE_PATHS.CONTACT,
+          },
+          {
+            icon: <FiCalendar className="text-3xl" />,
+            label: "Lịch hẹn",
+            path: ROUTE_PATHS.CALENDAR,
           },
           {
             icon: <IoSettingsOutline className="text-3xl" />,

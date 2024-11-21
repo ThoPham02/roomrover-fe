@@ -115,9 +115,9 @@ const RoomScreen = () => {
 
   return (
     <div>
-      <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.ROOM]} />
+      <Breadcrumbs backName={BREADCRUMB_DETAIL[ROUTE_PATHS.ROOM]} />
 
-      <div className="search-box p-2 bg-slate-100 rounded mt-4">
+      <div className="search-box p-2 bg-slate-100 rounded mt-2">
         <Form
           className="flex flex-wrap gap-4 items-center mt-8"
           onSubmit={handleSubmitFilter}

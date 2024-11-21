@@ -54,4 +54,13 @@ export const contractLessorRoute = [
       </div>
     ),
   },
+  {
+    id: "contract_edit",
+    path: ROUTE_PATHS.CONTRACT_UPDATE,
+    element: (
+      <div className="p-3 bg-white rounded">
+        <ContractDetail option="update" />
+      </div>
+    ),
+  },
 ];

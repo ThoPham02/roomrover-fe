@@ -3,16 +3,28 @@ import { Modal, Button } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 
 import { convertDateToTimestamp } from "../../../utils/utils";
+import { apiCreateContact } from "../../../store/services/inventServices";
 
 const AppointmentModal = ({ show, handleClose, house }) => {
   const [contact, setContact] = useState({
-    houseId: house?.houseID,
-    userId: house?.user?.userId,
+    houseID: house?.houseID,
+    lessorID: house?.user?.userID,
     datetime: 0,
   });
 
-  const handleConfirm = () => {
-    console.log("Contact:", house);
+  const handleConfirm = async () => {
+    try {
+      const res = await apiCreateContact({
+        houseID: house?.houseID,
+        lessorID: house?.user?.userID,
+        datetime: contact.datetime,
+      });
+      if (res?.result?.code === 0) {
+        handleClose();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

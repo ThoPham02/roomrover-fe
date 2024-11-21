@@ -12,16 +12,14 @@ import {
 import {
   GrElevator, // Thang máy
 } from "react-icons/gr";
-import {
-  CgSmartHomeRefrigerator, // Tủ lạnh
-} from "react-icons/cg";
 
 import {
   FaVideo, // Camera an ninh
   FaParking, // Chỗ để xe
   FaFan, // Điều hòa và quạt
   FaHotTub, // Nóng lạnh
-  FaToilet, // Vệ sinh khép kín
+  FaToilet,
+  FaFingerprint, // Vệ sinh khép kín
 } from "react-icons/fa";
 
 export const API_METHOD = {
@@ -57,12 +55,18 @@ export const HOUSE_SERVICE_TYPE = {
   4: { name: "Số lượng sử dụng" },
 };
 
+export const HOUSE_STATUS = {
+  1: { name: "Chờ xác nhận" },
+  2: { name: "Đang hoạt động" },
+  4: { name: "Tạm dừng" },
+  8: { name: "Hết phòng" },
+};
+
 export const HOUSE_ROOM_STATUS = {
   1: { name: "Chờ xác nhận" },
   2: { name: "Sẵn sàng thuê" },
   4: { name: "Đã được thuê" },
-  8: { name: "Sắp hết hạn" },
-  16: { name: "Tạm dừng" },
+  8: { name: "Tạm dừng" },
 };
 
 export const CONTRACT_STATUS = {
@@ -71,6 +75,7 @@ export const CONTRACT_STATUS = {
   4: { name: "Đang thuê" },
   8: { name: "Đã hết hạn" },
   16: { name: "Đã hủy" },
+  32: { name: "Sắp hết hạn" },
 };
 
 export const BILL_STATUS = {
@@ -95,10 +100,23 @@ export const CONTRACT_STATUS_CODE = {
   CANCELED: 16,
 };
 
+export const CONTACT_STATUS_CODE = {
+  WAITING: 1,
+  CONFIRMED: 2,
+  CANCELED: 4,
+};
+
 export const SERVICE_UNIT = {
   1: { name: "Phòng" },
-  2: { name: "Người" },
-  4: { name: "Số " },
+  2: { name: "Số " },
+  4: { name: "Người" },
+  8: { name: "Tháng" },
+};
+
+export const UNIT_SERVICE = {
+  1: { name: "Phòng" },
+  2: { name: "Số " },
+  4: { name: "Người" },
 };
 
 export const MAP_PRICE = [
@@ -203,7 +221,7 @@ export const UtilsTickComponent = {
     icon: <FaParking className="text-2xl group-hover:text-blue-500" />,
   },
   64: {
-    name: "Điều hòa và quạt",
+    name: "Điều hòa",
     icon: <FaFan className="text-2xl group-hover:text-blue-500" />,
   },
   128: {
@@ -211,10 +229,8 @@ export const UtilsTickComponent = {
     icon: <GiCookingPot className="text-2xl group-hover:text-blue-500" />,
   },
   256: {
-    name: "Tủ lạnh",
-    icon: (
-      <CgSmartHomeRefrigerator className="text-2xl group-hover:text-blue-500" />
-    ),
+    name: "Khóa vân tay",
+    icon: <FaFingerprint className="text-2xl group-hover:text-blue-500" />,
   },
   512: {
     name: "Nội thất",
@@ -234,4 +250,10 @@ export const BILL_PAYMENT_METHOD = {
   1: { name: "Tiền mặt" },
   2: { name: "Chuyển khoản" },
   4: { name: "Ví điện tử" },
-}
+};
+
+export const CONTACT_STATUS = {
+  1: { name: "Chờ xác nhận" },
+  2: { name: "Đồng ý" },
+  4: { name: "Từ chối" },
+};

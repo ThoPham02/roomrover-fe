@@ -26,7 +26,12 @@ const RoomActionButton = ({ item }) => {
 
   const handleUpdateBtn = async () => {
     try {
-      let status = item.status === 1 ? 2 : 1;
+      let status = 1;
+      if (item.status === 1) {
+        status = 2;
+      } else if (item.status === 2) {
+        status = 8;
+      }
       const data = await apiUpdateRoomStatus({
         id: item.id,
         status: status,

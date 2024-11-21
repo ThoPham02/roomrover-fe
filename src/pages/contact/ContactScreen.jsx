@@ -1,39 +1,54 @@
 import { Pagination } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { FaSearch } from "react-icons/fa";
+import { Form } from "react-router-dom";
 
 import { BREADCRUMB_DETAIL, PAGE_SIZE, ROUTE_PATHS } from "../../common";
-import { Breadcrumbs, CusTable, RoomActionButton } from "../../components/ui";
+import { Breadcrumbs, CusFormGroup, CusTable } from "../../components/ui";
 import * as actions from "../../store/actions";
+import ListContactActionButton from "../../components/ui/CusButton/ListContact.ActionButton";
 
 const listFields = [
   {
-    header: "Tên nhà trọ",
+    header: "Phòng",
     headerClass: "text-center w-96",
-    accessorKey: "houseName",
-    dataClass: "text-center",
+    accessorKey: "roomName",
+    dataClass: "",
   },
   {
-    header: "Người thuê",
-    headerClass: "text-center w-32",
-    accessorKey: "renterName",
-    dataClass: "text-center",
+    header: "Họ và tên",
+    headerClass: "text-center w-96",
+    accessorKey: "name",
+    dataClass: "",
   },
   {
     header: "Số điện thoại",
     headerClass: "text-center w-32",
-    accessorKey: "renterPhone",
+    accessorKey: "phone",
     dataClass: "text-center",
   },
   {
-    header: "Ngày hẹn xem phòng",
-    headerClass: "text-center w-96",
-    accessorKey: "datetime",
+    header: "Số CCCD",
+    headerClass: "text-center w-48",
+    accessorKey: "cccdNumber",
     dataClass: "text-center",
   },
   {
-    header: "Trạng thái",
+    header: "Ngày cấp",
     headerClass: "text-center w-32",
+    accessorKey: "cccdDate",
+    dataClass: "text-center",
+  },
+  {
+    header: "Nơi cấp",
+    headerClass: "text-center w-48",
+    accessorKey: "cccdAddress",
+    dataClass: "",
+  },
+  {
+    header: "Tạm Trú",
+    headerClass: "text-center w-48",
     accessorKey: "statusComponent",
     dataClass: "text-center",
   },
@@ -41,30 +56,75 @@ const listFields = [
 
 const ContactScreen = () => {
   const dispatch = useDispatch();
-
   const [page, setPage] = useState(1);
+  const [filter, setFilter] = useState({
+    search: "",
+    status: 0,
+    limit: PAGE_SIZE,
+    offset: 0,
+  });
   useEffect(() => {
     dispatch(actions.setCurrentPage(ROUTE_PATHS.CONTACT));
-  }, [dispatch]);
+    dispatch(
+      actions.getFilterRenterContact({
+        ...filter,
+        limit: PAGE_SIZE,
+        offset: page - 1,
+      })
+    );
+    // eslint-disable-next-line
+  }, [dispatch, page]);
 
-  const { listContact, total } = useSelector((state) => state.contact);
+  const { listRenterContacts, total } = useSelector(
+    (state) => state.payment.renterContact
+  );
+
+  console.log(listRenterContacts);
+
+  const handleSubmitFilter = (e) => {
+    e.preventDefault();
+    setPage(1);
+
+    dispatch(actions.getFilterRenterContact({ ...filter }));
+  };
 
   return (
     <div>
-      <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.CONTACT]} />
+      <Breadcrumbs backName={BREADCRUMB_DETAIL[ROUTE_PATHS.CONTACT]} />
 
-      <div className="search-box">
-        
+      <div className="mt-2">
+        <div className="p-2 bg-slate-100 rounded">
+          <Form
+            className="flex flex-wrap gap-4 items-center mt-8"
+            onSubmit={handleSubmitFilter}
+          >
+            <CusFormGroup
+              label="Tên hoặc số điện thoại"
+              placeholder="Search..."
+              state={filter}
+              setState={setFilter}
+              keyName={"search"}
+              position="top"
+            />
+            <button
+              type="submit"
+              className="flex items-center justify-center px-4 py-2 bg-blue-500 rounded group w-48"
+            >
+              <FaSearch className="text-2xl text-white group-hover:text-yellow-500 mr-2" />
+              <span className="font-bold text-white ">Tìm kiếm</span>
+            </button>
+          </Form>
+        </div>
       </div>
 
       <div className="table-box">
         <CusTable
           headers={listFields}
-          data={listContact}
+          data={listRenterContacts}
           page={page}
-          ActionButton={RoomActionButton}
+          ActionButton={ListContactActionButton}
         />
-        {listContact.length > 0 && (
+        {listRenterContacts?.length > 0 && (
           <div className="flex justify-between items-center">
             <p className="text-sm text-gray-500">
               Hiển thị{" "}

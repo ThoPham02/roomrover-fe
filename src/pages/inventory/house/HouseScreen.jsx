@@ -15,7 +15,7 @@ import {
 import * as actions from "../../../../src/store/actions";
 import {
   BREADCRUMB_DETAIL,
-  HOUSE_ROOM_STATUS,
+  HOUSE_STATUS,
   HOUSE_TYPE,
   HouseStatusComponent,
   PAGE_SIZE,
@@ -146,14 +146,14 @@ const HouseScreen = () => {
 
   return (
     <>
-      <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.HOUSE]} />
+      <Breadcrumbs backName={BREADCRUMB_DETAIL[ROUTE_PATHS.HOUSE]} />
       <div className="relative">
         <CreateButton
           className="absolute -top-12 right-0 z-1"
           onClick={handleCreateHouse}
         />
 
-        <div className="mt-4">
+        <div className="mt-2">
           <div className="search-box p-2 bg-slate-100 rounded">
             <Form
               className="flex flex-wrap gap-4 items-center mt-8"
@@ -180,7 +180,7 @@ const HouseScreen = () => {
                 value={filter}
                 setValue={setFilter}
                 keyName={"status"}
-                data={HOUSE_ROOM_STATUS}
+                data={HOUSE_STATUS}
                 position="top"
               />
               <button

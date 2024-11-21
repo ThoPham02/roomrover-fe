@@ -1,4 +1,5 @@
-import { getArea } from "../../utils/utils";
+import { ContactStatusComponent } from "../../common";
+import { convertTimestampToDate, getArea } from "../../utils/utils";
 import actionTypes from "../actions/actionTypes";
 
 const initialState = {
@@ -17,6 +18,10 @@ const initialState = {
     listHouse: [],
     total: 0,
     houseDetail: {},
+  },
+  contact: {
+    listContact: [],
+    total: 0,
   },
 };
 
@@ -183,6 +188,38 @@ const inventReducer = (state = initialState, action) => {
         publicHouse: {
           ...state.publicHouse,
           houseDetail: {},
+        },
+      };
+    case actionTypes.FILTER_CONTACT_SUCCESS:
+      const contacts = action.data.contacts
+        ? action.data.contacts.map((item) => {
+            return {
+              ...item,
+              datetime: convertTimestampToDate(item.datetime),
+              statusComponent: ContactStatusComponent[item.status],
+              address:
+                item.address +
+                ", " +
+                getArea(item.provinceID, item.districtID, item.wardID),
+            };
+          })
+        : [];
+
+      return {
+        ...state,
+        contact: {
+          ...state.contact,
+          listContact: contacts,
+          total: action.data.total,
+        },
+      };
+    case actionTypes.FILTER_CONTACT_FAIL:
+      return {
+        ...state,
+        contact: {
+          ...state.contact,
+          listContact: [],
+          total: 0,
         },
       };
 

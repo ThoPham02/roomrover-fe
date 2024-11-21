@@ -15,6 +15,7 @@ const CusFormDate = ({
   keyName,
   required,
   disabled,
+  style
 }) => {
   const handleValue = (date) => {
     setState((prevState) => {

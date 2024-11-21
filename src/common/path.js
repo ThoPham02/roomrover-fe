@@ -16,6 +16,7 @@ export const ROUTE_PATHS = {
   RENTER_DASHBOARD: "/renter/dashboard",
   RENTER_CONTRACT: "/renter/contract",
   RENTER_CONTRACT_DETAIL: "/renter/contract-detail/:id",
+  RENTER_CALENDAR: "/renter/calendar",
 
   RENTER_PAYMENT: "/renter/payment",
   RENTER_PAYMENT_DETAIL: "/renter/payment-detail/:id",
@@ -26,16 +27,15 @@ export const ROUTE_PATHS = {
 
   ROOM: "/lessor/room",
   ROOM_DETAIL: "/lessor/room-detail/:id",
-
   HOUSE: "/lessor/house",
   HOUSE_DETAIL: "/lessor/house-detail/:id",
   HOUSE_UPDATE: "/lessor/house-update/:id",
   HOUSE_CREATE: "/lessor/house-create",
-
   CONTRACT: "/lessor/contract",
   CONTRACT_CREATE: "/lessor/contract-create",
   CONTRACT_DETAIL: "/lessor/contract-detail/:id",
   CONTRACT_UPDATE: "/lessor/contract-update/:id",
+  CALENDAR: "/lessor/calendar",
 
   CONTACT: "/contact",
 
@@ -60,6 +60,7 @@ export const BREADCRUMB_DETAIL = {
   [ROUTE_PATHS.ROOM]: "Danh sách phòng trọ",
   [ROUTE_PATHS.CONTRACT]: "Danh sách hợp đồng",
   [ROUTE_PATHS.PAYMENT]: "Hóa đơn thanh toán",
+  [ROUTE_PATHS.CALENDAR]: "Lịch hẹn xem phòng",
   [ROUTE_PATHS.CONTACT]: "Liên hệ",
   [ROUTE_PATHS.NOTIFICATION]: "Thông báo",
   [ROUTE_PATHS.SETTINGS]: "Cài đặt",

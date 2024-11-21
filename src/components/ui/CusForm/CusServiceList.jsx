@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from "react";
 import { FiPlus, FiX } from "react-icons/fi";
-import { SERVICE_UNIT } from "../../../common";
+import { UNIT_SERVICE } from "../../../common";
 import { formatCurrencyVND } from "../../../utils/utils";
 
 const CusServiceList = ({ state, setState, disabled }) => {
@@ -72,9 +72,9 @@ const CusServiceList = ({ state, setState, disabled }) => {
             value={service.unit}
             disabled={disabled}
           >
-            {Object.keys(SERVICE_UNIT).map((key) => (
+            {Object.keys(UNIT_SERVICE).map((key) => (
               <option key={key} value={key}>
-                {SERVICE_UNIT[key].name}
+                {UNIT_SERVICE[key].name}
               </option>
             ))}
           </select>

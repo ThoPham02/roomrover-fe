@@ -27,7 +27,7 @@ const ContractFile = ({ item }) => {
   return (
     <div className="relative">
       <button
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 absolute right-0 -top-24"
+        className="mt-4 px-4 py-2 bg-yellow-500 text-black rounded hover:bg-yellow-600 absolute right-0 -top-24"
         onClick={handleExportPDF}
       >
         Xuất PDF

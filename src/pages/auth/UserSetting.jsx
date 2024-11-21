@@ -1,5 +1,4 @@
-import { Breadcrumb, Form, Button, Row, Col, Spinner } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Form, Button, Row, Col, Spinner } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaCamera } from "react-icons/fa";
@@ -7,7 +6,12 @@ import { FaCamera } from "react-icons/fa";
 import { GENDER_TYPE, ROUTE_PATHS } from "../../common";
 import { default_avatar } from "../../assets/images";
 import { uploadImage } from "../../store/services/inventServices";
-import { CusFormDate, CusFormGroup, CusFormSelect } from "../../components/ui";
+import {
+  Breadcrumbs,
+  CusFormDate,
+  CusFormGroup,
+  CusFormSelect,
+} from "../../components/ui";
 import * as actions from "../../store/actions";
 
 const UserSetting = () => {
@@ -56,17 +60,7 @@ const UserSetting = () => {
   return (
     <div className="p-3 bg-white rounded">
       <div>
-        <Breadcrumb>
-          <Breadcrumb.Item
-            linkAs={Link}
-            linkProps={{ to: ROUTE_PATHS.USER_SETTINGS }}
-            className="text-blue-700 font-semibold"
-          >
-            Cài đặt
-          </Breadcrumb.Item>
-          <Breadcrumb.Item linkAs={Link}>Tài khoản của tôi</Breadcrumb.Item>
-        </Breadcrumb>
-
+        <Breadcrumbs backName={"Tài khoản của tôi"} />
         <Form onSubmit={handleSubmit}>
           <div className="relative h-32 border-b-2 mb-20">
             <div

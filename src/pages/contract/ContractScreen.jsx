@@ -56,13 +56,25 @@ const columns = [
   {
     header: "Ngày bắt đầu",
     headerClass: "text-center w-32",
-    accessorKey: "createdAt",
+    accessorKey: "checkIn",
     dataClass: "text-center",
   },
   {
     header: "Giá thuê",
-    headerClass: "text-center w-32",
+    headerClass: "text-center",
     accessorKey: "payment.amount",
+    dataClass: "text-center",
+  },
+  {
+    header: "Đặt cọc",
+    headerClass: "text-center",
+    accessorKey: "payment.deposit",
+    dataClass: "text-center",
+  },
+  {
+    header: "Hạn cọc",
+    headerClass: "text-center",
+    accessorKey: "payment.depositDate",
     dataClass: "text-center",
   },
   {
@@ -115,13 +127,15 @@ const ContractScreen = () => {
     ? listContract?.map((contract) => {
         return {
           ...contract,
-          createdAt: convertTimestampToDate(contract?.createdAt),
+          checkIn: convertTimestampToDate(contract?.checkIn),
           statusComponent: ContractStatusComponent[contract?.status],
           room: {
             name: `${contract.room?.name} (${contract.room?.houseName})`,
           },
           payment: {
             amount: formatCurrencyVND(contract.payment?.amount),
+            deposit: formatCurrencyVND(contract.payment?.deposit),
+            depositDate: convertTimestampToDate(contract.payment?.depositDate),
           },
         };
       })
@@ -129,14 +143,14 @@ const ContractScreen = () => {
 
   return (
     <div className="">
-      <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.CONTRACT]} />
+      <Breadcrumbs backName={BREADCRUMB_DETAIL[ROUTE_PATHS.CONTRACT]} />
       <div className="relative">
         <CreateButton
           className="absolute -top-12 right-0 z-1"
           onClick={handleCreateContract}
         />
 
-        <div className="mt-4">
+        <div className="mt-2">
           <div className="p-2 bg-slate-100 rounded">
             <Form
               className="flex flex-wrap gap-4 items-center mt-8"

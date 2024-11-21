@@ -6,12 +6,14 @@ import { AiOutlineEllipsis } from "react-icons/ai";
 import { CONTRACT_STATUS_CODE, PAGE_SIZE, ROUTE_PATHS } from "../../../common";
 import * as actions from "../../../store/actions";
 import { apiUpdateStatusContract } from "../../../store/services/contractServices";
+import { ConfirmActionModal } from "../CusModal";
 
 const ContractActionButton = ({ item }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showCancelModal, setShowCancelModal] = useState(false);
 
   const handleMouseEnter = () => setIsMenuOpen(true);
   const handleMouseLeave = () => setIsMenuOpen(false);
@@ -20,12 +22,28 @@ const ContractActionButton = ({ item }) => {
     navigate(ROUTE_PATHS.CONTRACT_DETAIL.replace(":id", item.contractID));
   };
 
-  const handleDelete = () => {
-    // dispatch(actions.deleteContract(item.contractID));
+  const handleEdit = () => {
+    navigate(ROUTE_PATHS.CONTRACT_UPDATE.replace(":id", item.contractID));
   };
 
-  const handleEdit = () => {
-    // navigate(ROUTE_PATHS.CONTRACT_UPDATE.replace(":id", item.contractID));
+  // const handleDelete = () => {};
+
+  const handleCancel = async () => {
+    try {
+      const data = await apiUpdateStatusContract({
+        contractID: item.contractID,
+        status: CONTRACT_STATUS_CODE.CANCELED,
+      });
+      if (data?.result.code === 0) {
+        dispatch(actions.getListContract({ limit: PAGE_SIZE, offset: 0 }));
+      } else {
+        console.error("Error Update House:", data);
+        return;
+      }
+    } catch (error) {
+      console.error("Error Update House:", error);
+      return;
+    }
   };
 
   const handleComfirmDeposit = async () => {
@@ -60,7 +78,7 @@ const ContractActionButton = ({ item }) => {
           <ul className="list-none m-0 p-0">
             <li>
               <button
-                className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
+                className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200 min-w-48"
                 onClick={handleDetailBtn}
               >
                 Xem
@@ -76,24 +94,48 @@ const ContractActionButton = ({ item }) => {
                 </button>
               </li>
             )}
-            <li>
-              <button
-                onClick={handleEdit}
-                className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
-              >
-                Chỉnh sửa
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={handleDelete}
-                className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
-              >
-                Hủy
-              </button>
-            </li>
+
+            {item.status === CONTRACT_STATUS_CODE.WAITING && (
+              <>
+                <li>
+                  <button
+                    onClick={handleEdit}
+                    className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
+                  >
+                    Chỉnh sửa
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => setShowCancelModal(true)}
+                    className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
+                  >
+                    Hủy
+                  </button>
+                </li>
+              </>
+            )}
+
+            {item.status === CONTRACT_STATUS_CODE.RENTING && (
+              <li>
+                <button
+                  onClick={() => setShowCancelModal(true)}
+                  className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
+                >
+                  Hủy
+                </button>
+              </li>
+            )}
           </ul>
         </div>
+      )}
+
+      {showCancelModal && (
+        <ConfirmActionModal
+          show={showCancelModal}
+          handleClose={() => setShowCancelModal(true)}
+          handleConfirm={handleCancel}
+        />
       )}
     </div>
   );

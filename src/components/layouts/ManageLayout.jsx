@@ -2,7 +2,6 @@ import { Outlet } from "react-router-dom";
 import { useState } from "react";
 
 import { HeaderManage, NavBarManage } from "../containers";
-// import Breadcrumbs from "../ui/Breadcrumbs";
 
 const ManageLayout = () => {
   const [isExpanded, setIsExpanded] = useState(false);

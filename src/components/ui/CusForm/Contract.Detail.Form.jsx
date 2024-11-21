@@ -1,15 +1,18 @@
 import { Col, Form, Row } from "react-bootstrap";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 
-import { HOUSE_TYPE } from "../../../common";
+import { HOUSE_TYPE, SERVICE_UNIT } from "../../../common";
 import {
   CusFormGroup,
   CusFormSearchUser,
   CusFormSelect,
   CusFormDate,
   CusFormSearchRoom,
+  CusFormObject,
+  ConfirmActionModal,
 } from "..";
+import { formatCurrencyVND } from "../../../utils/utils";
 
 const ContractDetailForm = ({
   contract,
@@ -17,8 +20,10 @@ const ContractDetailForm = ({
   handleSubmit,
   option,
 }) => {
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+
   return (
-    <Form className="mt-4" onSubmit={(e) => e.preventDefault()}>
+    <Form className="mt-2" onSubmit={(e) => e.preventDefault()}>
       <p className="font-medium">Bên cho thuê:</p>
       <div className="p-2 bg-slate-100 rounded">
         <Row>
@@ -177,16 +182,18 @@ const ContractDetailForm = ({
             />
           </Col>
         </Row>
-        <CusFormGroup
-          label={"Địa chỉ"}
-          state={contract}
-          setState={setContract}
-          placeholder={"Địa chỉ"}
-          keyName={"room.address"}
-          disabled
-        />
 
         <Row>
+          <Col>
+            <CusFormGroup
+              label={"Địa chỉ"}
+              state={contract}
+              setState={setContract}
+              placeholder={"Địa chỉ"}
+              keyName={"room.address"}
+              disabled
+            />
+          </Col>
           <Col>
             <CusFormGroup
               label={"Diện tích"}
@@ -198,45 +205,7 @@ const ContractDetailForm = ({
               unit={"m²"}
             />
           </Col>
-          <Col>
-            <Row>
-              <Col>
-                <CusFormGroup
-                  label={"Điện"}
-                  labelWidth="min-w-12"
-                  state={contract}
-                  setState={setContract}
-                  placeholder={"Chỉ số điện"}
-                  keyName={"room.eIndex"}
-                  unit={"Số"}
-                  required
-                  disabled={option === "get"}
-                />
-              </Col>
-              <Col>
-                <CusFormGroup
-                  label={"Nước"}
-                  labelWidth="min-w-12"
-                  state={contract}
-                  setState={setContract}
-                  placeholder={"Chỉ số nước"}
-                  keyName={"room.wIndex"}
-                  unit={"Khối"}
-                  required
-                  disabled={option === "get"}
-                />
-              </Col>
-            </Row>
-          </Col>
         </Row>
-        <Row>
-          <Col></Col>
-          <Col></Col>
-        </Row>
-      </div>
-
-      <p className="font-medium mt-4">Chi phí hàng tháng:</p>
-      <div className="p-2 bg-slate-100 rounded">
         <Row>
           <Col>
             <CusFormGroup
@@ -251,6 +220,42 @@ const ContractDetailForm = ({
           </Col>
           <Col></Col>
         </Row>
+        {contract?.payment?.paymentDetails &&
+          contract?.payment?.paymentDetails?.map((service, index) => {
+            return (
+              <Row key={index}>
+                <Col>
+                  <CusFormObject
+                    label={service.name}
+                    placeholder={service.name}
+                    disabled
+                    unit={`VNĐ/${SERVICE_UNIT[service?.type]?.name}`}
+                    handleValue={(e) => {}}
+                    parseValue={formatCurrencyVND(
+                      contract?.payment?.paymentDetails[index]?.price
+                    )}
+                  />
+                </Col>
+                <Col></Col>
+              </Row>
+            );
+          })}
+
+        {contract?.confirmedImgs?.length > 0 && option === "get" && (
+          <div>
+            <p className="font-bold">Hình ảnh người thuê xác nhận:</p>
+            <div className="flex mt-2">
+              {contract?.confirmedImgs?.map((image, index) => (
+                <img
+                  src={image}
+                  alt={"Hình ảnh thực tế"}
+                  className="w-40 h-40 mr-4 mb-4 object-cover rounded-lg"
+                  key={index}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       <p className="font-medium mt-4">Thông tin thanh toán:</p>
@@ -289,7 +294,7 @@ const ContractDetailForm = ({
               state={contract}
               setState={setContract}
               placeholder={"Giảm giá"}
-              keyName={"payment.discount"}
+              keyName={"discount"}
               unit={"VNĐ"}
               disabled={option === "get"}
             />
@@ -333,7 +338,7 @@ const ContractDetailForm = ({
         />
       </div>
 
-      {option !== "get" && (
+      {option !== "get" && option !== "update" && (
         <div className="flex justify-center mt-4">
           <Button
             onClick={handleSubmit}
@@ -342,6 +347,28 @@ const ContractDetailForm = ({
             Tạo hợp đồng
           </Button>
         </div>
+      )}
+
+      {option === "update" && (
+        <div className="flex justify-center mt-4">
+          <Button
+            onClick={() => setShowUpdateModal(true)}
+            className="px-6 py-2 bg-blue-500 rounded text-white"
+          >
+            Lưu
+          </Button>
+        </div>
+      )}
+
+      {showUpdateModal && (
+        <ConfirmActionModal
+          show={showUpdateModal}
+          handleClose={() => setShowUpdateModal(false)}
+          handleConfirm={() => {
+            setShowUpdateModal(false);
+            handleSubmit();
+          }}
+        />
       )}
     </Form>
   );

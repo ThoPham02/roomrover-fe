@@ -7,6 +7,7 @@ import { CONTRACT_STATUS_CODE, PAGE_SIZE, ROUTE_PATHS } from "../../../common";
 import * as actions from "../../../store/actions";
 import { apiUpdateStatusContract } from "../../../store/services/contractServices";
 import ConfirmActionModal from "../CusModal/ConfirmAction.Modal";
+import { ContractConfirmModal } from "../CusModal";
 
 const RenterContractActionButton = ({ item }) => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const RenterContractActionButton = ({ item }) => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showModalCancel, setShowModalCancel] = useState(false);
 
   const handleMouseEnter = () => setIsMenuOpen(true);
   const handleMouseLeave = () => setIsMenuOpen(false);
@@ -25,19 +27,13 @@ const RenterContractActionButton = ({ item }) => {
   };
 
   const handleDelete = async () => {
-    // dispatch(actions.deleteContract(item.contractID));
-  };
-
-  const handleConfirm = async () => {
     try {
       const data = await apiUpdateStatusContract({
-        id: item.contractID,
-        status: CONTRACT_STATUS_CODE.WAITING_DEPOSIT,
+        contractID: item.contractID,
+        status: CONTRACT_STATUS_CODE.CANCELED,
       });
       if (data?.result.code === 0) {
         dispatch(actions.getListContract({ limit: PAGE_SIZE, offset: 0 }));
-
-        setShowModal(false);
       } else {
         console.error("Error Update House:", data);
         return;
@@ -70,46 +66,46 @@ const RenterContractActionButton = ({ item }) => {
                 </button>
               </li>
               {item?.status === CONTRACT_STATUS_CODE.WAITING && (
-                <li>
-                  <button
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      setShowModal(true);
-                    }}
-                    className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
-                  >
-                    Xác nhận thuê
-                  </button>
-                </li>
+                <>
+                  <li>
+                    <button
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        setShowModal(true);
+                      }}
+                      className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
+                    >
+                      Xác nhận thuê
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() => setShowModalCancel(true)}
+                      className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
+                    >
+                      Hủy
+                    </button>
+                  </li>
+                </>
               )}
-              {/* {item?.status === CONTRACT_STATUS_CODE.WAITING && (
-              <li>
-                <button
-                  onClick={handleDelete}
-                  className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
-                >
-                  Xác nhận thuê
-                </button>
-              </li>
-            )} */}
-
-              <li>
-                <button
-                  onClick={handleDelete}
-                  className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
-                >
-                  Hủy
-                </button>
-              </li>
             </ul>
           </div>
         )}
       </div>
       <ConfirmActionModal
-        show={showModal}
-        handleClose={() => setShowModal(false)}
-        handleConfirm={handleConfirm}
+        show={showModalCancel}
+        handleClose={() => setShowModalCancel(false)}
+        handleConfirm={handleDelete}
+        label={"Bạn có chắc chắn muốn hủy hợp đồng không?"}
       />
+
+      {showModal && (
+        <ContractConfirmModal
+          show={showModal}
+          handleClose={() => setShowModal(false)}
+          id={item.contractID}
+        />
+      )}
     </>
   );
 };

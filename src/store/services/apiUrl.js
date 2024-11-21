@@ -97,6 +97,23 @@ export const ApiUrl = {
     method: "put",
   },
 
+  CreateContact: {
+    url: "/invent/contact",
+    method: "post",
+  },
+  FilterContact: {
+    url: "/invent/contact/filter",
+    method: "get",
+  },
+  DeleteContact: {
+    url: "/invent/contact/:id",
+    method: "delete",
+  },
+  UpdateStatusContact: {
+    url: "/invent/contact/:id",
+    method: "put",
+  },
+
   // contract
   FilterContracts: {
     url: "/contract/filter",
@@ -115,6 +132,14 @@ export const ApiUrl = {
     url: "/contract/:id/status",
     method: "put",
   },
+  ConfirmContract: {
+    url: "/contract/:id/confirm",
+    method: "put",
+  },
+  UpdateContract: {
+    url: "/contract/:id",
+    method: "put",
+  },
 
   // Payment
   FilterPayments: {
@@ -129,4 +154,34 @@ export const ApiUrl = {
     url: "/bill/zalo",
     method: "post",
   },
+  GetListBillDetail: {
+    url: `/contract/bill-detail/:id`,
+    method: "get",
+  },
+  UpdateListBillDetail: {
+    url: `/contract/bill-detail/:id`,
+    method: "put",
+  },
+  CreateBillPay: {
+    url: "/bill/pay",
+    method: "post",
+  },
+
+  // Noti 
+  listNotis: {
+    url: "/notifications/list",
+    method: "get",
+  },
+  markAsReadNoti: {
+    url: "/notifications/mark-read/:id",
+    method: "put",
+  },
+  filterRenterContact: {
+    url: "/contract/renters",
+    method: "get",
+  },
+  ConfirmContact: {
+    url: "/contract/renters/:id",
+    method: "put",
+  }
 };

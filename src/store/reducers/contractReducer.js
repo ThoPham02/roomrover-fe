@@ -11,7 +11,6 @@ const initialState = {
 const contractReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GET_LIST_CONTRACT_SUCCESS:
-      console.log(action.data);
       return {
         ...state,
         listContract: action.data.contracts,

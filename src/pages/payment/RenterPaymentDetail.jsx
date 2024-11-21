@@ -1,14 +1,22 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { convertTimestampToDate, formatCurrencyVND } from "../../utils/utils";
 import * as actions from "../../store/actions";
-import { CreateButton, CusFormSelect, CusTable } from "../../components/ui";
+import {
+  BillPayModal,
+  BillQuantityModal,
+  Breadcrumbs,
+  CreateButton,
+  CusFormSelect,
+  CusTable,
+} from "../../components/ui";
 import {
   BILL_PAYMENT_METHOD,
   BILL_STATUS,
   BillPayStatusComponent,
+  BREADCRUMB_DETAIL,
   ROUTE_PATHS,
 } from "../../common";
 
@@ -33,7 +41,7 @@ const listFields = [
   },
   {
     header: "Thành tiền",
-    headerClass: "text-center w-32",
+    headerClass: "text-end w-32",
     accessorKey: "amount",
     dataClass: "grid justify-items-end",
   },
@@ -82,14 +90,10 @@ const RenterPaymentDetail = () => {
   }, [dispatch, id]);
 
   const { billDetail } = useSelector((state) => state.payment.bill);
+  const [showQuantity, setShowQuantity] = useState(false);
+  const [showPay, setShowPay] = useState(false);
+
   const details = [
-    {
-      id: 1,
-      name: "Giá thuê",
-      quantity: 1,
-      price: formatCurrencyVND(billDetail?.amount),
-      amount: formatCurrencyVND(billDetail?.amount) + " VNĐ",
-    },
     ...(billDetail?.billDetails?.map((item) => {
       return {
         id: item?.id,
@@ -97,9 +101,11 @@ const RenterPaymentDetail = () => {
         quantity: item?.quantity,
         price: formatCurrencyVND(item?.price),
         amount: formatCurrencyVND(item?.price * item?.quantity) + " VNĐ",
+        type: item?.type,
       };
     }) || []),
-  ];
+  ].sort((a, b) => (b.type === 8 ? 1 : a.type === 8 ? -1 : 0));
+
   const pays = [
     ...(billDetail?.billPays?.map((item) => {
       return {
@@ -112,20 +118,16 @@ const RenterPaymentDetail = () => {
       };
     }) || []),
   ];
+
   return (
     <div>
-      <div className="flex">
-        <Link
-          to={ROUTE_PATHS.RENTER_PAYMENT}
-          className="text-blue-700 font-semibold"
-        >
-          Danh sách hóa đơn
-        </Link>
-        <span className="mx-2">/</span>
-        <p>Chi tiết</p>
-      </div>
+      <Breadcrumbs
+        backName={BREADCRUMB_DETAIL[ROUTE_PATHS.PAYMENT]}
+        backRoute={ROUTE_PATHS.RENTER_PAYMENT}
+        displayName={"Chi tiết"}
+      />
 
-      <p className="font-medium mt-4">Thông tin hóa đơn:</p>
+      <p className="font-semibold mt-4">Thông tin hóa đơn:</p>
       <div className="p-2 bg-slate-100 rounded">
         <div className="grid grid-cols-2 gap-4">
           {/* Bên trái - Thông tin hóa đơn */}
@@ -163,17 +165,15 @@ const RenterPaymentDetail = () => {
         </div>
       </div>
 
-      <p
-        className={`font-semibold ${
-          billDetail?.status === 1 ? "mt-12" : "mt-4"
-        }`}
-      >
-        Thông tin thanh toán:
-      </p>
+      <p className={`font-semibold mt-12`}>Thông tin thanh toán:</p>
       <div className="p-2 bg-slate-100 rounded relative">
         {billDetail?.status === 1 && (
           <div className="absolute right-0 -top-12">
-            <CreateButton icon={<></>} text={"Cập nhật số lượng"} />
+            <CreateButton
+              icon={<></>}
+              text={"Cập nhật số lượng"}
+              onClick={setShowQuantity}
+            />
           </div>
         )}
 
@@ -206,13 +206,7 @@ const RenterPaymentDetail = () => {
         </div>
       </div>
 
-      <p
-        className={`font-semibold ${
-          billDetail?.status === 2 ? "mt-12" : "mt-4"
-        }`}
-      >
-        Giao dịch:
-      </p>
+      <p className={`font-semibold mt-12`}>Giao dịch:</p>
       <div className="p-2 bg-slate-100 rounded relative">
         {billDetail?.status === 2 && (
           <div className="absolute right-0 -top-12 flex">
@@ -221,7 +215,7 @@ const RenterPaymentDetail = () => {
               className={"mr-4"}
               text={"Thanh toán online"}
             />
-            <CreateButton />
+            <CreateButton onClick={() => setShowPay(true)} />
           </div>
         )}
 
@@ -234,6 +228,21 @@ const RenterPaymentDetail = () => {
           />
         </div>
       </div>
+
+      {showQuantity && (
+        <BillQuantityModal
+          show={showQuantity}
+          handleClose={() => setShowQuantity(false)}
+          id={id}
+        />
+      )}
+      {showPay && (
+        <BillPayModal
+          show={showPay}
+          handleClose={() => setShowPay(false)}
+          id={id}
+        />
+      )}
     </div>
   );
 };

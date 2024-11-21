@@ -62,7 +62,7 @@ const User = () => {
               to={
                 user?.role === USER_ROLES.LESSOR
                   ? ROUTE_PATHS.DASHBOARD
-                  : ROUTE_PATHS.RENTER_DASHBOARD
+                  : ROUTE_PATHS.RENTER_CONTRACT
               }
               className="py-2 px-7 mt-4 d-flex align-items-center group"
             >

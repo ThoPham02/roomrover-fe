@@ -6,12 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { TbReportMoney } from "react-icons/tb";
 
 import * as actions from "../../../src/store/actions";
-import { ROUTE_PATHS, SERVICE_UNIT } from "../../common";
+import { ROUTE_PATHS, UNIT_SERVICE, USER_ROLES } from "../../common";
 import RoomRoverLogo from "../../assets/images/logo.png";
 import { formatCurrencyVND, getArea } from "../../utils/utils";
 import avatar from "../../assets/images/default_avatar.png";
 import CusFormUtils from "../../components/ui/CusForm/CusFormUtils";
-import AppointmentModal from "../../components/ui/CusModal/Appointment.Model";
+import { AppointmentModal } from "../../components/ui";
 
 const BoardingHouseDetail = () => {
   const { id } = useParams();
@@ -137,7 +137,7 @@ const BoardingHouseDetail = () => {
                       </span>
                       <span className="text-lg">
                         {formatCurrencyVND(service.price) +
-                          ` đ/${SERVICE_UNIT[service.unit].name}`}
+                          ` đ/${UNIT_SERVICE[service.unit].name}`}
                       </span>
                     </div>
                   );
@@ -180,12 +180,23 @@ const BoardingHouseDetail = () => {
                 <FaChartArea className="text-blue-500 text-2xl mr-2" />
                 <span>{houseDetail?.area + "m²"}</span>
               </div>
-              <button
-                className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300"
-                onClick={handleClickAppointment}
-              >
-                Đặt lịch hẹn xem nhà
-              </button>
+              {!user ? (
+                <button
+                  className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300"
+                  onClick={handleClickAppointment}
+                >
+                  Đặt lịch hẹn xem nhà
+                </button>
+              ) : (
+                user?.role === USER_ROLES.RENTER && (
+                  <button
+                    className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300"
+                    onClick={handleClickAppointment}
+                  >
+                    Đặt lịch hẹn xem nhà
+                  </button>
+                )
+              )}
             </div>
           </div>
 
