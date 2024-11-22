@@ -256,3 +256,7 @@
 .width80px {
   width: calc(100% - 80px);
 }
+
+.react-datepicker-popper {
+  z-index: 10 !important;
+}

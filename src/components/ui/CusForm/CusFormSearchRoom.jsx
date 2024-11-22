@@ -18,6 +18,7 @@ const CusFormSearchRoom = ({
   disabled = false,
   textarea = false,
   unit,
+  feedback = "Vui lòng hoàn thiện thông tin!",
 }) => {
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -113,8 +114,15 @@ const CusFormSearchRoom = ({
           autoComplete="off"
           onFocus={handleFocus}
           onBlur={handleBlur}
+          required={required}
         />
         {unit && <InputGroup.Text>{unit}</InputGroup.Text>}
+
+        {required && (
+          <Form.Control.Feedback type="invalid" className="absolute -bottom-5">
+            {feedback}
+          </Form.Control.Feedback>
+        )}
 
         <div className="absolute top-12 w-100">
           <Dropdown show={isDropdownOpen}>

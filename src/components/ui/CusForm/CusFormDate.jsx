@@ -1,4 +1,5 @@
 import React from "react";
+import { Form, InputGroup } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 
 const parseValue = (obj, path) => {
@@ -15,7 +16,8 @@ const CusFormDate = ({
   keyName,
   required,
   disabled,
-  style
+  feedback = "Vui lòng hoàn thiện thông tin!",
+  style,
 }) => {
   const handleValue = (date) => {
     setState((prevState) => {
@@ -33,18 +35,31 @@ const CusFormDate = ({
     });
   };
 
+  const selectedDate = parseValue(state, keyName)
+    ? new Date(parseValue(state, keyName))
+    : null;
+
+  const isInvalid = required && !selectedDate;
+
   const DatePickerComponent = (
-    <DatePicker
-      className="form-control"
-      placeholderText={placeholder}
-      selected={
-        parseValue(state, keyName) ? new Date(parseValue(state, keyName)) : null
-      }
-      onChange={handleValue}
-      dateFormat="dd/MM/yyyy"
-      required={required}
-      disabled={disabled}
-    />
+    <div>
+      <DatePicker
+        className={`form-control ${isInvalid ? "is-invalid" : ""}`}
+        placeholderText={placeholder}
+        selected={
+          parseValue(state, keyName)
+            ? new Date(parseValue(state, keyName))
+            : null
+        }
+        onChange={handleValue}
+        dateFormat="dd/MM/yyyy"
+        required={required}
+        disabled={disabled}
+        controlId={`form-control-${keyName}`}
+      />
+
+      {isInvalid && <div className="invalid-feedback d-block">{feedback}</div>}
+    </div>
   );
 
   return position === "right" ? (
@@ -57,7 +72,7 @@ const CusFormDate = ({
         {label}
         {required && <span className="text-red-500">*</span>}:
       </p>
-      <div className="flex justify-center max-w-xs border rounded-md">
+      <div className="flex justify-center max-w-xs rounded-md">
         {DatePickerComponent}
       </div>
     </div>
@@ -67,7 +82,7 @@ const CusFormDate = ({
         {label}
         {required && <span className="text-red-500">*</span>}
       </p>
-      <div className="flex justify-center max-w-xs border rounded-md">
+      <div className="flex justify-center max-w-xs rounded-md">
         {DatePickerComponent}
       </div>
     </div>

@@ -18,6 +18,7 @@ const CusFormSearchUser = ({
   disabled = false,
   textarea = false,
   unit,
+  feedback = "Vui lòng hoàn thiện thông tin!",
 }) => {
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -97,6 +98,7 @@ const CusFormSearchUser = ({
       </p>
       <InputGroup className="relative">
         <Form.Control
+          controlId={`form-control-${keyName}`}
           type={type}
           placeholder={placeholder}
           value={parseValue(state, keyName)}
@@ -107,8 +109,15 @@ const CusFormSearchUser = ({
           autoComplete="off"
           onFocus={handleFocus}
           onBlur={handleBlur}
+          required={required}
         />
         {unit && <InputGroup.Text>{unit}</InputGroup.Text>}
+
+        {required && (
+          <Form.Control.Feedback type="invalid" className="absolute -bottom-5">
+            {feedback}
+          </Form.Control.Feedback>
+        )}
 
         <div className="absolute top-12 w-100">
           <Dropdown show={isDropdownOpen}>

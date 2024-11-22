@@ -99,7 +99,7 @@ const NavBarManage = ({ isExpanded }) => {
       <div
         className={`fixed top-0 left-0 h-screen transition-width duration-300 ${
           shouldExpand ? "w-260" : "w-80"
-        } shadow-custom bg-white z-50`}
+        } shadow-custom bg-white z-2000`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >

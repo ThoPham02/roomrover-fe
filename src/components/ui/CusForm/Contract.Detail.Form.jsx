@@ -11,6 +11,7 @@ import {
   CusFormSearchRoom,
   CusFormObject,
   ConfirmActionModal,
+  CreateButton,
 } from "..";
 import { formatCurrencyVND } from "../../../utils/utils";
 
@@ -21,9 +22,28 @@ const ContractDetailForm = ({
   option,
 }) => {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [validated, setValidated] = useState(false);
+
+  const validateForm = (e) => {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    setValidated(!form.checkValidity());
+    if (form.checkValidity() === false) {
+      e.stopPropagation();
+      return;
+    }
+
+    setShowUpdateModal(true);
+  };
 
   return (
-    <Form className="mt-2" onSubmit={(e) => e.preventDefault()}>
+    <Form
+      className="mt-2"
+      onSubmit={validateForm}
+      noValidate
+      validated={validated}
+    >
       <p className="font-medium">Bên cho thuê:</p>
       <div className="p-2 bg-slate-100 rounded">
         <Row>
@@ -338,35 +358,24 @@ const ContractDetailForm = ({
         />
       </div>
 
-      {option !== "get" && option !== "update" && (
-        <div className="flex justify-center mt-4">
-          <Button
-            onClick={handleSubmit}
-            className="px-6 py-2 bg-blue-500 rounded text-white"
-          >
-            Tạo hợp đồng
-          </Button>
-        </div>
-      )}
-
-      {option === "update" && (
-        <div className="flex justify-center mt-4">
-          <Button
-            onClick={() => setShowUpdateModal(true)}
-            className="px-6 py-2 bg-blue-500 rounded text-white"
-          >
-            Lưu
-          </Button>
-        </div>
+      {option !== "get" && (
+        <Row className="flex justify-center items-center my-4">
+          <CreateButton
+            className={"w-36"}
+            text="Lưu"
+            icon={<></>}
+            type="submit"
+          />
+        </Row>
       )}
 
       {showUpdateModal && (
         <ConfirmActionModal
           show={showUpdateModal}
           handleClose={() => setShowUpdateModal(false)}
-          handleConfirm={() => {
+          handleConfirm={(e) => {
             setShowUpdateModal(false);
-            handleSubmit();
+            handleSubmit(e);
           }}
         />
       )}
