@@ -15,7 +15,7 @@ const CusSelectArea = ({ area, setArea, disabled, required, lable = true }) => {
     <Row className="mb-4">
       <Col>
         <CusFormSelect
-          label={lable && "Tỉnh/TP" + (required ? "*" : "")}
+          label={lable && "Tỉnh/TP"}
           labelWidth="min-w-36"
           data={address}
           disabled={disabled}
@@ -27,7 +27,7 @@ const CusSelectArea = ({ area, setArea, disabled, required, lable = true }) => {
       </Col>
       <Col>
         <CusFormSelect
-          label={lable && "Quận/Huyện" + (required ? "*" : "")}
+          label={lable && "Quận/Huyện"}
           labelWidth="min-w-36"
           data={address[area?.provinceID]?.districts}
           // eslint-disable-next-line
@@ -35,11 +35,13 @@ const CusSelectArea = ({ area, setArea, disabled, required, lable = true }) => {
           value={area}
           setValue={setArea}
           keyName={"districtID"}
+          required={required}
+          noDefault
         />
       </Col>
       <Col>
         <CusFormSelect
-          label={lable && "Phường/Xã" + (required ? "*" : "")}
+          label={lable && "Phường/Xã"}
           labelWidth="min-w-36"
           data={address[area?.provinceID]?.districts[area?.districtID]?.wards}
           // eslint-disable-next-line
@@ -47,6 +49,8 @@ const CusSelectArea = ({ area, setArea, disabled, required, lable = true }) => {
           value={area}
           setValue={setArea}
           keyName={"wardID"}
+          required={required}
+          noDefault
         />
       </Col>
       <Col>
@@ -57,6 +61,8 @@ const CusSelectArea = ({ area, setArea, disabled, required, lable = true }) => {
           setState={setArea}
           keyName={"address"}
           disabled={disabled}
+          required={required}
+          feedback="Địa chỉ không được để trống."
         />
       </Col>
     </Row>

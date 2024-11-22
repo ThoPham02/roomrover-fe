@@ -16,7 +16,8 @@ const CusFormSelect = ({
   keyName,
   position = "right",
   noDefault = false,
-  width
+  feedback = "Vui lòng hoàn thiện thông tin!",
+  width,
 }) => {
   const renderOptions = () => {
     if (Array.isArray(data)) {
@@ -55,11 +56,13 @@ const CusFormSelect = ({
   const InputComponent = (
     <Form.Group className="w-full">
       <Form.Select
+        controlId={`form-control-${keyName}`}
         aria-label={label}
         value={parseValue(value, keyName)}
         disabled={disabled || false}
         onChange={handleValueChange}
         className="min-w-48"
+        required={required}
       >
         {!noDefault && (
           <option key={0} value={0}>
@@ -68,6 +71,9 @@ const CusFormSelect = ({
         )}
         {renderOptions()}
       </Form.Select>
+      {required && (
+        <Form.Control.Feedback type="invalid">{feedback}</Form.Control.Feedback>
+      )}
     </Form.Group>
   );
 

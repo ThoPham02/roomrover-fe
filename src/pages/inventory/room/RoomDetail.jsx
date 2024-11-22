@@ -84,7 +84,6 @@ const RoomDetail = () => {
   return (
     <div className="">
       <Breadcrumbs
-        title={"Chi tiết phòng"}
         backRoute={ROUTE_PATHS.ROOM}
         backName={BREADCRUMB_DETAIL[ROUTE_PATHS.ROOM]}
         displayName={BREADCRUMB_DETAIL["DETAIL"]}

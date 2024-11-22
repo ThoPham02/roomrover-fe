@@ -23,4 +23,5 @@ export const HANDLE_ERROR_MESSAGE = {
 
     [HANDLE_ERROR_CODE.SAI_TAI_KHOAN]: "Thông tin tài khoản hoặc mật khẩu không chính xác!",
     [HANDLE_ERROR_CODE.SAI_MAT_KHAU]: "Thông tin tài khoản hoặc mật khẩu không chính xác!",
+    10001: "Thông tin tài khoản hoặc mật khẩu không chính xác!",
 }

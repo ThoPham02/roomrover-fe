@@ -37,12 +37,12 @@ const CusRoomList = ({ state, setState, disabled }) => {
 
   return (
     <div className="mt-2">
-      <div className="flex items-center ">
+      <div className="flex items-center mb-2">
         <p className="min-w-96">Tên phòng</p>
         <p className="min-w-48 pl-2">Số lượng người tối đa</p>
       </div>
       {rooms.map((room, index) => (
-        <div key={index} className="flex items-center mb-4 space-x-2">
+        <div key={index} className="flex items-center mb-1 space-x-2">
           <input
             type="text"
             className="p-2 border border-gray-300 rounded w-full min-w-96 form-control"
@@ -66,7 +66,7 @@ const CusRoomList = ({ state, setState, disabled }) => {
 
           {!disabled && (
             <div>
-              {index === rooms.length - 1 ? (
+              {index === 0 ? (
                 <button className="text-blue-500" onClick={handleAddRoom}>
                   <FiPlus size={20} />
                 </button>

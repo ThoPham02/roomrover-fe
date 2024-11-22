@@ -19,6 +19,7 @@ import CusFormUtils from "./CusFormUtils";
 const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
   const [isUploading, setIsUploading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [validated, setValidated] = useState(false);
 
   const handleImageUpload = async (e) => {
     const files = Array.from(e.target.files);
@@ -52,12 +53,25 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
     setIsUploading(false);
   };
 
+  const validateForm = (e) => {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    setValidated(!form.checkValidity());
+    if (form.checkValidity() === false) {
+      e.stopPropagation();
+      return;
+    }
+
+    setShowModal(true);
+  };
+
   return (
-    <Form onSubmit={(e) => e.preventDefault()}>
+    <Form onSubmit={validateForm} noValidate validated={validated}>
       <Row>
         <p className="font-bold">Hình ảnh nhà trọ:</p>
         <div className="mt-2 mb-4 flex flex-wrap">
-          {house?.albums.map((image, index) => (
+          {house?.albums?.map((image, index) => (
             <div className="relative">
               <img
                 src={image}
@@ -101,6 +115,7 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
             setState={setHouse}
             keyName={"name"}
             disabled={option === "get"}
+            feedback="Tên nhà trọ không được để trống."
           />
           <CusFormGroup
             label="Giá thuê"
@@ -111,6 +126,7 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
             keyName={"price"}
             disabled={option === "get"}
             unit={"VNĐ"}
+            feedback="Giá thuê không được để trống."
           />
         </Col>
         <Col>
@@ -124,6 +140,7 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
             setValue={setHouse}
             keyName="type"
             disabled={option === "get"}
+            noDefault
           />
           <CusFormGroup
             label="Diện tích"
@@ -134,6 +151,7 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
             keyName={"area"}
             disabled={option === "get"}
             unit={"m²"}
+            feedback="Diện tích không được để trống."
           />
         </Col>
       </Row>
@@ -142,6 +160,7 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
           area={house}
           setArea={setHouse}
           disabled={option === "get"}
+          required
         />
       </Row>
       <Row>
@@ -198,7 +217,7 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
             className={"w-36"}
             text="Lưu"
             icon={<></>}
-            onClick={() => setShowModal(true)}
+            type="submit"
           />
         </Row>
       )}

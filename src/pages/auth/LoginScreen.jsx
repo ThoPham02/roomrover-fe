@@ -1,8 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
-import Row from "react-bootstrap/Row";
+import { Button, Form, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -25,13 +22,13 @@ const LoginScreen = () => {
   }, [isLogined, navigate]);
 
   const handleSubmit = (event) => {
-    const form = event.currentTarget;
     event.preventDefault();
+    const form = event.currentTarget;
+    setValidated(!form.checkValidity());
     if (form.checkValidity() === false) {
       event.stopPropagation();
+      return;
     }
-
-    setValidated(true);
 
     dispatch(actions.login({ phone, password }));
   };
@@ -71,18 +68,16 @@ const LoginScreen = () => {
               controlId="formBasicPassword"
             >
               <Form.Label className="form-label">Mật khẩu</Form.Label>
-              <InputGroup hasValidation>
-                <Form.Control
-                  required
-                  type="password"
-                  placeholder="Mật khẩu"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <Form.Control.Feedback type="invalid">
-                  Thông tin mật khẩu không hợp lệ.
-                </Form.Control.Feedback>
-              </InputGroup>
+              <Form.Control
+                required
+                type="password"
+                placeholder="Mật khẩu"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <Form.Control.Feedback type="invalid">
+                Thông tin mật khẩu không hợp lệ.
+              </Form.Control.Feedback>
             </Form.Group>
 
             <Link

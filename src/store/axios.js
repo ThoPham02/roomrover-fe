@@ -38,9 +38,9 @@ instance.interceptors.request.use(
 );
 
 const NO_TOAST_API_LIST = [
-  '/login', // API login
-  '/register', // Thêm các API khác nếu cần
-  'mark-read'
+  "/login", // API login
+  "/register", // Thêm các API khác nếu cần
+  "mark-read",
 ];
 instance.interceptors.response.use(
   (response) => {
@@ -52,9 +52,11 @@ instance.interceptors.response.use(
       config.url.includes(api)
     );
 
-    if (!isNoToastApi && config.method !== API_METHOD.GET) {
+    if (config.method !== API_METHOD.GET) {
       if (errorCode === 0) {
-        toast.success(DEFAULT_MESSAGE.SUCCESS);
+        if (!isNoToastApi) {
+          toast.success(DEFAULT_MESSAGE.SUCCESS);
+        }
       } else if (Object.values(HANDLE_ERROR_CODE).includes(errorCode)) {
         toast.error(HANDLE_ERROR_MESSAGE[errorCode] || DEFAULT_MESSAGE.ERROR);
       } else {

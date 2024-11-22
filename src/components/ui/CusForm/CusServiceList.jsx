@@ -39,13 +39,13 @@ const CusServiceList = ({ state, setState, disabled }) => {
 
   return (
     <div className="mt-2">
-      <div className="flex items-center ">
+      <div className="flex items-center mb-2">
         <p className="min-w-96">Loại dịch vụ</p>
         <p className="min-w-48 pl-2">Đơn giá</p>
         <p className="min-w-48 pl-16">Đơn vị tính</p>
       </div>
       {services.map((service, index) => (
-        <div key={index} className="flex items-center mb-4 space-x-2">
+        <div key={index} className="flex items-center mb-1 space-x-2">
           <input
             type="text"
             className="p-2 border border-gray-300 rounded w-full min-w-96 form-control"
@@ -81,7 +81,7 @@ const CusServiceList = ({ state, setState, disabled }) => {
 
           {!disabled && (
             <div>
-              {index === services.length - 1 ? (
+              {index === 0 ? (
                 <button className="text-blue-500" onClick={handleAddService}>
                   <FiPlus size={20} />
                 </button>

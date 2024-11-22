@@ -14,6 +14,7 @@ const CusFormGroup = ({
   textarea = false,
   unit,
   position = "right",
+  feedback = "Vui lòng hoàn thiện thông tin!",
 }) => {
   const handleValue = (e) => {
     let value = e.target.value;
@@ -41,7 +42,7 @@ const CusFormGroup = ({
   };
 
   const InputComponent = (
-    <InputGroup>
+    <InputGroup className="relative">
       <Form.Control
         type={type}
         placeholder={placeholder}
@@ -51,8 +52,13 @@ const CusFormGroup = ({
         rows={textarea ? 10 : undefined}
         onChange={handleValue}
         autoComplete="off"
+        required={required}
+        controlId={`form-control-${keyName}`}
       />
       {unit && <InputGroup.Text>{unit}</InputGroup.Text>}
+      {required && (
+        <Form.Control.Feedback type="invalid" className="absolute -bottom-5">{feedback}</Form.Control.Feedback>
+      )}
     </InputGroup>
   );
 

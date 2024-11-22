@@ -29,8 +29,6 @@ const HouseCreate = () => {
     dispatch(actions.setCurrentPage(ROUTE_PATHS.HOUSE));
   }, [dispatch]);
 
-  const validateForm = (data) => {};
-
   const handleCreateSubmit = async (e) => {
     e.preventDefault();
 
@@ -58,8 +56,6 @@ const HouseCreate = () => {
       districtID: Number(house.districtID),
       wardID: Number(house.wardID),
     };
-
-    validateForm(data);
 
     try {
       const res = await createHouse(data);
