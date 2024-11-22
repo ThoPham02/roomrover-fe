@@ -172,6 +172,8 @@ const HouseDetailForm = ({ house, setHouse, handleSubmit, option }) => {
           setState={setHouse}
           keyName={"description"}
           disabled={option === "get"}
+          required
+          feedback="Vui lòng thêm mô tả cho nhà trọ của bạn!"
         />
       </Row>
       <Row>

@@ -19,8 +19,8 @@ const HouseCreate = () => {
     albums: [],
     address: "",
     provinceID: 1,
-    districtID: 0,
-    wardID: 0,
+    districtID: 21,
+    wardID: 602,
     unit: 0,
     option: 0,
   });

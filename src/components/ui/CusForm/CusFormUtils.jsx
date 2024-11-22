@@ -40,6 +40,7 @@ const CusFormUtils = ({ state, setState, disable, page = "create-house" }) => {
             key={key}
             className={`flex items-center space-x-2 group cursor-pointer p-2 rounded hover:bg-gray-100`}
             onClick={() => handleSelect(Number(key))}
+            type="button"
           >
             <span className={`${isSelected ? "text-red-500" : ""}`}>
               {icon}
