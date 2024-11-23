@@ -167,7 +167,7 @@ const RenterPaymentDetail = () => {
 
       <p className={`font-semibold mt-12`}>Thông tin thanh toán:</p>
       <div className="p-2 bg-slate-100 rounded relative">
-        {billDetail?.status === 1 && (
+        {/* {billDetail?.status === 1 && ( */}
           <div className="absolute right-0 -top-12">
             <CreateButton
               icon={<></>}
@@ -175,7 +175,7 @@ const RenterPaymentDetail = () => {
               onClick={setShowQuantity}
             />
           </div>
-        )}
+        {/* )} */}
 
         <CusTable
           headers={listFields}

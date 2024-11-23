@@ -5,7 +5,7 @@ import { FiDownloadCloud } from "react-icons/fi";
 import { ImageModal } from "..";
 import { uploadImage } from "../../../store/services/inventServices";
 
-const CusFormProof = ({ state, onChange, label }) => {
+const CusFormProof = ({ state, onChange, label, disable }) => {
   const [isUploading, setIsUploading] = useState(false);
   const [img, setImg] = useState(state);
   const [showImg, setShowImg] = useState(false);
@@ -48,7 +48,7 @@ const CusFormProof = ({ state, onChange, label }) => {
             <div className="flex items-center space-x-2 p-2">
               <FaPlus />
               <span className="text-gray-500 text-center">Upload</span>
-              <input type="file" className="hidden" onChange={handleUpload} />
+              <input type="file" className="hidden" onChange={handleUpload} disabled={disable} />
             </div>
           )
         ) : (

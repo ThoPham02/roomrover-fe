@@ -1,11 +1,11 @@
 export const ContractStatusComponent = {
   1: (
-    <p className="px-2 py-1 rounded inline-block text-center bg-gray-500 text-white">
+    <p className="px-2 py-1 rounded inline-block text-center bg-gray-300 text-gray-800">
       Chờ xác nhận
     </p>
   ),
   2: (
-    <p className="px-2 py-1 rounded inline-block text-center bg-blue-500 text-white">
+    <p className="px-2 py-1 rounded inline-block text-center bg-blue-400 text-white">
       Chờ cọc
     </p>
   ),
@@ -15,7 +15,7 @@ export const ContractStatusComponent = {
     </p>
   ),
   8: (
-    <p className="px-2 py-1 rounded inline-block text-center bg-yellow-300 text-white">
+    <p className="px-2 py-1 rounded inline-block text-center bg-yellow-400 text-gray-800">
       Đã hết hạn
     </p>
   ),
