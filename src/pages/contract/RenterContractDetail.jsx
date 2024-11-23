@@ -21,6 +21,7 @@ const RenterContractDetail = () => {
   const [showRenter, setShowRenter] = useState(false);
 
   useEffect(() => {
+    dispatch(actions.setCurrentPage(ROUTE_PATHS.RENTER_CONTRACT));
     dispatch(actions.getContractDetail(id));
   }, [dispatch, id]);
 
@@ -30,7 +31,7 @@ const RenterContractDetail = () => {
     <div className="relative">
       <Breadcrumbs
         backRoute={ROUTE_PATHS.RENTER_CONTRACT}
-        backName={BREADCRUMB_DETAIL[ROUTE_PATHS.RENTER_CONTRACT]}
+        backName={BREADCRUMB_DETAIL[ROUTE_PATHS.CONTRACT]}
         displayName={"Chi tiết"}
       />
 

@@ -67,13 +67,14 @@ const CusRoomList = ({ state, setState, disabled }) => {
           {!disabled && (
             <div>
               {index === 0 ? (
-                <button className="text-blue-500" onClick={handleAddRoom}>
+                <button className="text-blue-500" onClick={handleAddRoom} type="button">
                   <FiPlus size={20} />
                 </button>
               ) : (
                 <button
                   className="text-red-500"
                   onClick={() => handleRemoveRoom(index)}
+                  type="button"
                 >
                   <FiX size={20} />
                 </button>

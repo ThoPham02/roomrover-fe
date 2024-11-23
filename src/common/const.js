@@ -57,7 +57,7 @@ export const HOUSE_SERVICE_TYPE = {
 
 export const HOUSE_STATUS = {
   1: { name: "Chờ xác nhận" },
-  2: { name: "Đang hoạt động" },
+  2: { name: "Đã đăng tin" },
   4: { name: "Tạm dừng" },
   8: { name: "Hết phòng" },
 };

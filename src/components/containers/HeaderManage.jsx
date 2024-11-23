@@ -14,7 +14,8 @@ import {
   apiMarkAsReadNoti,
 } from "../../store/services/notiServices";
 import { useNavigate } from "react-router-dom";
-import { ROUTE_PATHS } from "../../common";
+import { ROUTE_PATHS, USER_ROLES } from "../../common";
+import { useSelector } from "react-redux";
 // import { PAGE_SIZE } from "../../common";
 
 const HeaderManage = ({ setIsExpanded, isExpanded }) => {
@@ -136,6 +137,7 @@ const NotificationModule = ({ handleClose }) => {
 
 const NotiItem = ({ noti, handleClose }) => {
   const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
 
   const handleRedirect = () => {
     switch (noti.refType) {
@@ -147,6 +149,57 @@ const NotiItem = ({ noti, handleClose }) => {
         break;
       case 4:
         navigate(ROUTE_PATHS.RENTER_CALENDAR);
+        break;
+      case 8:
+        navigate(ROUTE_PATHS.RENTER_CONTRACT_DETAIL.replace(":id", noti.refID));
+        break;
+      case 16:
+        navigate(ROUTE_PATHS.RENTER_CONTRACT_DETAIL.replace(":id", noti.refID));
+        break;
+      case 32:
+        if (user.role === USER_ROLES.LESSOR) {
+          navigate(ROUTE_PATHS.CONTRACT_DETAIL.replace(":id", noti.refID));
+        } else {
+          navigate(ROUTE_PATHS.RENTER_CONTRACT_DETAIL.replace(":id", noti.refID));
+        }
+        break;
+      case 64:
+        navigate(ROUTE_PATHS.CONTRACT_DETAIL.replace(":id", noti.refID));
+        break;
+      case 128:
+        if (user.role === USER_ROLES.LESSOR) {
+          navigate(ROUTE_PATHS.CONTRACT_DETAIL.replace(":id", noti.refID));
+        } else {
+          navigate(ROUTE_PATHS.RENTER_CONTRACT_DETAIL.replace(":id", noti.refID));
+        }
+        break;
+      case 256:
+        if (user.role === USER_ROLES.LESSOR) {
+          navigate(ROUTE_PATHS.CONTRACT_DETAIL.replace(":id", noti.refID));
+        } else {
+          navigate(ROUTE_PATHS.RENTER_CONTRACT_DETAIL.replace(":id", noti.refID));
+        }
+        break;
+      case 512:
+        if (user.role === USER_ROLES.LESSOR) {
+          navigate(ROUTE_PATHS.PAYMENT_DETAIL.replace(":id", noti.refID));
+        } else {
+          navigate(ROUTE_PATHS.RENTER_PAYMENT_DETAIL.replace(":id", noti.refID));
+        }
+        break;
+      case 1024:
+        if (user.role === USER_ROLES.LESSOR) {
+          navigate(ROUTE_PATHS.PAYMENT_DETAIL.replace(":id", noti.refID));
+        } else {
+          navigate(ROUTE_PATHS.RENTER_PAYMENT_DETAIL.replace(":id", noti.refID));
+        }
+        break;
+      case 2048:
+        if (user.role === USER_ROLES.LESSOR) {
+          navigate(ROUTE_PATHS.PAYMENT_DETAIL.replace(":id", noti.refID));
+        } else {
+          navigate(ROUTE_PATHS.RENTER_PAYMENT_DETAIL.replace(":id", noti.refID));
+        }
         break;
       default:
         console.log("Unknown refType, no redirect available");
@@ -192,6 +245,79 @@ const NotiItem = ({ noti, handleClose }) => {
           <span className="font-semibold">
             {convertTimestampToDate(noti.notiInfos[2].name)}
           </span>
+        </div>
+      );
+      break;
+    case 8:
+      content = (
+        <div>
+          <span className="font-semibold">{noti.notiInfos[0].name}</span> đã tạo hợp đồng 
+          [<span className="font-semibold">{noti.notiInfos[1].name}</span>] với bạn. Vui lòng kiểm tra và cập nhật hợp đồng!
+        </div>
+      );
+      break;
+    case 16:
+      content = (
+        <div>
+          <span className="font-semibold">{noti.notiInfos[0].name}</span> đã cập nhật hợp đồng 
+          [<span className="font-semibold">{noti.notiInfos[1].name}</span>] với bạn. Vui lòng kiểm tra và cập nhật hợp đồng!
+        </div>
+      );
+      break;
+    case 32:
+      content = (
+        <div>
+          <span className="font-semibold">{noti.notiInfos[0].name}</span> đã hủy hợp đồng 
+          [<span className="font-semibold">{noti.notiInfos[1].name}</span>] với bạn!
+        </div>
+      );
+      break;
+    case 64:
+      content = (
+        <div>
+          <span className="font-semibold">{noti.notiInfos[0].name}</span> đã xác nhận hợp đồng 
+          [<span className="font-semibold">{noti.notiInfos[1].name}</span>]. Hợp đồng đã được kích hoạt!
+        </div>
+      );
+      break;
+    case 128:
+      content = (
+        <div>
+          Hợp đồng [<span className="font-semibold">{noti.notiInfos[0].name}</span>] đã hết hạn!
+        </div>
+      );
+      break;
+    case 256:
+      content = (
+        <div>
+          Hợp đồng [<span className="font-semibold">{noti.notiInfos[0].name}</span>] sắp hết hạn.
+          Vui lòng gia hạn hợp đồng trước ngày hết hạn!
+        </div>
+      );
+      break;
+    case 512:
+      content = (
+        <div>
+          <span className="font-semibold">{noti.notiInfos[0].name}</span> đã được tạo. 
+          Vui lòng cập nhật số lượng sử dụng và thanh toán trước ngày {" "}
+          <span className="font-semibold">
+            {convertTimestampToDate(noti.notiInfos[1].name)}
+          </span>
+        </div>
+      );
+      break;
+    case 1024:
+      content = (
+        <div>
+          <span className="font-semibold">{noti.notiInfos[0].name}</span> đã quá hạn. 
+          Vui lòng kiểm tra lại thông tin thanh toán!
+        </div>
+      );
+      break;
+    case 2048:
+      content = (
+        <div>
+          <span className="font-semibold">{noti.notiInfos[0].name}</span> đã được thanh toán thành công.
         </div>
       );
       break;
