@@ -316,3 +316,13 @@ export const apiUpdateStatusContact = async (payload) => {
     return error;
   }
 }
+
+export const apiGetDashboard = async () => {
+  try {
+    const response = await axios(ApiUrl.GetDashboard);
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+}

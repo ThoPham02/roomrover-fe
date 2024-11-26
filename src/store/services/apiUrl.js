@@ -114,6 +114,11 @@ export const ApiUrl = {
     method: "put",
   },
 
+  GetDashboard: {
+    url: "/invent/dashboard",
+    method: "get",
+  },
+
   // contract
   FilterContracts: {
     url: "/contract/filter",

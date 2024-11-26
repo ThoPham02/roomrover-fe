@@ -1,6 +1,7 @@
 import {
   apiFilterContact,
   apiFilterRoom,
+  apiGetDashboard,
   apiSearchHouse,
   filterHouses,
   getHouse,
@@ -214,6 +215,28 @@ export const getFilterContact = (payload) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: actionTypes.FILTER_CONTACT_FAIL,
+      data: null,
+    });
+  }
+}
+
+export const getDashboard = () => async (dispatch) => {
+  try {
+    const data = await apiGetDashboard();
+    if (data?.result.code === 0) {
+      dispatch({
+        type: actionTypes.GET_DASHBOARD_SUCCESS,
+        data: data,
+      });
+    } else {
+      dispatch({
+        type: actionTypes.GET_DASHBOARD_FAIL,
+        data: data,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_DASHBOARD_FAIL,
       data: null,
     });
   }

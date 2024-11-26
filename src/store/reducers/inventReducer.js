@@ -23,6 +23,15 @@ const initialState = {
     listContact: [],
     total: 0,
   },
+  dashboard: {
+    totalRoom: 0,
+    rentedRoom: 0,
+    emptyRoom: 0,
+    totalAmount: 0,
+    currentContact: [],
+    expiredContract: [],
+    houseRevenue: [],
+  },
 };
 
 const inventReducer = (state = initialState, action) => {
@@ -223,6 +232,32 @@ const inventReducer = (state = initialState, action) => {
         },
       };
 
+    case actionTypes.GET_DASHBOARD_SUCCESS:
+      return {
+        ...state,
+        dashboard: {
+          totalRoom: action.data.totalRoom,
+          rentedRoom: action.data.rentedRoom,
+          emptyRoom: action.data.emptyRoom,
+          totalAmount: action.data.totalAmount,
+          currentContact: action.data.currentContact,
+          expiredContract: action.data.expiredContract,
+          houseRevenue: action.data.houseRevenue,
+        },
+      };
+    case actionTypes.GET_DASHBOARD_FAIL:
+      return {
+        ...state,
+        dashboard: {
+          totalRooms: 0,
+          rentedRooms: 0,
+          emptyRooms: 0,
+          totalAmount: 0,
+          currentContact: [],
+          expiredContract: [],
+          houseRevenue: [],
+        },
+      };
     default:
       return state;
   }
