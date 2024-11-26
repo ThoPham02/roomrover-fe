@@ -50,7 +50,7 @@ const DashboardScreen = () => {
         <StatCard icon={<FiHome />} title="Phòng trống" value={emptyRoom} />
         <StatCard
           icon={<FiDollarSign />}
-          title="Doanh thu tháng này"
+          title="Tổng doanh thu"
           value={`${formatCurrencyVND(totalAmount)} VND`}
         />
       </div>

@@ -56,7 +56,7 @@ const PaymentActionButton = ({ item }) => {
                 className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
                 onClick={handleDetailBtn}
               >
-                Xem
+                Xem chi tiết
               </button>
             </li>
           </ul>
