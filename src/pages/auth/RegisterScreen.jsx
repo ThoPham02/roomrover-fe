@@ -66,7 +66,10 @@ const RegisterScreen = () => {
 
         <Row className="auth-form">
           <Form noValidate validated={validated} onSubmit={handleSubmit}>
-            <Form.Group className="mb-3 form-group" controlId="formBasicEmail">
+            <Form.Group
+              className="mb-3 form-group"
+              // controlId="formBasicEmail"
+            >
               <Form.Label className="form-label">Số điện thoại</Form.Label>
               <Form.Control
                 required
@@ -82,7 +85,10 @@ const RegisterScreen = () => {
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="form-group" controlId="formPassword">
+            <Form.Group
+              className="form-group"
+              // controlId="formPassword"
+            >
               <Form.Label className="form-label">Mật khẩu</Form.Label>
               <InputGroup hasValidation>
                 <Form.Control
@@ -98,7 +104,10 @@ const RegisterScreen = () => {
               </InputGroup>
             </Form.Group>
 
-            <Form.Group className="form-group" controlId="formPasswordConfirm">
+            <Form.Group
+              className="form-group"
+              // controlId="formPasswordConfirm"
+            >
               <Form.Label className="form-label">Nhập lại mật khẩu</Form.Label>
               <InputGroup hasValidation>
                 <Form.Control
@@ -115,7 +124,10 @@ const RegisterScreen = () => {
               </InputGroup>
             </Form.Group>
 
-            <Form.Group className="form-group" controlId="formRoleCheck">
+            <Form.Group
+              className="form-group"
+              // controlId="formRoleCheck"
+            >
               <Form.Check
                 className="my-2"
                 type="checkbox"
@@ -138,7 +150,10 @@ const RegisterScreen = () => {
               Bạn đã có tài khoản? Trở lại đăng nhập
             </Link>
 
-            <Form.Group controlId="formButton" className="form-group">
+            <Form.Group
+              // controlId="formButton"
+              className="form-group"
+            >
               <Button type="submit" className="auth-buton">
                 Đăng ký
               </Button>

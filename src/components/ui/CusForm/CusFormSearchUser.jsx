@@ -98,7 +98,7 @@ const CusFormSearchUser = ({
       </p>
       <InputGroup className="relative">
         <Form.Control
-          controlId={`form-control-${keyName}`}
+          // controlId={`form-control-${keyName}`}
           type={type}
           placeholder={placeholder}
           value={parseValue(state, keyName)}

@@ -53,11 +53,13 @@ const CusFormGroup = ({
         onChange={handleValue}
         autoComplete="off"
         required={required}
-        controlId={`form-control-${keyName}`}
+        // controlId={`form-control-${keyName}`}
       />
       {unit && <InputGroup.Text>{unit}</InputGroup.Text>}
       {required && (
-        <Form.Control.Feedback type="invalid" className="absolute -bottom-5">{feedback}</Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid" className="absolute -bottom-5">
+          {feedback}
+        </Form.Control.Feedback>
       )}
     </InputGroup>
   );

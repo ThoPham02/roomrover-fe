@@ -55,10 +55,14 @@ const CusFormDate = ({
         dateFormat="dd/MM/yyyy"
         required={required}
         disabled={disabled}
-        controlId={`form-control-${keyName}`}
+        // controlId={`form-control-${keyName}`}
       />
 
-      {isInvalid && <div className="absolute -bottom-5 invalid-feedback d-block">{feedback}</div>}
+      {isInvalid && (
+        <div className="absolute -bottom-5 invalid-feedback d-block">
+          {feedback}
+        </div>
+      )}
     </div>
   );
 

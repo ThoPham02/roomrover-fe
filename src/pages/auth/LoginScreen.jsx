@@ -65,7 +65,7 @@ const LoginScreen = () => {
 
             <Form.Group
               className="mb-3 form-group"
-              controlId="formBasicPassword"
+              // controlId="formBasicPassword"
             >
               <Form.Label className="form-label">Mật khẩu</Form.Label>
               <Form.Control
@@ -88,7 +88,10 @@ const LoginScreen = () => {
               Bạn chưa có tài khoản? Đăng ký tài khoản mới!
             </Link>
 
-            <Form.Group controlId="formBasicButton" className="form-group">
+            <Form.Group
+              // controlId="formBasicButton"
+              className="form-group"
+            >
               <Button type="submit" className="auth-buton">
                 Đăng nhập
               </Button>
