@@ -41,6 +41,7 @@ const NO_TOAST_API_LIST = [
   "/login", // API login
   "/register", // Thêm các API khác nếu cần
   "mark-read",
+  "/invent/upload",
 ];
 instance.interceptors.response.use(
   (response) => {

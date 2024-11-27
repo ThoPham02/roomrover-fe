@@ -13,6 +13,7 @@ export const HANDLE_ERROR_CODE = {
 
   SAI_MAT_KHAU: 10001,
   SAI_TAI_KHOAN: 10002,
+  ROOM_HAS_CONTRACT: 20002,
   HOUSE_HAS_CONTRACT: 20003,
 };
 
@@ -22,8 +23,12 @@ export const HANDLE_ERROR_MESSAGE = {
   [HANDLE_ERROR_CODE.NOT_FOUND]: "Không tìm thấy trang",
   [HANDLE_ERROR_CODE.INTERNAL_SERVER]: "Lỗi server",
 
-  [HANDLE_ERROR_CODE.SAI_TAI_KHOAN]:"Thông tin tài khoản hoặc mật khẩu không chính xác!",
-  [HANDLE_ERROR_CODE.SAI_MAT_KHAU]:"Thông tin tài khoản hoặc mật khẩu không chính xác!",
-  [HANDLE_ERROR_CODE.HOUSE_HAS_CONTRACT]:"Không thể xóa nhà trọ vì đã phát sinh hợp đồng thuê",
-  
+  [HANDLE_ERROR_CODE.SAI_TAI_KHOAN]:
+    "Thông tin tài khoản hoặc mật khẩu không chính xác!",
+  [HANDLE_ERROR_CODE.SAI_MAT_KHAU]:
+    "Thông tin tài khoản hoặc mật khẩu không chính xác!",
+  [HANDLE_ERROR_CODE.HOUSE_HAS_CONTRACT]:
+    "Không thể xóa nhà trọ vì đã phát sinh hợp đồng thuê",
+  [HANDLE_ERROR_CODE.ROOM_HAS_CONTRACT]:
+    "Không thể xóa phòng trọ vì đã phát sinh hợp đồng thuê",
 };

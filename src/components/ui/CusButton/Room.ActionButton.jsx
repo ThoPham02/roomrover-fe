@@ -43,6 +43,8 @@ const RoomActionButton = ({ item }) => {
         console.error("Error Update House:", data);
         return;
       }
+
+      setShowModal(false);
     } catch (error) {
       console.error("Error Update House:", error);
       return;
@@ -60,6 +62,8 @@ const RoomActionButton = ({ item }) => {
         };
         dispatch(actions.getListRooms(data));
       }
+
+      setShowDeleteModal(false);
     } catch (error) {
       console.error("Error Update House:", error);
       return null;
