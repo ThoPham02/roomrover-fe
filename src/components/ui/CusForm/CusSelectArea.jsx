@@ -12,7 +12,8 @@ const CusSelectArea = ({ area, setArea, disabled, required, lable = true }) => {
   };
 
   return (
-    <Row className="mb-4">
+    <>
+    <Row className="">
       <Col>
         <CusFormSelect
           label={lable && "Tỉnh/TP"}
@@ -53,7 +54,9 @@ const CusSelectArea = ({ area, setArea, disabled, required, lable = true }) => {
           noDefault
         />
       </Col>
-      <Col>
+        
+      </Row>
+      <Row className="mb-4">
         <CusFormGroup
           label={lable && "Địa chỉ"}
           placeholder="Nhập địa chỉ chi tiết"
@@ -64,8 +67,8 @@ const CusSelectArea = ({ area, setArea, disabled, required, lable = true }) => {
           required={required}
           feedback="Địa chỉ không được để trống."
         />
-      </Col>
     </Row>
+    </>
   );
 };
 

@@ -149,8 +149,8 @@ const RoomDetail = () => {
         )}
       </div>
 
-      <p className="font-medium">Lịch sử giao dịch:</p>
-      <div className="p-2 bg-slate-100 rounded mb-4 px-3"></div>
+      {/* <p className="font-medium">Lịch sử giao dịch:</p>
+      <div className="p-2 bg-slate-100 rounded mb-4 px-3"></div> */}
     </div>
   );
 };

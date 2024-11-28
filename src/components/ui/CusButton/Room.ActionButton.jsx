@@ -71,7 +71,7 @@ const RoomActionButton = ({ item }) => {
   };
 
   const handleCreateContract = () => {
-    // navigate(ROUTE_PATHS.CONTRACT_CREATE.replace(":id", item.id));
+    navigate(ROUTE_PATHS.CONTRACT_CREATE);
   };
 
   return (

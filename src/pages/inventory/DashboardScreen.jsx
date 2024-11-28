@@ -19,7 +19,7 @@ import {
 import * as actions from "../../../src/store/actions";
 import { BREADCRUMB_DETAIL, COLOR_INDEX, ROUTE_PATHS } from "../../../src/common";
 import { Breadcrumbs } from "../../../src/components/ui";
-import { convertTimestampToDate, formatCurrencyVND } from "../../utils/utils";
+import { convertTimestampToDate, formatCurrencyVND, getBillTimeByIndex } from "../../utils/utils";
 
 const DashboardScreen = () => {
   const dispatch = useDispatch();
@@ -39,6 +39,8 @@ const DashboardScreen = () => {
     expiredContract,
     houseRevenue,
   } = useSelector((state) => state.invent.dashboard);
+
+  console.log(expiredContract);
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -104,7 +106,7 @@ const DashboardScreen = () => {
                     <td className="px-4 py-2 text-gray-800">{contract.renter.phone}</td>
                     <td className="px-4 py-2 text-gray-800">{contract.room.houseName}</td>
                     <td className="px-4 py-2 text-gray-800">{contract.code}</td>
-                    <td className="px-4 py-2 text-gray-800">{convertTimestampToDate(contract.expiryDate.checkIn)}</td>
+                    <td className="px-4 py-2 text-gray-800">{convertTimestampToDate(1732813200000)}</td>
                   </tr>
                 )): <tr><td colSpan="5" className="pt-8 text-center">Không có hợp đồng nào sắp hết hạn</td></tr>}
               </tbody>
