@@ -1,24 +1,27 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Col, Row } from "react-bootstrap";
 
 import {
   BREADCRUMB_DETAIL,
+  ContractStatusComponent,
   HOUSE_TYPE,
   RoomStatusComponent,
   ROUTE_PATHS,
 } from "../../../common";
-import { Breadcrumbs } from "../../../components/ui";
+import { Breadcrumbs, CreateButton } from "../../../components/ui";
 import * as actions from "../../../../src/store/actions";
 import {
   convertTimestampToDate,
   formatCurrencyVND,
   getArea,
+  getBillTimeByIndex,
 } from "../../../utils/utils";
 
 const RoomDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -28,8 +31,14 @@ const RoomDetail = () => {
   }, [dispatch, id]);
 
   const { room, house, contract, bills } = useSelector(
-    (state) => state.invent.room.roomDetail
+    (state) => state.invent?.room?.roomDetail
   );
+
+  console.log(useSelector((state) => state.invent?.room?.roomDetail));
+
+  const handleClick = () => {
+    navigate(ROUTE_PATHS.CONTRACT_CREATE);
+  };
 
   return (
     <div className="">
@@ -46,11 +55,11 @@ const RoomDetail = () => {
               title={"Phòng:"}
               data={`${room?.name} (${house?.name})`}
             />
-            <ItemInfo title={"Diện tích:"} data={`${house?.area} m²`} />
             <ItemInfo
               title={"Giá thuê:"}
               data={`${formatCurrencyVND(house?.price)} VNĐ/tháng`}
             />
+            <ItemInfo title={"Diện tích:"} data={`${house?.area} m²`} />
             <ItemInfo
               title={"Địa chỉ:"}
               data={
@@ -68,7 +77,7 @@ const RoomDetail = () => {
             <ItemInfo
               title={"Số người tối đa:"}
               data={`${
-                room?.capacity !== 0 ? room.capacity : "Không giới hạn"
+                room?.capacity !== 0 ? room?.capacity : "Không giới hạn"
               }`}
             />
             <ItemInfo
@@ -81,28 +90,63 @@ const RoomDetail = () => {
 
       <p className="font-medium">Hợp đồng hiện tại:</p>
       <div className="p-2 bg-slate-100 rounded mb-4 px-3">
-        <Row>
-          <Col>
-            <ItemInfo title={"Mã hợp đồng:"} data={contract.code} />
-            <ItemInfo
-              title={"Ngày bắt đầu:"}
-              data={convertTimestampToDate(contract.checkIn)}
-            />
-            <ItemInfo
-              title={"Ngày kết thúc:"}
-              data={convertTimestampToDate(contract.checkIn)}
-            />
-            <ItemInfo
-              title={"Hạn đặt cọc:"}
-              data={convertTimestampToDate(contract.checkIn)}
-            />
-          </Col>
-          <Col>
-            <ItemInfo title={"Người thuê:"} data={contract.renterName} />
-            <ItemInfo title={"Số điện thoại:"} data={contract.renterPhone} />
-            <ItemInfo title={"Email:"} data={contract.renterEmail} />
-          </Col>
-        </Row>
+        {contract && contract?.contractID > 0 ? (
+          <Row>
+            <Col>
+              <ItemInfo title={"Mã hợp đồng:"} data={contract?.code} />
+              <ItemInfo
+                title={"Ngày bắt đầu:"}
+                data={convertTimestampToDate(contract?.checkIn)}
+              />
+              <ItemInfo
+                title={"Ngày kết thúc:"}
+                data={convertTimestampToDate(
+                  getBillTimeByIndex(contract?.checkIn, contract?.duration)
+                )}
+              />
+              <ItemInfo
+                title={"Hạn đặt cọc:"}
+                data={convertTimestampToDate(contract?.payment?.depositDate)}
+              />
+              <ItemInfo
+                title={"Trạng thái:"}
+                data={ContractStatusComponent[contract?.status]}
+              />
+            </Col>
+            <Col>
+              <ItemInfo
+                title={"Người thuê:"}
+                data={contract?.renter?.fullName}
+              />
+              <ItemInfo
+                title={"Số điện thoại:"}
+                data={contract?.renter?.phone}
+              />
+              <ItemInfo
+                title={"Số CCCD:"}
+                data={contract?.renter?.cccdNumber}
+              />
+              <ItemInfo
+                title={"Ngày cấp:"}
+                data={convertTimestampToDate(contract?.renter?.cccdDate)}
+              />
+              <ItemInfo
+                title={"Nơi cấp:"}
+                data={contract?.renter?.cccdAddress}
+              />
+            </Col>
+          </Row>
+        ) : (
+          <div className="flex w-full h-48 justify-center items-center ">
+            <div>
+              <CreateButton
+                icon={<></>}
+                text={"Tạo hợp đồng"}
+                onClick={handleClick}
+              />
+            </div>
+          </div>
+        )}
       </div>
 
       <p className="font-medium">Lịch sử giao dịch:</p>
