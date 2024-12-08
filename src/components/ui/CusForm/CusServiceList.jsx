@@ -82,13 +82,14 @@ const CusServiceList = ({ state, setState, disabled }) => {
           {!disabled && (
             <div>
               {index === 0 ? (
-                <button className="text-blue-500" onClick={handleAddService}>
+                <button className="text-blue-500" onClick={handleAddService} type="button">
                   <FiPlus size={20} />
                 </button>
               ) : (
                 <button
                   className="text-red-500"
                   onClick={() => handleRemoveService(index)}
+                  type="button"
                 >
                   <FiX size={20} />
                 </button>

@@ -155,6 +155,7 @@ const ContractDetailForm = ({
               required
               position={"right"}
               disabled={option === "get"}
+              validated={validated}
             />
           </Col>
           <Col>

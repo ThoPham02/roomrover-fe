@@ -23,6 +23,7 @@ const ContractDetail = ({ option = "get" }) => {
   const [contract, setContract] = useState({});
 
   useEffect(() => {
+    dispatch(actions.setCurrentPage(ROUTE_PATHS.CONTRACT));
     dispatch(actions.getContractDetail(id));
   }, [dispatch, id]);
 

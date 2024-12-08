@@ -79,12 +79,11 @@ const ContactScreen = () => {
     (state) => state.payment.renterContact
   );
 
-  console.log(listRenterContacts);
-
   const handleSubmitFilter = (e) => {
     e.preventDefault();
     setPage(1);
 
+    console.log(filter);
     dispatch(actions.getFilterRenterContact({ ...filter }));
   };
 

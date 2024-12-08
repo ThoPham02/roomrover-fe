@@ -16,6 +16,7 @@ const CusFormDate = ({
   required,
   disabled,
   feedback = "Vui lòng hoàn thiện thông tin!",
+  validated,
   style,
 }) => {
   const handleValue = (date) => {
@@ -38,10 +39,10 @@ const CusFormDate = ({
     ? new Date(parseValue(state, keyName))
     : null;
 
-  const isInvalid = required && !selectedDate;
+  const isInvalid = required && validated && !selectedDate;
 
   const DatePickerComponent = (
-    <div>
+    <div className="relative">
       <DatePicker
         className={`form-control ${isInvalid ? "is-invalid" : ""}`}
         placeholderText={placeholder}
@@ -56,7 +57,8 @@ const CusFormDate = ({
         disabled={disabled}
         controlId={`form-control-${keyName}`}
       />
-      {isInvalid && <div className="invalid-feedback d-block">{feedback}</div>}
+
+      {isInvalid && <div className="absolute -bottom-5 invalid-feedback d-block">{feedback}</div>}
     </div>
   );
 

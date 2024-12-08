@@ -47,8 +47,6 @@ const CusServiceQuantity = ({ state, setState, disabled }) => {
             onChange={(e) => handleServiceChange(index, "type", e.target.value)}
             disabled
           />
-          {service?.type === 2 && (
-            <>
               <input
                 type="text"
                 className="p-2 border border-gray-300 rounded w-48 form-control"
@@ -74,8 +72,6 @@ const CusServiceQuantity = ({ state, setState, disabled }) => {
                   handleImg(index, url);
                 }}
               />
-            </>
-          )}
         </div>
       ))}
     </div>

@@ -49,9 +49,9 @@ export const getPaymentDetail = (id) => async (dispatch) => {
   }
 };
 
-export const getFilterRenterContact = () => async (dispatch) => {
+export const getFilterRenterContact = (filter) => async (dispatch) => {
   try {
-    const data = await apiFilterRenterContacts();
+    const data = await apiFilterRenterContacts(filter);
     if (data?.result.code === 0) {
       dispatch({
         type: actionTypes.GET_FILTER_RENTER_CONTACT_SUCCESS,

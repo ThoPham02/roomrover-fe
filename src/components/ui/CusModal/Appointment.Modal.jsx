@@ -11,8 +11,14 @@ const AppointmentModal = ({ show, handleClose, house }) => {
     lessorID: house?.user?.userID,
     datetime: 0,
   });
+  const [validated, setValidated] = useState(false);
 
   const handleConfirm = async () => {
+    if (!selectedDate) {
+      setValidated(true);
+      return;
+    }
+
     try {
       const res = await apiCreateContact({
         houseID: house?.houseID,
@@ -26,6 +32,8 @@ const AppointmentModal = ({ show, handleClose, house }) => {
       console.log(error);
     }
   };
+
+  const selectedDate = contact.datetime ? new Date(contact.datetime) : null
 
   return (
     <Modal show={show} onHide={handleClose} centered>
@@ -41,13 +49,14 @@ const AppointmentModal = ({ show, handleClose, house }) => {
           trực tiếp nhà <span className="text-red-500">{house?.name}</span> vào
           ngày{" "}
           <DatePicker
-            className="form-control"
+            className={`form-control ${validated && !selectedDate ? "is-invalid" : ""}`}
             placeholderText={"Chọn ngày"}
             selected={contact.datetime ? new Date(contact.datetime) : null}
             onChange={(date) =>
               setContact({ ...contact, datetime: convertDateToTimestamp(date) })
             }
             dateFormat="dd/MM/yyyy"
+            required
           />
         </div>
 
