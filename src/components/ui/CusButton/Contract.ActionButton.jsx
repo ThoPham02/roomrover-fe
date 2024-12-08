@@ -29,6 +29,8 @@ const ContractActionButton = ({ item }) => {
   // const handleDelete = () => {};
 
   const handleCancel = async () => {
+    setIsMenuOpen(false);
+
     try {
       const data = await apiUpdateStatusContract({
         contractID: item.contractID,
@@ -47,6 +49,8 @@ const ContractActionButton = ({ item }) => {
   };
 
   const handleComfirmDeposit = async () => {
+    setIsMenuOpen(false);
+
     try {
       const data = await apiUpdateStatusContract({
         id: item.contractID,
@@ -81,7 +85,7 @@ const ContractActionButton = ({ item }) => {
                 className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200 min-w-48"
                 onClick={handleDetailBtn}
               >
-                Xem
+                Xem chi tiết
               </button>
             </li>
             {item.status === CONTRACT_STATUS_CODE.WAITING_DEPOSIT && (
@@ -107,7 +111,10 @@ const ContractActionButton = ({ item }) => {
                 </li>
                 <li>
                   <button
-                    onClick={() => setShowCancelModal(true)}
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      setShowCancelModal(true)
+                    }}
                     className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
                   >
                     Hủy
@@ -119,7 +126,10 @@ const ContractActionButton = ({ item }) => {
             {item.status === CONTRACT_STATUS_CODE.RENTING && (
               <li>
                 <button
-                  onClick={() => setShowCancelModal(true)}
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    setShowCancelModal(true)
+                  }}
                   className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
                 >
                   Hủy
@@ -133,7 +143,7 @@ const ContractActionButton = ({ item }) => {
       {showCancelModal && (
         <ConfirmActionModal
           show={showCancelModal}
-          handleClose={() => setShowCancelModal(true)}
+          handleClose={() => setShowCancelModal(false)}
           handleConfirm={handleCancel}
         />
       )}

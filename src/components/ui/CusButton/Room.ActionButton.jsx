@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { ROUTE_PATHS } from "../../../common";
 import * as actions from "../../../store/actions";
-import { apiUpdateRoomStatus } from "../../../store/services/inventServices";
+import { apiDeleteRoom, apiUpdateRoomStatus } from "../../../store/services/inventServices";
 import { ConfirmActionModal } from "../CusModal";
 
 const RoomActionButton = ({ item }) => {
@@ -13,7 +13,8 @@ const RoomActionButton = ({ item }) => {
   const dispatch = useDispatch();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  var [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const handleMouseEnter = () => setIsMenuOpen(true);
   const handleMouseLeave = () => setIsMenuOpen(false);
@@ -42,6 +43,8 @@ const RoomActionButton = ({ item }) => {
         console.error("Error Update House:", data);
         return;
       }
+
+      setShowModal(false);
     } catch (error) {
       console.error("Error Update House:", error);
       return;
@@ -50,6 +53,17 @@ const RoomActionButton = ({ item }) => {
 
   const handleDeleteButton = async () => {
     try {
+      const res = await apiDeleteRoom(item.id);
+
+      if (res.result.code === 0) {
+        const data = {
+          limit: searchParams.limit,
+          offset: searchParams.offset,
+        };
+        dispatch(actions.getListRooms(data));
+      }
+
+      setShowDeleteModal(false);
     } catch (error) {
       console.error("Error Update House:", error);
       return null;
@@ -57,7 +71,7 @@ const RoomActionButton = ({ item }) => {
   };
 
   const handleCreateContract = () => {
-    // navigate(ROUTE_PATHS.CONTRACT_CREATE.replace(":id", item.id));
+    navigate(ROUTE_PATHS.CONTRACT_CREATE);
   };
 
   return (
@@ -78,7 +92,7 @@ const RoomActionButton = ({ item }) => {
                   className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
                   onClick={handleDetailBtn}
                 >
-                  Xem
+                  Xem chi tiết
                 </button>
               </li>
               {item.status === 1 && (
@@ -119,7 +133,10 @@ const RoomActionButton = ({ item }) => {
               )}
               <li>
                 <button
-                  onClick={handleDeleteButton}
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    setShowDeleteModal(true);
+                  }}
                   className="block w-full text-left pl-2 pr-8 py-2 hover:bg-gray-200"
                 >
                   Xóa
@@ -136,6 +153,12 @@ const RoomActionButton = ({ item }) => {
           handleUpdateBtn(e);
           setShowModal(false);
         }}
+      />
+
+      <ConfirmActionModal
+        show={showDeleteModal}
+        handleClose={() => setShowDeleteModal(false)}
+        handleConfirm={handleDeleteButton}
       />
     </div>
   );

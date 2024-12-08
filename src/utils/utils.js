@@ -10,6 +10,44 @@ export const convertTimestampToDate = (timestamp) => {
   return `${day}/${month}/${year}`;
 };
 
+export function getBillTimeByIndex(start, index) {
+  const startDate = new Date(start); // Convert milliseconds to Date object
+  let year = startDate.getUTCFullYear();
+  let month = startDate.getUTCMonth() + 1; // JavaScript months are 0-based
+  let day = startDate.getUTCDate();
+
+  if (month + index > 12) {
+      year += Math.floor((month + index) / 12);
+      month = (month + index) % 12;
+      if (month === 0) {
+          month = 12;
+          year -= 1;
+      }
+  } else {
+      month += index;
+  }
+
+  // Adjust day based on the month and whether it's a leap year
+  switch (month) {
+      case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+          if (day > 31) day = 31;
+          break;
+      case 4: case 6: case 9: case 11:
+          if (day > 30) day = 30;
+          break;
+      case 2:
+          if ((year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0)) {
+              if (day > 29) day = 29; // Leap year
+          } else {
+              if (day > 28) day = 28; // Non-leap year
+          }
+          break;
+  }
+
+  const nextMonthDate = new Date(Date.UTC(year, month - 1, day, 0, 0, 0, 0)); // Months are 0-based in JS
+  return nextMonthDate.getTime();
+}
+
 export const convertDateToTimestamp = (date) => {
   return new Date(date).getTime();
 };

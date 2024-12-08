@@ -56,7 +56,7 @@ const CusFormSelect = ({
   const InputComponent = (
     <Form.Group className="w-full">
       <Form.Select
-        controlId={`form-control-${keyName}`}
+        // controlId={`form-control-${keyName}`}
         aria-label={label}
         value={parseValue(value, keyName)}
         disabled={disabled || false}

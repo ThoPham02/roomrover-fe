@@ -19,6 +19,7 @@ import {
   BREADCRUMB_DETAIL,
   ROUTE_PATHS,
 } from "../../common";
+import { apiZaloPayment } from "../../store/services/paymentServices";
 
 const listFields = [
   {
@@ -119,6 +120,21 @@ const RenterPaymentDetail = () => {
     }) || []),
   ];
 
+  const handlePaymentOnline = async () => {
+    try {
+      const res = await apiZaloPayment(id);
+
+      if (res.result.code === 0) {
+        console.log("res.result.data", res);
+
+        window.open(res.orderUrl, "_blank");
+      }
+    } catch (error) {
+      console.error("Error Update House:", error);
+      return null;
+    }
+  };
+
   return (
     <div>
       <Breadcrumbs
@@ -214,6 +230,7 @@ const RenterPaymentDetail = () => {
               icon={<></>}
               className={"mr-4"}
               text={"Thanh toán online"}
+              onClick={handlePaymentOnline}
             />
             <CreateButton onClick={() => setShowPay(true)} />
           </div>

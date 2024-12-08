@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import React from "react";
 import { FiHome, FiDollarSign, FiUsers } from "react-icons/fi";
 import {
@@ -12,160 +12,124 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  LineChart,
-  Line,
+  // LineChart,
+  // Line,
 } from "recharts";
 
 import * as actions from "../../../src/store/actions";
-import { BREADCRUMB_DETAIL, ROUTE_PATHS } from "../../../src/common";
+import { BREADCRUMB_DETAIL, COLOR_INDEX, ROUTE_PATHS } from "../../../src/common";
 import { Breadcrumbs } from "../../../src/components/ui";
-
-const boardingHouses = [
-  { name: "Sunrise Residency", revenue: 5000, color: "#3B82F6" },
-  { name: "Moonlight Lodge", revenue: 4500, color: "#10B981" },
-  { name: "Starlight Inn", revenue: 3800, color: "#F59E0B" },
-  { name: "Ocean View House", revenue: 6200, color: "#EF4444" },
-];
-
-const totalRooms = 50;
-const rentedRooms = 42;
-const emptyRooms = totalRooms - rentedRooms;
-const monthlyRevenue = 19500;
-
-const monthlyRevenueData = [
-  { month: "Jan", revenue: 18000 },
-  { month: "Feb", revenue: 19000 },
-  { month: "Mar", revenue: 20000 },
-  { month: "Apr", revenue: 19500 },
-  { month: "May", revenue: 21000 },
-  { month: "Jun", revenue: 22000 },
-];
-
-const expiringContracts = [
-  { id: 1, tenant: "John Doe", room: "101", expiryDate: "2023-07-15" },
-  { id: 2, tenant: "Jane Smith", room: "205", expiryDate: "2023-07-20" },
-  { id: 3, tenant: "Mike Johnson", room: "302", expiryDate: "2023-07-25" },
-  { id: 4, tenant: "Emily Brown", room: "410", expiryDate: "2023-07-30" },
-];
-
-const outstandingRent = [
-  {
-    id: 1,
-    tenant: "Alice Cooper",
-    room: "103",
-    amount: 850,
-    dueDate: "2023-06-30",
-  },
-  {
-    id: 2,
-    tenant: "Bob Dylan",
-    room: "207",
-    amount: 750,
-    dueDate: "2023-06-28",
-  },
-  {
-    id: 3,
-    tenant: "Charlie Brown",
-    room: "305",
-    amount: 900,
-    dueDate: "2023-07-01",
-  },
-  {
-    id: 4,
-    tenant: "Diana Ross",
-    room: "412",
-    amount: 800,
-    dueDate: "2023-06-29",
-  },
-];
+import { convertTimestampToDate, formatCurrencyVND, getBillTimeByIndex } from "../../utils/utils";
 
 const DashboardScreen = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(actions.setCurrentPage(ROUTE_PATHS.DASHBOARD));
+
+    dispatch(actions.getDashboard());
   }, [dispatch]);
+
+  const { 
+    totalRoom,
+    rentedRoom,
+    emptyRoom,
+    totalAmount,
+    currentContact,
+    expiredContract,
+    houseRevenue,
+  } = useSelector((state) => state.invent.dashboard);
+
+  console.log(expiredContract);
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Breadcrumbs title={BREADCRUMB_DETAIL[ROUTE_PATHS.DASHBOARD]} />
+      <Breadcrumbs backName={BREADCRUMB_DETAIL[ROUTE_PATHS.DASHBOARD]} />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <StatCard icon={<FiHome />} title="Total Rooms" value={totalRooms} />
-        <StatCard icon={<FiUsers />} title="Rented Rooms" value={rentedRooms} />
-        <StatCard icon={<FiHome />} title="Empty Rooms" value={emptyRooms} />
+        <StatCard icon={<FiHome />} title="Tổng số phòng" value={totalRoom} />
+        <StatCard icon={<FiUsers />} title="Phòng đã thuê" value={rentedRoom} />
+        <StatCard icon={<FiHome />} title="Phòng trống" value={emptyRoom} />
         <StatCard
           icon={<FiDollarSign />}
-          title="Monthly Revenue"
-          value={`$${monthlyRevenue}`}
+          title="Tổng doanh thu"
+          value={`${formatCurrencyVND(totalAmount)} VND`}
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 min-h-80">
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">
-            Revenue by Boarding House
-          </h2>
-          <div className="space-y-4">
-            {boardingHouses.map((house, index) => (
-              <div key={index} className="flex items-center justify-between">
-                <span className="text-gray-600">{house.name}</span>
-                <span className="font-semibold text-gray-800">
-                  ${house.revenue}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">
-            Expiring Contracts
+          <h2 className="text-xl font-semibold text-gray-800 mb-1">
+            Lịch hẹn hôm nay
           </h2>
           <div className="overflow-x-auto">
             <table className="min-w-full">
               <thead>
                 <tr className="bg-gray-100">
-                  <th className="px-4 py-2 text-left text-gray-600">Tenant</th>
-                  <th className="px-4 py-2 text-left text-gray-600">Room</th>
-                  <th className="px-4 py-2 text-left text-gray-600">
-                    Expiry Date
-                  </th>
+                  <th className="px-4 py-2 text-left text-gray-600">Người Thuê</th>
+                  <th className="px-4 py-2 text-left text-gray-600">Số điện thoại</th>
+                  <th className="px-4 py-2 text-left text-gray-600">Phòng</th>
                 </tr>
               </thead>
               <tbody>
-                {expiringContracts.map((contract) => (
-                  <tr key={contract.id} className="border-b">
-                    <td className="px-4 py-2 text-gray-800">
-                      {contract.tenant}
-                    </td>
-                    <td className="px-4 py-2 text-gray-800">{contract.room}</td>
-                    <td className="px-4 py-2 text-gray-800">
-                      {contract.expiryDate}
-                    </td>
+                {currentContact && currentContact.length > 0 ? currentContact?.map((contact) => (
+                  <tr key={contact.id} className="border-b">
+                    <td className="px-4 py-2 text-gray-800">{contact.renterName}</td>
+                    <td className="px-4 py-2 text-gray-800">{contact.renterPhone}</td>
+                    <td className="px-4 py-2 text-gray-800">{contact.houseName}</td>
                   </tr>
-                ))}
+                )): <tr><td colSpan="4" className="pt-8 text-center">Hôm nay bạn không có lịch hẹn nào</td></tr>}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <h2 className="text-xl font-semibold text-gray-800 mb-1">
+            Hợp đồng sắp hết hạn
+          </h2>
+          <div className="overflow-x-auto">
+            <table className="min-w-full">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="px-4 py-2 text-left text-gray-600">Người Thuê</th>
+                  <th className="px-4 py-2 text-left text-gray-600">SĐT</th>
+                  <th className="px-4 py-2 text-left text-gray-600">Phòng</th>
+                  <th className="px-4 py-2 text-left text-gray-600">Mã HĐ</th>
+                  <th className="px-4 py-2 text-left text-gray-600">Ngày hết hạn</th>
+                </tr>
+              </thead>
+              <tbody>
+                {expiredContract && expiredContract.length > 0 ? expiredContract?.map((contract) => (
+                  <tr key={contract.id} className="border-b">
+                    <td className="px-4 py-2 text-gray-800">{contract.renter.fullName}</td>
+                    <td className="px-4 py-2 text-gray-800">{contract.renter.phone}</td>
+                    <td className="px-4 py-2 text-gray-800">{contract.room.houseName}</td>
+                    <td className="px-4 py-2 text-gray-800">{contract.code}</td>
+                    <td className="px-4 py-2 text-gray-800">{convertTimestampToDate(1732813200000)}</td>
+                  </tr>
+                )): <tr><td colSpan="5" className="pt-8 text-center">Không có hợp đồng nào sắp hết hạn</td></tr>}
               </tbody>
             </table>
           </div>
         </div>
       </div>
 
-      <div className="mt-8 bg-white rounded-lg shadow-md p-6">
+      <div className="mt-8 bg-white rounded-lg shadow-md p-6 min-h-80">
         <h2 className="text-xl font-semibold text-gray-800 mb-4">
-          Revenue Distribution
+          Doanh thu theo nhà trọ
         </h2>
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={boardingHouses}>
+            <BarChart data={houseRevenue}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
+              <XAxis dataKey="houseName" />
               <YAxis />
               <Tooltip />
               <Legend />
               <Bar dataKey="revenue" fill="#8884d8">
-                {boardingHouses.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
+                {houseRevenue.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLOR_INDEX[index]} />
                 ))}
               </Bar>
             </BarChart>
@@ -173,7 +137,7 @@ const DashboardScreen = () => {
         </div>
       </div>
 
-      <div className="mt-8 bg-white rounded-lg shadow-md p-6">
+      {/* <div className="mt-8 bg-white rounded-lg shadow-md p-6">
         <h2 className="text-xl font-semibold text-gray-800 mb-4">
           Monthly Revenue Chart
         </h2>
@@ -224,7 +188,7 @@ const DashboardScreen = () => {
             </tbody>
           </table>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

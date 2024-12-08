@@ -249,6 +249,19 @@ export const apiUpdateRoomStatus = async (payload) => {
   }
 };
 
+export const apiDeleteRoom = async (id) => {
+  try {
+    const response = await axios({
+      ...ApiUrl.DeleteRoom,
+      url: ApiUrl.DeleteRoom.url.replace(":id", id),
+    });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
+
 export const apiSearchHouse = async (payload) => {
   try {
     const response = await axios({
@@ -310,6 +323,16 @@ export const apiUpdateStatusContact = async (payload) => {
         status: payload.status,
       },
     });
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
+
+export const apiGetDashboard = async () => {
+  try {
+    const response = await axios(ApiUrl.GetDashboard);
 
     return response;
   } catch (error) {
