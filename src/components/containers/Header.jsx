@@ -12,13 +12,13 @@ const Header = () => {
 
   return (
     <div>
-      <header className="bg-primary p-4">
+      <header className="bg-navy p-4">
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
           <Link to={ROUTE_PATHS.ROOT}>
             <div className="flex items-center">
-              <img src={logo} alt="logo" className="h-20 w-20 rounded-full" />
+              {/* <img src={logo} alt="logo" className="h-20 w-20 rounded-full" /> */}
               <h1 className="text-5xl font-bold ml-2 uppercase text-white">
-                Nhà Trọ HUMG
+                Trọ Giá Rẻ
               </h1>
             </div>
           </Link>
@@ -30,7 +30,7 @@ const Header = () => {
                   aria-label="Login"
                 >
                   <FaUser className="mr-2" />
-                  Login
+                  Đăng nhập
                 </button>
               </Link>
               <Link to={ROUTE_PATHS.REGISTER}>
@@ -39,7 +39,7 @@ const Header = () => {
                   aria-label="Register"
                 >
                   <FaUserPlus className="mr-2" />
-                  Register
+                  Đăng ký
                 </button>
               </Link>
             </div>
