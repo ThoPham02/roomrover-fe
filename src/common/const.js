@@ -114,9 +114,9 @@ export const SERVICE_UNIT = {
 };
 
 export const UNIT_SERVICE = {
-  1: { name: "Phòng" },
-  2: { name: "Số " },
-  4: { name: "Người" },
+  1: { name: "phòng" },
+  2: { name: "số " },
+  4: { name: "người" },
 };
 
 export const MAP_PRICE = [

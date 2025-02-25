@@ -144,7 +144,7 @@ const ListHousePublic = () => {
               <div
                 key={item?.houseID}
                 className="flex border-b border-gray-300 p-2 hover:bg-slate-100 rounded-lg"
-                onDoubleClick={() =>
+                onClick={() =>
                   navigate(
                     ROUTE_PATHS.HOUSE_DETAIL_PUBLIC.replace(
                       ":id",
@@ -206,7 +206,7 @@ const ListHousePublic = () => {
             </div>
           )}
 
-          <div className="mt-8">
+          <div className="mt-8 pb-2">
             {listHouse?.length > 0 && (
               <div className="flex justify-between items-center w-full">
                 <p className="ml-8 text-sm text-gray-500">
