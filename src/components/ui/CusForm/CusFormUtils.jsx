@@ -16,10 +16,10 @@ const CusFormUtils = ({ state, setState, disable, page = "create-house" }) => {
 
   switch (page) {
     case "public-house":
-      utilContainer = `grid grid-cols-2 w-full p-2`;
+      utilContainer = `grid grid-cols-1 w-full p-2`;
       break;
     case "public-detail":
-      utilContainer = `grid grid-cols-3 w-full p-2`;
+      utilContainer = `grid grid-cols-2 w-full p-2`;
       break;
     default:
       utilContainer = `grid grid-cols-4 gap-4 w-3/4`;

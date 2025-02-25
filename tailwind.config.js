@@ -18,6 +18,7 @@ module.exports = {
       height: {
         70: "70px",
         80: "80px",
+        210: "496px",
       },
       boxShadow: {
         custom: "1px 0 20px rgba(0, 0, 0, 0.08)",
@@ -63,20 +64,20 @@ module.exports = {
       },
       colors: {
         orange: {
-          DEFAULT: '#FF7F00', // Cam chủ đạo
-          dark: '#E66A00', // Cam đậm
-          light: '#FFD4A3', // Cam nhạt
+          DEFAULT: "#FF7F00", // Cam chủ đạo
+          dark: "#E66A00", // Cam đậm
+          light: "#FFD4A3", // Cam nhạt
         },
         navy: {
-          DEFAULT: '#003366', // Xanh than chủ đạo
-          dark: '#00224D', // Xanh than đậm
-          light: '#4C6FA7', // Xanh than nhạt
+          DEFAULT: "#003366", // Xanh than chủ đạo
+          dark: "#00224D", // Xanh than đậm
+          light: "#4C6FA7", // Xanh than nhạt
         },
-        white: '#FFFFFF', // Trắng
+        white: "#FFFFFF", // Trắng
         gray: {
-          light: '#F8F9FA', // Nền sáng
-          dark: '#333333', // Chữ đậm
-        }
+          light: "#F8F9FA", // Nền sáng
+          dark: "#333333", // Chữ đậm
+        },
       },
     },
   },

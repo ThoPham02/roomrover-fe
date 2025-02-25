@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { FaChartArea, FaPhone, FaSearch } from "react-icons/fa";
+import { FaPhone, FaSearch } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 import { Pagination } from "@mui/material";
-import { TbReportMoney } from "react-icons/tb";
 import { Form } from "react-bootstrap";
 
 import {
@@ -44,6 +43,10 @@ const ListHousePublic = () => {
     type: "0",
   });
 
+  const [isOpenArea, setIsOpenArea] = useState(true);
+  const [isOpenPrice, setIsOpenPrice] = useState(true);
+  const [isOpenService, setIsOpenService] = useState(true);
+
   const handleChange = (event, value) => {
     setCurrentPage(value);
   };
@@ -80,8 +83,8 @@ const ListHousePublic = () => {
   };
 
   return (
-    <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="p-2 bg-yellow-500 rounded mb-4">
+    <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div className="p-2 mb-4 bg-white border-2 border-orange p-4 rounded-lg shadow-md">
         <Form
           className="flex flex-wrap gap-4 justify-around w-full mt-4"
           onSubmit={handleSubmitFilter}
@@ -127,20 +130,20 @@ const ListHousePublic = () => {
           />
           <button
             type="submit"
-            className="flex items-center justify-center px-4 py-1 bg-blue-500 rounded group w-48"
+            className="flex items-center justify-center px-4 py-1 w-48 bg-orange text-white px-4 py-2 rounded-lg hover:bg-orange-dark"
           >
-            <FaSearch className="text-2xl text-white group-hover:text-yellow-500 mr-2" />
-            <span className="font-bold text-white ">Tìm kiếm</span>
+            <FaSearch className="text-2xl mr-2" />
+            <span className="font-bold">Tìm kiếm</span>
           </button>
         </Form>
       </div>
       <div className="grid grid-cols-4 gap-4">
-        <div className="col-span-3 bg-white p-4 shadow rounded ">
+        <div className="col-span-3 bg-white border-2 border-orange rounded-lg shadow-md ">
           {listHouse?.length > 0 ? (
             listHouse?.map((item, index) => (
               <div
                 key={item?.houseID}
-                className="flex border-b border-gray-300 p-4 hover:bg-slate-100"
+                className="flex border-b border-gray-300 p-2 hover:bg-slate-100 rounded-lg"
                 onDoubleClick={() =>
                   navigate(
                     ROUTE_PATHS.HOUSE_DETAIL_PUBLIC.replace(
@@ -150,7 +153,7 @@ const ListHousePublic = () => {
                   )
                 }
               >
-                <div className="w-1/5">
+                <div className="w-md">
                   <img
                     src={item?.albums[0]}
                     alt=""
@@ -158,18 +161,17 @@ const ListHousePublic = () => {
                   />
                 </div>
                 <div className="w-4/5 pl-4">
-                  <p className="text-3xl font-bold text-pink-500 uppercase">
+                  <p className="text-xl font-bold text-stone-950 uppercase">
                     {item?.name}
                   </p>
                   <div className="flex items-center">
-                    <TbReportMoney className="text-green-500 text-2xl mr-2" />
-                    <span className="text-xl font-semibold">
-                      {formatCurrencyVND(item?.price) + "VND/tháng"}
+                    <span className="text-xl font-semibold text-red-500 mr-4">
+                      {formatCurrencyVND(item?.price) + " đ/tháng"}
                     </span>
-                  </div>
-                  <div className="flex items-center">
-                    <FaChartArea className="text-blue-500 text-2xl mr-2" />
-                    <span>{item?.area + "m²"}</span>
+
+                    <span className="font-bold text-dark">
+                      {item?.area + "m²"}
+                    </span>
                   </div>
                   <p className="flex item-center">
                     <MdLocationOn className="text-2xl text-red-500 mr-2" />
@@ -200,14 +202,14 @@ const ListHousePublic = () => {
             ))
           ) : (
             <div className="text-center text-2xl mt-16">
-              Rất tiếc! Không có nhà trọ nào phù hợp
+              Xin lỗi! Không có nhà trọ phù hợp
             </div>
           )}
 
           <div className="mt-8">
             {listHouse?.length > 0 && (
               <div className="flex justify-between items-center w-full">
-                <p className="text-sm text-gray-500">
+                <p className="ml-8 text-sm text-gray-500">
                   Hiển thị{" "}
                   {`${(currentPage - 1) * PAGE_SIZE + 1} - ${
                     total > currentPage * PAGE_SIZE
@@ -231,74 +233,136 @@ const ListHousePublic = () => {
         </div>
 
         <div className="col-span-1">
-          <div className="bg-white rounded shadow mb-8">
-            <h3 className="text-xl text-white capitalize w-full bg-primary rounded-t-lg p-2">
-              Xem theo giá
+          <div className="bg-white rounded-t-lg shadow mb-4">
+            {/* Tiêu đề có sự kiện click */}
+            <h3
+              className="text-xl text-white capitalize w-full bg-orange rounded-t-lg p-2 cursor-pointer flex justify-between items-center"
+              onClick={() => setIsOpenPrice(!isOpenPrice)}
+            >
+              Lọc theo khoảng giá
+              {/* Mũi tên xoay khi mở/đóng */}
+              <span
+                className={`transform transition-transform duration-500 ${
+                  isOpenPrice ? "rotate-180" : "rotate-0"
+                }`}
+              >
+                ▼
+              </span>
             </h3>
-            <ul className="grid grid-cols-2 gap-2 p-4">
-              {MAP_PRICE.map((val, index) => (
-                <li
-                  key={index}
-                  className={`${
-                    index === filter.priceIndex
-                      ? "text-red-500"
-                      : " text-black-500"
-                  } cursor-pointer mb-2 hover:text-blue-500 border-b border-gray-200`}
-                  onClick={() => {
-                    setFilter({
-                      ...filter,
-                      priceIndex: index === filter.priceIndex ? -1 : index,
-                      priceTo:
-                        index === filter.priceIndex ? 9999999999 : val.priceTo,
-                      priceFrom:
-                        index === filter.priceIndex ? 0 : val.priceFrom,
-                    });
-                  }}
-                >
-                  {val.label}
-                </li>
-              ))}
-            </ul>
+
+            {/* Nội dung có hiệu ứng cuộn */}
+            <div
+              className={`transition-[max-height] duration-500 ease-in-out overflow-hidden ${
+                isOpenPrice ? "max-h-96" : "max-h-0"
+              }`}
+            >
+              <ul className="grid grid-cols-1 gap-2 p-2">
+                {MAP_PRICE.map((val, index) => (
+                  <li
+                    key={index}
+                    className={`${
+                      index === filter.priceIndex
+                        ? "text-red-500"
+                        : "text-black-500"
+                    } cursor-pointer mb-2 hover:text-orange border-b border-gray-200`}
+                    onClick={() =>
+                      setFilter({
+                        ...filter,
+                        priceIndex: index === filter.priceIndex ? -1 : index,
+                        priceTo:
+                          index === filter.priceIndex
+                            ? 9999999999
+                            : val.priceTo,
+                        priceFrom:
+                          index === filter.priceIndex ? 0 : val.priceFrom,
+                      })
+                    }
+                  >
+                    {val.label}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          <div className="bg-white rounded shadow mb-8">
-            <h3 className="text-xl text-white capitalize w-full bg-primary rounded-t-lg p-2">
-              Xem theo diện tích
+          <div className="bg-white rounded shadow mb-4">
+            {/* Tiêu đề có sự kiện click */}
+            <h3
+              className="text-xl text-white capitalize w-full bg-orange rounded-t-lg p-2 cursor-pointer flex justify-between items-center"
+              onClick={() => setIsOpenArea(!isOpenArea)}
+            >
+              Lọc theo diện tích
+              {/* Mũi tên xoay khi mở/đóng */}
+              <span
+                className={`transform transition-transform duration-500 ${
+                  isOpenArea ? "rotate-180" : "rotate-0"
+                }`}
+              >
+                ▼
+              </span>
             </h3>
-            <ul className="grid grid-cols-2 gap-2 p-4">
-              {MAP_AREA.map((val, index) => (
-                <li
-                  key={index}
-                  className={`${
-                    index === filter.areaIndex
-                      ? "text-red-500"
-                      : " text-black-500"
-                  } cursor-pointer mb-2 hover:text-blue-500 border-b border-gray-200`}
-                  onClick={() =>
-                    setFilter({
-                      ...filter,
-                      areaIndex: index === filter.areaIndex ? -1 : index,
-                      areaTo:
-                        index === filter.areaIndex ? 9999999999 : val.areaTo,
-                      areaFrom: index === filter.areaIndex ? 0 : val.areaFrom,
-                    })
-                  }
-                >
-                  {val.label}
-                </li>
-              ))}
-            </ul>
+
+            {/* Nội dung có hiệu ứng cuộn */}
+            <div
+              className={`transition-[max-height] duration-500 ease-in-out overflow-hidden ${
+                isOpenArea ? "max-h-96" : "max-h-0"
+              }`}
+            >
+              <ul className="grid grid-cols-1 gap-2 p-2">
+                {MAP_AREA.map((val, index) => (
+                  <li
+                    key={index}
+                    className={`${
+                      index === filter.areaIndex
+                        ? "text-red-500"
+                        : "text-black-500"
+                    } cursor-pointer mb-2 hover:text-orange border-b border-gray-200`}
+                    onClick={() =>
+                      setFilter({
+                        ...filter,
+                        areaIndex: index === filter.areaIndex ? -1 : index,
+                        areaTo:
+                          index === filter.areaIndex ? 9999999999 : val.areaTo,
+                        areaFrom: index === filter.areaIndex ? 0 : val.areaFrom,
+                      })
+                    }
+                  >
+                    {val.label}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          <div className="bg-white rounded shadow mb-8">
-            <h3 className="text-xl text-white capitalize w-full bg-primary rounded-t-lg p-2">
-              Xem theo tiện ích
+          <div className="bg-white rounded shadow mb-4">
+            {/* Tiêu đề có sự kiện click */}
+            <h3
+              className="text-xl text-white capitalize w-full bg-orange rounded-t-lg p-2 cursor-pointer flex justify-between items-center"
+              onClick={() => setIsOpenService(!isOpenService)}
+            >
+              Lọc theo tiện ích
+              {/* Mũi tên xoay khi mở/đóng */}
+              <span
+                className={`transform transition-transform duration-500 ${
+                  isOpenService ? "rotate-180" : "rotate-0"
+                }`}
+              >
+                ▼
+              </span>
             </h3>
-            <CusFormUtils
-              state={filter}
-              setState={setFilter}
-              page="public-house"
-            />
+
+            {/* Nội dung có hiệu ứng cuộn */}
+            <div
+              className={`transition-[height] duration-500 ease-in-out overflow-hidden ${
+                isOpenService ? "h-210" : "h-0"
+              }`}
+            >
+              <CusFormUtils
+                state={filter}
+                setState={setFilter}
+                page="public-house"
+              />
+            </div>
           </div>
         </div>
       </div>

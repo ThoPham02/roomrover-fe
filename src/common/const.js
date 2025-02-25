@@ -198,51 +198,51 @@ export const MAP_AREA = [
 export const UtilsTickComponent = {
   1: {
     name: "Sân phơi đồ",
-    icon: <GiClothesline className="text-2xl group-hover:text-blue-500" />,
+    icon: <GiClothesline className="text-2xl group-hover:text-orange" />,
   },
   2: {
     name: "Thang máy",
-    icon: <GrElevator className="text-2xl group-hover:text-blue-500" />,
+    icon: <GrElevator className="text-2xl group-hover:text-orange" />,
   },
   4: {
     name: "Camera an ninh",
-    icon: <FaVideo className="text-2xl group-hover:text-blue-500" />,
+    icon: <FaVideo className="text-2xl group-hover:text-orange" />,
   },
   8: {
     name: "Dịch vụ bảo vệ",
-    icon: <MdSecurity className="text-2xl group-hover:text-blue-500" />,
+    icon: <MdSecurity className="text-2xl group-hover:text-orange" />,
   },
   16: {
     name: "Máy giặt",
-    icon: <GiWashingMachine className="text-2xl group-hover:text-blue-500" />,
+    icon: <GiWashingMachine className="text-2xl group-hover:text-orange" />,
   },
   32: {
     name: "Chỗ để xe",
-    icon: <FaParking className="text-2xl group-hover:text-blue-500" />,
+    icon: <FaParking className="text-2xl group-hover:text-orange" />,
   },
   64: {
     name: "Điều hòa",
-    icon: <FaFan className="text-2xl group-hover:text-blue-500" />,
+    icon: <FaFan className="text-2xl group-hover:text-orange" />,
   },
   128: {
     name: "Bếp",
-    icon: <GiCookingPot className="text-2xl group-hover:text-blue-500" />,
+    icon: <GiCookingPot className="text-2xl group-hover:text-orange" />,
   },
   256: {
     name: "Khóa vân tay",
-    icon: <FaFingerprint className="text-2xl group-hover:text-blue-500" />,
+    icon: <FaFingerprint className="text-2xl group-hover:text-orange" />,
   },
   512: {
     name: "Nội thất",
-    icon: <MdChair className="text-2xl group-hover:text-blue-500" />,
+    icon: <MdChair className="text-2xl group-hover:text-orange" />,
   },
   1024: {
     name: "Nóng lạnh",
-    icon: <FaHotTub className="text-2xl group-hover:text-blue-500" />,
+    icon: <FaHotTub className="text-2xl group-hover:text-orange" />,
   },
   2048: {
     name: "Vệ sinh khép kín",
-    icon: <FaToilet className="text-2xl group-hover:text-blue-500" />,
+    icon: <FaToilet className="text-2xl group-hover:text-orange" />,
   },
 };
 
