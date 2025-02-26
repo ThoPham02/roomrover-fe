@@ -1,10 +1,8 @@
-import { Link, useNavigate } from "react-router-dom";
-import { Button, Form, Row } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as actions from "../../store/actions";
-import { login_user } from "../../assets/images";
 import { ROUTE_PATHS } from "../../common";
 
 const LoginScreen = () => {
@@ -13,91 +11,108 @@ const LoginScreen = () => {
 
   const { isLogined } = useSelector((state) => state.auth);
 
-  const [validated, setValidated] = useState(false);
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-
   useEffect(() => {
     isLogined && navigate(ROUTE_PATHS.ROOT);
   }, [isLogined, navigate]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    setValidated(!form.checkValidity());
-    if (form.checkValidity() === false) {
-      event.stopPropagation();
-      return;
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    // Validate số điện thoại (9-10 số, bắt đầu bằng số 0)
+    const phoneRegex = /^0\d{8,9}$/;
+    if (!phone) {
+      newErrors.phone = "Vui lòng nhập số điện thoại";
+    } else if (!phoneRegex.test(phone)) {
+      newErrors.phone = "Số điện thoại không hợp lệ";
     }
 
-    dispatch(actions.login({ phone, password }));
+    // Validate mật khẩu (tối thiểu 6 ký tự)
+    if (!password) {
+      newErrors.password = "Vui lòng nhập mật khẩu";
+    } else if (password.length < 6) {
+      newErrors.password = "Mật khẩu phải có ít nhất 6 ký tự";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      console.log("Đăng nhập thành công với:", { phone, password });
+      const form = e.currentTarget;
+
+      if (form.checkValidity() === false) {
+        e.stopPropagation();
+        return;
+      }
+
+      dispatch(actions.login({ phone, password }));
+    }
   };
 
   return (
-    <div className="login">
-      <div className="auth">
-        <div className="auth-header">
-          <div className="auth-img">
-            <img src={login_user} alt="auth-bg" />
+    <div className="flex items-center justify-center mt-24">
+      <div className="bg-white p-8 rounded-lg shadow-lg border-2 border-orange w-96">
+        <h2 className="text-navy text-2xl font-bold text-center mb-6">
+          Đăng Nhập
+        </h2>
+
+        <form onSubmit={handleSubmit}>
+          {/* Số điện thoại */}
+          <div className="mb-4">
+            <label className="block text-navy font-medium">Số điện thoại</label>
+            <input
+              type="text"
+              className={`w-full p-2 border ${
+                errors.phone ? "border-red-500" : "border-gray-300"
+              } rounded focus:outline-none focus:ring-2 focus:ring-orange`}
+              placeholder="Nhập số điện thoại"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+            {errors.phone && (
+              <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+            )}
           </div>
-          <div className="auth-label">Chào mừng trở lại!</div>
-        </div>
 
-        <div className="auth-br"></div>
+          {/* Mật khẩu */}
+          <div className="mb-4">
+            <label className="block text-navy font-medium">Mật khẩu</label>
+            <input
+              type="password"
+              className={`w-full p-2 border ${
+                errors.password ? "border-red-500" : "border-gray-300"
+              } rounded focus:outline-none focus:ring-2 focus:ring-orange`}
+              placeholder="Nhập mật khẩu"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+            )}
+          </div>
 
-        <Row className="auth-form">
-          <Form noValidate validated={validated} onSubmit={handleSubmit}>
-            <Form.Group className="mb-3 form-group" controlId="formBasicEmail">
-              <Form.Label className="form-label">Số điện thoại</Form.Label>
-              <Form.Control
-                required
-                placeholder="Số điện thoại"
-                value={phone}
-                onChange={(e) => {
-                  const numericValue = e.target.value.replace(/[^0-9]/g, "");
-                  setPhone(numericValue);
-                }}
-              />
-              <Form.Control.Feedback type="invalid">
-                Số điện thoại không hợp lệ.
-              </Form.Control.Feedback>
-            </Form.Group>
+          {/* Nút đăng nhập */}
+          <button
+            type="submit"
+            className="w-full bg-orange text-white py-2 rounded-lg hover:bg-orange-dark transition duration-300"
+          >
+            Đăng Nhập
+          </button>
 
-            <Form.Group
-              className="mb-3 form-group"
-              // controlId="formBasicPassword"
-            >
-              <Form.Label className="form-label">Mật khẩu</Form.Label>
-              <Form.Control
-                required
-                type="password"
-                placeholder="Mật khẩu"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <Form.Control.Feedback type="invalid">
-                Thông tin mật khẩu không hợp lệ.
-              </Form.Control.Feedback>
-            </Form.Group>
-
-            <Link
-              to={ROUTE_PATHS.REGISTER}
-              title="Đăng ký tài khoản"
-              className="auth-link"
-            >
-              Bạn chưa có tài khoản? Đăng ký tài khoản mới!
-            </Link>
-
-            <Form.Group
-              // controlId="formBasicButton"
-              className="form-group"
-            >
-              <Button type="submit" className="auth-buton">
-                Đăng nhập
-              </Button>
-            </Form.Group>
-          </Form>
-        </Row>
+          {/* Quên mật khẩu */}
+          <div className="text-center mt-4">
+            <a href="#" className="text-orange hover:underline">
+              Quên mật khẩu?
+            </a>
+          </div>
+        </form>
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ const Header = () => {
   const { isLogined } = useSelector((state) => state.auth);
 
   return (
-    <div>
+    <div className="sticky top-0 z-50">
       <header className="bg-navy p-4">
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
           <Link to={ROUTE_PATHS.ROOT}>

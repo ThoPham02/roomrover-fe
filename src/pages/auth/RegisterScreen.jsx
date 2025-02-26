@@ -53,113 +53,121 @@ const RegisterScreen = () => {
   }, [isLogined, navigate]);
 
   return (
-    <div className="register">
-      <div className="auth">
-        <div className="auth-header">
-          <div className="auth-img">
-            <img src={login_user} alt="auth-bg" />
+    <div className="min-h-screen flex items-center justify-center bg-navy">
+      <div className="bg-white p-8 rounded-lg shadow-lg border-2 border-orange w-full max-w-2xl">
+        <h2 className="text-navy text-2xl font-bold text-center mb-6">
+          Đăng Ký Tài Khoản
+        </h2>
+
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="grid grid-cols-2 gap-4">
+            {/* Họ và Tên */}
+            <div>
+              <label className="block text-navy font-medium">Họ và Tên</label>
+              <input
+                {...register("fullName")}
+                className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-orange"
+                placeholder="Nhập họ và tên"
+              />
+              <p className="text-red-500 text-sm">{errors.fullName?.message}</p>
+            </div>
+
+            {/* Số điện thoại */}
+            <div>
+              <label className="block text-navy font-medium">
+                Số điện thoại
+              </label>
+              <input
+                {...register("phoneNumber")}
+                className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-orange"
+                placeholder="Nhập số điện thoại"
+              />
+              <p className="text-red-500 text-sm">
+                {errors.phoneNumber?.message}
+              </p>
+            </div>
+
+            {/* Mật khẩu */}
+            <div>
+              <label className="block text-navy font-medium">Mật khẩu</label>
+              <input
+                type="password"
+                {...register("password")}
+                className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-orange"
+                placeholder="Nhập mật khẩu"
+              />
+              <p className="text-red-500 text-sm">{errors.password?.message}</p>
+            </div>
+
+            {/* Xác nhận mật khẩu */}
+            <div>
+              <label className="block text-navy font-medium">
+                Nhập lại mật khẩu
+              </label>
+              <input
+                type="password"
+                {...register("confirmPassword")}
+                className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-orange"
+                placeholder="Xác nhận mật khẩu"
+              />
+              <p className="text-red-500 text-sm">
+                {errors.confirmPassword?.message}
+              </p>
+            </div>
+
+            {/* Số CCCD */}
+            <div>
+              <label className="block text-navy font-medium">Số CCCD</label>
+              <input
+                {...register("cccd")}
+                className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-orange"
+                placeholder="Nhập số CCCD"
+              />
+              <p className="text-red-500 text-sm">{errors.cccd?.message}</p>
+            </div>
+
+            {/* Ngày cấp */}
+            <div>
+              <label className="block text-navy font-medium">Ngày cấp</label>
+              <input
+                type="date"
+                {...register("issueDate")}
+                className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-orange"
+              />
+              <p className="text-red-500 text-sm">
+                {errors.issueDate?.message}
+              </p>
+            </div>
+
+            {/* Nơi cấp */}
+            <div className="col-span-2">
+              <label className="block text-navy font-medium">Nơi cấp</label>
+              <input
+                {...register("issuePlace")}
+                className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-orange"
+                placeholder="Nhập nơi cấp"
+              />
+              <p className="text-red-500 text-sm">
+                {errors.issuePlace?.message}
+              </p>
+            </div>
           </div>
-          <div className="auth-label">Đăng ký tài khoản mới</div>
-        </div>
 
-        <div className="auth-br"></div>
+          {/* Nút đăng ký */}
+          <button
+            type="submit"
+            className="w-full bg-orange text-white py-2 rounded-lg hover:bg-orange-dark transition duration-300 mt-4"
+          >
+            Đăng Ký
+          </button>
 
-        <Row className="auth-form">
-          <Form noValidate validated={validated} onSubmit={handleSubmit}>
-            <Form.Group
-              className="mb-3 form-group"
-              // controlId="formBasicEmail"
-            >
-              <Form.Label className="form-label">Số điện thoại</Form.Label>
-              <Form.Control
-                required
-                placeholder="Số điện thoại"
-                value={phone}
-                onChange={(e) => {
-                  const numericValue = e.target.value.replace(/[^0-9]/g, "");
-                  setPhone(numericValue);
-                }}
-              />
-              <Form.Control.Feedback type="invalid">
-                Số điện thoại không hợp lệ.
-              </Form.Control.Feedback>
-            </Form.Group>
-
-            <Form.Group
-              className="form-group"
-              // controlId="formPassword"
-            >
-              <Form.Label className="form-label">Mật khẩu</Form.Label>
-              <InputGroup hasValidation>
-                <Form.Control
-                  required
-                  type="password"
-                  placeholder="Mật khẩu"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <Form.Control.Feedback type="invalid">
-                  Thông tin mật khẩu không hợp lệ.
-                </Form.Control.Feedback>
-              </InputGroup>
-            </Form.Group>
-
-            <Form.Group
-              className="form-group"
-              // controlId="formPasswordConfirm"
-            >
-              <Form.Label className="form-label">Nhập lại mật khẩu</Form.Label>
-              <InputGroup hasValidation>
-                <Form.Control
-                  required
-                  type="password"
-                  placeholder="Nhập lại mật khẩu"
-                  isInvalid={checkPassword}
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-                <Form.Control.Feedback type="invalid">
-                  Thông tin mật khẩu không trùng khớp.
-                </Form.Control.Feedback>
-              </InputGroup>
-            </Form.Group>
-
-            <Form.Group
-              className="form-group"
-              // controlId="formRoleCheck"
-            >
-              <Form.Check
-                className="my-2"
-                type="checkbox"
-                label="Đăng ký trở thành người cho thuê"
-                id="role-check"
-                checked={role === USER_ROLES.LESSOR}
-                onChange={(e) => {
-                  setRole(
-                    e.target.checked ? USER_ROLES.LESSOR : USER_ROLES.RENTER
-                  );
-                }}
-              />
-            </Form.Group>
-
-            <Link
-              to={ROUTE_PATHS.LOGIN}
-              title="Đăng ký tài khoản"
-              className="auth-link"
-            >
-              Bạn đã có tài khoản? Trở lại đăng nhập
-            </Link>
-
-            <Form.Group
-              // controlId="formButton"
-              className="form-group"
-            >
-              <Button type="submit" className="auth-buton">
-                Đăng ký
-              </Button>
-            </Form.Group>
-          </Form>
-        </Row>
+          {/* Đã có tài khoản? */}
+          <div className="text-center mt-4">
+            <a href="#" className="text-orange hover:underline">
+              Đã có tài khoản? Đăng nhập
+            </a>
+          </div>
+        </form>
       </div>
     </div>
   );
