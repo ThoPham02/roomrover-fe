@@ -66,11 +66,11 @@ const User = () => {
               }
               className="py-2 px-7 mt-4 d-flex align-items-center group"
             >
-              <span className="d-flex align-items-center justify-content-center bg-info-subtle rounded p-3 fs-7 text-info">
+              <span className="d-flex align-items-center justify-content-center bg-navy rounded p-3 fs-7 text-orange">
                 <MdOutlineHomeWork className="w-8 h-8" />
               </span>
               <div className="w-75 d-inline-block v-middle ps-3">
-                <h6 className="mb-1 fs-5 font-bold text-gray-800 group-hover:text-blue-700 transition-colors duration-200">
+                <h6 className="mb-1 fs-5 font-bold text-gray-800 group-hover:text-orange transition-colors duration-200">
                   Nhà trọ của tôi
                 </h6>
                 <span className="fs-7 d-block text-gray-500">Quản lý</span>
@@ -85,11 +85,11 @@ const User = () => {
               }
               className="py-2 px-7 mt-4 d-flex align-items-center group"
             >
-              <span className="d-flex align-items-center justify-content-center bg-info-subtle rounded p-3 fs-7 text-info">
+              <span className="d-flex align-items-center justify-content-center bg-navy rounded p-3 fs-7 text-orange">
                 <FaRegUserCircle className="w-8 h-8" />
               </span>
               <div className="w-75 d-inline-block v-middle ps-3">
-                <h6 className="mb-1 fs-5 font-bold text-gray-800 group-hover:text-blue-700 transition-colors duration-200">
+                <h6 className="mb-1 fs-5 font-bold text-gray-800 group-hover:text-orange transition-colors duration-200">
                   Tài khoản của tôi
                 </h6>
                 <span className="fs-7 d-block text-gray-500">Cài đặt</span>
@@ -97,7 +97,10 @@ const User = () => {
             </Link>
           </div>
           <div className="d-grid py-4 px-7 pt-8">
-            <button onClick={handleLogout} className="btn btn-info">
+            <button
+              onClick={handleLogout}
+              className="btn btn-info bg-orange text-white rounded-lg hover:bg-orange-dark border-none"
+            >
               Đăng xuất
             </button>
           </div>

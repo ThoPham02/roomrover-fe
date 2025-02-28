@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { FaChartArea } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { TbReportMoney } from "react-icons/tb";
 
 import * as actions from "../../../src/store/actions";
 import { ROUTE_PATHS, UNIT_SERVICE, USER_ROLES } from "../../common";
-import RoomRoverLogo from "../../assets/images/logo.png";
+import logoNhaTro from "../../assets/images/logo.png";
 import { formatCurrencyVND, getArea } from "../../utils/utils";
 import avatar from "../../assets/images/default_avatar.png";
 import CusFormUtils from "../../components/ui/CusForm/CusFormUtils";
@@ -57,12 +55,12 @@ const BoardingHouseDetail = () => {
           <img
             src={images[currentImageIndex]}
             alt={`Main house`}
-            className="w-full h-96 object-cover rounded-lg"
+            className="w-full h-680 object-cover rounded-lg"
           />
         ) : (
           <div className="w-full h-96 flex flex-col items-center justify-center bg-gray-200 rounded">
             <img
-              src={RoomRoverLogo}
+              src={logoNhaTro}
               alt="RoomRover"
               className="w-48 h-48 mb-2 rounded-full"
             />
@@ -79,7 +77,7 @@ const BoardingHouseDetail = () => {
             <div
               key={index}
               className={`cursor-pointer ${
-                index === currentImageIndex ? "border-2 border-blue-500" : ""
+                index === currentImageIndex ? "border-2 border-orange" : ""
               } rounded-lg`}
               onClick={() => setMainImage(index)}
             >

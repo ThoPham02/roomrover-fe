@@ -19,7 +19,7 @@ import {
 import * as actions from "../../../src/store/actions";
 import { BREADCRUMB_DETAIL, COLOR_INDEX, ROUTE_PATHS } from "../../../src/common";
 import { Breadcrumbs } from "../../../src/components/ui";
-import { convertTimestampToDate, formatCurrencyVND, getBillTimeByIndex } from "../../utils/utils";
+import { convertTimestampToDate, formatCurrencyVND } from "../../utils/utils";
 
 const DashboardScreen = () => {
   const dispatch = useDispatch();

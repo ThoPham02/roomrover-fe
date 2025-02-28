@@ -30,7 +30,7 @@ const RoomDetail = () => {
     dispatch(actions.getRoomDetailAction(id));
   }, [dispatch, id]);
 
-  const { room, house, contract, bills } = useSelector(
+  const { room, house, contract } = useSelector(
     (state) => state.invent?.room?.roomDetail
   );
 

@@ -99,7 +99,7 @@ const NavBarManage = ({ isExpanded }) => {
       <div
         className={`fixed top-0 left-0 h-screen transition-width duration-300 ${
           shouldExpand ? "w-260" : "w-80"
-        } shadow-custom bg-white z-2000`}
+        } shadow-custom bg-navy z-2000`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -118,8 +118,9 @@ const NavBarManage = ({ isExpanded }) => {
                 }`}
               />
               {shouldExpand ? (
-                <h1 className="text-xl font-bold ml-4 uppercase whitespace-nowrap">
-                  Nhà Trọ <br /> HUMG
+                <h1 className="text-xl font-extrabold ml-4 uppercase whitespace-nowrap text-orange">
+                  Trọ
+                  <br /> Giá Rẻ
                 </h1>
               ) : null}
             </div>
@@ -130,8 +131,8 @@ const NavBarManage = ({ isExpanded }) => {
               {menuItems.map((item, index) => (
                 <li
                   key={index}
-                  className={`p-4 hover:text-blue-700 cursor-pointer ${
-                    currentPage === item.path && "text-blue-700"
+                  className={`p-4 hover:text-orange cursor-pointer ${
+                    currentPage === item.path ? "text-orange" : "text-white"
                   } ${shouldExpand ? "justify-start" : "justify-center"}`}
                 >
                   <Link to={item.path} className="flex items-center">

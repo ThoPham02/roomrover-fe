@@ -16,7 +16,7 @@ const Header = () => {
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
           <Link to={ROUTE_PATHS.ROOT}>
             <div className="flex items-center">
-              {/* <img src={logo} alt="logo" className="h-20 w-20 rounded-full" /> */}
+              <img src={logo} alt="logo" className="h-20 w-20 rounded-full" />
               <h1 className="text-5xl font-bold ml-2 uppercase text-white">
                 Trọ Giá Rẻ
               </h1>
