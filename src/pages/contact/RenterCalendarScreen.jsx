@@ -123,7 +123,7 @@ const RenterCalendarScreen = () => {
             />
             <button
               type="submit"
-              className="flex items-center justify-center px-4 py-2 bg-blue-500 rounded group w-48"
+              className="flex items-center justify-center px-4 py-2 bg-orange text-white hover:bg-orange-dark rounded group w-48"
             >
               <FaSearch className="text-2xl text-white group-hover:text-yellow-500 mr-2" />
               <span className="font-bold text-white ">Tìm kiếm</span>

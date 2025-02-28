@@ -84,7 +84,7 @@ const ListHousePublic = () => {
 
   return (
     <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-      <div className="p-2 mb-4 bg-white border-2 border-orange p-4 rounded-lg shadow-md">
+      <div className="p-2 mb-4 bg-white border-2 p-4 rounded-lg shadow-md">
         <Form
           className="flex flex-wrap gap-4 justify-around w-full mt-4"
           onSubmit={handleSubmitFilter}
@@ -138,7 +138,7 @@ const ListHousePublic = () => {
         </Form>
       </div>
       <div className="grid grid-cols-4 gap-4">
-        <div className="col-span-3 bg-white border-2 border-orange rounded-lg shadow-md ">
+        <div className="col-span-3 bg-white border-2 rounded-lg shadow-md ">
           {listHouse?.length > 0 ? (
             listHouse?.map((item, index) => (
               <div

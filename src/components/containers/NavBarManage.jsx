@@ -3,7 +3,7 @@ import { useState } from "react";
 import {
   MdOutlineDashboardCustomize,
   MdOutlineHomeWork,
-  MdPayment,
+  // MdPayment,
 } from "react-icons/md";
 import { LiaFileContractSolid } from "react-icons/lia";
 import { MdOutlineMeetingRoom } from "react-icons/md";
@@ -32,11 +32,11 @@ const NavBarManage = ({ isExpanded }) => {
             label: "Hợp đồng",
             path: ROUTE_PATHS.RENTER_CONTRACT,
           },
-          {
-            icon: <MdPayment className="text-3xl" />,
-            label: "Thanh toán",
-            path: ROUTE_PATHS.RENTER_PAYMENT,
-          },
+          // {
+          //   icon: <MdPayment className="text-3xl" />,
+          //   label: "Thanh toán",
+          //   path: ROUTE_PATHS.RENTER_PAYMENT,
+          // },
           {
             icon: <FiCalendar className="text-3xl" />,
             label: "Lịch hẹn",
@@ -69,11 +69,11 @@ const NavBarManage = ({ isExpanded }) => {
             label: "Hợp đồng",
             path: ROUTE_PATHS.CONTRACT,
           },
-          {
-            icon: <MdPayment className="text-3xl" />,
-            label: "Thanh toán",
-            path: ROUTE_PATHS.PAYMENT,
-          },
+          // {
+          //   icon: <MdPayment className="text-3xl" />,
+          //   label: "Thanh toán",
+          //   path: ROUTE_PATHS.PAYMENT,
+          // },
           {
             icon: <RiContactsBook3Line className="text-3xl" />,
             label: "Liên hệ",

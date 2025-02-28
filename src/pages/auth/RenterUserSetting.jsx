@@ -6,7 +6,12 @@ import { FaCamera } from "react-icons/fa";
 import { GENDER_TYPE, ROUTE_PATHS } from "../../common";
 import { default_avatar } from "../../assets/images";
 import { uploadImage } from "../../store/services/inventServices";
-import { Breadcrumbs, CusFormDate, CusFormGroup, CusFormSelect } from "../../components/ui";
+import {
+  Breadcrumbs,
+  CusFormDate,
+  CusFormGroup,
+  CusFormSelect,
+} from "../../components/ui";
 import * as actions from "../../store/actions";
 
 const RenterUserSetting = () => {
@@ -55,7 +60,7 @@ const RenterUserSetting = () => {
   return (
     <div className="p-3 bg-white rounded">
       <div>
-      <Breadcrumbs backName={"Tài khoản của tôi"} />
+        <Breadcrumbs backName={"Tài khoản của tôi"} />
 
         <Form onSubmit={handleSubmit}>
           <div className="relative h-32 border-b-2 mb-20">
@@ -199,7 +204,7 @@ const RenterUserSetting = () => {
           <div className="flex justify-center mt-4">
             <Button
               type="submit"
-              className="px-6 py-2 bg-primary2 rounded text-white"
+              className="px-6 py-2 bg-orange text-white hover:bg-orange-dark rounded border-none"
             >
               Lưu thay đổi
             </Button>
