@@ -1,47 +1,71 @@
-import { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
-import Row from "react-bootstrap/Row";
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { ROUTE_PATHS, USER_ROLES } from "../../common";
-import { login_user } from "../../assets/images";
-import * as actions from "../../store/actions";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
+import { ROUTE_PATHS, USER_ROLES } from "../../common";
+import * as actions from "../../store/actions";
+import { convertDateToTimestamp } from "../../utils/utils";
+
+// Schema validation bằng Yup
+const schema = yup.object().shape({
+  fullName: yup
+    .string()
+    .min(2, "Họ và tên phải có ít nhất 2 ký tự")
+    .required("Vui lòng nhập họ và tên"),
+  phoneNumber: yup
+    .string()
+    .matches(/^0[0-9]{9}$/, "Số điện thoại không hợp lệ")
+    .required("Vui lòng nhập số điện thoại"),
+  password: yup
+    .string()
+    .min(6, "Mật khẩu phải có ít nhất 6 ký tự")
+    .required("Vui lòng nhập mật khẩu"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password")], "Mật khẩu xác nhận không khớp")
+    .required("Vui lòng xác nhận mật khẩu"),
+  cccd: yup
+    .string()
+    .matches(/^\d{12}$/, "Số CCCD không hợp lệ, phải có 12 chữ số")
+    .required("Vui lòng nhập số CCCD"),
+  issueDate: yup
+    .date()
+    .nullable() // Cho phép giá trị null
+    .transform((value, originalValue) => (originalValue === "" ? null : value))
+    .max(new Date(), "Ngày cấp không được lớn hơn ngày hiện tại")
+    .required("Vui lòng chọn ngày cấp"),
+  issuePlace: yup
+    .string()
+    .min(3, "Nơi cấp phải có ít nhất 3 ký tự")
+    .required("Vui lòng nhập nơi cấp"),
+  role: yup
+    .string()
+    // .oneOf([USER_ROLES.RENTER, USER_ROLES.LESSOR], "Vai trò không hợp lệ")
+    .required("Vui lòng chọn vai trò"),
+});
 const RegisterScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [validated, setValidated] = useState(false);
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [checkPassword, setCheckPassword] = useState(false);
-  const [role, setRole] = useState(USER_ROLES.RENTER);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    event.preventDefault();
-    if (form.checkValidity() === false) {
-      event.stopPropagation();
-    }
-
-    if (password !== confirmPassword) {
-      setCheckPassword(true);
-      event.stopPropagation();
-      return;
-    } else {
-      setCheckPassword(false);
-    }
-    setValidated(true);
+  const onSubmit = (data) => {
+    console.log("Dữ liệu đăng ký:", data);
 
     dispatch(
       actions.register({
-        phone,
-        password,
-        user_role: role,
+        ...data,
+        issueDate: convertDateToTimestamp(data.issueDate),
       })
     );
   };
@@ -53,7 +77,7 @@ const RegisterScreen = () => {
   }, [isLogined, navigate]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-navy">
+    <div className="flex items-center justify-center mt-12">
       <div className="bg-white p-8 rounded-lg shadow-lg border-2 border-orange w-full max-w-2xl">
         <h2 className="text-navy text-2xl font-bold text-center mb-6">
           Đăng Ký Tài Khoản
@@ -151,6 +175,20 @@ const RegisterScreen = () => {
                 {errors.issuePlace?.message}
               </p>
             </div>
+
+            {/* Chọn vai trò */}
+            <div className="col-span-2">
+              <label className="block text-navy font-medium">Vai trò</label>
+              <select
+                {...register("role")}
+                className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-orange"
+                defaultValue={USER_ROLES.RENTER}
+              >
+                <option value={USER_ROLES.RENTER}>Người thuê nhà</option>
+                <option value={USER_ROLES.LESSOR}>Người cho thuê nhà</option>
+              </select>
+              <p className="text-red-500 text-sm">{errors.role?.message}</p>
+            </div>
           </div>
 
           {/* Nút đăng ký */}
@@ -163,9 +201,12 @@ const RegisterScreen = () => {
 
           {/* Đã có tài khoản? */}
           <div className="text-center mt-4">
-            <a href="#" className="text-orange hover:underline">
+            <Link
+              to={ROUTE_PATHS.LOGIN}
+              className="text-orange hover:underline"
+            >
               Đã có tài khoản? Đăng nhập
-            </a>
+            </Link>
           </div>
         </form>
       </div>

@@ -108,9 +108,7 @@ const LoginScreen = () => {
 
           {/* Quên mật khẩu */}
           <div className="text-center mt-4">
-            <a href="#" className="text-orange hover:underline">
-              Quên mật khẩu?
-            </a>
+            <div className="text-orange hover:underline">Quên mật khẩu?</div>
           </div>
         </form>
       </div>
