@@ -95,6 +95,13 @@ const RenterPaymentDetail = () => {
   const [showPay, setShowPay] = useState(false);
 
   const details = [
+    {
+      id: 2,
+      name: "Tiền mạng",
+      quantity: 1,
+      price: formatCurrencyVND(billDetail?.internet),
+      amount: formatCurrencyVND(billDetail?.internet) + " VNĐ",
+    },
     ...(billDetail?.billDetails?.map((item) => {
       return {
         id: item?.id,

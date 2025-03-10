@@ -91,6 +91,13 @@ const PaymentDetail = () => {
       price: formatCurrencyVND(billDetail?.amount),
       amount: formatCurrencyVND(billDetail?.amount) + " VNĐ",
     },
+    {
+      id: 2,
+      name: "Tiền mạng",
+      quantity: 1,
+      price: formatCurrencyVND(billDetail?.internet),
+      amount: formatCurrencyVND(billDetail?.internet) + " VNĐ",
+    },
     ...(billDetail?.billDetails?.map((item) => {
       return {
         ...item,

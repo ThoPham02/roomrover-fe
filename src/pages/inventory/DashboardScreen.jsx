@@ -128,7 +128,7 @@ const DashboardScreen = () => {
               <Tooltip />
               <Legend />
               <Bar dataKey="revenue" fill="#8884d8">
-                {houseRevenue.map((entry, index) => (
+                {houseRevenue?.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={COLOR_INDEX[index]} />
                 ))}
               </Bar>

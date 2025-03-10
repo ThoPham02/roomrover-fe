@@ -106,7 +106,7 @@ const NotificationModule = ({ handleClose }) => {
   };
 
   return (
-    <div className="absolute top-16 left-24 max-w-lg w-full bg-white shadow-lg rounded-lg p-4 z-50 h-96">
+    <div className="absolute top-16 left-24 max-w-lg w-full bg-white shadow-lg rounded-lg p-4 z-50 h-96 overflow-y-scroll border border-gray-300">
       <h2 className="text-xl font-bold mb-2 flex items-center">
         <FaBell className="mr-2" /> Thông báo
       </h2>

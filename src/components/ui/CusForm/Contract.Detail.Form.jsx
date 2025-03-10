@@ -239,6 +239,14 @@ const ContractDetailForm = ({
             />
           </Col>
           <Col></Col>
+          <CusFormGroup
+              label={"Tiền mạng"}
+              state={contract}
+              setState={setContract}
+              placeholder={"Tiền mạng"}
+              keyName={"internet"}
+              unit={"VNĐ"}
+            />
         </Row>
         {contract?.payment?.paymentDetails &&
           contract?.payment?.paymentDetails?.map((service, index) => {
