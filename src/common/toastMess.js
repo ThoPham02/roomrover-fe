@@ -11,6 +11,7 @@ export const HANDLE_ERROR_CODE = {
   NOT_FOUND: 404,
   INTERNAL_SERVER: 500,
 
+  TAI_KHOAN_TON_TAI: 10000,
   SAI_MAT_KHAU: 10001,
   SAI_TAI_KHOAN: 10002,
   ROOM_HAS_CONTRACT: 20002,
@@ -23,6 +24,7 @@ export const HANDLE_ERROR_MESSAGE = {
   [HANDLE_ERROR_CODE.NOT_FOUND]: "Không tìm thấy trang",
   [HANDLE_ERROR_CODE.INTERNAL_SERVER]: "Lỗi server",
 
+  [HANDLE_ERROR_CODE.TAI_KHOAN_TON_TAI]: "Số điện thoại đã tồn tại!",
   [HANDLE_ERROR_CODE.SAI_TAI_KHOAN]:
     "Thông tin tài khoản hoặc mật khẩu không chính xác!",
   [HANDLE_ERROR_CODE.SAI_MAT_KHAU]:
