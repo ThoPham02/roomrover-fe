@@ -25,7 +25,7 @@ module.exports = {
         custom: "1px 0 20px rgba(0, 0, 0, 0.08)",
       },
       backgroundColor: {
-        primary: "#F5F5F5",
+        primary: "#003366",
         secondary2: "#2fa4e7",
         "overlay-30": "rgba(0,0,0,0.3)",
         "overlay-70": "rgba(0,0,0,0.7)",

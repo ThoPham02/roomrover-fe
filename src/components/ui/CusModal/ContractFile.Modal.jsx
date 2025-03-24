@@ -5,7 +5,7 @@ import ContractFile from "../ContractFile";
 const ContractFileModal = ({ show, handleClose, contract }) => {
   return (
     <Modal show={show} onHide={handleClose} size="xl">
-      <Modal.Header className="text-xl text-white capitalize w-full bg-primary rounded-t-lg p-4">
+      <Modal.Header className="text-xl text-white capitalize w-full bg-navy rounded-t-lg p-4">
         <Modal.Title className="text-xl text-white capitalize">
           Xem hợp đồng thuê
         </Modal.Title>

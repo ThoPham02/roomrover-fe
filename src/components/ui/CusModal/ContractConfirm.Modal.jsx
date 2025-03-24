@@ -103,7 +103,7 @@ const ContractConfirmModal = ({ show, handleClose, id }) => {
 
   return (
     <Modal show={show} onHide={handleClose} size="xl" backdrop="static">
-      <Modal.Header className="text-xl text-white capitalize w-full bg-primary rounded-t-lg p-4">
+      <Modal.Header className="text-xl text-white capitalize w-full bg-navy rounded-t-lg p-4">
         <Modal.Title className="text-xl text-white capitalize">
           Xác nhận
         </Modal.Title>
@@ -153,7 +153,7 @@ const ContractConfirmModal = ({ show, handleClose, id }) => {
           <Button
             variant="primary"
             onClick={handleConfirm}
-            className="px-4 py-2"
+            className="px-4 py-2 bg-orange"
           >
             Xác nhận
           </Button>

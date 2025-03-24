@@ -37,7 +37,7 @@ const AppointmentModal = ({ show, handleClose, house }) => {
 
   return (
     <Modal show={show} onHide={handleClose} centered>
-      <Modal.Header className="bg-primary flex justify-center">
+      <Modal.Header className="bg-navy flex justify-center">
         <Modal.Title className="inline text-white font-bold capitalize">
           Đặt lịch hẹn
         </Modal.Title>
@@ -71,7 +71,7 @@ const AppointmentModal = ({ show, handleClose, house }) => {
           <Button
             variant="primary"
             onClick={handleConfirm}
-            className="px-4 py-2"
+            className="px-4 py-2 bg-"
           >
             Xác nhận
           </Button>
